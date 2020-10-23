@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   demo_err.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/23 15:57:11 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/23 17:35:16 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+int func_with_err_1()
+{
+	ft_printf("This is a failing function\n");
+	return (rt_err("Returning -1 error code from function\n"));
+}
+
+int func_with_err_2()
+{
+	ft_printf("This is a failing function\n");
+	return (rt_error("Returning -3 error code from function\n", -3));
+}
+
+int func_with_warn_1()
+{
+	ft_printf("This is a warning function\n");
+	return (rt_warn("Returning 0 warning code from function\n"));
+}
+
+int func_with_warn_2()
+{
+	ft_printf("This is a warning function\n");
+	return (rt_error("Returning 2 warning code from function\n", 2));
+}
+
+int main()
+{
+	ft_printf("Err_1  func res: %d\n", func_with_err_1());
+	ft_printf("Err_2  func res: %d\n", func_with_err_2());
+	ft_printf("Warn_1 func res: %d\n", func_with_warn_1());
+	ft_printf("Warn_2 func res: %d\n", func_with_warn_2());
+	return (0);
+}

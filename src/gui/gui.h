@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_err.c                                           :+:      :+:    :+:   */
+/*   gui.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 12:40:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/09/07 12:41:44 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/23 23:45:34 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
+# ifndef GUI_H
+# define GUI_H
 
-int			rt_err(char *msg)
-{
-	ft_printf("Error: %s\n", msg);
-	return (-1);
-}
+# include "rts.h"
 
-int			rt_error(char *msg, int ecode)
-{
-	ft_printf("Error: (%i) %s\n", ecode, msg);
-	return (ecode);
-}
+int				gui_loop(t_rt *rt, int ac, char **av);
+int				gui_init(t_rt *rt);
+int				gui_deinit(t_rt *rt);
+
+#endif

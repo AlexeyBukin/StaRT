@@ -14,12 +14,12 @@
 
 int			rt_warn(char *msg)
 {
-	ft_printf("Warning: %s", msg);
+	ft_printf("Warning: %s\n", msg);
 	return (0);
 }
 
 int			rt_warning(char *msg, int ecode)
 {
-	ft_printf("Warning: ($i) %s", ecode, msg);
+	ft_printf("Warning: ($i) %s\n", ecode, msg);
 	return (ecode);
 }

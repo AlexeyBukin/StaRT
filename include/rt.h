@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_err.c                                           :+:      :+:    :+:   */
+/*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 12:40:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/09/07 12:41:44 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/23 23:46:45 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
+#ifndef RT_H
+# define RT_H
 
-int			rt_err(char *msg)
-{
-	ft_printf("Error: %s\n", msg);
-	return (-1);
-}
+# include <gtk/gtk.h>
+# include "libft.h"
+# include "err.h"
+# include "rts.h"
+# include "gui.h"
 
-int			rt_error(char *msg, int ecode)
-{
-	ft_printf("Error: (%i) %s\n", ecode, msg);
-	return (ecode);
-}
+//typedef struct		s_rt
+//{
+//	GtkApplication		*app;
+//}					t_rt;
+
+#endif

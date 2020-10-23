@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   demo_err.c                                         :+:      :+:    :+:   */
+/*   rts.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 15:57:11 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 15:57:44 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/23 23:46:25 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int func_with_err()
-{
-	printf("This is ")
-}
+#ifndef RTS_H
+# define RTS_H
 
-int main()
-{
+# include <gtk/gtk.h>
+# include "libft.h"
 
-}
+typedef struct		s_rt
+{
+	GtkApplication		*app;
+}					t_rt;
+
+#endif
