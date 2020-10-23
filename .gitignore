@@ -1,3 +1,13 @@
+# RT ignores
+RT
+build
+res
+
+# CLion ignores
+cmake-build-debug
+.idea
+
+
 # Prerequisites
 *.d
 
