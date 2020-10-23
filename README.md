@@ -1,0 +1,2 @@
+# staRT
+Beginner RayTracing project
