@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/24 21:19:08 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/25 00:13:52 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,17 +91,59 @@ $(GTK_BUNDLE):
 	zsh rt_school21_get_bundle.sh
 
 #------------------------------------------#
+#----------- MTL_SWIFT_PART ---------------#
+#------------------------------------------#
+
+MTL_DIR			:= src/mtl
+MTL_BUILD		:= build/mtl
+
+MTL_DYLIB		:= $(MTL_BUILD)/libmtl.dylib
+MTL_FLAGS		= -L $(MTL_BUILD) -lmtl
+
+MTL_INCLUDE			= -I $(MTL_DIR)
+MTL_INCLUDE_SWIFT	= -I $(MTL_BUILD)
+
+# TODO: collect using find
+MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift
+MTL_MODULE_OBJ	= $(MTL_MODULE_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.swiftmodule)
+
+# TODO: collect using find
+MTL_SRC			= $(MTL_DIR)/mtl.swift $(MTL_MODULE_SRC)
+MTL_OBJ			= $(MTL_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.o)
+
+.PRECIOUS: $(MTL_MODULE_OBJ)
+
+$(MTL_DYLIB): $(BUILD_DIRS) $(MTL_OBJ)
+	swiftc $(MTL_INCLUDE_SWIFT) -o $(MTL_DYLIB) -emit-library $(MTL_OBJ) -lz
+
+$(MTL_BUILD)/%.o: $(MTL_DIR)/%.swift $(MTL_MODULE_OBJ)
+	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@
+	@touch $@
+
+$(MTL_BUILD)/%.swiftmodule: $(MTL_DIR)/%.swift
+	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@ -emit-module -module-link-name $(patsubst $(MTL_DIR)/%.swift,%,$<)
+	@touch $@
+
+#------------------------------------------#
 #----------- DEMO_PART      ---------------#
 #------------------------------------------#
 
-DEMO_DIR := demo
-DEMO_COMPILE = gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
+DEMO_DIR 		:= demo
+DEMO_COMPILE 	= gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
+DEMO_DIRS		= $(patsubst $(SRC_DIR)%, $(DEMO_DIR)%, $(SRC_DIRS))
 
 demo_clean:
 	rm -rf $(DEMO_DIR)
 
-$(DEMO_DIR):
-	mkdir -vp $(DEMO_DIR)
+$(DEMO_DIRS):
+	@mkdir -vp $(DEMO_DIRS)
 
-$(DEMO_DIR)/err: $(DEMO_DIR)
-	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $(DEMO_DIR)/err
+### MTL DEMOS
+
+$(DEMO_DIR)/mtl/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
+	 gcc -Wall -Wextra -Werror -L build/mtl -lmtl -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
+
+
+### ERR Demo
+$(DEMO_DIR)/err/err: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@

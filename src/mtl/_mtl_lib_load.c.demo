@@ -1,0 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mtl_lib_load.c.demo                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/24 23:01:55 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/24 23:01:55 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "stdio.h"
+#include "mtl.h"
+
+int		main()
+{
+	t_mtl		*metal;
+
+	metal = mtl_init();
+	if (metal == NULL)
+	{
+		printf("mtl_init() fail\n");
+		return (0);
+	}
+	printf("mtl_init() success\n");
+
+
+	int res = mtl_lib_load_source(metal, ";");
+	if (res != 0)
+	{
+		printf("mtl_lib_load_source() fail\n");
+		return (0);
+	}
+	printf("mtl_lib_load_source() success\n");
+
+
+	return (0);
+}
