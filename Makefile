@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/23 23:47:15 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/24 21:19:08 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,11 @@ OBJ			= $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC))
 
 all: $(NAME)
 
-$(NAME): $(BUILD_DIRS) $(OBJ)
+# switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
+# switch "zsh rt_school21_linking.sh" only on 42/21 MACs
+$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ)
 	$(LINK) $(OBJ) -o $(NAME)
+	zsh rt_school21_linking.sh
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(COMPILE) -c $< -o $@
@@ -71,8 +74,9 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 fclean:
+	rm -rf $(GTK_BUNDLE)
 	rm -rf $(DEMO_DIR)
-	rm $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
@@ -82,6 +86,9 @@ relink:
 
 $(LIB_FT):
 	@make -C $(LIB)/ft
+
+$(GTK_BUNDLE):
+	zsh rt_school21_get_bundle.sh
 
 #------------------------------------------#
 #----------- DEMO_PART      ---------------#
