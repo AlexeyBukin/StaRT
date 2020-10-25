@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/25 14:50:15 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/25 17:25:20 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,7 @@ MTL_INCLUDE			= -I $(MTL_DIR)
 MTL_INCLUDE_SWIFT	= -I $(MTL_BUILD)
 
 # TODO: collect using find
-MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift
+MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift $(MTL_DIR)/mtl_texture.swift $(MTL_DIR)/mtl_buffer.swift
 MTL_MODULE_OBJ	= $(MTL_MODULE_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.swiftmodule)
 
 # TODO: collect using find
