@@ -6,13 +6,14 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:33:22 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/10/25 14:50:40 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int				vlk_init()
+t_vlk			*vlk_init(void)
 {
-	return (rt_err("vlk_init() fail"));
+	rt_err("vlk_init() fail");
+	return (NULL);
 }

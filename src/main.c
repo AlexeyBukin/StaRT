@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 15:48:58 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:44:07 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/10/25 14:40:27 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int				rt_init(t_rt **rt)
 	*rt = (t_rt*)ft_memalloc(sizeof(t_rt));
 	if (*rt == NULL)
 		return (rt_err("rt malloc fail"));
+	if (gpu_init(*rt))
+		return (rt_err("gpu_init() fail"));
 	return (0);
 }
 
