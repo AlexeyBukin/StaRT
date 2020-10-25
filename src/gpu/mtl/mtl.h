@@ -32,7 +32,6 @@ int						mtl_texture_create(t_mtl *mtl, int width, int height);
 
 t_texture_rgba			*mtl_texture_get_ptr(t_mtl *mtl, int index);
 
-
 /*
 ** return positive (>0) int on success
 */

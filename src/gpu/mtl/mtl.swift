@@ -2,6 +2,8 @@
 import Cocoa
 
 import mtl_start
+import mtl_texture
+import mtl_buffer
 
 func _mtl_bridge<T : AnyObject>(obj : T) -> UnsafeRawPointer {
 	return UnsafeRawPointer(Unmanaged.passUnretained(obj).toOpaque())
@@ -69,15 +71,22 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 }
 
 @_cdecl("mtl_buffer_load_scene")
-public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+public func mtl_buffer_load_scene_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.loadSceneBuffer(ptr: ptr, len: len))
 }
 
 @_cdecl("mtl_buffer_load_objects")
-public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+public func mtl_buffer_load_objects_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.loadObjectsBuffer(ptr: ptr, len: len))
+}
+
+@_cdecl("mtl_buffer_load_materials")
+public func mtl_buffer_load_materials_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.loadMaterialsBuffer(ptr: ptr, len: len))
 }
