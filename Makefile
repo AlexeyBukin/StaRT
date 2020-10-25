@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/25 00:13:52 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/25 14:12:26 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ all: $(NAME)
 
 # switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
-$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ)
+$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB)
 	$(LINK) $(OBJ) -o $(NAME)
 	zsh rt_school21_linking.sh
 
@@ -94,10 +94,10 @@ $(GTK_BUNDLE):
 #----------- MTL_SWIFT_PART ---------------#
 #------------------------------------------#
 
-MTL_DIR			:= src/mtl
-MTL_BUILD		:= build/mtl
+MTL_DIR			:= src/gpu/mtl
+MTL_BUILD		:= build/gpu/mtl
 
-MTL_DYLIB		:= $(MTL_BUILD)/libmtl.dylib
+MTL_DYLIB		= $(MTL_BUILD)/libmtl.dylib
 MTL_FLAGS		= -L $(MTL_BUILD) -lmtl
 
 MTL_INCLUDE			= -I $(MTL_DIR)
@@ -139,9 +139,10 @@ $(DEMO_DIRS):
 	@mkdir -vp $(DEMO_DIRS)
 
 ### MTL DEMOS
+DEMO_MTL = demo/gpu/mtl
 
-$(DEMO_DIR)/mtl/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
-	 gcc -Wall -Wextra -Werror -L build/mtl -lmtl -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
+$(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
+	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
 
 
 ### ERR Demo
