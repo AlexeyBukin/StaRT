@@ -33,8 +33,8 @@ public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: Un
 	return (sm.loadLibrary(source: String(cString: libsrcptr)))
 }
 
-@_cdecl("mtl_texture_add")
-public func mtl_texture_add_swift(_ smptr: UnsafeRawPointer, _ width: Int32, _ height: Int32) -> Int32
+@_cdecl("mtl_texture_create")
+public func mtl_texture_create_swift(_ smptr: UnsafeRawPointer, _ width: Int32, _ height: Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.addTexture(d: sm.device, w: Int(width), h: Int(height)))
@@ -66,4 +66,18 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.getTextureStride(index: index))
+}
+
+@_cdecl("mtl_buffer_load_scene")
+public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.loadSceneBuffer(ptr: ptr, len: len))
+}
+
+@_cdecl("mtl_buffer_load_objects")
+public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.loadObjectsBuffer(ptr: ptr, len: len))
 }

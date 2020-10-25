@@ -13,8 +13,12 @@ public class StartMTL {
 	public var bufNamedList = [String : MTLBuffer]()
 	public var arguments = [MTLArgumentDescriptor]()
 
+	public var sceneBuffer = MTLBuffer?
+	public var objectsBuffer = MTLBuffer?
+	public var materialsBuffer = MTLBuffer?
+
 	public var textures = [MTLTexture]()
-	public var buffers = [MTLBuffer]()
+	public var models = [MTLBuffer]()
 
 	public init() {
 		device = MTLCreateSystemDefaultDevice()!
@@ -87,3 +91,21 @@ extension StartMTL {
 	}
 }
 
+extension StartMTL {
+
+	public func loadSceneBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+		guard let sceneBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: []) else { return (Int32(1)) }
+		return Int32(0)
+	}
+
+	public func loadObjectsBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+		guard let objectsBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: []) else { return (Int32(1)) }
+		return Int32(0)
+	}
+
+	public func loadMaterialsBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+		guard let materialsBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: []) else { return (Int32(1)) }
+		return Int32(0)
+	}
+
+}
