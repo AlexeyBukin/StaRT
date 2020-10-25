@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/25 14:12:26 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/25 14:50:15 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,20 +36,25 @@ GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
                 -lgobject-2.0 -lglib-2.0 -lintl
 
 ### C Flags settings
-INCLUDE   = -I include -I src/err -I src/gui -I lib/ft/inc $(GTK_INCLUDE)
+INCLUDE   = 	-I include -I src/err -I src/gui -I lib/ft/inc -I src/gpu \
+				-I src/gpu/mtl -I src/gpu/vlk $(GTK_INCLUDE)
+
 LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
 
 CFLAGS := -Wall -Wextra -Werror -g
 COMPILE = gcc $(CFLAGS) $(INCLUDE)
-LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
+LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS)
 
 ### Sources
 
 # find include -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS		:= src/err/err.h include/rt.h
+# find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
+HEADERS		:=			src/err/err.h			include/rt.h \
+src/err/err.h           src/gpu/mtl/mtl.h       src/gpu/vlk/vlk.h       src/gui/gui.h \
 
 # find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'
-SRC			:= src/err/rt_err.c        src/err/rt_warn.c       src/gui/gui_init.c      src/main.c
+SRC			:= src/err/rt_err.c        src/gpu/gpu_init.c      src/gui/gui_init.c \
+               src/err/rt_warn.c       src/gpu/vlk/vlk_init.c  src/main.c \
 
 OBJ			= $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC))
 

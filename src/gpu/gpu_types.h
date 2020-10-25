@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl.h                                              :+:      :+:    :+:   */
+/*   gpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/24 22:59:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 00:14:47 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/25 14:47:45 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTL_H
-# define MTL_H
+#ifndef GPU_TYPES_H
+# define GPU_TYPES_H
 
-typedef void		t_mtl;
+# include "rts.h"
+# include "mtl.h"
+# include "vlk.h"
 
-t_mtl		*mtl_init();
-
-int			mtl_lib_load_source(t_mtl *mtl, char *libstr);
+typedef union		u_gpu
+{
+	t_mtl			*mtl;
+	t_vlk			*vlk;
+}					t_gpu;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:32:00 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/10/25 14:47:45 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 
 # include <gtk/gtk.h>
 # include "libft.h"
-# include "mtl.h"
-# include "vlk.h"
-
-typedef union		u_gpu
-{
-	t_mtl			*mtl;
-	t_vlk			*vlk;
-}					t_gpu;
-
+# include "gpu_types.h"
 
 typedef struct		s_rt
 {

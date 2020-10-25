@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl.h                                              :+:      :+:    :+:   */
+/*   gpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/24 22:59:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 00:14:47 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/25 14:47:48 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTL_H
-# define MTL_H
+#ifndef GPU_H
+# define GPU_H
 
-typedef void		t_mtl;
+# include "gpu_types.h"
 
-t_mtl		*mtl_init();
+/*
+** TODO: manage platform definition
+*/
 
-int			mtl_lib_load_source(t_mtl *mtl, char *libstr);
+# define PLATFORM_MACOS
+
+int				gpu_init(t_rt *rt);
 
 #endif

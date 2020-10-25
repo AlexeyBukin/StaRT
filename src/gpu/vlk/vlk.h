@@ -6,15 +6,15 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:30:49 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:30:54 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/10/25 14:45:02 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VLK_H
-#define VLK_H
+# define VLK_H
 
 typedef void		t_vlk;
 
-t_mtl		*vlk_init();
+t_vlk				*vlk_init();
 
 #endif
