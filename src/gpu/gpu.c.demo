@@ -1,0 +1,145 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gpu.demo                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/26 17:20:58 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/26 17:20:58 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+int		demo_kernel_run(t_rt *rt);
+
+#define RT_GTK_THEME "src/gui/theme.css"
+
+static void
+activate (GtkApplication* app,
+		  gpointer        rt_void)
+{
+//	GtkCssProvider *cssProvider = gtk_css_provider_new();
+//	gtk_css_provider_load_from_path(cssProvider, RT_GTK_THEME, NULL);
+//	gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+//											  GTK_STYLE_PROVIDER(cssProvider),
+//											  GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+	GtkWidget *window;
+
+	window = gtk_application_window_new (app);
+	gtk_window_set_title (GTK_WINDOW (window), "starRT Editor");
+	gtk_window_set_default_size (GTK_WINDOW (window), 1280, 720);
+
+//	GtkWidget *btn = gtk_button_new_with_label("This is a simple button");
+//	gtk_container_add (GTK_CONTAINER (window), btn);
+
+	GtkStyleContext *context = gtk_widget_get_style_context (window);
+	GtkCssProvider *provider = gtk_css_provider_new ();
+	gtk_css_provider_load_from_path (provider,
+									 RT_GTK_THEME, NULL);
+	gtk_style_context_add_provider (context,
+									GTK_STYLE_PROVIDER(provider),
+									GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+
+
+	//	window->decoration-button-layout = "background-color:1,0,1,0;";
+//	GdkColor color;
+//	color.red = 0xffff;
+//	color.green = 0xffff;
+//	color.blue = 0;
+
+//	gtk_widget_modify_bg(window, GTK_STATE_NORMAL, &color);
+
+//	GValue val = G_VALUE_INIT;
+//	g_value_init(&val ,G_TYPE_STRING);
+//	g_value_set_static_string (&val, "background-color:1,0,1,0;");
+//
+//	g_object_get_property (G_OBJECT (window),
+//				  "decoration-button-layout", &val);
+
+	t_rt *rt = (t_rt *)rt_void;
+	(void)rt;
+
+//	if (demo_kernel_run(rt))
+//	{
+//		const guchar *texture_data = rt->render_result->data;
+//
+//		GdkPixbuf *pixbuf = gdk_pixbuf_new_from_data (texture_data,
+//													  GDK_COLORSPACE_RGB,
+//													  TRUE,
+//													  8,
+//													  rt->render_result->width,
+//													  rt->render_result->height,
+//													  rt->render_result->stride,
+//													  NULL,
+//													  NULL);
+//
+//		GtkWidget *image = gtk_image_new_from_pixbuf (pixbuf);
+//
+//		gtk_container_add (GTK_CONTAINER (window), image);
+//	}
+//	else
+//	{
+//		rt_error("Kernel run fail", 0);
+//	}
+
+	gtk_widget_show_all (window);
+}
+
+int						main(int ac, char **av)
+{
+	t_rt				*rt;
+
+	if (rt_init(&rt))
+		return (rt_error("Cannot init t_rt struct", 0));
+	rt->app = gtk_application_new ("ru.school-21.start", G_APPLICATION_FLAGS_NONE);
+	if (g_signal_connect (rt->app, "activate", G_CALLBACK (activate), rt) <= 0)
+		return (rt_err("Cannot connect \'activate\' signal to rt->app"));
+	g_application_run (G_APPLICATION (rt->app), ac, av);
+	return (0);
+}
+
+int		demo_kernel_run(t_rt *rt)
+{
+	t_scn		*scn;
+	t_obj		*objs;
+	t_mat		*mats;
+
+	scn = ft_memalloc(sizeof(t_scn));
+
+	scn->objects_num = 1;
+	objs = ft_memalloc(sizeof(t_obj) * scn->objects_num);
+	scn->objects = objs;
+
+	scn->materials_num = 1;
+	mats = ft_memalloc(sizeof(t_mat) * scn->materials_num);
+	scn->materials = mats;
+
+	t_obj		my_sphere;
+	my_sphere.type = OBJ_SPHERE;
+	my_sphere.shape.sphere.pos = (t_vec3){5.0f, 0.0f, 1.0f};
+	my_sphere.shape.sphere.r = 2.0f;
+	my_sphere.material_id = 0;
+	my_sphere.id = 0;
+	objs[0] = my_sphere;
+
+	t_mat		my_material;
+	my_material.id = 0;
+	my_material.metalness = 0;
+	my_material.roughness = 0.5f;
+	my_material.ior = 1.2f;
+	my_material.transparency = 0.0f;
+	my_material.albedo = (t_vec3){1.0, 1.0, 0.0};
+	my_material.f0 = (t_vec3){1.0, 1.0, 0.0};
+	mats[0] = my_material;
+
+	rt->scene = scn;
+	if (gpu_buffer_load(rt))
+		return (rt_err("gpu_buffer_load() fail"));
+	if (gpu_kernel_run(rt))
+		return (rt_err("gpu_kernel_run() fail"));
+	return (0);
+}

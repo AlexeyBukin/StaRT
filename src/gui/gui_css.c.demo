@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gpu.demo                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/26 17:20:58 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/26 17:20:58 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+#define RT_GTK_THEME "src/gui/theme.css"
+
+static void
+activate (GtkApplication* app,
+		  gpointer        rt_void)
+{
+	(void)rt_void;
+
+	GtkWidget *window;
+
+	window = gtk_application_window_new (app);
+	gtk_window_set_title (GTK_WINDOW (window), "starRT Editor");
+	gtk_window_set_default_size (GTK_WINDOW (window), 1280, 720);
+
+	GtkStyleContext *context = gtk_widget_get_style_context (window);
+	GtkCssProvider *provider = gtk_css_provider_new ();
+	gtk_css_provider_load_from_path (provider,
+									 RT_GTK_THEME, NULL);
+	gtk_style_context_add_provider (context,
+									GTK_STYLE_PROVIDER(provider),
+									GTK_STYLE_PROVIDER_PRIORITY_USER);
+	gtk_widget_show_all (window);
+}
+
+int						main(int ac, char **av)
+{
+	t_rt				*rt;
+
+	if (rt_init(&rt))
+		return (rt_error("Cannot init t_rt struct", 0));
+	rt->app = gtk_application_new ("ru.school-21.start", G_APPLICATION_FLAGS_NONE);
+	if (g_signal_connect (rt->app, "activate", G_CALLBACK (activate), rt) <= 0)
+		return (rt_err("Cannot connect \'activate\' signal to rt->app"));
+	g_application_run (G_APPLICATION (rt->app), ac, av);
+	return (0);
+}

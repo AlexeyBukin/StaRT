@@ -22,5 +22,7 @@
 # define PLATFORM_MACOS
 
 int				gpu_init(t_rt *rt);
+int				gpu_buffer_load(t_rt *rt);
+int				gpu_kernel_run(t_rt *rt);
 
 #endif
