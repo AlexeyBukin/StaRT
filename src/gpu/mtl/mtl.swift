@@ -35,11 +35,13 @@ public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: Un
 	return (sm.loadLibrary(source: String(cString: libsrcptr)))
 }
 
+/* TEXTURE PART */
+
 @_cdecl("mtl_texture_create")
 public func mtl_texture_create_swift(_ smptr: UnsafeRawPointer, _ width: Int32, _ height: Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	return (sm.addTexture(d: sm.device, w: Int(width), h: Int(height)))
+	return (sm.createTexture(d: sm.device, w: Int(width), h: Int(height)))
 }
 
 @_cdecl("mtl_texture_get_ptr")
@@ -70,6 +72,8 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 	return (sm.getTextureStride(index: index))
 }
 
+/* BUFFER PART */
+
 @_cdecl("mtl_buffer_load_scene")
 public func mtl_buffer_load_scene_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
 {
@@ -89,4 +93,13 @@ public func mtl_buffer_load_materials_swift(_ smptr: UnsafeRawPointer, _ ptr:Uns
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.loadMaterialsBuffer(ptr: ptr, len: len))
+}
+
+/* KERNEL PART */
+
+@_cdecl("mtl_kernel_run")
+public func mtl_kernel_run_swift(_ smptr: UnsafeRawPointer, _ kernel_name: UnsafePointer<CChar>, _ texture_out_index:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.runStartKernel(name: String(cString: kernel_name), textureID: Int(texture_out_index)))
 }

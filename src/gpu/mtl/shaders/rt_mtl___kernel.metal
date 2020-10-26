@@ -82,44 +82,43 @@ typedef struct		s_scn
 kernel void scene_test(		device struct		s_scn		*scene		[[buffer(0)]],
 							device struct		s_obj		*objects	[[buffer(1)]],
 							device struct		s_mat		*materials	[[buffer(2)]],
-							array<texture2d<float>, 1024>	textures 	[[texture(3)]],
-							texture2d<float,access::write> 	out			[[texture(4)]],
+							texture2d<float,access::write> 	out			[[texture(3)]],
 							uint2                  			gid			[[thread_position_in_grid]])
 {
 	uint2 size = uint2(out.get_width(), out.get_height());
-	device struct s_cam *cam = &scene->cameras[0];
+	device struct s_cam *cam = &scene->camera;
 
 	if (gid.x < size.x && gid.y < size.y)
 	{
 		float4 color = float4(0.5, 0.5, 0.5, 0);
 
-		Ray ray = rt_camera_get_ray(cam, size, gid);
-
-		int		nearest_id = -1;
-		float	nearest_dist = INFINITY;
-
-		for (int i = 0; i < scene->objects_num; i++)
-		{
-			float dist = rt_dist(ray, &scene->objects[i]);
-			if (dist < nearest_dist && dist != INFINITY) {
-				nearest_id = i;
-				nearest_dist = dist;
-			}
-		}
-
-		if (nearest_id >= 0) {
-//			color = float4(0, 1, 0, 0);
-			int index = find_material_by_id(
-					scene->objects[nearest_id].material_id,
-					scene->materials, scene->materials_num);
-			if (scene->materials_num == 1) {
-				color = float4(1, 1, 1, 0.0f);
-			}
-			else
-			{
-				color = float4(float3(scene->materials[index].albedo), 0.0f);
-			}
-		}
+//		Ray ray = rt_camera_get_ray(cam, size, gid);
+//
+//		int		nearest_id = -1;
+//		float	nearest_dist = INFINITY;
+//
+//		for (int i = 0; i < scene->objects_num; i++)
+//		{
+//			float dist = rt_dist(ray, &scene->objects[i]);
+//			if (dist < nearest_dist && dist != INFINITY) {
+//				nearest_id = i;
+//				nearest_dist = dist;
+//			}
+//		}
+//
+//		if (nearest_id >= 0) {
+////			color = float4(0, 1, 0, 0);
+//			int index = find_material_by_id(
+//					scene->objects[nearest_id].material_id,
+//					scene->materials, scene->materials_num);
+//			if (scene->materials_num == 1) {
+//				color = float4(1, 1, 1, 0.0f);
+//			}
+//			else
+//			{
+//				color = float4(float3(scene->materials[index].albedo), 0.0f);
+//			}
+//		}
 		out.write(color, gid);
 	}
 }

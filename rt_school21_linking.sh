@@ -5,12 +5,23 @@
 OLD_IFS=$IFS
 IFS=$'\n'
 
-lib=RT
+num=0
+prefix="/"
+if [ -z "$1" ]; then
+  lib=RT
+  echo linking RT...
+else
+  lib="$1"
+  num=$(awk -F"/" '{print NF-1}' <<< "${lib}")
+  prefix="/"$(printf '../%.0s' {1..$num})
+  echo linking $1 ...
+fi
+
 for file in $(otool -l $lib | grep KCHARLA | awk '{print $2}');
   do
     install_name_tool -change "$file" "@rpath/`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
   done
-install_name_tool -add_rpath "@executable_path/gtk_bundle_42/lib" $lib
+install_name_tool -add_rpath "@executable_path"$prefix"gtk_bundle_42/lib" $lib
 
 IFS=$OLD_IFS
 

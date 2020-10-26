@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/24 22:59:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 17:10:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/10/26 16:55:49 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ typedef void			t_mtl;
 typedef void			t_texture_rgba;
 
 t_mtl					*mtl_init();
+
+/*
+** return 0 on success
+*/
 
 int						mtl_lib_load_source(t_mtl *mtl, char *libstr);
 
@@ -46,5 +50,8 @@ int						mtl_texture_get_stride(t_mtl *mtl, int index);
 
 int						mtl_buffer_load_scene(t_mtl *mtl, void *ptr, int len);
 int						mtl_buffer_load_objects(t_mtl *mtl, void *ptr, int len);
+int						mtl_buffer_load_materials(t_mtl *mtl, void *ptr, int len);
+
+int						mtl_kernel_run(t_mtl *mtl, char *kernel_name, int texture_index);
 
 #endif

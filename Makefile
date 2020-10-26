@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/25 17:25:20 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/26 18:30:48 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,9 @@ HEADERS		:=			src/err/err.h			include/rt.h \
 src/err/err.h           src/gpu/mtl/mtl.h       src/gpu/vlk/vlk.h       src/gui/gui.h \
 
 # find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'
-SRC			:= src/err/rt_err.c        src/gpu/gpu_init.c      src/gui/gui_init.c \
-               src/err/rt_warn.c       src/gpu/vlk/vlk_init.c  src/main.c \
+SRC			:= src/err/rt_err.c                src/gpu/gpu_init.c              src/gui/gui_init.c \
+               src/err/rt_warn.c               src/gpu/gpu_kernel_run.c        \
+               src/gpu/gpu_buffer_load.c       src/gpu/vlk/vlk_init.c          src/rt.c
 
 OBJ			= $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC))
 
@@ -66,7 +67,7 @@ all: $(NAME)
 # switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB)
-	$(LINK) $(OBJ) -o $(NAME)
+	$(LINK) $(OBJ) src/main.c -o $(NAME)
 	zsh rt_school21_linking.sh
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
@@ -149,6 +150,12 @@ DEMO_MTL = demo/gpu/mtl
 $(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
 	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
 
+### GPU DEMOS
+DEMO_GPU = $(DEMO_DIR)/gpu
+
+$(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
 
 ### ERR Demo
 $(DEMO_DIR)/err/err: $(DEMO_DIRS)

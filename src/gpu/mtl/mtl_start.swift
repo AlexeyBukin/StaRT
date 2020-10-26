@@ -42,7 +42,8 @@ public class StartMTL {
 		guard sceneBuffer != nil  && objectsBuffer != nil && materialsBuffer != nil else { return Int32(1) }
 		print("metal basic buffers ready")
 
-		guard (textureID < 0 || textureID >= textures.count) else { return Int32(1) }
+//		print("SWIFT: textureID is \(textureID)")
+		guard (textureID >= 0 && textureID < textures.count) else { return Int32(1) }
 		let textureOut = textures[textureID]
 		print("metal out texture ready")
 

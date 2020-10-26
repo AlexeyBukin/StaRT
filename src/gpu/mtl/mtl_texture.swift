@@ -7,7 +7,7 @@ import mtl_start
 
 extension StartMTL {
 
-	public func addTexture(d device:MTLDevice, w width:Int, h height:Int) -> Int32 {
+	public func createTexture(d device:MTLDevice, w width:Int, h height:Int) -> Int32 {
 
 		let texture_width = width
 		let texture_height = height
@@ -31,8 +31,10 @@ extension StartMTL {
 	}
 
 	public func getStride(width : Int) -> Int {
+//		texture_sizeline = width * 4
+//		texture_sizeline = 256 * (texture_sizeline / 256 + (texture_sizeline%256 >= 1 ? 1 : 0) )
 		let stride = width * 4;
-		return (256 * (stride / 256 + (stride%256 >= 1 ? 1 : 0) ))
+		return (256 * (stride / 256 + (stride%256 >= 1 ? 1 : 0)))
 	}
 
 	public func getTexturePointer(index i:Int) -> UnsafeMutablePointer<UInt32>? {
@@ -43,9 +45,12 @@ extension StartMTL {
 		return (tmpptr.assumingMemoryBound(to:UInt32.self))
 	}
 
-	public func getTextureStride(index i : Int32) -> Int32 {
-		guard (i < 0 || i >= textures.count) else { return Int32(0) }
-		return (Int32(getStride(width: (textures[Int(i)]).width)))
+	public func getTextureStride(index: Int32) -> Int32 {
+		let i = Int(index)
+		guard (i >= 0 && i < textures.count) else { return Int32(0) }
+
+		print("swift stride is \(getStride(width: (textures[i]).width))")
+		return (Int32(getStride(width: (textures[i]).width)))
 	}
 
 	public func getTextureWidth(index i : Int32) -> Int32 {
