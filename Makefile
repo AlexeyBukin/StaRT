@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/26 18:30:48 by kcharla          ###   ########.fr        #
+#    Updated: 2020/10/26 22:57:09 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,14 @@ DEMO_GPU = $(DEMO_DIR)/gpu
 $(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
 	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
+
+### GUI DEMOS
+DEMO_GUI = $(DEMO_DIR)/gui
+
+$(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
+
 
 ### ERR Demo
 $(DEMO_DIR)/err/err: $(DEMO_DIRS)
