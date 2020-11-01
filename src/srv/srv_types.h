@@ -6,12 +6,19 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 16:47:19 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/01 16:47:19 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/01 19:58:40 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SRV_TYPES_H
 # define SRV_TYPES_H
+
+# include <fcntl.h>
+# include <netinet/in.h>
+# include <errno.h>
+# include <memory.h>
+# include <poll.h>
+# include <time.h>
 
 typedef struct		s_msg
 {
@@ -25,8 +32,21 @@ typedef struct		s_msg
 
 typedef struct		s_srv
 {
-	t_msg			response;
-	t_msg			request;
+	t_msg				response;
+	t_msg				request;
+	int 				socket_listen_fd;
+	int					socket_flags;
+	struct sockaddr_in	sock_addr;
+	int 				has_client;
+	int 				socket_client_fd;
+	struct pollfd		pfd;
+	int					client_recv;
+	char				client_buff[256];
+	char				*client_str;
+	char				*client_line;
+	char				*server_line;
+	unsigned long		client_str_size;
+	unsigned long		client_str_old_size;
 }					t_srv;
 
 #endif

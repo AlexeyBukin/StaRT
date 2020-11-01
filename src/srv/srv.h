@@ -28,5 +28,6 @@ void*				srv_loop(void* rt_pointer);
 int					srv_request(t_rt *rt, char *str);
 int					srv_parse_str(const char* request, char **response);
 int					msleep(long msec);
+int					srv_ext_client_process(t_rt *rt);
 
 #endif

@@ -56,7 +56,7 @@ src/srv/srv.h
 # find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'
 SRC			:= src/err/rt_err.c                src/gpu/vlk/vlk_init.c          src/srv/srv_init.c \
                src/err/rt_warn.c               src/gui/gui_init.c              src/srv/srv_loop.c \
-               src/gpu/gpu_buffer_load.c                             src/srv/srv_request.c \
+               src/gpu/gpu_buffer_load.c       src/srv/srv_ext.c                      src/srv/srv_request.c \
                src/gpu/gpu_init.c              src/rt.c \
                src/gpu/gpu_kernel_run.c        src/srv/srv_exit.c
 

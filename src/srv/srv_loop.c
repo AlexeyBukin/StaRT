@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/01 17:21:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/01 19:00:40 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void*				srv_loop(void* rt_pointer)
 {
-//	char			*response;
+	char			error;
 	t_srv			*server;
 
 	if ((t_rt*)rt_pointer == NULL)
@@ -36,7 +36,7 @@ void*				srv_loop(void* rt_pointer)
 
 	while (1)
 	{
-		// process request
+		// process internal request
 		if (server->request.status == MSG_ACTIVE)
 		{
 			rt_warn("srv_loop(): got request");
@@ -54,8 +54,14 @@ void*				srv_loop(void* rt_pointer)
 				break ;
 			}
 		}
-		rt_warn("srv_loop(): sleeping");
-		sleep(1);
+		if ((error = srv_ext_client_process(rt_pointer)) != 0)
+		{
+			// notify gtk about error
+			rt_err("srv_loop(): srv_ext_client_process() returned error code");
+			break ;
+		}
+//		rt_warn("srv_loop(): sleeping");
+		msleep(10);
 	}
 	rt_warn("srv_loop(): ending server thread");
 	return (NULL);
