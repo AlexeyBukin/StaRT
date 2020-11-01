@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rts.h                                              :+:      :+:    :+:   */
+/*   srv_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/31 21:04:25 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/01 16:47:19 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/01 16:47:19 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTS_H
-# define RTS_H
+#ifndef SRV_TYPES_H
+# define SRV_TYPES_H
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "gpu_types.h"
-# include "rt_scene.h"
-# include "srv_types.h"
-
-typedef struct		s_texture
+typedef struct		s_msg
 {
-	int					index;
-	int					width;
-	int					height;
-	int					stride;
-	t_texture_rgba		*data;
-}					t_texture;
+	int				status;
+	char			*str;
+}					t_msg;
 
-typedef struct		s_rt
+/*
+** only server can write to response
+*/
+
+typedef struct		s_srv
 {
-	GtkApplication		*app;
-	t_gpu				gpu;
-	t_scn				*scene;
-	t_texture			*render_result;
-	t_srv				*server;
-}					t_rt;
+	t_msg			response;
+	t_msg			request;
+}					t_srv;
 
 #endif

@@ -6,35 +6,27 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/31 21:04:25 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/01 17:13:15 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTS_H
-# define RTS_H
+#ifndef SRV_H
+# define SRV_H
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "gpu_types.h"
-# include "rt_scene.h"
 # include "srv_types.h"
+# include "rts.h"
 
-typedef struct		s_texture
-{
-	int					index;
-	int					width;
-	int					height;
-	int					stride;
-	t_texture_rgba		*data;
-}					t_texture;
+# define MSG_NONE   0
+# define MSG_OK     1
+# define MSG_ACTIVE 2
+# define MSG_EXIT   3
+# define MSG_ERROR -1
 
-typedef struct		s_rt
-{
-	GtkApplication		*app;
-	t_gpu				gpu;
-	t_scn				*scene;
-	t_texture			*render_result;
-	t_srv				*server;
-}					t_rt;
+int					srv_init(t_rt *rt);
+int					srv_exit(t_rt *rt);
+void*				srv_loop(void* rt_pointer);
+int					srv_request(t_rt *rt, char *str);
+int					srv_parse_str(const char* request, char **response);
+int					msleep(long msec);
 
 #endif

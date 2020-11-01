@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   srv_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/26 18:26:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/31 19:28:56 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/31 19:30:56 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#include "rt.h"
+/*
+** Must be run from gtk thread only!
+*/
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "err.h"
-# include "rts.h"
-# include "rt_scene.h"
-# include "gui.h"
-# include "gpu.h"
-# include "srv.h"
-
-int				rt_init(t_rt **rt);
-int				rt_deinit(t_rt *rt);
-
-#endif
+int		srv_exit(t_rt *rt)
+{
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	return (srv_request(rt, "exit"));
+}
