@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/01 17:13:15 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/02 16:34:50 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,61 @@
 # define MSG_EXIT   3
 # define MSG_ERROR -1
 
+/*
+** srv_process.c
+*/
+
+int					srv_process_line(t_srv *srv, char *str, char **response);
+
+/*
+** srv_init.c
+*/
+
 int					srv_init(t_rt *rt);
+
+/*
+** srv_exit.c
+*/
+
 int					srv_exit(t_rt *rt);
+
+/*
+** srv_loop.c
+*/
+
 void*				srv_loop(void* rt_pointer);
+
+/*
+** srv_request.c
+*/
+
 int					srv_request(t_rt *rt, char *str);
-int					srv_parse_str(const char* request, char **response);
-int					msleep(long msec);
+
+/*
+** srv_ext.c
+*/
+
+int					srv_ext_client_check(t_srv *srv);
 int					srv_ext_client_process(t_rt *rt);
+int					srv_ext_client_disconnect(t_srv *srv);
+int					srv_ext_client_get_data(t_srv *srv);
+int					srv_ext_client_update_str(t_srv *srv);
+int					srv_ext_client_str_process(t_srv *srv);
+
+
+int					srv_process_line(t_srv *srv, char *str, char **response);
+
+/*
+** srv_parse.c
+*/
+
+t_msg				srv_parse_str(t_srv *srv, const char* request);
+
+/*
+** srv_utils.c
+*/
+
+int					msleep(long msec);
+void				*null(int a);
 
 #endif

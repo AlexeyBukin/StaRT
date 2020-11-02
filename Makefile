@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/01 16:48:56 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/02 16:40:31 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,12 +53,14 @@ HEADERS		:=			src/err/err.h			include/rt.h \
 src/err/err.h           src/gpu/mtl/mtl.h       src/gpu/vlk/vlk.h       src/gui/gui.h \
 src/srv/srv.h
 
+# no main.c!
 # find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'
-SRC			:= src/err/rt_err.c                src/gpu/vlk/vlk_init.c          src/srv/srv_init.c \
-               src/err/rt_warn.c               src/gui/gui_init.c              src/srv/srv_loop.c \
-               src/gpu/gpu_buffer_load.c       src/srv/srv_ext.c                      src/srv/srv_request.c \
-               src/gpu/gpu_init.c              src/rt.c \
-               src/gpu/gpu_kernel_run.c        src/srv/srv_exit.c
+SRC			:= src/err/rt_err.c                src/gui/gui_init.c              src/srv/srv_loop.c \
+               src/err/rt_warn.c                                    src/srv/srv_parse.c \
+               src/gpu/gpu_buffer_load.c       src/rt.c                        src/srv/srv_request.c \
+               src/gpu/gpu_init.c              src/srv/srv_exit.c              src/srv/srv_utils.c \
+               src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
+               src/gpu/vlk/vlk_init.c          src/srv/srv_init.c \
 
 OBJ			= $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC))
 

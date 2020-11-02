@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 16:47:19 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/01 19:58:40 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/02 15:49:25 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_msg
 
 typedef struct		s_srv
 {
+	struct s_rt			*rt;
 	t_msg				response;
 	t_msg				request;
 	int 				socket_listen_fd;

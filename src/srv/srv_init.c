@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:56:52 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/01 19:55:55 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/02 15:49:49 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ int				srv_init(t_rt *rt)
 
 	if (rt == NULL)
 		return (rt_err("srv_init(): rt is NULL pointer"));
-	if ((server = malloc(sizeof(t_srv))) == NULL)
+	if ((server = ft_memalloc(sizeof(t_srv))) == NULL)
 		return (rt_err("srv_init(): malloc returned NULL pointer"));
-	server->response.status = MSG_NONE;
-	server->response.str = NULL;
-	server->request.status = MSG_NONE;
-	server->request.str = NULL;
+	server->response = (t_msg){MSG_NONE, NULL};
+	server->request = (t_msg){MSG_NONE, NULL};
 	server->client_str = NULL;
 	server->client_line = NULL;
 	server->server_line = NULL;
@@ -55,6 +53,7 @@ int				srv_init(t_rt *rt)
 //
 //	guard(bind(listen_socket_fd, (struct sockaddr *) &addr, sizeof(addr)), "could not bind");
 //	guard(listen(listen_socket_fd, 1), "could not listen");
+	server->rt = rt;
 	rt->server = server;
 	return (0);
 }
