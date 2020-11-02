@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:09:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 16:41:00 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/02 20:16:07 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	{
 		msg.str = ft_strdup("Closing connection. Have a nice day :)\n");
 		msg.status = MSG_EXIT;
+	}
+	else if (ft_strcmp(request, "shutdown") == 0)
+	{
+		msg.str = ft_strdup("Shutting down...\n");
+		msg.status = MSG_SHUT;
 	}
 	else
 	{

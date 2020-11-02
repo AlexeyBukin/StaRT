@@ -32,8 +32,8 @@ int				main(int ac, char **av)
 
 	// send server 'exit' request
 	// join server thread
-	srv_exit(rt);
-	rt_warn("main(): srv_exit() success");
+	srv_shutdown(rt);
+	rt_warn("main(): srv_shutdown() success");
 	g_thread_join(server_thread);
 	rt_warn("main(): join success");
 

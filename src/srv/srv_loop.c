@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 16:37:30 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/02 20:35:49 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void*				srv_loop(void* rt_pointer)
 			{
 				return (null(rt_err("srv_loop(): server request error")));
 			}
-			if (server->response.status == MSG_EXIT)
+			if (server->response.status == MSG_SHUT)
 			{
 				return (null(rt_warn("srv_loop(): shutting server down...")));
 			}
@@ -58,6 +58,14 @@ void*				srv_loop(void* rt_pointer)
 			rt_err("srv_loop(): srv_ext_client_process() returned error code");
 			break ;
 		}
+		else
+		{
+			if (server->response.status == MSG_SHUT)
+			{
+				//TODO also shutdown gtk
+				return (null(rt_warn("srv_loop(): shutting server down...")));
+			}
+		}
 //		rt_warn("srv_loop(): sleeping");
 		msleep(10);
 	}
@@ -65,14 +73,3 @@ void*				srv_loop(void* rt_pointer)
 	return (NULL);
 }
 
-//int				srv_parse_str(const char* request, char **response)
-//{
-//	if (request == NULL || response == NULL)
-//		return (MSG_ERROR);
-//	if (ft_strcmp(request, "exit") == 0)
-//	{
-//		*response = ft_strdup("Shutting down server...");
-//		return (MSG_EXIT);
-//	}
-//	return (MSG_OK);
-//}

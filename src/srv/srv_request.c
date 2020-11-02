@@ -44,6 +44,7 @@ int		srv_request(t_rt *rt, char *str)
 	str = ft_strdup(server->response.str);
 	server->request.status = MSG_OK;
 
+	//TODO set 'gtk progress string' to str
 	//here it should also set 'gtk progress string' to str
 	return (0);
 }
