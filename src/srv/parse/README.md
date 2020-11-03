@@ -67,9 +67,10 @@ Removes component from scene
 
 ### `set`
 Sets property value to component
+
+Uses flags from `add` to specify parameters 
 1) `-i` - choose component by index
 1) `-n` - choose component by name
-`set` uses flags from `add` to specify parameters 
 
 ### `ls`
 Lists chosen component info
