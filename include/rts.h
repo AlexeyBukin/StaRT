@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/31 21:04:25 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/03 23:18:46 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <gtk/gtk.h>
 # include "libft.h"
 # include "gpu_types.h"
-# include "rt_scene.h"
 # include "srv_types.h"
+# include "scn_types.h"
 
 typedef struct		s_texture
 {
