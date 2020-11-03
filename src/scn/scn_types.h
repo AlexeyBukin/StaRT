@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/03 23:50:59 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/03 23:54:07 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,15 @@ typedef struct		s_scn
 {
 	uint				id;
 	struct s_obj		*objects;
-	int					objects_num;
+	uint				objects_num;
+	uint				objects_max;
 	struct s_mat		*materials;
-	int					materials_num;
+	uint				materials_num;
+	uint				materials_max;
 	struct s_cam		camera;
+	struct s_cam		*cameras;
+	uint				cameras_num;
+	uint				cameras_max;
 }					t_scn;
 
 #endif
