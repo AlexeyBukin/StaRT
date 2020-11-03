@@ -9,42 +9,34 @@
 ### `add`
 Main argument should be from list of `sphere`, `cone`, `cylinder`, `plane`, `camera` or `material`
 
-Note that `sphere`, `cone`, `cylinder` and `plane` are objects.
-
 #### Default values
 In case some additional parameters are not specified, they would be set to this default values:
 1) scalar - `0.0`
 1) vector - `<0.0, 0.0, 0.0>`
 1) string - empty string, `""`
-2) id - next available id
 3) material - defaul PBR material. See `scn_material.h`
-
-#### `add <object_name>`
-Adds object to scene
-
-General instruction for `add`ing objects commands:
-1) `-i` - set `id`
-1) `-m` - set material. May be name string or id integer.
-
-Main argument represents object name. Should be valid string
 
 #### `add sphere`
 1) `-p` - position. Should be valid vector
 2) `-r` - radius. Should be valid scalar
+1) `-m` - set material. May be name string or id integer.
 
 #### `add plane`
 1) `-n` - normal vector. Should be valid vector
 2) `-d` - distance from plane to origin. Should be valid scalar
+1) `-m` - set material. May be name string or id integer.
 
 #### `add cylinder`
 1) `-p` - position. Should be valid vector
 2) `-c` - cap. Should be valid vector
 3) `-r` - radius. Should be valid scalar
+1) `-m` - set material. May be name string or id integer.
 
 #### `add cone`
 1) `-p` - position. Should be valid vector
 2) `-c` - cap. Should be valid vector
 3) `-r` - radius. Should be valid scalar
+1) `-m` - set material. May be name string or id integer.
 
 #### `add material`
 1) `-m` - metalness. Should be valid vector

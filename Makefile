@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/02 16:40:47 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/03 23:20:08 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
 
 ### C Flags settings
 INCLUDE   = 	-I include -I src/err -I src/gui -I lib/ft/inc -I src/gpu -I src/srv \
+				-I src/cmd -I src/scn \
 				-I src/gpu/mtl -I src/gpu/vlk $(GTK_INCLUDE)
 
 LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
@@ -49,9 +50,10 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS)
 
 # find include -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS		:=			src/err/err.h			include/rt.h \
-src/err/err.h           src/gpu/mtl/mtl.h       src/gpu/vlk/vlk.h       src/gui/gui.h \
-src/srv/srv.h
+HEADERS	:= src/cmd/cmd.h           src/gpu/gpu_types.h     src/gui/gui.h           src/srv/srv.h \
+           src/err/err.h           src/gpu/mtl/mtl.h       src/scn/scn.h           src/srv/srv_types.h \
+           src/gpu/gpu.h           src/gpu/vlk/vlk.h       src/scn/scn_types.h \
+           include/rt.h            include/rts.h \
 
 # no main.c!
 # find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'

@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_scene.h                                         :+:      :+:    :+:   */
+/*   scn_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 16:26:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/26 18:28:26 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 23:15:17 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_SCENE_H
-# define RT_SCENE_H
-
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "gpu_types.h"
+#ifndef SCN_TYPES_H
+# define SCN_TYPES_H
 
 typedef float t_num;
 

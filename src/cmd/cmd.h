@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
+/*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
 /*   Updated: 2020/11/03 23:18:37 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#ifndef CMD_H
+# define CMD_H
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "err.h"
+# include "srv_types.h"
 # include "rts.h"
-# include "gui.h"
-# include "gpu.h"
-# include "srv.h"
-# include "scn.h"
-# include "cmd.h"
 
-int				rt_init(t_rt **rt);
-int				rt_deinit(t_rt *rt);
+t_msg		cmd_parse(t_rt *rt, const char* request);
 
 #endif
