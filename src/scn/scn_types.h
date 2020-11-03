@@ -13,56 +13,7 @@
 #ifndef SCN_TYPES_H
 # define SCN_TYPES_H
 
-typedef float t_num;
-
-typedef struct		s_vec2
-{
-	t_num			x;
-	t_num			y;
-}					t_vec2;
-
-typedef struct		s_vec3
-{
-	t_num			x;
-	t_num			y;
-	t_num			z;
-}					t_vec3;
-
-enum e_obj_type
-{
-	OBJ_NONE = 0,
-	OBJ_PLANE,
-	OBJ_SPHERE,
-	OBJ_CYLINDER,
-	OBJ_CONE,
-	OBJ_GEOMETRY
-};
-
-struct				s_sphere
-{
-	t_vec3			pos;
-	t_num			r;
-};
-
-struct				s_plane
-{
-	t_vec3			n;
-	t_num			d;
-};
-
-union				u_shape
-{
-	struct s_sphere		sphere;
-	struct s_plane		plane;
-};
-
-typedef struct				s_obj
-{
-	int						id;
-	int						material_id;
-	enum e_obj_type			type;
-	union u_shape			shape;
-}							t_obj;
+# include "scn_objects.h"
 
 struct				s_cam
 {
