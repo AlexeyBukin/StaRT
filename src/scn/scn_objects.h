@@ -6,14 +6,15 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:41:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/03 23:42:39 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/03 23:51:12 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCN_OBJECTS_H
 # define SCN_OBJECTS_H
 
-typedef float t_num;
+typedef float				t_num;
+typedef	unsigned int		uint;
 
 typedef struct		s_vec2
 {
@@ -52,15 +53,15 @@ struct				s_plane
 
 typedef	struct		s_cone
 {
-	t_vec			pos;
-	t_vec			cap;
+	t_vec3			pos;
+	t_vec3			cap;
 	t_num			r;
 }					t_cone;
 
 typedef	struct		s_cylinder
 {
-	t_vec			pos;
-	t_vec			cap;
+	t_vec3			pos;
+	t_vec3			cap;
 	t_num			r;
 }					t_cylinder;
 
@@ -74,8 +75,8 @@ union				u_shape
 
 typedef struct				s_obj
 {
-	int						id;
-	int						material_id;
+	uint					id;
+	uint					material_id;
 	enum e_obj_type			type;
 	union u_shape			shape;
 }							t_obj;
