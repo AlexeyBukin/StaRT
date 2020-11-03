@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:35:49 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/03 23:36:08 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,26 @@ void*				srv_loop(void* rt_pointer)
 			{
 				return (null(rt_warn("srv_loop(): shutting server down...")));
 			}
+			server->response = (t_msg){MSG_NONE, NULL};
+			server->request = (t_msg){MSG_NONE, NULL};
 		}
-		if ((error = srv_ext_client_process(rt_pointer)) < 0)
+		// process external request
 		{
-			// notify gtk about error
-			rt_err("srv_loop(): srv_ext_client_process() returned error code");
-			break ;
-		}
-		else
-		{
-			if (server->response.status == MSG_SHUT)
+			if ((error = srv_ext_client_process(rt_pointer)) < 0)
 			{
-				//TODO also shutdown gtk
-				return (null(rt_warn("srv_loop(): shutting server down...")));
+				// notify gtk about error
+				rt_err("srv_loop(): srv_ext_client_process() returned error code");
+				break ;
+			}
+			else
+			{
+				if (server->response.status == MSG_SHUT)
+				{
+					//TODO also shutdown gtk
+					return (null(rt_warn("srv_loop(): shutting server down...")));
+				}
+				server->response = (t_msg){MSG_NONE, NULL};
+				server->request = (t_msg){MSG_NONE, NULL};
 			}
 		}
 //		rt_warn("srv_loop(): sleeping");
