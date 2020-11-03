@@ -9,6 +9,8 @@
 ### `add`
 Main argument should be from list of `sphere`, `cone`, `cylinder`, `plane`, `camera` or `material`
 
+Note that `sphere`, `cone`, `cylinder` and `plane` are objects.
+
 #### Default values
 In case some additional parameters are not specified, they would be set to this default values:
 1) scalar - `0.0`
@@ -18,9 +20,12 @@ In case some additional parameters are not specified, they would be set to this 
 3) material - defaul PBR material. See `scn_material.h`
 
 #### `add <object_name>`
-General instruction for objects commands:
+Adds object to scene
+
+General instruction for `add`ing objects commands:
 1) `-i` - set `id`
-1) `-m` - material parameter. Should be valid material `id`, works with objects only
+1) `-m` - set material. May be name string or id integer.
+
 Main argument represents object name. Should be valid string
 
 #### `add sphere`
@@ -50,19 +55,39 @@ Main argument represents object name. Should be valid string
 3) `-f` - f0. Should be valid vector (values clamped 0..1)
 
 #### `add camera`
-1) `-m` - metalness. Should be valid vector
-2) `-r` - roughness. Should be be valid vector
-3) `-o` - ior. Should be valid scalar
-3) `-t` - transparency. Should be valid scalar
-3) `-a` - albedo. Should be valid vector (values clamped 0..1)
-3) `-f` - f0. Should be valid vector (values clamped 0..1)
+1) `-p` - position. Should be valid vector
+2) `-f` - forward-vector. Should be be valid vector
+3) `-u` - up-vector. Should be valid vector
+4) `-v` - field-of-view, FOV. Should be valid scalar
 
 ### `rm`
+Removes component from scene
 1) `-i` - remove component by index
 1) `-n` - remove component by name
 
 ### `set`
+Sets property value to component
+1) `-i` - choose component by index
+1) `-n` - choose component by name
+`set` uses flags from `add` to specify parameters 
+
+### `ls`
+Lists chosen component info
+
+If no flag/argument specified then it lists info about scene
 1) `-i` - choose component by index
 1) `-n` - choose component by name
 
-`set` uses flags from `add` to specify parameters 
+## Comments
+You can comment only full line by starting it with `#`
+
+## Examples
+```
+# This is comment
+
+# Adding default material
+add material "my_material"
+
+#Adding sphere to the origin with default material, index 8 and radius 3 named my_sphere
+add sphere -i8 -m"my_material" -r3.0 "my_sphere"
+```
