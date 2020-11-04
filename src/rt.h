@@ -16,7 +16,7 @@
 # include <gtk/gtk.h>
 # include "libft.h"
 # include "err.h"
-# include "rts.h"
+# include "rt_types.h"
 # include "gui.h"
 # include "gpu.h"
 # include "srv.h"
