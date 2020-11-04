@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:17:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/04 21:06:44 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/04 21:56:03 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #if defined(PLATFORM_MACOS)
 
-#define MTL_LIB_SRC "src/gpu/mtl/shaders/rt_mtl___kernel.metal"
+#define MTL_LIB_SRC "src/mtl/shaders/rt_mtl___kernel.metal"
 #define MTL_WIDTH	1280
 #define MTL_HEIGHT	720
 
@@ -24,8 +24,7 @@ int				gpu_init(t_rt *rt)
 
 	if (rt == NULL)
 		return (rt_err("rt is NULL pointer"));
-	rt->gpu.mtl = mtl_init();
-	if (rt->gpu.mtl == NULL)
+	if ((rt->gpu.mtl = mtl_init()) == NULL)
 		return (rt_err("gpu_init(): metal_init() fail"));
 	if (mtl_lib_load_source(rt->gpu.mtl, ft_read_file(MTL_LIB_SRC) ))
 		return (rt_err("gpu_init(): load_lib() fail"));

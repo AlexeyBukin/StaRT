@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/04 21:13:08 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/04 21:40:58 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,10 @@ fclean:
 re: fclean all
 
 relink:
+	rm -f $(NAME)
+	make all
+
+rebuild: clean
 	rm -f $(NAME)
 	make all
 
