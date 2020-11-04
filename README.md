@@ -10,6 +10,7 @@ Or if you are not familiar with compiling things do:
 ```
 cd ~/Desktop
 git clone *clone_url* StaRT
+cd StaRT
 sh update.sh
 make
 ```
