@@ -14,7 +14,7 @@
 # define SRV_H
 
 # include "srv_types.h"
-# include "rts.h"
+# include "rt_types.h"
 
 # define MSG_NONE   0
 # define MSG_OK     1
