@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vlk_init.c                                         :+:      :+:    :+:   */
+/*   cmd_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:33:22 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 22:55:50 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int				vlk_init()
+/*
+** TODO: add parser
+** TODO: add id-map pattern
+*/
+
+int				scn_init(t_rt *rt)
 {
-	return (rt_err("vlk_init() fail"));
+	(void)rt;
+	return (0);
 }

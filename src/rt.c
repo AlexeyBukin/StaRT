@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl.h                                              :+:      :+:    :+:   */
+/*   rt.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/24 22:59:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 00:14:47 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/26 18:25:33 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/04 21:04:23 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTL_H
-#define MTL_H
+#include "rt.h"
 
-typedef void		t_mtl;
+int				rt_init(t_rt **rt)
+{
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	*rt = (t_rt*)malloc(sizeof(t_rt));
+	if (*rt == NULL)
+		return (rt_err("rt malloc fail"));
+	if (gpu_init(*rt))
+		return (rt_err("gpu_init() fail"));
+	return (0);
+}
 
-t_mtl		*mtl_init();
-
-int			mtl_lib_load_source(t_mtl *mtl, char *libstr);
-
-#endif
+int				rt_deinit(t_rt *rt)
+{
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	free(rt);
+	return (0);
+}

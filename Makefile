@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/10/25 14:12:26 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/04 21:40:58 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,21 +36,36 @@ GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
                 -lgobject-2.0 -lglib-2.0 -lintl
 
 ### C Flags settings
-INCLUDE   = -I include -I src/err -I src/gui -I lib/ft/inc $(GTK_INCLUDE)
+INCLUDE   = 	-I src -I src/err -I src/gui -I lib/ft/inc -I src/gpu -I src/srv \
+				-I src/cmd -I src/scn \
+				-I src/mtl -I src/vlk $(GTK_INCLUDE)
+
 LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
 
 CFLAGS := -Wall -Wextra -Werror -g
 COMPILE = gcc $(CFLAGS) $(INCLUDE)
-LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
+LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS)
 
 ### Sources
 
-# find include -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS		:= src/err/err.h include/rt.h
+# find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
+HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/vlk/vlk.h \
+           src/err/err.h           src/mtl/mtl.h           src/scn/scn_types.h \
+           src/gpu/gpu.h           src/rt.h                src/srv/srv.h \
+           src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv_types.h
 
-# find src -type f -name '*.c' | sort | column -c 100 | sed 's/$/ \\/'
-SRC			:= src/err/rt_err.c        src/err/rt_warn.c       src/gui/gui_init.c      src/main.c
+# no main.c!
+# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
+SRC_SHARED	:= src/cmd/cmd_parse.c             src/gui/gui_init.c              src/srv/srv_loop.c \
+               src/err/rt_err.c                src/rt.c                        src/srv/srv_parse.c \
+               src/err/rt_warn.c               src/scn/scn_init.c              src/srv/srv_request.c \
+               src/gpu/gpu_buffer_load.c       src/srv/srv_ext.c               src/srv/srv_shutdown.c \
+               src/gpu/gpu_init.c              src/srv/srv_ext_data.c          src/srv/srv_utils.c \
+               src/gpu/gpu_kernel_run.c        src/srv/srv_init.c              src/vlk/vlk_init.c \
 
+SRC 		= $(SRC_SHARED) src/main.c
+
+OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))
 OBJ			= $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC))
 
 ### Rules
@@ -60,8 +75,8 @@ all: $(NAME)
 
 # switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
-$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB)
-	$(LINK) $(OBJ) -o $(NAME)
+$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) build/mtl/libmtl.dylib
+	$(LINK) $(OBJ) -o $(NAME) -L build/mtl -lmtl
 	zsh rt_school21_linking.sh
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
@@ -84,6 +99,10 @@ relink:
 	rm -f $(NAME)
 	make all
 
+rebuild: clean
+	rm -f $(NAME)
+	make all
+
 $(LIB_FT):
 	@make -C $(LIB)/ft
 
@@ -94,8 +113,8 @@ $(GTK_BUNDLE):
 #----------- MTL_SWIFT_PART ---------------#
 #------------------------------------------#
 
-MTL_DIR			:= src/gpu/mtl
-MTL_BUILD		:= build/gpu/mtl
+MTL_DIR			:= src/mtl
+MTL_BUILD		:= build/mtl
 
 MTL_DYLIB		= $(MTL_BUILD)/libmtl.dylib
 MTL_FLAGS		= -L $(MTL_BUILD) -lmtl
@@ -104,7 +123,7 @@ MTL_INCLUDE			= -I $(MTL_DIR)
 MTL_INCLUDE_SWIFT	= -I $(MTL_BUILD)
 
 # TODO: collect using find
-MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift
+MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift $(MTL_DIR)/mtl_texture.swift $(MTL_DIR)/mtl_buffer.swift
 MTL_MODULE_OBJ	= $(MTL_MODULE_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.swiftmodule)
 
 # TODO: collect using find
@@ -144,6 +163,24 @@ DEMO_MTL = demo/gpu/mtl
 $(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
 	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
 
+### GPU DEMOS
+DEMO_GPU = $(DEMO_DIR)/gpu
+
+$(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
+
+### GUI DEMOS
+DEMO_GUI = $(DEMO_DIR)/gui
+
+$(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
+
+### Server Demo
+$(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/srv/srv_init.c src/srv/srv_loop.c src/srv/srv.c.demo src/err/*.c -o $@
+	zsh rt_school21_linking.sh $(DEMO_DIR)/srv/srv
 
 ### ERR Demo
 $(DEMO_DIR)/err/err: $(DEMO_DIRS)

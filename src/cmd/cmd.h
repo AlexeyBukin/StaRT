@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:45:34 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 23:18:37 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#ifndef CMD_H
+# define CMD_H
 
+# include "srv_types.h"
 # include "rt_types.h"
 
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
+t_msg		cmd_parse(t_rt *rt, const char* request);
 
 #endif

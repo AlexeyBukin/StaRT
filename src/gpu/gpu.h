@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rts.h                                              :+:      :+:    :+:   */
+/*   gpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:32:00 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/25 14:47:48 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTS_H
-# define RTS_H
+#ifndef GPU_H
+# define GPU_H
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "mtl.h"
-# include "vlk.h"
+# include "gpu_types.h"
 
-typedef union		u_gpu
-{
-	t_mtl			*mtl;
-	t_vlk			*vlk;
-}					t_gpu;
+/*
+** TODO: manage platform definition
+*/
 
+# define PLATFORM_MACOS
 
-typedef struct		s_rt
-{
-	GtkApplication		*app;
-	t_gpu				gpu;
-}					t_rt;
+int				gpu_init(t_rt *rt);
+int				gpu_buffer_load(t_rt *rt);
+int				gpu_kernel_run(t_rt *rt);
 
 #endif

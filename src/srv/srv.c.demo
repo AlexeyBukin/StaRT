@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl_lib_load.c.demo                                :+:      :+:    :+:   */
+/*   srv.c.demo                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/24 23:01:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/24 23:01:55 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/31 20:53:59 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/31 20:53:59 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdio.h"
-#include "mtl.h"
+#include "rts.h"
+#include "srv.h"
 
-int		main()
+int				srv_init(t_rt *rt);
+void*			srv_loop(void *rt);
+
+int main()
 {
-	t_mtl		*metal;
+	t_rt		rt;
 
-	metal = mtl_init();
-	if (metal == NULL)
-	{
-		printf("mtl_init() fail\n");
-		return (0);
-	}
-	printf("mtl_init() success\n");
-
-
-	int res = mtl_lib_load_source(metal, ";");
-	if (res != 0)
-	{
-		printf("mtl_lib_load_source() fail\n");
-		return (0);
-	}
-	printf("mtl_lib_load_source() success\n");
-
+	srv_init(&rt);
+	srv_loop(&rt);
 
 	return (0);
 }

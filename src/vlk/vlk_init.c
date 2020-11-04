@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   vlk_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:45:34 by kcharla          ###   ########.fr       */
+/*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
+/*   Updated: 2020/10/25 14:50:40 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#include "rt.h"
 
-# include "rt_types.h"
-
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
-
-#endif
+t_vlk			*vlk_init(void)
+{
+	rt_err("vlk_init() fail");
+	return (NULL);
+}

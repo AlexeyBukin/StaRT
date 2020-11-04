@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vlk.h                                              :+:      :+:    :+:   */
+/*   scn.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:30:49 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:30:54 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 23:17:36 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 23:17:36 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VLK_H
-#define VLK_H
+#ifndef SCN_H
+# define SCN_H
 
-typedef void		t_vlk;
+# include "scn_types.h"
 
-t_mtl		*vlk_init();
+int		scn_init(t_rt *rt);
 
 #endif

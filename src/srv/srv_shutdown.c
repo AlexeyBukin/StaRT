@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   srv_shutdown.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:45:34 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/02 20:25:43 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/02 20:25:56 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#include "rt.h"
 
-# include "rt_types.h"
+/*
+** Must be run from gtk thread only!
+*/
 
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
-
-#endif
+int		srv_shutdown(t_rt *rt)
+{
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	return (srv_request(rt, "shutdown"));
+}
