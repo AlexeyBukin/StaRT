@@ -13,7 +13,7 @@
 #ifndef GPU_TYPES_H
 # define GPU_TYPES_H
 
-# include "rts.h"
+# include "rt_types.h"
 # include "mtl.h"
 # include "vlk.h"
 

@@ -13,7 +13,7 @@
 # ifndef GUI_H
 # define GUI_H
 
-# include "rts.h"
+# include "rt_types.h"
 
 int				gui_loop(t_rt *rt, int ac, char **av);
 int				gui_init(t_rt *rt);

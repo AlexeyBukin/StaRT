@@ -14,7 +14,7 @@
 # define CMD_H
 
 # include "srv_types.h"
-# include "rts.h"
+# include "rt_types.h"
 
 t_msg		cmd_parse(t_rt *rt, const char* request);
 
