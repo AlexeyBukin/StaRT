@@ -11,22 +11,83 @@
 /* ************************************************************************** */
 
 #include "rt.h"
+#include "rt.h"
+
 
 /*
 ** TODO: add parser
 ** TODO: add id-map pattern
 */
 
-t_msg		cmd_parse(t_rt *rt, const char* request)
+
+/*
+** work with string as single command, so need to manage it in one move
+**when we get word we try to:
+1) find out is it command ( else unknown command quit)
+1.1) extra funcs for each command for better err managment
+2) find out is it arg (if args is invalid - quit err invalid args)
+3) find out is it flags (ignore invalid flags)
+4) check out values associated with flags is it valid (if not - set default vals)
+*/
+
+int		get_one_word(t_word *param, char* str)
+{
+	int		i;
+	int		j;
+	// char	*str;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	j = 0;
+	param->w_ptr = str + sizeof(char) * i;
+	while (str[i] != ' ' && str[i] != '\0')
+	{
+		// next_word.w_ptr[i - j] = str[i];
+		i++;
+		j++;
+	}
+	param->l = j;
+	return (1);
+	// return (next_word);
+}
+
+void			parse_cmd_line(t_rt *rt, const char* str)
+{
+	(void)rt;
+	t_word	params[MAX_PARAMS];
+	char	*pstr;
+	int		i = 0;
+
+	pstr = (char *)str;
+	while (i < MAX_PARAMS && get_one_word(&params[i], pstr) != 0)
+	{
+		pstr = sizeof(char) * params[i].l + params[i].w_ptr;
+		write(1, params[i].w_ptr, params[i].l);
+		write(1, "\n", 1);
+		i++;
+	}
+	if (*pstr != '\0')
+		write(1, "fuck off\n", 9);//TODO: return err "too much args"
+	while (i < MAX_PARAMS)
+	{
+		params[i].l = 0;
+		i++;
+	}
+	//sent arr to validate params
+}
+
+t_msg		srv_parse_str(t_srv *srv, const char* request)
 {
 	t_msg	msg;
-	(void)rt;
 	msg.status = MSG_NONE;
 	if (request == NULL)
 		return ((t_msg){MSG_ERROR, "request is NULL pointer"});
 	if (ft_strcmp(request, "exit") == 0)
 	{
-		msg.str = ft_strdup("Closing connection. Have a nice day :)\n");
+		msg.str = ft_strdup("Closing connection. Have a nice day :) lol\n");
 		msg.status = MSG_EXIT;
 	}
 	else if (ft_strcmp(request, "shutdown") == 0)
@@ -36,11 +97,20 @@ t_msg		cmd_parse(t_rt *rt, const char* request)
 	}
 	else
 	{
-//		printf("str '%s' and '%s' are not the same\n", "exit", cline);
+		// write(1, "SOME OUTPUT\n", 12);
+//		printf("я ебу собак\n\n");
+		parse_cmd_line(srv->rt, request);
 		msg.str = ft_strdup(request);
+// 		msg.str = get_all_words(srv->rt, request);
 		msg.status = MSG_OK;
-//		return (msg);
-//		res = strdup("Unknown command. Try again.\n");
 	}
+// 	else
+// 	{
+// //		printf("str '%s' and '%s' are not the same\n", "exit", cline);
+// 		msg.str = ft_strdup(request);
+// 		msg.status = MSG_OK;
+// //		return (msg);
+// //		res = strdup("Unknown command. Try again.\n");
+// 	}
 	return (msg);
 }

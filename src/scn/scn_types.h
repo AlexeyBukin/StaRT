@@ -14,6 +14,7 @@
 # define SCN_TYPES_H
 
 # include "scn_objects.h"
+# define SIZE_STEP 16
 
 struct				s_cam
 {

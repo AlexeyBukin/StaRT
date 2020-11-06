@@ -39,11 +39,11 @@ enum e_obj_type
 	OBJ_GEOMETRY
 };
 
-struct				s_sphere
+typedef struct				s_sphere
 {
 	t_vec3			pos;
 	t_num			r;
-};
+}							t_sphere;
 
 struct				s_plane
 {

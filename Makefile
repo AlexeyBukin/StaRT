@@ -56,13 +56,23 @@ HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h        
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_parse.c             src/gui/gui_init.c              src/srv/srv_loop.c \
+SRC_SHARED	:= src/gui/gui_init.c              src/srv/srv_loop.c \
                src/err/rt_err.c                src/rt.c                        src/srv/srv_parse.c \
                src/err/rt_warn.c               src/scn/scn_init.c              src/srv/srv_request.c \
                src/gpu/gpu_buffer_load.c       src/srv/srv_ext.c               src/srv/srv_shutdown.c \
                src/gpu/gpu_init.c              src/srv/srv_ext_data.c          src/srv/srv_utils.c \
                src/gpu/gpu_kernel_run.c        src/srv/srv_init.c              src/vlk/vlk_init.c \
+               src/scn/scn_id.c \
+               src/scn/scn_add_sphere.c \
+               src/scn/plane.c \
+               src/scn/cone.c \
+               src/scn/cylinder.c \
+               src/scn/check_arguments.c \
+               src/cmd/cmd_parse.c \
+               src/cmd/cmd_valid.c \
+               src/cmd/add.c
 
+# SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
 
 OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))
@@ -76,7 +86,7 @@ all: $(NAME)
 # switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) build/mtl/libmtl.dylib
-	$(LINK) $(OBJ) -o $(NAME) -L build/mtl -lmtl
+	$(LINK) $(OBJ) -o $(NAME)  -L build/mtl -lmtl
 	zsh rt_school21_linking.sh
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)

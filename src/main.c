@@ -12,6 +12,8 @@
 
 #include "rt.h"
 
+#include "rt.h"
+
 int				main(int ac, char **av)
 {
 	GThread				*server_thread;
