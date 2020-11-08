@@ -70,7 +70,7 @@ SRC_SHARED	:= src/gui/gui_init.c              src/srv/srv_loop.c \
                src/scn/check_arguments.c \
                src/cmd/cmd_parse.c \
                src/cmd/cmd_valid.c \
-               src/cmd/add.c
+               src/cmd/cmd_add.c
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
