@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "rt.h"
-#include "rt.h"
-
 
 /*
 ** TODO: add parser
@@ -54,7 +52,7 @@ int		get_one_word(t_word *param, char* str)
 	// return (next_word);
 }
 
-void			parse_cmd_line(t_rt *rt, const char* str)
+int			parse_cmd_line(t_rt *rt, const char* str)
 {
 	(void)rt;
 	t_word	params[MAX_PARAMS];
@@ -65,18 +63,20 @@ void			parse_cmd_line(t_rt *rt, const char* str)
 	while (i < MAX_PARAMS && get_one_word(&params[i], pstr) != 0)
 	{
 		pstr = sizeof(char) * params[i].l + params[i].w_ptr;
-		write(1, params[i].w_ptr, params[i].l);
-		write(1, "\n", 1);
+//		write(1, params[i].w_ptr, params[i].l);
+//		write(1, "\n", 1);
 		i++;
 	}
 	if (*pstr != '\0')
-		write(1, "fuck off\n", 9);//TODO: return err "too much args"
+	{
+		return (-1);
+	}
 	while (i < MAX_PARAMS)
 	{
 		params[i].l = 0;
 		i++;
 	}
-	//sent arr to validate params
+	return (validate_all_components(rt, (t_word *)params));
 }
 
 t_msg		srv_parse_str(t_srv *srv, const char* request)
@@ -97,20 +97,10 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	}
 	else
 	{
-		// write(1, "SOME OUTPUT\n", 12);
-//		printf("я ебу собак\n\n");
-		parse_cmd_line(srv->rt, request);
+		if (parse_cmd_line(srv->rt, request) != -1)
+			;//OK
 		msg.str = ft_strdup(request);
-// 		msg.str = get_all_words(srv->rt, request);
 		msg.status = MSG_OK;
 	}
-// 	else
-// 	{
-// //		printf("str '%s' and '%s' are not the same\n", "exit", cline);
-// 		msg.str = ft_strdup(request);
-// 		msg.status = MSG_OK;
-// //		return (msg);
-// //		res = strdup("Unknown command. Try again.\n");
-// 	}
 	return (msg);
 }
