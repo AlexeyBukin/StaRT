@@ -69,7 +69,10 @@ int 			validate_all_components(t_rt *rt, t_word *cmd_l)
 
 	function_index = check_word(cmd_l[0], (t_word *)check, 4);
 	if (function_index == -1)
+	{
 		rt_err("validate_all_components(): command is invalid."
 			" Available commands: add, rm, set, ls.");
+		return(-1);
+	}
 	return (f[function_index](rt, cmd_l));
 }

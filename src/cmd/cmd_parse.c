@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/03 22:55:50 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/08 11:39:24 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	}
 	else
 	{
-		if (parse_cmd_line(srv->rt, request) != -1)
-			;//OK
+		// if (parse_cmd_line(srv->rt, request) != -1)
+		// 	;//OK
+		parse_cmd_line(srv->rt, request);
 		msg.str = ft_strdup(request);
 		msg.status = MSG_OK;
 	}
