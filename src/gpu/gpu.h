@@ -19,7 +19,7 @@
 ** TODO: manage platform definition
 */
 
-# define PLATFORM_MACOS
+//# define PLATFORM_MACOS
 
 int				gpu_init(t_rt *rt);
 int				gpu_buffer_load(t_rt *rt);

@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 19:14:38 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:11:19 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/09 02:27:06 by hush             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int				srv_ext_client_disconnect(t_srv *srv)
 	srv->client_str_size = 0;
 	srv->client_str_old_size = 0;
 
+//	rt_warn("Client disconnected\n");
 	return (0);
 }

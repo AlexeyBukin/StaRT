@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 19:14:38 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:23:27 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/09 02:51:15 by hush             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				srv_ext_client_update_str(t_srv *srv)
 	// read all available data into string 'client_str'
 	// mark that new data available
 	// client_str_size = client_old_size + n;
-	while ((rc = read(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1)) > 0)
+	while ((rc = recv(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1, MSG_DONTWAIT)) > 0)
 	{
 		srv->client_buff[rc] = '\0';
 		srv->client_str_size += rc;
