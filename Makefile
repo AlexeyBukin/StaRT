@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/09 02:13:54 by hush             ###   ########.fr        #
+#    Updated: 2020/11/09 17:32:48 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ BUILD_DIRS	= $(patsubst $(SRC_DIR)%, $(BUILD_DIR)%, $(SRC_DIRS))
 ### Libraries declarations
 LIB_FT = $(LIB)/ft/libft.a
 LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
-LIB_DEPENDENCY = $(LIB)/ft/libft.a
+LIB_DEPENDENCY = $(LIB_FT)
 
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
@@ -34,23 +34,27 @@ ifeq ($(UNAME_SYSTEM),Linux)
 	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)
 endif
 ifeq ($(UNAME_SYSTEM),Darwin)
-	GTK_BUNDLE   := gtk_bundle_42
-	GTK_INC_DIR   = $(GTK_BUNDLE)/include
-	GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
+GTK_BUNDLE   := gtk_bundle_42
+GTK_INC_DIR   = $(GTK_BUNDLE)/include
+GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
 
-	GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
+GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
                     -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
                     -I$(GTK_INC_DIR)/cairo
 
-	GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
+GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
                     -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
                     -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
                     -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
                     -lgobject-2.0 -lglib-2.0 -lintl
 
-    CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
-    LIB_FLAGS := $(LIB_FLAGS) $(MTL_FLAGS)
-    LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
+MTL_DYLIB := build/mtl/libmtl.dylib
+
+CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
+LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
+
+LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
+
 endif
 
 ### C Flags settings
@@ -93,8 +97,12 @@ all: $(NAME)
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
 ifeq ($(UNAME_SYSTEM),Darwin)
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
+	echo "makefile: making MacOS executable"
 	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
-	zsh rt_school21_linking.sh
+	sh rt_school21_linking.sh
+
+$(MTL_DYLIB):
+	make -C src/mtl
 endif
 ifeq ($(UNAME_SYSTEM),Linux)
 $(NAME): $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
@@ -130,40 +138,6 @@ $(LIB_FT):
 
 $(GTK_BUNDLE):
 	zsh rt_school21_get_bundle.sh
-
-#------------------------------------------#
-#----------- MTL_SWIFT_PART ---------------#
-#------------------------------------------#
-
-MTL_DIR			:= src/mtl
-MTL_BUILD		:= build/mtl
-
-MTL_DYLIB		= $(MTL_BUILD)/libmtl.dylib
-MTL_FLAGS		= -L $(MTL_BUILD) -lmtl
-
-MTL_INCLUDE			= -I $(MTL_DIR)
-MTL_INCLUDE_SWIFT	= -I $(MTL_BUILD)
-
-# TODO: collect using find
-MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift $(MTL_DIR)/mtl_texture.swift $(MTL_DIR)/mtl_buffer.swift
-MTL_MODULE_OBJ	= $(MTL_MODULE_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.swiftmodule)
-
-# TODO: collect using find
-MTL_SRC			= $(MTL_DIR)/mtl.swift $(MTL_MODULE_SRC)
-MTL_OBJ			= $(MTL_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.o)
-
-.PRECIOUS: $(MTL_MODULE_OBJ)
-
-$(MTL_DYLIB): $(BUILD_DIRS) $(MTL_OBJ)
-	swiftc $(MTL_INCLUDE_SWIFT) -o $(MTL_DYLIB) -emit-library $(MTL_OBJ) -lz
-
-$(MTL_BUILD)/%.o: $(MTL_DIR)/%.swift $(MTL_MODULE_OBJ)
-	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@
-	@touch $@
-
-$(MTL_BUILD)/%.swiftmodule: $(MTL_DIR)/%.swift
-	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@ -emit-module -module-link-name $(patsubst $(MTL_DIR)/%.swift,%,$<)
-	@touch $@
 
 #------------------------------------------#
 #----------- DEMO_PART      ---------------#
