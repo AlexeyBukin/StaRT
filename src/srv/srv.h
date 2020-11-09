@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 18:11:13 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # define SRV_HELLO "Server is ready. Type 'exit' to close connection.\n"
 # define SRV_BUSY  "Server is currently used by another session/user. Try later.\n"
 # define SRV_ERR   "Some error caused server to close connection. Press 'Enter' to continue.\n"
-
-# define SRV_PORT 8080
 
 /*
 ** srv_process.c

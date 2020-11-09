@@ -23,7 +23,7 @@
 # include "scn.h"
 # include "cmd.h"
 
-//# define PLATFORM_MACOS
+# define PLATFORM_MACOS
 
 int				rt_init(t_rt **rt);
 int				rt_deinit(t_rt *rt);
