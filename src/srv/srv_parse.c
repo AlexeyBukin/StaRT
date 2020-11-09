@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srv_process.c                                      :+:      :+:    :+:   */
+/*   srv_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:09:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:16:07 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/09 22:49:41 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,12 @@
 t_msg		srv_parse_str(t_srv *srv, const char* request)
 {
 	t_msg	msg;
-	(void)srv;
-//	(void)str;
-//	(void)response;
-//	return (0);
-
-//	int		recode;
-//	char	*res;
-
 	msg.status = MSG_NONE;
 	if (request == NULL)
 		return ((t_msg){MSG_ERROR, "request is NULL pointer"});
 	if (ft_strcmp(request, "exit") == 0)
 	{
-		msg.str = ft_strdup("Closing connection. Have a nice day :)\n");
+		msg.str = ft_strdup("Closing connection. Have a nice day :) lol\n");
 		msg.status = MSG_EXIT;
 	}
 	else if (ft_strcmp(request, "shutdown") == 0)
@@ -38,11 +30,10 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	}
 	else
 	{
-//		printf("str '%s' and '%s' are not the same\n", "exit", cline);
-		msg.str = ft_strdup(request);
-		msg.status = MSG_OK;
-//		return (msg);
-//		res = strdup("Unknown command. Try again.\n");
+		// if (parse_cmd_line(srv->rt, request) != -1)
+		// 	;//OK
+		msg = cmd_parse_line(srv->rt, request);
+		// msg.status = MSG_OK;
 	}
 	return (msg);
 }

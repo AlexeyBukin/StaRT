@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.h                                              :+:      :+:    :+:   */
+/*   cmd_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 15:57:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 22:18:27 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 22:55:50 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERR_H
-# define ERR_H
+#include "rt.h"
 
-# include "srv.h"
+uint				scn_id()
+{
+	static uint		id = 0;
 
-t_msg       msg_err(char *msg);
-
-int			rt_err(char *msg);
-int			rt_error(char *msg, int ecode);
-
-int			rt_warn(char *msg);
-int			rt_warning(char *msg, int ecode);
-
-#endif
+	return (++id);
+}

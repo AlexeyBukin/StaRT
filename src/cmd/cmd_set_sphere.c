@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.h                                              :+:      :+:    :+:   */
+/*   cmd_set_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 15:57:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 22:18:27 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/09 23:44:09 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/09 23:44:20 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERR_H
-# define ERR_H
+t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere)
+{
+	t_msg				result;
+	
+	result = (t_msg){"Added sphere", MSG_OK};
+	
+	return (result);
+}
 
-# include "srv.h"
-
-t_msg       msg_err(char *msg);
-
-int			rt_err(char *msg);
-int			rt_error(char *msg, int ecode);
-
-int			rt_warn(char *msg);
-int			rt_warning(char *msg, int ecode);
-
-#endif
+t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere)
+{
+	t_msg				result;
+	
+	result = (t_msg){"Added sphere", MSG_OK};
+	
+	return (result);
+}

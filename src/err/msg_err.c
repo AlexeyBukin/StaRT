@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.h                                              :+:      :+:    :+:   */
+/*   msg_err.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 15:57:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 22:18:27 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/09 22:14:55 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/09 22:16:03 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERR_H
-# define ERR_H
+#include "rt.h"
 
-# include "srv.h"
-
-t_msg       msg_err(char *msg);
-
-int			rt_err(char *msg);
-int			rt_error(char *msg, int ecode);
-
-int			rt_warn(char *msg);
-int			rt_warning(char *msg, int ecode);
-
-#endif
+t_msg       msg_err(char *str)
+{
+    return((t_msg){str, MSG_ERROR});
+}
