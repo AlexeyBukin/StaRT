@@ -24,6 +24,7 @@
 /*
 ** GUI calls shpuld call this request func
 ** wait for writing to socket
+** TODO: rewrite request part
 */
 
 int		srv_request(t_rt *rt, char *str)
