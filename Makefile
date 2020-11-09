@@ -57,15 +57,15 @@ src/scn/scn_map.h
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main*" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/gui/gui_init.c              src/srv/srv_ext_data.c \
-               src/cmd/cmd_parse.c             src/rt.c                        src/srv/srv_init.c \
-               src/cmd/cmd_valid.c             src/scn/scn_add_sphere.c        src/srv/srv_loop.c \
-               src/err/rt_err.c                src/scn/scn_check_arguments.c   src/srv/srv_parse.c \
-               src/err/rt_warn.c               src/scn/scn_id.c                src/srv/srv_request.c \
-               src/gpu/gpu_buffer_load.c       src/scn/scn_init.c              src/srv/srv_shutdown.c \
-               src/gpu/gpu_init.c              src/scn/scn_set_sphere.c        src/srv/srv_utils.c \
-               src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c               src/vlk/vlk_init.c \
-               src/scn/scn_set_plane.c
+SRC_SHARED	:= src/cmd/cmd_add.c               src/rt.c                        src/srv/srv_ext_data.c \
+src/cmd/cmd_parse.c             src/scn/scn_add_sphere.c        src/srv/srv_init.c \
+src/cmd/cmd_valid.c             src/scn/scn_check_arguments.c   src/srv/srv_loop.c \
+src/err/rt_err.c                src/scn/scn_id.c                src/srv/srv_parse.c \
+src/err/rt_warn.c               src/scn/scn_init.c              src/srv/srv_request.c \
+src/gpu/gpu_buffer_load.c       src/scn/scn_map.c               src/srv/srv_shutdown.c \
+src/gpu/gpu_init.c              src/scn/scn_set_plane.c         src/srv/srv_utils.c \
+src/gpu/gpu_kernel_run.c        src/scn/scn_set_sphere.c        src/vlk/vlk_init.c \
+src/gui/gui_init.c              src/srv/srv_ext.c \
 
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
@@ -191,3 +191,8 @@ $(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
 ### ERR Demo
 $(DEMO_DIR)/err/err: $(DEMO_DIRS)
 	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@
+
+### Scene demo
+$(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
