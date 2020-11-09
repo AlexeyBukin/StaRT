@@ -10,33 +10,34 @@
 **		word[0] was parsed;
 **		next commands: validate
 */
+ /// '<>'
 
-// int		read_vec(char **source, t_vec3 *res)
-// {
-// 	char		*text;
+#define VEC_MIN_SYMBOLS
 
-// 	if (source == NULL || res == NULL)
-// 		return (ft_puterror(1, "Entered NULL pointers"));
-// 	if ((text = *source) == NULL)
-// 		return (ft_puterror(2, "Entered NULL pointers"));
-// 	if (*text != '<')
-// 		return (ft_puterror(3, "Syntax error: Expected \'<\'"));
-// 	text++;
-// 	res->x = read_num(&text);
-// 	if (read_comma(&text) < 0)
-// 		return (ft_puterror(4, "Syntax error: Expected \',\'"));
-// 	res->y = read_num(&text);
-// 	if (read_comma(&text) < 0)
-// 		return (ft_puterror(5, "Syntax error: Expected \',\'"));
-// 	res->z = read_num(&text);
-// 	if (*text != '>')
-// 		return (ft_puterror(6, "Syntax error: Expected \'>\'"));
-// 	text++;
-// 	if (vec_is_inf(*res))
-// 		return (ft_puterror(7, "Parse error: vector is infinite"));
-// 	*source = text;
-// 	return (0);
-// }
+int		read_vec(t_word word, t_vec3 *res)
+{
+	char		*text;
+
+	if (word.w_ptr == NULL || res == NULL)
+		return (rt_err("Entered NULL pointers"));
+	if (word.w_ptr[0] != '<')
+		return (rt_err("Syntax error: Expected \'<\'"));
+	text++;
+	res->x = read_num(&text);
+	if (read_comma(&text) < 0)
+		return (ft_puterror(4, "Syntax error: Expected \',\'"));
+	res->y = read_num(&text);
+	if (read_comma(&text) < 0)
+		return (ft_puterror(5, "Syntax error: Expected \',\'"));
+	res->z = read_num(&text);
+	if (*text != '>')
+		return (ft_puterror(6, "Syntax error: Expected \'>\'"));
+	text++;
+	if (vec_is_inf(*res))
+		return (ft_puterror(7, "Parse error: vector is infinite"));
+	*source = text;
+	return (0);
+}
 
 int			cmd_parse_obj(t_rt *rt, t_word *w)
 {
@@ -45,7 +46,7 @@ int			cmd_parse_obj(t_rt *rt, t_word *w)
 	ft_putstr("object is valid: ");
 	ft_putendl(w[1].w_ptr);
 	// t_vec3		pos = parse_pos()
-	// scn_add_sphere(rt->scene, )
+	// scn_(rt->scene, )
 	return (0);
 }
 
@@ -75,8 +76,8 @@ t_vec3		parse_pos(t_word *w)
 	word_nbr = find_flag(w, "-p");
 	if (word_nbr != 0)
 	{
-		pos = (t_vec3){1.0, 1.0, 1.0};
-		// read_vec(&(w[word_nbr].w_ptr + 2), &pos);
+		// pos = (t_vec3){1.0, 1.0, 1.0};
+		read_vec(&(w[word_nbr].w_ptr + 2), &pos);
 	}
 	return(pos);
 }
@@ -118,11 +119,9 @@ int			cmd_parse_sphere(t_rt *rt, t_word *w)//TODO: catch segfault...
 	t_vec3		pos = parse_pos(w);
 	float		rad = parse_rad(w);
 	uint		mat = parse_mat(w, rt);
-	scn_add_sphere(rt->scene, pos, rad, mat);
 	return (0);
 }
 
-//int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid)
 
 //int		scn_add_material(t_scn *scn, t_vec3[] arr_w_vecs, t_scal[] arr_w_scals)
 
@@ -136,6 +135,8 @@ int			cmd_parse_sphere(t_rt *rt, t_word *w)//TODO: catch segfault...
 **		need to be rewrite, and carefully - every word name
 **		should match to function
 */
+
+// #define KW_MATERIAL "material"
 
 int			cmd_add(t_rt *rt, t_word *w)
 {
