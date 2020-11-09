@@ -6,7 +6,7 @@
 #    By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 16:52:07 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/09 17:01:44 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/09 17:23:18 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ MTL_OBJ			= $(MTL_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.o)
 
 .PRECIOUS: $(MTL_MODULE_OBJ)
 
-# all: $(MTL_DYLIB)
-# 	echo "here"
+all: $(MTL_DYLIB)
 
 $(MTL_DYLIB): $(MTL_BUILD) $(MTL_OBJ)
 	swiftc $(MTL_INCLUDE_SWIFT) -o $(MTL_DYLIB) -emit-library $(MTL_OBJ) -lz
