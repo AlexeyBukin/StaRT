@@ -15,12 +15,38 @@
 
 # include "scn_types.h"
 
+/*
+**		scn_init
+*/
+
 int		scn_init(t_rt *rt);
+
+/*
+**		scn_id
+*/
+
 uint	scn_id();
-int		check_arguments(t_scn *scn, uint mid);
+
+/*
+**		scn_check_arguments
+*/
+
+int		scn_check_arguments(t_scn *scn, uint mid);
+t_obj	*scn_obj_by_id(t_scn *scn, uint id);
+int		scn_check_mid(t_scn *scn, uint mid);
+int		set_obj_mid(t_scn *scn, uint obj_id, uint mid);
+
+/*
+**		scn_add_sphere
+*/
+
 int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid);
-int		scn_add_plane(t_scn *scn, t_vec3 n, float d, uint mid);
-int		scn_add_cone(t_scn *scn, t_vec3 pos, float r, t_vec3 cap, uint mid);
-int		scn_add_cylinder(t_scn *scn, t_vec3 pos, t_vec3 cap, float r, uint mid);
+
+/*
+**		scn_set_sphere
+*/
+
+int		scn_set_sphere_radius(t_scn *scn, uint sphere_id, float r);
+
 
 #endif

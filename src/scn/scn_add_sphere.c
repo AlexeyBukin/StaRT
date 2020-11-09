@@ -4,6 +4,8 @@
 
 #include "rt.h"
 
+//TODO replace with scn_set_sphere
+
 int		make_sphere(t_obj *obj, t_vec3 pos, float r)
 {
 	t_sphere	sphere;
@@ -27,7 +29,8 @@ int		make_sphere(t_obj *obj, t_vec3 pos, float r)
 
 int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid)
 {
-	check_arguments(scn, mid);
+	scn_check_arguments(scn, mid);
+	printf("obj num = %d, obj_max = %d\n", scn->objects_num, scn->objects_max);
 	if (make_sphere(&scn->objects[scn->objects_num], pos, r) == -1)
 		return (-1);
 	scn->objects[scn->objects_num].material_id = mid;

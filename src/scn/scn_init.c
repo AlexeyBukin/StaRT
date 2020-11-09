@@ -23,6 +23,5 @@ int				scn_init(t_rt *rt)
 		return (rt_err("scn_init(): rt is NULL pointer"));
 	if ((rt->scene = ft_memalloc(sizeof(t_scn))) == NULL)
 		return (rt_err("scn_init(): malloc returned NULL pointer"));
-	rt->scene->objects_max = 0;
 	return (0);
 }

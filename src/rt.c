@@ -22,7 +22,7 @@ int				rt_init(t_rt **rt)
 	if (gpu_init(*rt))
 		return (rt_err("gpu_init() fail"));
 	if (scn_init(*rt))
-		return (rt_err("gpu_init() fail"));
+		return (rt_err("scn_init() fail"));
 	return (0);
 }
 
