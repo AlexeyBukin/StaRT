@@ -12,8 +12,6 @@
 
 #include "rt.h"
 
-# define SRV_PORT 8080
-
 int				srv_init(t_rt *rt)
 {
 	t_srv		*server;
