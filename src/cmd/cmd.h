@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 01:33:25 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 
 # include "srv_types.h"
 # include "rt_types.h"
-
-# define MAX_PARAMS		8
-
-typedef struct		s_parse_fw
-{
-	t_msg			(*func)(t_rt *, char *);
-	char			*word;
-}					t_parse_fw;
-
+# include "cmd_types.h"
 
 /*
 **				cmd_add
@@ -33,13 +25,6 @@ typedef struct		s_parse_fw
 # define KW_SPHERE "sphere"
 
 int				cmd_parse_add(t_rt *rt, char *str);
-
-/*
-**				cmd_valid
-*/
-
-int 			validate_all_components(t_rt *rt, t_word *cmd_l);
-int				check_word(t_word w, t_word *check, int how_many_args);
 
 /*
 **				cmd_parse
@@ -58,5 +43,25 @@ t_msg			cmd_parse(t_rt *rt, const char* request);
 */
 
 t_msg			cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len);
+
+/*
+**				cmd_set_sphere
+*/
+
+t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_radius(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_material(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_name(char **source, t_sphere *sphere);
+
+/*
+**				cmd_read
+*/
+
+int						cmd_read_comma(char **str);
+int						cmd_read_space(char **source);
+int						cmd_read_space_req(char **source);
+
+t_num					cmd_read_num(char **source);
+int						cmd_read_vec(char **source, t_vec3 *vec);
 
 #endif

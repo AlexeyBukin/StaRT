@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.h                                              :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/07 15:57:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 01:06:28 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 00:52:53 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERR_H
-# define ERR_H
+#ifndef CMD_TYPES_H
+# define CMD_TYPES_H
 
-# include "srv.h"
+# include "srv_types.h"
+# include "rt_types.h"
 
-t_msg       msg_err(char *msg);
-t_msg       msg_ok(char *str);
-
-int			rt_err(char *msg);
-int			rt_error(char *msg, int ecode);
-
-int			rt_warn(char *msg);
-int			rt_warning(char *msg, int ecode);
+typedef struct		s_parse_fw
+{
+	t_msg			(*func)(t_rt *, char *);
+	char			*word;
+}					t_parse_fw;
 
 #endif

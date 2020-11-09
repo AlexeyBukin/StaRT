@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   msg_ok.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:24:27 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/10 01:05:10 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 01:05:10 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#include "rt.h"
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "err.h"
-# include "rt_types.h"
-# include "gui.h"
-# include "gpu.h"
-# include "srv.h"
-# include "scn.h"
-# include "cmd.h"
-
-//# define PLATFORM_MACOS
-
-int				rt_init(t_rt **rt);
-int				rt_deinit(t_rt *rt);
-
-#endif
+t_msg       msg_ok(char *str)
+{
+	//TODO add debug verbose func
+	//rt_debug(str);
+    return((t_msg){str, MSG_OK});
+}
