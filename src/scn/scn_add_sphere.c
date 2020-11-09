@@ -8,6 +8,10 @@ int		make_sphere(t_obj *obj, t_vec3 pos, float r)
 {
 	t_sphere	sphere;
 
+	if (obj == NULL)
+	{
+		rt_err("scn_add_sphere(): obj is NULL pointer");
+	}
 	if (r <= 0)
 	{
 		rt_err("scn_add_sphere(): make_sphere(): radius is less than zero!");

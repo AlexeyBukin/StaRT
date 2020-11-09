@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 18:25:33 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/04 21:04:23 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/09 16:13:44 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int				rt_init(t_rt **rt)
 	if (*rt == NULL)
 		return (rt_err("rt malloc fail"));
 	if (gpu_init(*rt))
+		return (rt_err("gpu_init() fail"));
+	if (scn_init(*rt))
 		return (rt_err("gpu_init() fail"));
 	return (0);
 }

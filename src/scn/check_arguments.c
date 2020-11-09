@@ -26,15 +26,15 @@ static int		check_mid(struct s_mat *materials, uint materials_num, uint mid)
 
 static int 	prepare_scn(t_scn *scn)
 {
-	if (!scn)
+	if (scn == NULL)
 	{
-		rt_err("prepare_scn(): rt is NULL pointer");
+		rt_err("prepare_scn(): scn is NULL pointer");
 		return (-1);
 	}
-	if (scn->objects_max != scn->objects_num)
+	if (scn->objects_max >= scn->objects_num)
 		return (0);
-	scn->objects = ft_realloc(scn->objects, sizeof(t_obj) * scn->objects_num,
-							  sizeof(t_obj) * (scn->objects_num + SIZE_STEP));
+	scn->objects = ft_realloc(scn->objects, sizeof(t_obj) * scn->objects_max,
+							  sizeof(t_obj) * (scn->objects_max + SIZE_STEP));
 	scn->objects_max += SIZE_STEP;
 	if (scn->objects == NULL)
 	{
