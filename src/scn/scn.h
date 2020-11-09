@@ -37,16 +37,12 @@ int		scn_check_mid(t_scn *scn, uint mid);
 int		set_obj_mid(t_scn *scn, uint obj_id, uint mid);
 
 /*
-**		scn_add_sphere
-*/
-
-int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid);
-
-/*
 **		scn_set_sphere
 */
 
 int		scn_set_sphere_radius(t_scn *scn, uint sphere_id, float r);
+//we don't need this function anymore, but for compiling...
+int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid);
 
 
 #endif

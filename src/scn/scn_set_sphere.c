@@ -48,3 +48,12 @@ int		scn_set_sphere_mid(t_scn *scn, uint obj_id, uint mid)
 {
 	return (set_obj_mid(scn, obj_id, mid));
 }
+
+int		scn_add_sphere(t_scn *scn, t_vec3 pos, float r, uint mid)
+{
+	(void)scn;
+	(void)pos;
+	(void)r;
+	(void)mid;
+	return (0);
+}
