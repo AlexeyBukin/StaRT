@@ -56,8 +56,11 @@ int			find_flag(t_word *w, char *flag)
 	i = 0;
 	while (i < MAX_PARAMS)
 	{
-		if (ft_strncmp(w[i].w_ptr, flag, ft_strlen(flag)) == 0)
-			return (i);
+		if (w[i].l != 0)
+		{
+			if (ft_strncmp(w[i].w_ptr, flag, ft_strlen(flag)) == 0)
+				return (i);
+		}
 		i++;
 	}
 	return (0);

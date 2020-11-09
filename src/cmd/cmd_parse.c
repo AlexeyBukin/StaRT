@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/08 11:39:24 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/09 15:45:16 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int			parse_cmd_line(t_rt *rt, const char* str)
 	pstr = (char *)str;
 	while (i < MAX_PARAMS && get_one_word(&params[i], pstr) != 0)
 	{
-		pstr = sizeof(char) * params[i].l + params[i].w_ptr;
+		pstr = params[i].w_ptr + params[i].l;
 //		write(1, params[i].w_ptr, params[i].l);
 //		write(1, "\n", 1);
 		i++;
