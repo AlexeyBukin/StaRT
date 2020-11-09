@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   cmd_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/26 18:26:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/03 22:55:50 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#include "rt.h"
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "err.h"
-# include "rts.h"
-# include "rt_scene.h"
-# include "gui.h"
-# include "gpu.h"
-# include "srv.h"
+uint				scn_id()
+{
+	static uint		id = 0;
 
-int				rt_init(t_rt **rt);
-int				rt_deinit(t_rt *rt);
-
-#endif
+	return (++id);
+}

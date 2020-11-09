@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.c                                               :+:      :+:    :+:   */
+/*   scn_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 18:25:33 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 16:13:44 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/09 16:16:50 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int				rt_init(t_rt **rt)
-{
-	if (rt == NULL)
-		return (rt_err("rt is NULL pointer"));
-	*rt = (t_rt*)malloc(sizeof(t_rt));
-	if (*rt == NULL)
-		return (rt_err("rt malloc fail"));
-	if (gpu_init(*rt))
-		return (rt_err("gpu_init() fail"));
-	if (scn_init(*rt))
-		return (rt_err("gpu_init() fail"));
-	return (0);
-}
+/*
+** TODO: add parser
+** TODO: add id-map pattern
+*/
 
-int				rt_deinit(t_rt *rt)
+int				scn_init(t_rt *rt)
 {
 	if (rt == NULL)
-		return (rt_err("rt is NULL pointer"));
-	free(rt);
+		return (rt_err("scn_init(): rt is NULL pointer"));
+	if ((rt->scene = ft_memalloc(sizeof(t_scn))) == NULL)
+		return (rt_err("scn_init(): malloc returned NULL pointer"));
+	rt->scene->objects_max = 0;
 	return (0);
 }

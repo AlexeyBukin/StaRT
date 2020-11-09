@@ -29,10 +29,11 @@ public func mtl_init_swift() -> UnsafeRawPointer
 }
 
 @_cdecl("mtl_lib_load_source")
-public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: UnsafePointer<CChar>) -> Int32
+public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: UnsafePointer<CChar>?) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	return (sm.loadLibrary(source: String(cString: libsrcptr)))
+	guard libsrcptr != nil else { return (Int32(-1)) }
+	return (sm.loadLibrary(source: String(cString: libsrcptr!)))
 }
 
 /* TEXTURE PART */
