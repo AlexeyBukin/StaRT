@@ -15,5 +15,5 @@
 t_msg       msg_err(char *str)
 {
 	rt_err(str);
-    return((t_msg){str, MSG_ERROR});
+    return((t_msg){MSG_ERROR, str});
 }

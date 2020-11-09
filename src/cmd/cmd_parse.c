@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:37:06 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,33 @@
 **  TODO: fill arr in cmd_parse_add
 */
 
-t_msg					cmd_parse_add(t_rt *rt, const char *source)
+t_msg					cmd_parse_add(t_rt *rt, char *source)
 {
 	static t_parse_fw	arr[CMD_ADD_NUM] =
 	{(t_parse_fw){cmd_add_sphere, KW_SPHERE}};
 
-	if (rt == NULL || str == NULL)
-		return ((t_msg){"Argument is NULL pointer", MSG_ERROR});
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
 	return (cmd_parse_tree(rt, source, arr, CMD_MAIN_NUM));
 }
 
-t_msg					cmd_parse_ls(t_rt *rt, const char *source)
+t_msg					cmd_parse_ls(t_rt *rt, char *source)
 {
 	static t_parse_fw	arr[CMD_LS_NUM] =
-	{(t_parse_fw){cmd_ls_scene, KW_SCENE}, (t_parse_fw){cmd_ls_sphere, KW_SPHERE}};
+	{(t_parse_fw){&cmd_ls_scene, KW_SCENE}, (t_parse_fw){&cmd_ls_sphere, KW_SPHERE}};
 
-	if (rt == NULL || str == NULL)
-		return ((t_msg){"Argument is NULL pointer", MSG_ERROR});
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
 	return (cmd_parse_tree(rt, source, arr, CMD_LS_NUM));
 }
 
-t_msg					cmd_parse_line(t_rt *rt, const char *source)
+t_msg					cmd_parse_line(t_rt *rt, char *source)
 {
 	static t_parse_fw	arr[CMD_MAIN_NUM] =
-	{(t_parse_fw){cmd_parse_add, KW_ADD}, (t_parse_fw){cmd_parse_ls, KW_LS},
-	(t_parse_fw){cmd_parse_rm, KW_RM}, (t_parse_fw){cmd_parse_set, KW_SET}};
+	{(t_parse_fw){&cmd_parse_add, KW_ADD}, (t_parse_fw){&cmd_parse_ls, KW_LS},
+	(t_parse_fw){&cmd_parse_rm, KW_RM}, (t_parse_fw){&cmd_parse_set, KW_SET}};
 
-	if (rt == NULL || str == NULL)
-		return ((t_msg){"Argument is NULL pointer", MSG_ERROR});
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
 	return (cmd_parse_tree(rt, source, arr, CMD_MAIN_NUM));
 }

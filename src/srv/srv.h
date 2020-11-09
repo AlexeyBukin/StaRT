@@ -27,6 +27,8 @@
 # define SRV_BUSY  "Server is currently used by another session/user. Try later.\n"
 # define SRV_ERR   "Some error caused server to close connection. Press 'Enter' to continue.\n"
 
+#define SRV_PORT 8080
+
 /*
 ** srv_process.c
 */

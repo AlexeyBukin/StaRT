@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 23:20:28 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/10 01:14:59 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:22:06 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_msg					cmd_add_sphere(t_rt *rt, char *source)
 		result = parse_func(&source, sphere);
 		if (result.status == MSG_ERROR)
 			return (result);
-		if (cmd_parse_space_req(&source))
+		if (cmd_read_space_req(&source))
 			return (msg_err("Expected \' \'"));
 	}
 	return (msg_ok("Added sphere"));

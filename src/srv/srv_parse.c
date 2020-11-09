@@ -32,7 +32,7 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	{
 		// if (parse_cmd_line(srv->rt, request) != -1)
 		// 	;//OK
-		msg = cmd_parse_line(srv->rt, request);
+		msg = cmd_parse_line(srv->rt, (char *)request);
 		// msg.status = MSG_OK;
 	}
 	return (msg);
