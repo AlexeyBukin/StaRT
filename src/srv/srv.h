@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 04:52:55 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 10:19:54 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,16 @@ int					srv_process_line(t_srv *srv, char *str, char **response);
 int					srv_init(t_rt *rt);
 
 /*
-** srv_shutdown.c
+** srv_deinit.c
 */
 
-int					srv_shutdown(t_rt *rt);
+int					srv_deinit(t_rt *rt);
 
 /*
 ** srv_loop.c
 */
 
 void*				srv_loop(void* rt_pointer);
-
-/*
-** srv_request.c
-*/
-
-int					srv_request(t_rt *rt, char *str);
 
 /*
 ** srv_ext.c
@@ -89,6 +83,7 @@ t_msg				srv_parse_str(t_srv *srv, const char* request);
 ** srv_utils.c
 */
 
+void				srv_quit_gtk_app(t_rt *rt);
 int					msleep(long msec);
 void				*null(int a);
 

@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:44:27 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 08:57:50 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int				gui_init(t_rt *rt)
 	rt->app = gtk_application_new ("ru.school-21.start", G_APPLICATION_FLAGS_NONE);
 	if (g_signal_connect (rt->app, "activate", G_CALLBACK (activate), NULL) <= 0)
 		return (rt_err("Cannot connect \'activate\' signal to rt->app"));
+	rt->context = g_main_context_default();
 //	if (g_signal_connect (rt->app, "handle", G_CALLBACK (activate), rt) <= 0)
 //		return (rt_err("Cannot connect \'activate\' signal to rt->app"));
 //	g_application_add_main_option_entries()
