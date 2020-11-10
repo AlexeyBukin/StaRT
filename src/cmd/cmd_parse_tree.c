@@ -15,11 +15,9 @@
 t_msg			cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len)
 {	
 	int			i;
-	t_parse_fw	curr;
 
 	if (rt == NULL || str == NULL || arr == NULL)
 		return (msg_err("Entered NULL pointers"));
-	curr = (t_parse_fw){NULL, NULL};
 	i = 0;
 	while (i < len)
 	{

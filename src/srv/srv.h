@@ -26,6 +26,8 @@
 # define SRV_HELLO "Server is ready. Type 'exit' to close connection.\n"
 # define SRV_BUSY  "Server is currently used by another session/user. Try later.\n"
 # define SRV_ERR   "Some error caused server to close connection.\n"
+# define SRV_EXIT  "Closing connection. Have a nice day :)"
+# define SRV_SHUT  "Shutting down..."
 
 #define SRV_PORT 8080
 
