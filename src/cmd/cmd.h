@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 22:49:00 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/10 07:37:39 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,7 @@
 
 # include "srv_types.h"
 # include "rt_types.h"
-
-# define MAX_PARAMS		8
-
-typedef struct		s_parse_fw
-{
-	t_msg			(*func)(t_rt *, char *);
-	char			*word;
-}					t_parse_fw;
-
+# include "cmd_types.h"
 
 /*
 **				cmd_add
@@ -31,15 +23,21 @@ typedef struct		s_parse_fw
 
 # define CMD_ADD_NUM 1
 # define KW_SPHERE "sphere"
+# define KW_SCENE "scene"
 
-int				cmd_parse_add(t_rt *rt, char *str);
+t_msg					cmd_parse_add(t_rt *rt, char *source);
+
+#define CMD_LS_NUM 2
+t_msg					cmd_parse_rm(t_rt *rt, char *source);
+t_msg					cmd_parse_set(t_rt *rt, char *source);
+t_msg					cmd_parse_ls(t_rt *rt, char *source);
 
 /*
-**				cmd_valid
+**				cmd_ls
 */
 
-int 			validate_all_components(t_rt *rt, t_word *cmd_l);
-int				check_word(t_word w, t_word *check, int how_many_args);
+t_msg					cmd_ls_scene(t_rt *rt, char *source);
+t_msg					cmd_ls_sphere(t_rt *rt, char *source);
 
 /*
 **				cmd_parse
@@ -51,12 +49,42 @@ int				check_word(t_word w, t_word *check, int how_many_args);
 #define KW_RM "rm"
 #define KW_SET "set"
 
-t_msg			cmd_parse(t_rt *rt, const char* request);
+
+t_msg					cmd_parse_line(t_rt *rt, char *source);
 
 /*
 **				cmd_parse_tree
 */
 
-t_msg			cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len);
+t_msg					cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len);
+
+/*
+**				cmd_add
+*/
+
+t_msg					cmd_add_sphere(t_rt *rt, char *source);
+
+/*
+**				cmd_set_sphere
+*/
+
+t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_radius(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_material(char **source, t_sphere *sphere);
+t_msg					cmd_set_sphere_name(char **source, t_sphere *sphere);
+
+/*
+**				cmd_read
+*/
+
+int						cmd_read_comma(char **str);
+int						cmd_read_space(char **source);
+int						cmd_read_space_req(char **source);
+int						cmd_read_string(char **source, char **dest);
+int						cmd_read_id_name(t_rt *rt, char **source, uint *id);
+
+int						cmd_read_num(char **source, t_num *num);
+int						cmd_read_vec(char **source, t_vec3 *vec);
+int						cmd_read_uint(char **source, uint *num);
 
 #endif

@@ -24,7 +24,8 @@ int				main(int ac, char **av)
 	if (gui_init(rt))
 		return (rt_error("Cannot init GUI", 0));
 	// add thread with server
-	srv_init(rt);
+	if (srv_init(rt))
+		return (rt_error("Cannot init server", 0));
 	server_thread = g_thread_new(NULL, srv_loop, (gpointer)rt);
 
 	if (gui_loop(rt, ac, av))
