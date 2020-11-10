@@ -72,7 +72,8 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/srv/srv_types.h \
 src/err/err.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h \
 src/gpu/gpu.h           src/rt.h                src/scn/scn_types.h \
-src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h 
+src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h \
+src/scn/scn_map.h
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
@@ -151,41 +152,48 @@ $(GTK_BUNDLE):
 #----------- DEMO_PART      ---------------#
 #------------------------------------------#
 
-# DEMO_DIR 		:= demo
-# DEMO_COMPILE 	= gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
-# DEMO_DIRS		= $(patsubst $(SRC_DIR)%, $(DEMO_DIR)%, $(SRC_DIRS))
-#
-# demo_clean:
-# 	rm -rf $(DEMO_DIR)
-#
-# $(DEMO_DIRS):
-# 	@mkdir -vp $(DEMO_DIRS)
-#
-# ### MTL DEMOS
-# DEMO_MTL = demo/gpu/mtl
-#
-# $(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
-# 	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
-#
-# ### GPU DEMOS
-# DEMO_GPU = $(DEMO_DIR)/gpu
-#
-# $(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
-# 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
-# 	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
-#
-# ### GUI DEMOS
-# DEMO_GUI = $(DEMO_DIR)/gui
-#
-# $(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
-# 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
-# 	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
-#
-# ### Server Demo
-# $(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
-# 	$(DEMO_COMPILE) src/srv/srv_init.c src/srv/srv_loop.c src/srv/srv.c.demo src/err/*.c -o $@
-# 	zsh rt_school21_linking.sh $(DEMO_DIR)/srv/srv
-#
-# ### ERR Demo
-# $(DEMO_DIR)/err/err: $(DEMO_DIRS)
-# 	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@
+DEMO_DIR 		:= demo
+DEMO_COMPILE 	= gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
+DEMO_DIRS		= $(patsubst $(SRC_DIR)%, $(DEMO_DIR)%, $(SRC_DIRS))
+
+demo_clean:
+	rm -rf $(DEMO_DIR)
+
+$(DEMO_DIRS):
+	@mkdir -vp $(DEMO_DIRS)
+
+### MTL DEMOS
+DEMO_MTL = demo/gpu/mtl
+
+$(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
+	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
+
+### GPU DEMOS
+DEMO_GPU = $(DEMO_DIR)/gpu
+
+$(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
+
+### GUI DEMOS
+DEMO_GUI = $(DEMO_DIR)/gui
+
+$(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
+
+### Server Demo
+$(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/srv/srv_init.c src/srv/srv_loop.c src/srv/srv.c.demo src/err/*.c -o $@
+	zsh rt_school21_linking.sh $(DEMO_DIR)/srv/srv
+
+### ERR Demo
+$(DEMO_DIR)/err/err: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@
+
+### Scene demo
+$(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
+   
+   

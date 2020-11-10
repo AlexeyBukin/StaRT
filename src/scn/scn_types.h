@@ -14,6 +14,7 @@
 # define SCN_TYPES_H
 
 # include "scn_objects.h"
+#include "scn_map.h"
 # define SIZE_STEP 16
 
 struct				s_cam
@@ -62,6 +63,9 @@ typedef struct		s_scn
 	struct s_cam		*cameras;
 	uint				cameras_num;
 	uint				cameras_max;
+	//maps: hash and regular; names?
+	t_map				id_to_objs;
+	t_hash_map			names_to_objs;
 }					t_scn;
 
 #endif

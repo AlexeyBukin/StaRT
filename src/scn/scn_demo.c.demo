@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_init.c                                         :+:      :+:    :+:   */
+/*   scn_demo.c.demo                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/09 20:32:03 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/09 20:32:03 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-/*
-** TODO: add parser
-** TODO: add id-map pattern
-*/
-
-int				scn_init(t_rt *rt)
+int		main(int ac, char **av)
 {
-	if (rt == NULL)
-		return (rt_err("scn_init(): rt is NULL pointer"));
-	if ((rt->scene = ft_memalloc(sizeof(t_scn))) == NULL)
-		return (rt_err("scn_init(): malloc returned NULL pointer"));
+	t_rt		rt;
+	t_scn		*scn;
+
+	(void)ac;
+	(void)av;
+	if (scn_init(&rt))
+		return (rt_err("Cannot init scene"));
+	scn = rt.scene;
+	rt_warn("All demo tests run successfully");
 	return (0);
 }
