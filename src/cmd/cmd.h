@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 02:39:59 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 07:37:39 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ t_msg					cmd_set_sphere_name(char **source, t_sphere *sphere);
 int						cmd_read_comma(char **str);
 int						cmd_read_space(char **source);
 int						cmd_read_space_req(char **source);
+int						cmd_read_string(char **source, char **dest);
+int						cmd_read_id_name(t_rt *rt, char **source, uint *id);
 
 int						cmd_read_num(char **source, t_num *num);
 int						cmd_read_vec(char **source, t_vec3 *vec);
+int						cmd_read_uint(char **source, uint *num);
 
 #endif

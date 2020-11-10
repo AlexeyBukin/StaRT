@@ -67,3 +67,23 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 	*source = str;
 	return (0);
 }
+
+/*
+** cmd_read_uint() moves source to end of num
+** returns 0 on success
+*/
+
+int			cmd_read_uint(char **source, uint *num)
+{
+	char		*ptr;
+
+	if (source == NULL)
+		return (rt_err("Arguments are NULL"));
+	if ((ptr = *source) == NULL)
+		return (rt_err("Dereference to NULL pointer"));
+	*num = (uint)ft_atoi(ptr);
+	while (ft_isnum(*ptr))
+		ptr++;
+	*source = ptr;
+	return (0);
+}

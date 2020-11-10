@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 06:32:11 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 07:50:08 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_msg					cmd_ls_scene(t_rt *rt, char *source)
 	t_scn		*scn;
 	char		*res;
 
-	(void)source;
 	if (rt == NULL || source == NULL)
 		return (msg_err("Arguments are NULL"));
 	if (*source != '\n' && *source != '\0')
@@ -34,7 +33,22 @@ t_msg					cmd_ls_scene(t_rt *rt, char *source)
 
 t_msg					cmd_ls_sphere(t_rt *rt, char *source)
 {
-	(void)rt;
-	(void)source;
-	return (msg_oks("This is ls sphere"));
+	uint		id;
+	char		*res;
+
+	if (rt == NULL || source == NULL)
+		return (msg_err("Arguments are NULL"));
+//	if (cmd_read_space_req(&source) < 0)
+//		return (msg_warn("Syntax error: expected \' \'"));
+	if (cmd_read_id_name(rt, &source, &id))
+		return (msg_warn("Syntax error: expected correct id or name"));
+	if (cmd_read_space(&source) < 0)
+		return (msg_err("cmd_ls_sphere(): read error"));
+	if (*source != '\n' && *source != '\0')
+		return (msg_warn("Unexpected arguments"));
+	//get object with given id
+	res = ft_strdup("This id \'ls sphere\', id: \'");
+	res = ft_strjoin_free(res, ft_itoa(id));
+	res = ft_strjoin_free(res, ft_strdup("\'"));
+	return (msg_ok(res));
 }
