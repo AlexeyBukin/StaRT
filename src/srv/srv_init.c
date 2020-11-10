@@ -6,13 +6,11 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:56:52 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 15:49:49 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 10:01:33 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-# define SRV_PORT 8080
 
 int				srv_init(t_rt *rt)
 {
@@ -22,8 +20,8 @@ int				srv_init(t_rt *rt)
 		return (rt_err("srv_init(): rt is NULL pointer"));
 	if ((server = ft_memalloc(sizeof(t_srv))) == NULL)
 		return (rt_err("srv_init(): malloc returned NULL pointer"));
+	server->should_exit = 0;
 	server->response = (t_msg){MSG_NONE, NULL};
-	server->request = (t_msg){MSG_NONE, NULL};
 	server->client_str = NULL;
 	server->client_line = NULL;
 	server->server_line = NULL;
@@ -55,5 +53,7 @@ int				srv_init(t_rt *rt)
 //	guard(listen(listen_socket_fd, 1), "could not listen");
 	server->rt = rt;
 	rt->server = server;
+
+	rt->server_thread = g_thread_new(NULL, srv_loop, (gpointer)rt);
 	return (0);
 }

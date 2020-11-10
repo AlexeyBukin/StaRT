@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vlk_init.c                                         :+:      :+:    :+:   */
+/*   gui_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/10 08:54:19 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 08:55:03 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#ifndef GUI_TYPES_H
+# define GUI_TYPES_H
 
-t_vlk			*vlk_init(void)
+# include "rt_types.h"
+
+typedef struct		s_gui
 {
-	rt_err("vlk_init() fail");
-	return (NULL);
-}
+	GtkApplication		*app;
+//	GApplication		*gapp;
+}					t_gui;
+
+#endif

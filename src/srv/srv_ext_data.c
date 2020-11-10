@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 19:14:38 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:23:27 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 05:11:14 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int				srv_ext_client_update_str(t_srv *srv)
 	// read all available data into string 'client_str'
 	// mark that new data available
 	// client_str_size = client_old_size + n;
-	while ((rc = read(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1)) > 0)
+//	while ((rc = read(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1)) > 0)
+	while ((rc = recv(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1, MSG_DONTWAIT)) > 0)
 	{
 		srv->client_buff[rc] = '\0';
 		srv->client_str_size += rc;
@@ -157,13 +158,22 @@ int				srv_ext_client_str_parse(t_srv *srv, unsigned long *line_begin)
 
 			if (srv->response.status == MSG_ERROR || srv->response.str == NULL)
 			{
+				if (srv->response.str != NULL)
+				{
+					send(srv->socket_client_fd, srv->response.str, ft_strlen(srv->response.str) , 0);
+					send(srv->socket_client_fd, "\n", 1 , 0);
+				}
 				// some serious error occured, must close
 				send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
 				close(srv->socket_client_fd);
 				return (rt_err("Server process line error. Connection is closed, shutting down..."));
 			}
-			send(srv->socket_client_fd, srv->response.str, ft_strlen(srv->response.str), 0);
-			ft_free(srv->response.str);
+
+			//TODO refactor to look nice
+			send(srv->socket_client_fd, srv->response.str, ft_strlen(srv->response.str) , 0);
+			send(srv->socket_client_fd, "\n", 1 , 0);
+			if (srv->response.status == MSG_OK)
+				ft_free(srv->response.str);
 			srv->response.str = NULL;
 
 			if (srv->response.status == MSG_EXIT || srv->response.status == MSG_SHUT)

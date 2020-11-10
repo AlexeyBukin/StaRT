@@ -6,7 +6,7 @@
 #    By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/09 16:08:24 by jvoor            ###   ########.fr        #
+#    Updated: 2020/11/10 10:02:20 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,30 +21,50 @@ BUILD_DIRS	= $(patsubst $(SRC_DIR)%, $(BUILD_DIR)%, $(SRC_DIRS))
 
 ### Libraries declarations
 LIB_FT = $(LIB)/ft/libft.a
+LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
+LIB_DEPENDENCY = $(LIB_FT)
 
-### GTK_BUNDLE configs
+UNAME_SYSTEM := $(shell uname -s)
+ifeq ($(UNAME_SYSTEM),Linux)
+# on Linux system gtk3 should be installed (if not install with `apt-get install libgtk-3-dev`)
+	GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+	GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
+	CFLAGS := $(CFLAGS) -no-pie -D PLATFORM_LINUX
+	LIB_FLAGS := $(LIB_FLAGS) $(VLK_FLAGS)
+	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)
+endif
+ifeq ($(UNAME_SYSTEM),Darwin)
 GTK_BUNDLE   := gtk_bundle_42
 GTK_INC_DIR   = $(GTK_BUNDLE)/include
 GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
+
 GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
-                -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
-                -I$(GTK_INC_DIR)/cairo
+                    -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
+                    -I$(GTK_INC_DIR)/cairo
+
 GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
-                -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
-                -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
-                -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
-                -lgobject-2.0 -lglib-2.0 -lintl
+                    -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
+                    -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
+                    -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
+                    -lgobject-2.0 -lglib-2.0 -lintl
+
+MTL_DYLIB := build/mtl/libmtl.dylib
+
+CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
+LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
+
+LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
+
+endif
 
 ### C Flags settings
 INCLUDE   = 	-I src -I src/err -I src/gui -I lib/ft/inc -I src/gpu -I src/srv \
 				-I src/cmd -I src/scn \
 				-I src/mtl -I src/vlk $(GTK_INCLUDE)
 
-LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
-
-CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -Werror -g $(CFLAGS)
 COMPILE = gcc $(CFLAGS) $(INCLUDE)
-LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS)
+LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 
 ### Sources
 
@@ -56,17 +76,19 @@ src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h \
 src/scn/scn_map.h
 
 # no main.c!
-# find src -type f -name '*.c' ! -name "main*" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/rt.c                        src/srv/srv_init.c \
-               src/cmd/cmd_parse.c             src/scn/scn_check_arguments.c   src/srv/srv_loop.c \
-               src/cmd/cmd_valid.c             src/scn/scn_id.c                src/srv/srv_parse.c \
-               src/err/rt_err.c                src/scn/scn_init.c              src/srv/srv_request.c \
-               src/err/rt_warn.c               src/scn/scn_map.c               src/srv/srv_shutdown.c \
-               src/gpu/gpu_buffer_load.c       src/scn/scn_set_plane.c         src/srv/srv_utils.c \
-               src/gpu/gpu_init.c              src/scn/scn_set_sphere.c        src/vlk/vlk_init.c \
-               src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
-               src/gui/gui_init.c              src/srv/srv_ext_data.c \
-               src/scn/scn_get_obj.c
+# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
+SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_sphere.c \
+               src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_id.c \
+               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_init.c \
+               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_deinit.c \
+               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
+               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext_data.c \
+               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_init.c \
+               src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_loop.c \
+               src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_parse.c \
+               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_shutdown.c \
+               src/err/msg_ok.c                src/scn/plane.c                 src/srv/srv_utils.c \
+               src/err/msg_warn.c              src/scn/scn_add_material.c      src/vlk/vlk_init.c \
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
@@ -81,9 +103,20 @@ all: $(NAME)
 
 # switch "$(NAME): $(GTK_BUNDLE)" only on 42/21 MACs
 # switch "zsh rt_school21_linking.sh" only on 42/21 MACs
-$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) build/mtl/libmtl.dylib
-	$(LINK) $(OBJ) -o $(NAME)  -L build/mtl -lmtl
-	zsh rt_school21_linking.sh
+ifeq ($(UNAME_SYSTEM),Darwin)
+$(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
+	echo "makefile: making MacOS executable"
+	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
+	install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" RT
+	sh rt_school21_linking.sh
+
+$(MTL_DYLIB):
+	make -C src/mtl
+endif
+ifeq ($(UNAME_SYSTEM),Linux)
+$(NAME): $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
+	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
+endif
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	$(COMPILE) -c $< -o $@
@@ -94,7 +127,7 @@ $(BUILD_DIRS):
 clean:
 	rm -rf $(BUILD_DIR)
 
-fclean:
+fclean: clean
 	rm -rf $(GTK_BUNDLE)
 	rm -rf $(DEMO_DIR)
 	rm -f $(NAME)
@@ -110,44 +143,10 @@ rebuild: clean
 	make all
 
 $(LIB_FT):
-	@make -C $(LIB)/ft
+	make -C $(LIB)/ft
 
 $(GTK_BUNDLE):
 	zsh rt_school21_get_bundle.sh
-
-#------------------------------------------#
-#----------- MTL_SWIFT_PART ---------------#
-#------------------------------------------#
-
-MTL_DIR			:= src/mtl
-MTL_BUILD		:= build/mtl
-
-MTL_DYLIB		= $(MTL_BUILD)/libmtl.dylib
-MTL_FLAGS		= -L $(MTL_BUILD) -lmtl
-
-MTL_INCLUDE			= -I $(MTL_DIR)
-MTL_INCLUDE_SWIFT	= -I $(MTL_BUILD)
-
-# TODO: collect using find
-MTL_MODULE_SRC	= $(MTL_DIR)/mtl_start.swift $(MTL_DIR)/mtl_texture.swift $(MTL_DIR)/mtl_buffer.swift
-MTL_MODULE_OBJ	= $(MTL_MODULE_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.swiftmodule)
-
-# TODO: collect using find
-MTL_SRC			= $(MTL_DIR)/mtl.swift $(MTL_MODULE_SRC)
-MTL_OBJ			= $(MTL_SRC:$(MTL_DIR)/%.swift=$(MTL_BUILD)/%.o)
-
-.PRECIOUS: $(MTL_MODULE_OBJ)
-
-$(MTL_DYLIB): $(BUILD_DIRS) $(MTL_OBJ)
-	swiftc $(MTL_INCLUDE_SWIFT) -o $(MTL_DYLIB) -emit-library $(MTL_OBJ) -lz
-
-$(MTL_BUILD)/%.o: $(MTL_DIR)/%.swift $(MTL_MODULE_OBJ)
-	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@
-	@touch $@
-
-$(MTL_BUILD)/%.swiftmodule: $(MTL_DIR)/%.swift
-	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@ -emit-module -module-link-name $(patsubst $(MTL_DIR)/%.swift,%,$<)
-	@touch $@
 
 #------------------------------------------#
 #----------- DEMO_PART      ---------------#
@@ -196,3 +195,5 @@ $(DEMO_DIR)/err/err: $(DEMO_DIRS)
 $(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
 	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
+   
+   

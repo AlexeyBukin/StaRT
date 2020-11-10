@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 20:26:15 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 10:19:54 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@
 
 # define MSG_NONE   0
 # define MSG_OK     1
-# define MSG_ACTIVE 2
+# define MSG_WARN   2
 # define MSG_EXIT   3
 # define MSG_SHUT   4
 # define MSG_ERROR -1
 
 # define SRV_HELLO "Server is ready. Type 'exit' to close connection.\n"
 # define SRV_BUSY  "Server is currently used by another session/user. Try later.\n"
-# define SRV_ERR   "Some error caused server to close connection. Press 'Enter' to continue.\n"
+# define SRV_ERR   "Some error caused server to close connection.\n"
+# define SRV_EXIT  "Closing connection. Have a nice day :)"
+# define SRV_SHUT  "Shutting down..."
+
+#define SRV_PORT 8080
 
 /*
 ** srv_process.c
@@ -40,22 +44,16 @@ int					srv_process_line(t_srv *srv, char *str, char **response);
 int					srv_init(t_rt *rt);
 
 /*
-** srv_shutdown.c
+** srv_deinit.c
 */
 
-int					srv_shutdown(t_rt *rt);
+int					srv_deinit(t_rt *rt);
 
 /*
 ** srv_loop.c
 */
 
 void*				srv_loop(void* rt_pointer);
-
-/*
-** srv_request.c
-*/
-
-int					srv_request(t_rt *rt, char *str);
 
 /*
 ** srv_ext.c
@@ -85,6 +83,7 @@ t_msg				srv_parse_str(t_srv *srv, const char* request);
 ** srv_utils.c
 */
 
+void				srv_quit_gtk_app(t_rt *rt);
 int					msleep(long msec);
 void				*null(int a);
 

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vlk_init.c                                         :+:      :+:    :+:   */
+/*   msg_err.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/09 22:14:55 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/09 22:16:03 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vlk			*vlk_init(void)
+t_msg       msg_err(char *str)
 {
-	rt_err("vlk_init() fail");
-	return (NULL);
+	rt_err(str);
+    return((t_msg){MSG_ERROR, str});
 }
