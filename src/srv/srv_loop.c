@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:56:25 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,23 @@ void*				srv_loop(void* rt_pointer)
 	while (1)
 	{
 		// process internal request
-		if (server->request.status == MSG_ACTIVE)
-		{
-			rt_warn("srv_loop(): got request");
-			server->response = srv_parse_str(server, server->request.str);
-			while (server->request.status == MSG_ACTIVE)
-				msleep(10);
-			if (server->response.status == MSG_ERROR || server->request.status == MSG_ERROR)
-			{
-				return (null(rt_err("srv_loop(): server request error")));
-			}
-			if (server->response.status == MSG_SHUT)
-			{
-				return (null(rt_warn("srv_loop(): shutting server down...")));
-			}
-			server->response = (t_msg){MSG_NONE, NULL};
-			server->request = (t_msg){MSG_NONE, NULL};
-		}
+//		if (server->request.status == MSG_ACTIVE)
+//		{
+//			rt_warn("srv_loop(): got request");
+//			server->response = srv_parse_str(server, server->request.str);
+//			while (server->request.status == MSG_ACTIVE)
+//				msleep(10);
+//			if (server->response.status == MSG_ERROR || server->request.status == MSG_ERROR)
+//			{
+//				return (null(rt_err("srv_loop(): server request error")));
+//			}
+//			if (server->response.status == MSG_SHUT)
+//			{
+//				return (null(rt_warn("srv_loop(): shutting server down...")));
+//			}
+//			server->response = (t_msg){MSG_NONE, NULL};
+//			server->request = (t_msg){MSG_NONE, NULL};
+//		}
 		// process external request
 		{
 			if ((error = srv_ext_client_process(rt_pointer)) < 0)

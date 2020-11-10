@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msg_ok.c                                           :+:      :+:    :+:   */
+/*   cmd_ls.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/10 01:05:10 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 01:06:28 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 02:49:57 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_msg       msg_ok(char *str)
+t_msg					cmd_ls_scene(t_rt *rt, char *source)
 {
-	//TODO add debug verbose func
-	//rt_debug(str);
-    return((t_msg){MSG_OK, str});
+	(void)rt;
+	(void)source;
+	return (msg_ok("This is ls scene"));
 }
 
-/*
-** msg_oks() used with static strings
-** Because of server will free() every MSG_OK string
-*/
-
-t_msg       msg_oks(char *str)
+t_msg					cmd_ls_sphere(t_rt *rt, char *source)
 {
-	//TODO add debug verbose func
-	//rt_debug(str);
-	return((t_msg){MSG_OK, ft_strdup(str)});
+	(void)rt;
+	(void)source;
+	return (msg_ok("This is ls sphere"));
 }

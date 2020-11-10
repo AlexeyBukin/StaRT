@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 02:36:48 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:39:59 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int						cmd_read_comma(char **str);
 int						cmd_read_space(char **source);
 int						cmd_read_space_req(char **source);
 
-t_num					cmd_read_num(char **source);
+int						cmd_read_num(char **source, t_num *num);
 int						cmd_read_vec(char **source, t_vec3 *vec);
 
 #endif

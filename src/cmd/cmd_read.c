@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:09:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 01:45:53 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:52:54 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			cmd_read_space(char **source)
 	if (*source == NULL)
 		return (rt_err("cmd_parse_space(): dereference to NULL pointer"));
 	str = *source;
+	i = 0;
 	while (*str == ' ')
 	{
 		str++;
@@ -46,7 +47,7 @@ int			cmd_read_space_req(char **source)
 {
 	int		spaces;
 
-	spaces = cmd_parse_space(source);
+	spaces = cmd_read_space(source);
 	if (spaces == 0)
 		return (rt_err("Syntax error: \' \' expected"));
 	return (spaces);

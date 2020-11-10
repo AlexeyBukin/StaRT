@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 15:57:55 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 01:06:28 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 04:52:55 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 t_msg       msg_err(char *msg);
 t_msg       msg_ok(char *str);
+t_msg       msg_oks(char *str);
+t_msg       msg_warn(char *str);
 
 int			rt_err(char *msg);
 int			rt_error(char *msg, int ecode);

@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 02:37:06 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 02:37:26 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ t_msg					cmd_parse_ls(t_rt *rt, char *source)
 {
 	static t_parse_fw	arr[CMD_LS_NUM] =
 	{(t_parse_fw){&cmd_ls_scene, KW_SCENE}, (t_parse_fw){&cmd_ls_sphere, KW_SPHERE}};
+
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
+	return (cmd_parse_tree(rt, source, arr, CMD_LS_NUM));
+}
+
+t_msg					cmd_parse_rm(t_rt *rt, char *source)
+{
+	static t_parse_fw	arr[CMD_LS_NUM] =
+			{(t_parse_fw){&cmd_ls_scene, KW_SCENE}, (t_parse_fw){&cmd_ls_sphere, KW_SPHERE}};
+
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
+	return (cmd_parse_tree(rt, source, arr, CMD_LS_NUM));
+}
+
+t_msg					cmd_parse_set(t_rt *rt, char *source)
+{
+	static t_parse_fw	arr[CMD_LS_NUM] =
+			{(t_parse_fw){&cmd_ls_scene, KW_SCENE}, (t_parse_fw){&cmd_ls_sphere, KW_SPHERE}};
 
 	if (rt == NULL || source == NULL)
 		return (msg_err("Argument is NULL pointer"));

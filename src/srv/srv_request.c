@@ -32,7 +32,7 @@ int		srv_request(t_rt *rt, char *str)
 	if (server->response.status != MSG_NONE)
 		return (rt_err("server is drunk"));
 	server->request.str = str;
-	server->request.status = MSG_ACTIVE;
+//	server->request.status = MSG_ACTIVE;
 	while (server->response.status == MSG_NONE)
 		msleep(10);
 	code = server->response.status;

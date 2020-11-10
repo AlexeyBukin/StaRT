@@ -53,7 +53,7 @@ int				srv_ext_client_check(t_srv *srv)
 		{
 			srv->has_client = 1;
 			send(srv->socket_client_fd, SRV_HELLO, ft_strlen(SRV_HELLO), 0);
-//			rt_warn("Got an external connection; writing welcome message.\n");
+			rt_warn("Got an external connection; writing welcome message.\n");
 		}
 	}
 	else
