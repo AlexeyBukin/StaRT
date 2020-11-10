@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 09:13:58 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "gpu_types.h"
 # include "srv_types.h"
 # include "scn_types.h"
+# include "gui_types.h"
 
 typedef struct		s_texture
 {
@@ -31,6 +32,7 @@ typedef struct		s_texture
 typedef struct		s_rt
 {
 	GtkApplication		*app;
+	GMainContext		*context;
 	t_gpu				gpu;
 	t_scn				*scene;
 	t_texture			*render_result;

@@ -6,11 +6,9 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 15:48:58 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/04 21:57:59 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 09:18:35 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "rt.h"
 
 #include "rt.h"
 
@@ -33,13 +31,12 @@ int				main(int ac, char **av)
 	if (gui_deinit(rt))
 		return (rt_error("Cannot deinit GUI", 0));
 
-	// send server 'exit' request
+	// send server 'shutdown' request
 	// join server thread
 	srv_shutdown(rt);
 	rt_warn("main(): srv_shutdown() success");
 	g_thread_join(server_thread);
 	rt_warn("main(): join success");
-
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));
 	return (0);

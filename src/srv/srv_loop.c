@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 02:56:25 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 09:15:38 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 //#define SRV_OK     0
 //#define SRV_EXIT   1
 //#define SRV_ERROR -1
+
+void		srv_quit_gtk_app(t_rt *rt);
 
 void*				srv_loop(void* rt_pointer)
 {
@@ -66,8 +68,13 @@ void*				srv_loop(void* rt_pointer)
 			{
 				if (server->response.status == MSG_SHUT)
 				{
-					//TODO also shutdown gtk
-					return (null(rt_warn("srv_loop(): shutting server down...")));
+					rt_warn("Shutting down...");
+					srv_quit_gtk_app((t_rt*)rt_pointer);
+//					//TODO server deinit than exit()
+//					t_rt *rt = (t_rt*)rt_pointer;
+//					g_application_quit(G_APPLICATION(rt->app));
+					break ;
+//					exit(0);
 				}
 				server->response = (t_msg){MSG_NONE, NULL};
 				server->request = (t_msg){MSG_NONE, NULL};
@@ -78,5 +85,24 @@ void*				srv_loop(void* rt_pointer)
 	}
 	rt_warn("srv_loop(): ending server thread");
 	return (NULL);
+}
+
+
+static gboolean
+srv_g_application_quit(gpointer void_app)
+{
+	g_application_quit(G_APPLICATION(void_app));
+	return G_SOURCE_REMOVE;
+}
+
+void		srv_quit_gtk_app(t_rt *rt)
+{
+	GSource *source;
+
+	if (rt == NULL)
+		return ;
+	source = g_idle_source_new();
+	g_source_set_callback(source, srv_g_application_quit, rt->app, NULL);
+	g_source_attach(source, rt->context);
 }
 
