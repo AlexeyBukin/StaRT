@@ -2,24 +2,20 @@
 // Created by Hugor Chau on 11/9/20.
 //
 
-#ifndef DDD_SCN_MAP_H
-#define DDD_SCN_MAP_H
+#ifndef RT_SCN_MAP_H
+#define RT_SCN_MAP_H
 
 #include "libft.h"
 
-int				map_add_obj();
-int				map_remove_obj();
-int				map_get_obj();
-
-int				hash_map_add();
-int				hash_map_remove();
-int				hash_map_get();
-
-typedef struct		s_elements
+typedef struct		s_element
 {
-	uint			id;
-	char			*name;
-	t_list			content;
+	uint				id;
+	char				*name;
+	// obj: mb it would be comfy to make pointers
+	// to objects and get it when we alloc objects it scene?
+	// it means that we need to generate id's when we alloc this shit
+	void				*obj;//or just t_list?
+	struct s_element	*next;//or just t_list?
 }					t_elements;
 
 //by id
@@ -36,4 +32,12 @@ typedef struct		s_hash_map
 	t_elements		elements[16];
 }					t_hash_map;
 
-#endif //DDD_SCN_MAP_H
+t_obj			*map_add_obj(t_map *map);
+t_obj			*map_remove_obj(t_map *map);
+t_obj			*map_get_obj(t_map *map);
+
+t_obj			*hash_map_add(t_hash_map *map);
+t_obj			*hash_map_remove(t_hash_map *map);
+t_obj			*hash_map_get(t_hash_map *map);
+
+#endif
