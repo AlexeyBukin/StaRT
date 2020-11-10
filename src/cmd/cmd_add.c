@@ -44,13 +44,13 @@ t_msg					cmd_add_sphere(t_rt *rt, char *source)
 		else if (ft_str_next_is(source, KW_PARAM_N))
 			parse_func = cmd_set_sphere_name;
 		else
-			return (msg_err("Unknown flag"));
+			return (msg_warn("Unknown flag"));
 		source += KW_PARAM_LEN;
 		result = parse_func(&source, sphere);
 		if (result.status == MSG_ERROR)
 			return (result);
 		if (cmd_read_space_req(&source))
-			return (msg_err("Expected \' \'"));
+			return (msg_warn("Expected \' \'"));
 	}
 	return (msg_ok("Added sphere"));
 }
