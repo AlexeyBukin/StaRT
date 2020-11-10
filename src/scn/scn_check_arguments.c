@@ -3,8 +3,6 @@
 //
 
 #include "rt.h"
-#define SIZE_STEP	16
-#define ERROR		-1
 
 /*
 **		it's for future me
@@ -67,35 +65,4 @@ int		scn_check_mid(t_scn *scn, uint mid)
 	}
 	rt_err("check_mid(): wrong material id!");
 	return (-1);
-}
-
-static int 	prepare_scn(t_scn *scn)
-{
-	if (scn == NULL)
-	{
-		rt_err("prepare_scn(): scn is NULL pointer");
-		return (-1);
-	}
-	if (scn->objects_max > scn->objects_num)
-		return (0);
-	scn->objects = ft_realloc(scn->objects, sizeof(t_obj) * scn->objects_max,
-							  sizeof(t_obj) * (scn->objects_max + SIZE_STEP));
-	scn->objects_max += SIZE_STEP;
-	if (scn->objects == NULL)
-	{
-		rt_err("prepare_scn(): malloc crashed");
-		return (-1);
-	}
-	return (0);
-}
-
-/*
-**		TODO your entry point function, Sanya
-*/
-
-t_obj	*scn_get_obj(t_scn *scn)
-{
-	if (prepare_scn(scn))
-		return (NULL);
-	return (&scn->objects[scn->objects_num]);
 }

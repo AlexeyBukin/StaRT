@@ -66,6 +66,7 @@ SRC_SHARED	:= src/cmd/cmd_add.c               src/rt.c                        sr
                src/gpu/gpu_init.c              src/scn/scn_set_sphere.c        src/vlk/vlk_init.c \
                src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
                src/gui/gui_init.c              src/srv/srv_ext_data.c \
+               src/scn/scn_get_obj.c
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c

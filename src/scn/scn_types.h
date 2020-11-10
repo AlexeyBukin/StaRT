@@ -64,8 +64,8 @@ typedef struct		s_scn
 	uint				cameras_num;
 	uint				cameras_max;
 	//maps: hash and regular; names?
-	t_map				id_to_objs[16];
-	t_hash_map			names_to_objs[16];
+	t_map				id_to_objs;
+	t_hash_map			names_to_objs;
 }					t_scn;
 
 #endif
