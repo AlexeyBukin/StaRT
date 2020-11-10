@@ -47,9 +47,16 @@ int			cmd_read_space_req(char **source)
 {
 	int		spaces;
 
+	if (source == NULL)
+		return (rt_err("Arguments are NULL"));
 	spaces = cmd_read_space(source);
 	if (spaces == 0)
-		return (rt_err("Syntax error: \' \' expected"));
+	{
+		if (*source == NULL)
+			return (rt_err("Dereference to NULL"));
+		if (**source != '\0' && **source != '\n')
+			return (rt_err("Syntax error: \' \' expected"));
+	}
 	return (spaces);
 }
 

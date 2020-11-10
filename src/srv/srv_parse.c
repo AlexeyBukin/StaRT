@@ -20,17 +20,22 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 		return ((t_msg){MSG_ERROR, "request is NULL pointer"});
 	if (ft_strcmp(request, "exit") == 0)
 	{
-		msg.str = "Closing connection. Have a nice day :) lol\n";
+		msg.str = SRV_EXIT;
 		msg.status = MSG_EXIT;
 	}
 	else if (ft_strcmp(request, "shutdown") == 0)
 	{
-		msg.str = "Shutting down...\n";
+		msg.str = SRV_SHUT;
 		msg.status = MSG_SHUT;
 	}
 	else if (ft_strcmp(request, "") == 0)
 	{
-		msg.str = ft_strdup("\n");
+		msg.str = ft_strdup("");
+		msg.status = MSG_OK;
+	}
+	else if (ft_strncmp(request, "#", 1) == 0)
+	{
+		msg.str = ft_strdup("");
 		msg.status = MSG_OK;
 	}
 	else
