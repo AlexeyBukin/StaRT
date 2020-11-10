@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vlk_init.c                                         :+:      :+:    :+:   */
+/*   msg_warn.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 14:33:22 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/10 04:52:27 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 04:52:27 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_vlk			*vlk_init(void)
+t_msg       msg_warn(char *str)
 {
-	rt_err("vlk_init() fail");
-	return (NULL);
+	//TODO add debug verbose func
+	//rt_debug(str);
+    return((t_msg){MSG_WARN, str});
 }

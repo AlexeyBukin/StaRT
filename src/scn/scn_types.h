@@ -6,67 +6,19 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/03 23:15:17 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCN_TYPES_H
 # define SCN_TYPES_H
 
-typedef float t_num;
-
-typedef struct		s_vec2
-{
-	t_num			x;
-	t_num			y;
-}					t_vec2;
-
-typedef struct		s_vec3
-{
-	t_num			x;
-	t_num			y;
-	t_num			z;
-}					t_vec3;
-
-enum e_obj_type
-{
-	OBJ_NONE = 0,
-	OBJ_PLANE,
-	OBJ_SPHERE,
-	OBJ_CYLINDER,
-	OBJ_CONE,
-	OBJ_GEOMETRY
-};
-
-struct				s_sphere
-{
-	t_vec3			pos;
-	t_num			r;
-};
-
-struct				s_plane
-{
-	t_vec3			n;
-	t_num			d;
-};
-
-union				u_shape
-{
-	struct s_sphere		sphere;
-	struct s_plane		plane;
-};
-
-typedef struct				s_obj
-{
-	int						id;
-	int						material_id;
-	enum e_obj_type			type;
-	union u_shape			shape;
-}							t_obj;
+# include "scn_objects.h"
+# define SIZE_STEP 16
 
 struct				s_cam
 {
-	int				id;
+	uint			id;
 	t_vec3			pos;
 	t_vec3			forward;
 	t_vec3			right;
@@ -74,25 +26,42 @@ struct				s_cam
 	t_vec2			fov;
 };
 
+typedef union		u_mat_param
+{
+	uint			map_id;
+	t_num 			value;
+}					t_mat_param;
+
+typedef union		u_mat_param3
+{
+	uint			map_id;
+	t_vec3 			value;
+}					t_mat_param3;
+
 typedef struct				s_mat
 {
-	int				id;
-	float 			metalness;
-	float 			roughness;
-	float 			ior;
-	float 			transparency;
-	t_vec3			albedo;
-	t_vec3			f0;
+	uint			id;
+	t_mat_param		metalness;
+	t_mat_param		roughness;
+	t_mat_param		ior;
+	t_mat_param		transparency;
+	t_mat_param3	albedo;
+	t_mat_param3	f0;
 }							t_mat;
 
 typedef struct		s_scn
 {
-	int					id;
+	uint				id;
 	struct s_obj		*objects;
-	int					objects_num;
+	uint				objects_num;
+	uint				objects_max;
 	struct s_mat		*materials;
-	int					materials_num;
+	uint				materials_num;
+	uint				materials_max;
 	struct s_cam		camera;
+	struct s_cam		*cameras;
+	uint				cameras_num;
+	uint				cameras_max;
 }					t_scn;
 
 #endif

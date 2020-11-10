@@ -12,3 +12,11 @@ To request some action from server:
 Then server will set `server.request.status = MSG_NONE`, and wait for another request.
 
 P.S.  You should manage `server.request.str` yourself, server will not change it nor free
+
+## MSG
+1) MSG_NONE - uninitialized message
+2) MSG_OK - successful operation. Server will `free()` message string (in this case only)
+3) MSG_WARN - operation failure, but not critical.
+4) MSG_EXIT - client disconnect command.
+5) MSG_SHUT - shutdown command.
+6) MSG_ERROR - critical fail.
