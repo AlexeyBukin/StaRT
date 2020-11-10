@@ -6,22 +6,11 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:52:27 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 09:55:37 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 10:25:36 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-/*
-** TODO change
-** gpointer as (void *)
-*/
-
-//#define SRV_OK     0
-//#define SRV_EXIT   1
-//#define SRV_ERROR -1
-
-
 
 void*				srv_loop(void* rt_pointer)
 {
@@ -40,6 +29,7 @@ void*				srv_loop(void* rt_pointer)
 		{
 			// notify gtk about error?
 			rt_err("srv_loop(): srv_ext_client_process() returned error code");
+			srv_quit_gtk_app((t_rt*)rt_pointer);
 			break ;
 		}
 		else
