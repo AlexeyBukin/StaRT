@@ -76,6 +76,7 @@ union				u_shape
 typedef struct				s_obj
 {
 	uint					id;
+	char					*name;
 	uint					material_id;
 	enum e_obj_type			type;
 	union u_shape			shape;

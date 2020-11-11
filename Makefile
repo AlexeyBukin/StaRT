@@ -77,20 +77,20 @@ src/scn/scn_map.h
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_sphere.c \
-               src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_id.c \
-               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_init.c \
-               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_deinit.c \
-               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
-               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext_data.c \
-               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_init.c \
-               src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_loop.c \
-               src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_parse.c \
-               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_shutdown.c \
-               src/err/msg_ok.c                src/scn/plane.c                 src/srv/srv_utils.c \
-               src/err/msg_warn.c              src/scn/scn_add_material.c      src/vlk/vlk_init.c \
+SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c \
+               src/cmd/cmd_ls.c                src/err/rt_warn.c \
+               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/srv/srv_deinit.c \
+               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_ext.c \
+               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext_data.c \
+               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_init.c \
+               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_loop.c \
+               src/cmd/cmd_utils.c             src/scn/scn_check_arguments.c   src/srv/srv_parse.c \
+               src/cmd/cmd_valid.c             src/scn/scn_get_obj.c           src/srv/srv_utils.c \
+               src/err/msg_err.c               src/scn/scn_id.c                src/vlk/vlk_init.c \
+               src/err/msg_ok.c                src/scn/scn_init.c \
+               src/err/msg_warn.c              src/scn/scn_map.c \
+               src/scn/scn_get_shape.c         src/scn/scn_map_del.c
 
-# SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
 
 OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))
@@ -195,5 +195,6 @@ $(DEMO_DIR)/err/err: $(DEMO_DIRS)
 $(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
 	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
+	 install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" $@
    
    
