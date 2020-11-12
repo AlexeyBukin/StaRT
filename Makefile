@@ -89,7 +89,7 @@ SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c \
                src/err/msg_err.c               src/scn/scn_id.c                src/vlk/vlk_init.c \
                src/err/msg_ok.c                src/scn/scn_init.c \
                src/err/msg_warn.c              src/scn/scn_map.c \
-               src/scn/scn_get_shape.c         src/scn/scn_map_del.c
+               src/scn/scn_get_shape.c         src/scn/scn_map_del.c           src/scn/scn_map_add.c
 
 SRC 		= $(SRC_SHARED) src/main.c
 

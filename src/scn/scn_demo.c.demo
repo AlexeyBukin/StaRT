@@ -76,45 +76,46 @@ int		main(int ac, char **av)
 		return (rt_err("Cannot init scene"));
 	scn = rt.scene;
 	i = 1;
-	while (i < 20000)
+	while (i <= 20000)
 	{
 		set_sphere(rt.scene, i);
 		i++;
 	}
-	print_objs(scn);
-	i = 0;
-	while (i < 10000)
+//	print_objs(scn);
+	i = 2;
+	ft_printf("map_size = %d\n", scn->id_to_name.curr_size);
+	while (i <= 19999)
 	{
 		map_remove_elem(scn, i);
 		i++;
 	}
+//	i = 0;
+//	while (i < 20000)
+//	{
+//		check_null_return(scn, i);
+//		i++;
+//	}
+//	scn_map_deinit(scn);
+//	i = 0;
+//	while (i < 20000) {
+//		check_null_return(scn, i);
+//		i++;
+//	}
+//	i = 1;
+//	while (i < 20000)
+//	{
+//		set_sphere(rt.scene, i);
+//		i++;
+//	}
+//	print_objs(scn);
 	i = 0;
-	while (i < 20000)
-	{
-		check_null_return(scn, i);
-		i++;
-	}
-	scn_map_deinit(scn);
-	i = 0;
-	while (i < 20000) {
-		check_null_return(scn, i);
-		i++;
-	}
-	i = 1;
-	while (i < 20000)
-	{
-		set_sphere(rt.scene, i);
-		i++;
-	}
-	print_objs(scn);
-	i = 0;
-	while (i < 10000)
-	{
-		map_remove_elem(scn, i);
-		i++;
-	}
-	i = 0;
-	while (i < 20000)
+//	while (i < 10000)
+//	{
+//		map_remove_elem(scn, i);
+//		i++;
+//	}
+//	i = 0;
+	while (i <= 20000)
 	{
 		check_null_return(scn, i);
 		i++;
