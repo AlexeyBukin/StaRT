@@ -6,6 +6,8 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 # set the project name
 project(RT)
 
+add_definitions(-DPLATFORM_MACOS)
+
 #  find src -type f -name '*.c' | sort | column -c 100
 set(${PROJECT_NAME}_SOURCES
         src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_material.c
@@ -37,9 +39,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/lib/ft/libft.a)
 
-target_link_libraries(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/build/mtl/libmtl.dylib)
-target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/build/mtl)
-
 set (GTK_BUNDLE_DIR ${PROJECT_SOURCE_DIR}/gtk_bundle_42)
 set (GTK_INCLUDE_DIR ${GTK_BUNDLE_DIR}/include)
 set (GTK_LIB_DIR ${GTK_BUNDLE_DIR}/lib)
@@ -52,19 +51,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${GTK_INCLUDE_DIR}/cairo
         )
 
-add_custom_command(
-        OUTPUT ${PROJECT_SOURCE_DIR}/RT
-        WORKING_DIR ${PROJECT_SOURCE_DIR}
-        COMMAND "../rt_school_21_linking.sh"
-)
+target_link_directories(${PROJECT_NAME} PUBLIC ${GTK_LIB_DIR} )
+target_link_libraries(${PROJECT_NAME} "gtk-3.0" "gdk-3.0" "glib-2.0" "gobject-2.0" "gio-2.0")
 
-
-target_link_libraries(${PROJECT_NAME} "-L${GTK_LIB_DIR}
-                    -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa
-                    -Wl,-framework,Carbon -Wl,-framework,CoreGraphics
-                    -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0
-                    -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0
-                    -lgobject-2.0 -lglib-2.0 -lintl"
-        )
-
+target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/build/mtl)
+target_link_libraries(${PROJECT_NAME} "mtl")
 
