@@ -57,3 +57,10 @@ target_link_libraries(${PROJECT_NAME} "gtk-3.0" "gdk-3.0" "glib-2.0" "gobject-2.
 target_link_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/build/mtl)
 target_link_libraries(${PROJECT_NAME} "mtl")
 
+add_custom_command(TARGET RT
+        POST_BUILD
+        COMMAND "${CMAKE_CURRENT_BINARY_DIR}/../rt_school21_linking.sh" RT
+        COMMENT "Linking RT..."
+        VERBATIM
+        )
+        
