@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   msg_err.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/09 22:14:55 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/09 22:16:03 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#include "rt.h"
 
-# include "rt_types.h"
-
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
-
-#endif
+t_msg       msg_err(char *str)
+{
+	rt_err(str);
+    return((t_msg){MSG_ERROR, str});
+}

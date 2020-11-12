@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 00:52:53 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#ifndef CMD_TYPES_H
+# define CMD_TYPES_H
 
+# include "srv_types.h"
 # include "rt_types.h"
 
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
+typedef struct		s_parse_fw
+{
+	t_msg			(*func)(t_rt *, char *);
+	char			*word;
+}					t_parse_fw;
 
 #endif

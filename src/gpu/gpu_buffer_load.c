@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:17:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/26 18:28:58 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				gpu_buffer_load(t_rt *rt)
 	return (0);
 }
 
-#elif defined(PLATFORM_LINUX) || defined(PPLATFORM_WINDOWS)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_WINDOWS)
 
 int				gpu_buffer_load(t_rt *rt)
 {

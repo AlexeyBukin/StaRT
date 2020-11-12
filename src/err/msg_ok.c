@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   msg_ok.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/10 01:05:10 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 01:06:28 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#include "rt.h"
 
-# include "rt_types.h"
+t_msg       msg_ok(char *str)
+{
+	//TODO add debug verbose func
+	//rt_debug(str);
+    return((t_msg){MSG_OK, str});
+}
 
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
+/*
+** msg_oks() used with static strings
+** Because of server will free() every MSG_OK string
+*/
 
-#endif
+t_msg       msg_oks(char *str)
+{
+	//TODO add debug verbose func
+	//rt_debug(str);
+	return((t_msg){MSG_OK, ft_strdup(str)});
+}

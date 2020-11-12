@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   cmd_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
 /*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+#include "rt.h"
 
-# include "rt_types.h"
+uint				scn_id()
+{
+	static uint		id = 0;
 
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
-
-#endif
+	return (++id);
+}
