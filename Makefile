@@ -6,7 +6,7 @@
 #    By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/10 10:02:20 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/12 05:10:40 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,9 +85,9 @@ SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                sr
                src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_init.c \
                src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_loop.c \
                src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_parse.c \
-               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_shutdown.c \
-               src/err/msg_ok.c                src/scn/plane.c                 src/srv/srv_utils.c \
-               src/err/msg_warn.c              src/scn/scn_add_material.c      src/vlk/vlk_init.c \
+               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_utils.c \
+               src/err/msg_ok.c                src/scn/plane.c                 src/vlk/vlk_init.c \
+               src/err/msg_warn.c              src/scn/scn_add_material.c
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
@@ -105,8 +105,8 @@ all: $(NAME)
 ifeq ($(UNAME_SYSTEM),Darwin)
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
 	echo "makefile: making MacOS executable"
-	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
-	install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" RT
+	$(COMPILE) -Wl,-rpath,$(GTK_BUNDLE)/lib $(OBJ) -o $(NAME) $(LIB_FLAGS)
+	install_name_tool -add_rpath "build/mtl" $(NAME)
 	sh rt_school21_linking.sh
 
 $(MTL_DYLIB):
