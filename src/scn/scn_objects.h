@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scn_objects.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:41:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:52:58 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ typedef	unsigned int		uint;
 
 typedef struct		s_vec2
 {
-	t_num			x;
-	t_num			y;
-}					t_vec2;
+	t_num				x;
+	t_num				y;
+}						t_vec2;
 
-typedef struct		s_vec3
+typedef struct			s_vec3
 {
-	t_num			x;
-	t_num			y;
-	t_num			z;
-}					t_vec3;
+	t_num				x;
+	t_num				y;
+	t_num				z;
+}						t_vec3;
 
 enum e_obj_type
 {
@@ -39,33 +39,33 @@ enum e_obj_type
 	OBJ_GEOMETRY
 };
 
-typedef struct				s_sphere
+typedef struct			s_sphere
 {
-	t_vec3			pos;
-	t_num			r;
-}							t_sphere;
+	t_vec3				pos;
+	t_num				r;
+}						t_sphere;
 
-struct				s_plane
+typedef struct			s_plane
 {
-	t_vec3			n;
-	t_num			d;
-};
+	t_vec3				n;
+	t_num				d;
+}						t_plane;
 
-typedef	struct		s_cone
+typedef	struct			s_cone
 {
-	t_vec3			pos;
-	t_vec3			cap;
-	t_num			r;
-}					t_cone;
+	t_vec3				pos;
+	t_vec3				cap;
+	t_num				r;
+}						t_cone;
 
-typedef	struct		s_cylinder
+typedef	struct			s_cylinder
 {
-	t_vec3			pos;
-	t_vec3			cap;
-	t_num			r;
-}					t_cylinder;
+	t_vec3				pos;
+	t_vec3				cap;
+	t_num				r;
+}						t_cylinder;
 
-union				u_shape
+union					u_shape
 {
 	struct s_sphere		sphere;
 	struct s_plane		plane;
@@ -73,12 +73,12 @@ union				u_shape
 	struct s_cylinder	cylinder;
 };
 
-typedef struct				s_obj
+typedef struct			s_obj
 {
-	uint					id;
-	uint					material_id;
-	enum e_obj_type			type;
-	union u_shape			shape;
-}							t_obj;
+	uint				id;
+	uint				material_id;
+	enum e_obj_type		type;
+	union u_shape		shape;
+}						t_obj;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 07:37:39 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/11 11:42:37 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_msg					cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len);
 */
 
 t_msg					cmd_add_sphere(t_rt *rt, char *source);
+t_msg					cmd_add_plane(t_rt *rt, char *source);
 
 /*
 **				cmd_set_sphere
@@ -72,6 +73,15 @@ t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere);
 t_msg					cmd_set_sphere_radius(char **source, t_sphere *sphere);
 t_msg					cmd_set_sphere_material(char **source, t_sphere *sphere);
 t_msg					cmd_set_sphere_name(char **source, t_sphere *sphere);
+
+/*
+**				cmd_set_plane
+*/
+
+t_msg					cmd_set_plane_norm(char **source, t_plane *plane);
+t_msg					cmd_set_plane_dist(char **source, t_plane *plane);
+t_msg					cmd_set_plane_material(char **source, t_plane *plane);
+t_msg					cmd_set_plane_name(char **source, t_plane *plane);
 
 /*
 **				cmd_read

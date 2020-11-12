@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   srv_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 20:56:52 by kcharla           #+#    #+#             */
 /*   Updated: 2020/11/10 10:01:33 by kcharla          ###   ########.fr       */
