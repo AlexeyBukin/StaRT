@@ -6,7 +6,7 @@
 #    By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/10 02:53:48 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/11 11:12:49 by jvoor            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,25 +69,26 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 ### Sources
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/srv/srv_types.h \
-src/err/err.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h \
-src/gpu/gpu.h           src/rt.h                src/scn/scn_types.h \
-src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h 
+HEADERS	:= src/cmd/cmd.h           src/gpu/gpu_types.h     src/rt.h                src/scn/scn_types.h \
+src/cmd/cmd_types.h     src/gui/gui.h           src/rt_types.h          src/srv/srv.h \
+src/err/err.h           src/gui/gui_types.h     src/scn/scn.h           src/srv/srv_types.h \
+src/gpu/gpu.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h 
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_sphere.c \
-               src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_id.c \
-               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_init.c \
-               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_ext.c \
-               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext_data.c \
-               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_init.c \
-               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_loop.c \
-               src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_parse.c \
-               src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_request.c \
-               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_shutdown.c \
-               src/err/msg_ok.c                src/scn/plane.c                 src/srv/srv_utils.c \
-               src/err/msg_warn.c              src/scn/scn_add_material.c      src/vlk/vlk_init.c \
+SRC_SHARED	:= src/cmd/cmd_add.c               src/err/msg_warn.c              src/scn/scn_add_sphere.c \
+				src/cmd/cmd_ls.c                src/err/rt_err.c                src/scn/scn_id.c \
+				src/cmd/cmd_parse.c             src/err/rt_warn.c               src/scn/scn_init.c \
+				src/cmd/cmd_parse_tree.c        src/gpu/gpu_buffer_load.c       src/srv/srv_deinit.c \
+				src/cmd/cmd_read.c              src/gpu/gpu_init.c              src/srv/srv_ext.c \
+				src/cmd/cmd_read_num.c          src/gpu/gpu_kernel_run.c        src/srv/srv_ext_data.c \
+				src/cmd/cmd_set_cylinder.c      src/gui/gui_init.c              src/srv/srv_init.c \
+				src/cmd/cmd_set_plane.c         src/rt.c                        src/srv/srv_loop.c \
+				src/cmd/cmd_set_sphere.c        src/scn/check_arguments.c       src/srv/srv_parse.c \
+				src/cmd/cmd_utils.c             src/scn/cone.c                  src/srv/srv_request.c \
+				src/cmd/cmd_valid.c             src/scn/cylinder.c              src/srv/srv_shutdown.c \
+				src/err/msg_err.c               src/scn/plane.c                 src/srv/srv_utils.c \
+				src/err/msg_ok.c                src/scn/scn_add_material.c      src/vlk/vlk_init.c \
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
