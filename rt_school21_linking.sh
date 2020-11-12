@@ -17,13 +17,14 @@ else
   echo linking $1 ...
 fi
 
-for file in $(otool -l $lib | grep KCHARLA | awk '{print $2}');
+for file in $(otool -l $lib | grep "name lib" | awk '{print $2}');
   do
-    install_name_tool -change "$file" "@rpath/`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
+#    install_name_tool -change "$file" "@rpath/`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
+    install_name_tool -change "$file" "@rpath/$file" $lib;
   done
 install_name_tool -add_rpath "@executable_path"$prefix"gtk_bundle_42/lib" $lib
 
-IFS=$OLD_IFS
+#IFS=$OLD_IFS
 
 #for lib in $(ls -1 gtk_bundle_42/lib/*);
 #do
@@ -33,6 +34,7 @@ IFS=$OLD_IFS
 #  do
 ###    echo $file;
 #    install_name_tool -change "$file" "@rpath/`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
+#    install_name_tool -id "`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
 #  done
 ##  install_name_tool -add_rpath "." $lib;
 #  echo "\n";
@@ -48,5 +50,6 @@ IFS=$OLD_IFS
 ##    echo $file | rev | cut -d/ -f 1 | rev ;
 #done
 
+IFS=$OLD_IFS
 
-
+#install_name_tool -change "libgtk-3.0.dylib" "@rpath/libgtk-3.0.dylib" RT$lib;

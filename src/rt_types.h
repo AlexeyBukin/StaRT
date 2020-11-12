@@ -6,7 +6,7 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 09:13:58 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 10:12:14 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ typedef struct		s_rt
 {
 	GtkApplication		*app;
 	GMainContext		*context;
+	GMutex				mutex_true;
+	GMutex				*mutex;
+	GThread				*server_thread;
 	t_gpu				gpu;
 	t_scn				*scene;
 	t_texture			*render_result;

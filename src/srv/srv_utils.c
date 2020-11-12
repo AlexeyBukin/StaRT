@@ -38,3 +38,21 @@ void				*null(int a)
 	(void)a;
 	return (NULL);
 }
+
+static gboolean
+srv_g_application_quit(gpointer void_app)
+{
+	g_application_quit(G_APPLICATION(void_app));
+	return G_SOURCE_REMOVE;
+}
+
+void		srv_quit_gtk_app(t_rt *rt)
+{
+	GSource *source;
+
+	if (rt == NULL)
+		return ;
+	source = g_idle_source_new();
+	g_source_set_callback(source, srv_g_application_quit, rt->app, NULL);
+	g_source_attach(source, rt->context);
+}

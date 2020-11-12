@@ -6,7 +6,7 @@
 #    By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/11 11:12:49 by jvoor            ###   ########.fr        #
+#    Updated: 2020/11/12 05:10:40 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,26 +69,26 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 ### Sources
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS	:= src/cmd/cmd.h           src/gpu/gpu_types.h     src/rt.h                src/scn/scn_types.h \
-src/cmd/cmd_types.h     src/gui/gui.h           src/rt_types.h          src/srv/srv.h \
-src/err/err.h           src/gui/gui_types.h     src/scn/scn.h           src/srv/srv_types.h \
-src/gpu/gpu.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h 
+HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/srv/srv_types.h \
+src/err/err.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h \
+src/gpu/gpu.h           src/rt.h                src/scn/scn_types.h \
+src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h \
+src/scn/scn_map.h
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/err/msg_warn.c              src/scn/scn_add_sphere.c \
-				src/cmd/cmd_ls.c                src/err/rt_err.c                src/scn/scn_id.c \
-				src/cmd/cmd_parse.c             src/err/rt_warn.c               src/scn/scn_init.c \
-				src/cmd/cmd_parse_tree.c        src/gpu/gpu_buffer_load.c       src/srv/srv_deinit.c \
-				src/cmd/cmd_read.c              src/gpu/gpu_init.c              src/srv/srv_ext.c \
-				src/cmd/cmd_read_num.c          src/gpu/gpu_kernel_run.c        src/srv/srv_ext_data.c \
-				src/cmd/cmd_set_cylinder.c      src/gui/gui_init.c              src/srv/srv_init.c \
-				src/cmd/cmd_set_plane.c         src/rt.c                        src/srv/srv_loop.c \
-				src/cmd/cmd_set_sphere.c        src/scn/check_arguments.c       src/srv/srv_parse.c \
-				src/cmd/cmd_utils.c             src/scn/cone.c                  src/srv/srv_request.c \
-				src/cmd/cmd_valid.c             src/scn/cylinder.c              src/srv/srv_shutdown.c \
-				src/err/msg_err.c               src/scn/plane.c                 src/srv/srv_utils.c \
-				src/err/msg_ok.c                src/scn/scn_add_material.c      src/vlk/vlk_init.c \
+SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_sphere.c \
+               src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_id.c \
+               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_init.c \
+               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_deinit.c \
+               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
+               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext_data.c \
+               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_init.c \
+               src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_loop.c \
+               src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_parse.c \
+               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_utils.c \
+               src/err/msg_ok.c                src/scn/plane.c                 src/vlk/vlk_init.c \
+               src/err/msg_warn.c              src/scn/scn_add_material.c
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
@@ -106,8 +106,8 @@ all: $(NAME)
 ifeq ($(UNAME_SYSTEM),Darwin)
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
 	echo "makefile: making MacOS executable"
-	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
-	install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" RT
+	$(COMPILE) -Wl,-rpath,$(GTK_BUNDLE)/lib $(OBJ) -o $(NAME) $(LIB_FLAGS)
+	install_name_tool -add_rpath "build/mtl" $(NAME)
 	sh rt_school21_linking.sh
 
 $(MTL_DYLIB):
@@ -152,41 +152,48 @@ $(GTK_BUNDLE):
 #----------- DEMO_PART      ---------------#
 #------------------------------------------#
 
-# DEMO_DIR 		:= demo
-# DEMO_COMPILE 	= gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
-# DEMO_DIRS		= $(patsubst $(SRC_DIR)%, $(DEMO_DIR)%, $(SRC_DIRS))
-#
-# demo_clean:
-# 	rm -rf $(DEMO_DIR)
-#
-# $(DEMO_DIRS):
-# 	@mkdir -vp $(DEMO_DIRS)
-#
-# ### MTL DEMOS
-# DEMO_MTL = demo/gpu/mtl
-#
-# $(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
-# 	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
-#
-# ### GPU DEMOS
-# DEMO_GPU = $(DEMO_DIR)/gpu
-#
-# $(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
-# 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
-# 	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
-#
-# ### GUI DEMOS
-# DEMO_GUI = $(DEMO_DIR)/gui
-#
-# $(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
-# 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
-# 	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
-#
-# ### Server Demo
-# $(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
-# 	$(DEMO_COMPILE) src/srv/srv_init.c src/srv/srv_loop.c src/srv/srv.c.demo src/err/*.c -o $@
-# 	zsh rt_school21_linking.sh $(DEMO_DIR)/srv/srv
-#
-# ### ERR Demo
-# $(DEMO_DIR)/err/err: $(DEMO_DIRS)
-# 	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@
+DEMO_DIR 		:= demo
+DEMO_COMPILE 	= gcc -Wall -Wextra -Werror -x c $(INCLUDE) $(LIB_FLAGS)
+DEMO_DIRS		= $(patsubst $(SRC_DIR)%, $(DEMO_DIR)%, $(SRC_DIRS))
+
+demo_clean:
+	rm -rf $(DEMO_DIR)
+
+$(DEMO_DIRS):
+	@mkdir -vp $(DEMO_DIRS)
+
+### MTL DEMOS
+DEMO_MTL = demo/gpu/mtl
+
+$(DEMO_MTL)/lib_load: $(DEMO_DIRS) $(MTL_DYLIB) $(MTL_DIR)/_mtl_lib_load.c.demo
+	 gcc -Wall -Wextra -Werror $(MTL_FLAGS) -x c $(MTL_DIR)/_mtl_lib_load.c.demo -o $@
+
+### GPU DEMOS
+DEMO_GPU = $(DEMO_DIR)/gpu
+
+$(DEMO_GPU)/gpu: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gpu/gpu.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gpu/gpu.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GPU)/gpu
+
+### GUI DEMOS
+DEMO_GUI = $(DEMO_DIR)/gui
+
+$(DEMO_GUI)/css: $(DEMO_DIRS) $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(MTL_DYLIB) src/gui/gui_css.c.demo
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(OBJ) -x c src/gui/gui_css.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_GUI)/css
+
+### Server Demo
+$(DEMO_DIR)/srv/srv: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/srv/srv_init.c src/srv/srv_loop.c src/srv/srv.c.demo src/err/*.c -o $@
+	zsh rt_school21_linking.sh $(DEMO_DIR)/srv/srv
+
+### ERR Demo
+$(DEMO_DIR)/err/err: $(DEMO_DIRS)
+	$(DEMO_COMPILE) src/err/rt_err.c src/err/rt_warn.c src/err/err.c.demo -o $@
+
+### Scene demo
+$(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
+	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
+   
+   

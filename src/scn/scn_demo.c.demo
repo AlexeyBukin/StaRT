@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   srv_shutdown.c                                     :+:      :+:    :+:   */
+/*   scn_demo.c.demo                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 20:25:43 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/09 20:32:03 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/09 20:32:03 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-/*
-** Must be run from gtk thread only!
-*/
-
-int		srv_shutdown(t_rt *rt)
+int		main(int ac, char **av)
 {
-	if (rt == NULL)
-		return (rt_err("rt is NULL pointer"));
-	return (srv_request(rt, "shutdown"));
+	t_rt		rt;
+	t_scn		*scn;
+
+	(void)ac;
+	(void)av;
+	if (scn_init(&rt))
+		return (rt_err("Cannot init scene"));
+	scn = rt.scene;
+	rt_warn("All demo tests run successfully");
+	return (0);
 }
