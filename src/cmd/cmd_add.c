@@ -27,7 +27,7 @@ t_msg					cmd_add_sphere(t_rt *rt, char *source)
 	t_msg				result;
 	t_sphere			*sphere;
 	t_msg				(*parse_func)(char **, t_sphere *);
-	
+
 	if (rt == NULL || source == NULL)
 		return (msg_err("Entered NULL pointers"));
 	result = (t_msg){MSG_NONE, NULL};

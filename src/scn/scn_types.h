@@ -20,6 +20,7 @@
 struct				s_cam
 {
 	uint			id;
+	char			*name;
 	t_vec3			pos;
 	t_vec3			forward;
 	t_vec3			right;
@@ -42,6 +43,7 @@ typedef union		u_mat_param3
 typedef struct				s_mat
 {
 	uint			id;
+	char			*name;
 	t_mat_param		metalness;
 	t_mat_param		roughness;
 	t_mat_param		ior;
@@ -53,6 +55,7 @@ typedef struct				s_mat
 typedef struct		s_scn
 {
 	uint				id;
+	char				*name;
 	struct s_obj		*objects;
 	uint				objects_num;
 	uint				objects_max;
@@ -64,8 +67,10 @@ typedef struct		s_scn
 	uint				cameras_num;
 	uint				cameras_max;
 	//maps: hash and regular; names?
-	t_map				id_to_objs;
-	t_hash_map			names_to_objs;
+	t_map				id_to_name;
+	t_hash_map			name_to_id;
+//	t_map				*id_to_name;
+//	t_hash_map			*name_to_id;
 }					t_scn;
 
 #endif

@@ -12,16 +12,114 @@
 
 #include "rt.h"
 
+#define GREEN	"\033[38;2;0;200;50m"
+#define RED		"\033[38;2;200;0;50m"
+#define EOC		"\033[0m"
+
+int		print_sphere(t_obj obj)
+{
+	ft_printf("sphere r = %f\n", obj.shape.sphere.r);
+	return (0);
+}
+
+int		print_objs(t_scn *scn)
+{
+	uint			objs_num;
+
+	objs_num = 0;
+	while (objs_num != scn->objects_num)
+	{
+		if (scn->objects[objs_num].type == OBJ_SPHERE)
+			print_sphere(scn->objects[objs_num]);
+		objs_num++;
+	}
+	return (0);
+}
+
+int		set_sphere(t_scn *scn, uint i)
+{
+	t_sphere	*sphere;
+	char		*new_name;
+
+	new_name = ft_strjoin("lal_", ft_itoa(i));
+	sphere = scn_get_sphere(scn, new_name);
+	if (sphere == NULL)
+		return (-1);
+	sphere->r = 1;
+	return (0);
+}
+
+void	check_null_return(t_scn *scn, uint index)
+{
+	char		*o;
+
+	o = scn_name_by_id(scn, index);
+	ft_printf(o == NULL ? GREEN "" EOC : RED "Map returned smth %d\n" EOC, index);
+//	if (o == NULL)
+//		ft_putstr(GREEN "" EOC);
+//	else
+//	{
+//		ft_putstr(RED "Map returned smth: " EOC);
+//		ft_putendl(o);
+//	}
+}
+
 int		main(int ac, char **av)
 {
 	t_rt		rt;
 	t_scn		*scn;
+	uint		i;
 
 	(void)ac;
 	(void)av;
 	if (scn_init(&rt))
 		return (rt_err("Cannot init scene"));
 	scn = rt.scene;
-	rt_warn("All demo tests run successfully");
+	i = 1;
+	while (i <= 20000)
+	{
+		set_sphere(rt.scene, i);
+		i++;
+	}
+//	print_objs(scn);
+	i = 2;
+	ft_printf("map_size = %d\n", scn->id_to_name.curr_size);
+	while (i <= 19999)
+	{
+		map_remove_elem(scn, i);
+		i++;
+	}
+//	i = 0;
+//	while (i < 20000)
+//	{
+//		check_null_return(scn, i);
+//		i++;
+//	}
+//	scn_map_deinit(scn);
+//	i = 0;
+//	while (i < 20000) {
+//		check_null_return(scn, i);
+//		i++;
+//	}
+//	i = 1;
+//	while (i < 20000)
+//	{
+//		set_sphere(rt.scene, i);
+//		i++;
+//	}
+//	print_objs(scn);
+	i = 0;
+//	while (i < 10000)
+//	{
+//		map_remove_elem(scn, i);
+//		i++;
+//	}
+//	i = 0;
+	while (i <= 20000)
+	{
+		check_null_return(scn, i);
+		i++;
+	}
+	rt_warn(GREEN "All demo tests run successfully" EOC);
 	return (0);
 }

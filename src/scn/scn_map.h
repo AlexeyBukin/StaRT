@@ -7,21 +7,28 @@
 
 #include "libft.h"
 
+struct s_scn;
+
+#define MAP_STEP_SIZE 32
+
 typedef struct		s_element
 {
 	uint				id;
 	char				*name;
-	// obj: mb it would be comfy to make pointers
-	// to objects and get it when we alloc objects it scene?
-	// it means that we need to generate id's when we alloc this shit
-	void				*obj;//or just t_list?
-	struct s_element	*next;//or just t_list?
-}					t_elements;
+//	void				*obj;
+	struct s_element	*next;
+}					t_element;
 
-//by id
+typedef struct		s_elem
+{
+	uint				id;
+	char				*name;
+}					t_elem;
+
 typedef struct		s_map
 {
-	t_elements		elements[16];
+	t_element		**elements;
+	uint			curr_size;
 }					t_map;
 
 //needs for hash-function, avoiding collisions
@@ -29,15 +36,37 @@ typedef struct		s_map
 //by name
 typedef struct		s_hash_map
 {
-	t_elements		elements[16];
+	t_element		**elements;
+	uint			curr_size;
 }					t_hash_map;
 
-t_obj			*map_add_obj(t_map *map);
-t_obj			*map_remove_obj(t_map *map);
-t_obj			*map_get_obj(t_map *map);
+/*
+**				scn_map_add
+*/
 
-t_obj			*hash_map_add(t_hash_map *map);
-t_obj			*hash_map_remove(t_hash_map *map);
-t_obj			*hash_map_get(t_hash_map *map);
+int 			map_add_elem(t_map *map, t_elem *obj);//internal scene function
+
+/*
+**				scn_map
+*/
+
+char			*scn_name_by_id(struct s_scn *scn, uint id);
+
+/*
+**				scn_map_del (where should we call them?)
+*/
+
+int 			map_remove_elem(struct s_scn *scn, uint id);
+void 			scn_map_deinit(struct s_scn *scn);
+
+/*
+**				scn_hash_map
+*/
+
+t_obj			*hash_map_add_elem(t_map *map, t_elem *obj);
+t_obj			*scn_id_by_name(struct s_scn *scn, char *name);
+
+t_obj			*hash_map_remove_elem(t_hash_map *map, t_elem *obj);
+void 			scn_hash_map_deinit(struct s_scn *scn);
 
 #endif
