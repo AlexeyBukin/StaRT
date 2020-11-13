@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scn_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "scn_map.h"
 # define SIZE_STEP 16
 
-struct				s_cam
+typedef struct		s_cam
 {
 	uint			id;
 	char			*name;
@@ -26,7 +26,7 @@ struct				s_cam
 	t_vec3			right;
 	t_vec3			up;
 	t_vec2			fov;
-};
+}					t_cam;
 
 typedef union		u_mat_param
 {
@@ -51,6 +51,25 @@ typedef struct				s_mat
 	t_mat_param3	albedo;
 	t_mat_param3	f0;
 }							t_mat;
+
+typedef union		u_component
+{
+	t_obj			obj;
+	t_mat			mat;
+	t_mat			cam;
+	// textures, groups, etc
+}					t_component;
+
+enum e_comp_type
+{
+	COMPONENT_ANY = -1,
+	COMPONENT_NONE,
+	COMPONENT_OBJECT,
+	COMPONENT_MATERIAL,
+	COMPONENT_TEXTURE,
+	COMPONENT_CAMERA,
+	COMPONENT_NUM
+};
 
 typedef struct		s_scn
 {

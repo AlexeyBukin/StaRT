@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_set_object.c                                   :+:      :+:    :+:   */
+/*   cmd_set_object_param.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 05:21:03 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 07:38:01 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/13 08:21:25 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+//TODO add -N name, -M material, -T tag, -G group
 
 t_msg			cmd_set_object_name(t_scn *scn, t_obj *obj, char **source)
 {
@@ -27,8 +29,6 @@ t_msg			cmd_set_object_name(t_scn *scn, t_obj *obj, char **source)
 			return (msg_err("Cannot read name string"));
 		return (msg_warn("Cannot read name string"));
 	}
-	if (cmd_read_space_req(source) < 0)
-		return (msg_warn("Syntax error: \' \' expected"));
 	if (scn_component_set_name(scn, obj->id, name))
 		return (msg_err("Cannot set name"));
 	return (msg_oks("Name set"));
@@ -53,6 +53,9 @@ t_msg			cmd_set_object_material(t_scn *scn, t_obj *obj, char **source)
 	obj->material_id = mat_id;
 	return (msg_oks("Material set"));
 }
+
+//TODO add -N name, -M material, -T tag, -G group
+
 
 t_msg			cmd_set_object_param(t_scn *scn, t_obj *obj, char **source)
 {
