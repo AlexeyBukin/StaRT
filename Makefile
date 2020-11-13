@@ -6,7 +6,7 @@
 #    By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/10 10:02:20 by kcharla          ###   ########.fr        #
+#    Updated: 2020/11/12 05:10:40 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c \
                src/err/msg_warn.c              src/scn/scn_map.c \
                src/scn/scn_get_shape.c         src/scn/scn_map_del.c           src/scn/scn_map_add.c
 
+
 SRC 		= $(SRC_SHARED) src/main.c
 
 OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))
@@ -106,8 +107,8 @@ all: $(NAME)
 ifeq ($(UNAME_SYSTEM),Darwin)
 $(NAME): $(GTK_BUNDLE) $(BUILD_DIRS) $(OBJ) $(LIB_DEPENDENCY)
 	echo "makefile: making MacOS executable"
-	$(COMPILE) $(OBJ) -o $(NAME) $(LIB_FLAGS)
-	install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" RT
+	$(COMPILE) -Wl,-rpath,$(GTK_BUNDLE)/lib $(OBJ) -o $(NAME) $(LIB_FLAGS)
+	install_name_tool -add_rpath "build/mtl" $(NAME)
 	sh rt_school21_linking.sh
 
 $(MTL_DYLIB):

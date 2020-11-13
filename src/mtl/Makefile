@@ -33,6 +33,7 @@ all: $(MTL_DYLIB_EXT)
 
 $(MTL_DYLIB_EXT): $(MTL_BUILD_EXT) $(MTL_OBJ)
 	swiftc $(MTL_INCLUDE_SWIFT) -o $(MTL_DYLIB_EXT) -emit-library $(MTL_OBJ) -lz
+	install_name_tool -id libmtl.dylib $(MTL_DYLIB_EXT)
 
 $(MTL_BUILD_EXT):
 	mkdir -vp $(MTL_BUILD_EXT)
