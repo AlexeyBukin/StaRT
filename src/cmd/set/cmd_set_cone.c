@@ -1,61 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_set_cylinder.c                                 :+:      :+:    :+:   */
+/*   cmd_set_cone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 04:28:42 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 07:46:14 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/13 05:01:18 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/13 07:45:39 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_msg					cmd_set_cylinder_pos(char **source, t_cylinder *cyl)
+t_msg					cmd_set_cone_pos(char **source, t_cone *cone)
 {
-	if (source == NULL || cyl == NULL)
+	if (source == NULL || cone == NULL)
 		return (msg_err("Given pointer is NULL"));
 	if (*source == NULL)
 		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_vec(source, &(cyl->pos)))
+	if (cmd_read_vec(source, &(cone->pos)))
 		return (msg_warn("Syntax error: expected vector"));
-	return (msg_oks("Set cylinder position"));
+	return (msg_oks("Set cone position"));
 }
 
-t_msg					cmd_set_cylinder_cap(char **source, t_cylinder *cyl)
+t_msg					cmd_set_cone_cap(char **source, t_cone *cone)
 {
-	if (source == NULL || cyl == NULL)
+	if (source == NULL || cone == NULL)
 		return (msg_err("Given pointer is NULL"));
 	if (*source == NULL)
 		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_vec(source, &(cyl->cap)))
+	if (cmd_read_vec(source, &(cone->cap)))
 		return (msg_warn("Syntax error: expected vector"));
-	return (msg_oks("Set cylinder cap"));
+	return (msg_oks("Set cone cap"));
 }
 
-t_msg					cmd_set_cylinder_radius(char **source, t_cylinder *cyl)
+t_msg					cmd_set_cone_radius(char **source, t_cone *cone)
 {
-	if (source == NULL || cyl == NULL)
+	if (source == NULL || cone == NULL)
 		return (msg_err("Given pointer is NULL"));
 	if (*source == NULL)
 		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_num(source, &(cyl->r)))
+	if (cmd_read_num(source, &(cone->r)))
 		return (msg_warn("Syntax error: expected num"));
-	return (msg_oks("Set cylinder radius"));
+	return (msg_oks("Set cone radius"));
 }
 
-t_msg					cmd_set_cylinder(t_scn *scn, t_obj *cylinder, char **source)
+t_msg					cmd_set_cone(t_scn *scn, t_obj *cone, char **source)
 {
 	t_msg				tmp;
 	
-	if (scn == NULL || cylinder == NULL || source == NULL)
+	if (scn == NULL || cone == NULL || source == NULL)
 		return (msg_err("Given pointer is NULL"));
 	if (*source == NULL)
 		return (msg_err("Dereference to NULL pointer"));
 	while (*source != '\0' && *source != '\n')
 	{
-		tmp = cmd_set_object_param(scn, cylinder, source);
+		tmp = cmd_set_object_param(scn, cone, source);
 		if (tmp.status == MSG_ERROR || tmp.status == MSG_WARN)
 			return (tmp);
 		//TODO concat, dont free
@@ -70,17 +70,17 @@ t_msg					cmd_set_cylinder(t_scn *scn, t_obj *cylinder, char **source)
 		if (ft_str_next_is(*source, KW_PARAM_POS))
 		{
 			*source += KW_PARAM_LEN;
-			tmp = cmd_set_cylinder_pos(source, &(cylinder->shape.cylinder));
+			tmp = cmd_set_cone_pos(source, &(cone->shape.cone));
 		}
 		else if (ft_str_next_is(*source, KW_PARAM_CAP))
 		{
 			*source += KW_PARAM_LEN;
-			tmp = cmd_set_cylinder_cap(source, &(cylinder->shape.cylinder));
+			tmp = cmd_set_cone_cap(source, &(cone->shape.cone));
 		}
 		else if (ft_str_next_is(*source, KW_PARAM_RAD))
 		{
 			*source += KW_PARAM_LEN;
-			tmp = cmd_set_cylinder_radius(source, &(cylinder->shape.cylinder));
+			tmp = cmd_set_cone_radius(source, &(cone->shape.cone));
 		}
 		else
 			return (msg_warn("Unknown flag"));
@@ -90,5 +90,5 @@ t_msg					cmd_set_cylinder(t_scn *scn, t_obj *cylinder, char **source)
 		if (cmd_read_space_req(&source))
 			return (msg_warn("Expected \' \'"));
 	}
-	return (msg_oks("Cylinder parameters set"));
+	return (msg_oks("Cone parameters set"));
 }

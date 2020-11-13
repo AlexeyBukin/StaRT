@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 05:21:03 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 07:13:26 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/13 07:38:01 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ t_msg			cmd_set_object_material(t_scn *scn, t_obj *obj, char **source)
 			return (msg_err("Cannot read material"));
 		return (msg_warn("Cannot read material"));
 	}
-	if (cmd_read_space_req(source) < 0)
-		return (msg_warn("Syntax error: \' \' expected"));
 	if (scn_check_mid(mat_id))
 		return (msg_err("Cannot find material"));
 	obj->material_id = mat_id;
@@ -73,5 +71,5 @@ t_msg			cmd_set_object_param(t_scn *scn, t_obj *obj, char **source)
 		*source += KW_PARAM_LEN;
 		return (cmd_set_object_mat(scn, obj, source));
 	}
-	return (msg_warn("There is no general object parameters"));
+	return ((t_msg)(MSG_NONE, NULL));
 }

@@ -6,13 +6,11 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 23:44:09 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 07:35:53 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/13 07:38:13 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-//TODO check end of line
 
 t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere)
 {
