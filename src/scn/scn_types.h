@@ -73,7 +73,6 @@ enum e_comp_type
 
 typedef struct		s_scn
 {
-	uint				id;
 	char				*name;
 	struct s_obj		*objects;
 	uint				objects_num;
@@ -85,11 +84,51 @@ typedef struct		s_scn
 	struct s_cam		*cameras;
 	uint				cameras_num;
 	uint				cameras_max;
-	//maps: hash and regular; names?
 	t_map				id_to_name;
 	t_hash_map			name_to_id;
 //	t_map				*id_to_name;
 //	t_hash_map			*name_to_id;
 }					t_scn;
+
+typedef enum		e_scn_shape_type
+{
+	SCN_SHAPE_NONE = 0,
+	SCN_SHAPE_PLANE,
+	SCN_SHAPE_SPHERE,
+	SCN_SHAPE_CYLINDER,
+	SCN_SHAPE_CONE,
+	SCN_SHAPE_GEOMETRY
+}					t_scn_shape_type;
+
+typedef unsigned int		t_id;
+
+typedef struct				s_scn_group
+{
+	t_id					id;
+	t_scn_transform			transform;
+	char					*name;
+	struct s_scn_object		*children;
+	size_t					child_num;
+	size_t					child_max;
+}							t_scn_group;
+
+typedef struct				s_scn_object
+{
+	t_id					id;
+	t_scn_transform			transform;
+	char					*name;
+	t_scn_group				*parent;
+	t_scn_shape_type		type;
+	t_scn_material			*material;
+}							t_scn_object;
+
+typedef struct				s_scn_transform
+{
+	t_vec3					pos_local;
+	t_vec3					pos_global;
+	t_mat3x3				rot_origin;
+	t_vec3					rot_local;
+	t_vec3					rot_global;
+}							t_scn_transform;
 
 #endif
