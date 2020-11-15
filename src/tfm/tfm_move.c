@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_types.h                                        :+:      :+:    :+:   */
+/*   tfm_move.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_TYPES_H
-# define SCN_TYPES_H
-
-# include "libnum.h"
-# include "scn_id.h"
-# include "txr_types.h"
-# include "mat_types.h"
-# include "obj_types.h"
-
-typedef struct		s_cam
+int		tfm_update(t_tfm *tfm)
 {
-	t_id			id;
-	char			*name;
-	t_tfm			transform;
-	t_vec2			fov;
-}					t_cam;
+	if (tfm == NULL)
+		return (rt_err("Given pointer is NULL"));
+	if (tfm->parent == NULL)
+		return (0);
+	if (tfm_update(tfm->parent))
+		return (rt_err("Cannot update transform parent"));
+	tfm->pos_global =  vec3_plus(tfm->parent->pos_global, tfm->pos_local);
+	tfm->pos_global = vec3_plus();
 
-typedef struct		s_scn
+}
+
+int		tfm_update_rec(t_tfm *tfm)
 {
-	char			*filename;
-	t_obj			*main_group;
-	t_cam			*camera_active;
-	t_mat			**materials;
-	size_t			materials_num;
-	t_cam			**cameras;
-	size_t			cameras_num;
-	t_txr			**textures;
-	size_t			textures_num;
-//	t_mdl			**models;
-//	size_t			models_num;
-}					t_scn;
+	if (tfm == NULL)
+		return (rt_err("Given pointer is NULL"));
+	if (tfm->parent == NULL)
+		return (0);
+	if (tfm_update(tfm->parent))
+		return (rt_err("Cannot update transform parent"));
+	tfm->pos_global =  vec3_plus(tfm->parent->pos_global, tfm->pos_local);
+	tfm->pos_global = vec3_plus();
 
-#endif
+}

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_types.h                                        :+:      :+:    :+:   */
+/*   txr_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_TYPES_H
-# define SCN_TYPES_H
+#ifndef TXR_TYPES_H
+# define TXR_TYPES_H
 
-# include "libnum.h"
-# include "scn_id.h"
-# include "txr_types.h"
-# include "mat_types.h"
-# include "obj_types.h"
-
-typedef struct		s_cam
+typedef enum				s_txr_type
 {
-	t_id			id;
-	char			*name;
-	t_tfm			transform;
-	t_vec2			fov;
-}					t_cam;
+	TXR_NONE,
+	TXR_BW_8,
+	TXR_RGB_8
+//	TXR_RGBA_8
+}							t_txr_type;
 
-typedef struct		s_scn
+typedef struct				s_texture
 {
-	char			*filename;
-	t_obj			*main_group;
-	t_cam			*camera_active;
-	t_mat			**materials;
-	size_t			materials_num;
-	t_cam			**cameras;
-	size_t			cameras_num;
-	t_txr			**textures;
-	size_t			textures_num;
-//	t_mdl			**models;
-//	size_t			models_num;
-}					t_scn;
+	t_id					id;
+	char					*name;
+	t_txr_type				type;
+	size_t					w;
+	size_t					h;
+	size_t					stride;
+	char					*content;
+}							t_txr;
 
 #endif

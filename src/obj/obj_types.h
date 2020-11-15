@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_types.h                                        :+:      :+:    :+:   */
+/*   obj_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_TYPES_H
-# define SCN_TYPES_H
+#ifndef OBJ_TYPES_H
+# define OBJ_TYPES_H
 
-# include "libnum.h"
-# include "scn_id.h"
-# include "txr_types.h"
+# include "tfm_types.h"
+# include "shp_types.h"
 # include "mat_types.h"
-# include "obj_types.h"
 
-typedef struct		s_cam
+typedef struct				s_obj_container
 {
-	t_id			id;
-	char			*name;
-	t_tfm			transform;
-	t_vec2			fov;
-}					t_cam;
+	t_shp_type				shape_type;
+	t_shp					shape;
+	t_mat					*material;
+}							t_obj_container;
 
-typedef struct		s_scn
+typedef struct				s_obj_group
 {
-	char			*filename;
-	t_obj			*main_group;
-	t_cam			*camera_active;
-	t_mat			**materials;
-	size_t			materials_num;
-	t_cam			**cameras;
-	size_t			cameras_num;
-	t_txr			**textures;
-	size_t			textures_num;
-//	t_mdl			**models;
-//	size_t			models_num;
-}					t_scn;
+	struct s_scn_object		*children;
+	size_t					child_num;
+}							t_obj_group;
+
+typedef enum				s_obj_type
+{
+	OBJ_NONE,
+	OBJ_CONTAINER,
+	OBJ_COPY,
+	OBJ_GROUP
+}							t_obj_type;
+
+typedef union				s_obj_content
+{
+	t_obj_container			container;
+	t_obj_container			*copy;
+	t_obj_group				group;
+}							t_obj_content;
+
+typedef struct				s_scn_object
+{
+	t_id					id;
+	struct s_scn_object		*parent;
+	t_tfm					transform;
+	char					*name;
+	t_bool					visible;
+	t_obj_type				type;
+	t_obj_content			content;
+}							t_obj;
 
 #endif

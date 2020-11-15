@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_types.h                                        :+:      :+:    :+:   */
+/*   mat.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_TYPES_H
-# define SCN_TYPES_H
+#ifndef MAT_H
+# define MAT_H
 
-# include "libnum.h"
-# include "scn_id.h"
-# include "txr_types.h"
 # include "mat_types.h"
-# include "obj_types.h"
-
-typedef struct		s_cam
-{
-	t_id			id;
-	char			*name;
-	t_tfm			transform;
-	t_vec2			fov;
-}					t_cam;
-
-typedef struct		s_scn
-{
-	char			*filename;
-	t_obj			*main_group;
-	t_cam			*camera_active;
-	t_mat			**materials;
-	size_t			materials_num;
-	t_cam			**cameras;
-	size_t			cameras_num;
-	t_txr			**textures;
-	size_t			textures_num;
-//	t_mdl			**models;
-//	size_t			models_num;
-}					t_scn;
 
 #endif
