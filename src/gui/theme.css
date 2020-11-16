@@ -1,16 +1,16 @@
 window {
-    /*font: Comic Sans 12;*/
-    background: blue;
-
+    background: #2d2d30;
 }
 
-button {
-    background: #669999;
-    text-shadow: 1px 1px 5px black;
-    border-radius: 3px;
-    box-shadow: 0px 0px 5px black;
+#menu_bar{
+    color: rgb(255, 115, 0);
 }
 
-button:hover {
-    background: #3085a9;
+#paned {
+    background: #5f5f66;
+}
+
+#list_box {
+    background: #3c3c41;
+    color: red;
 }

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gui.h                                              :+:      :+:    :+:   */
+/*   gui_style.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 11:28:41 by rtacos           ###   ########.fr       */
+/*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
+/*   Updated: 2020/11/16 11:23:21 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GUI_H
-# define GUI_H
+# include "rt.h"
 
-# include "rt_types.h"
+void	gui_style(GtkWidget *widget)
+{
+	GtkStyleContext	*context;
+	GtkCssProvider	*provider;
 
-# define RT_GTK_THEME "src/gui/theme.css"
-
-int				gui_loop(t_rt *rt, int ac, char **av);
-int				gui_init(t_rt *rt);
-int				gui_deinit(t_rt *rt);
-void			gui_style(GtkWidget *widget);
-
-#endif
+	context = gtk_widget_get_style_context(widget);
+	provider = gtk_css_provider_new();
+	gtk_css_provider_load_from_path(provider,
+									 RT_GTK_THEME, NULL);
+	gtk_style_context_add_provider(context,
+									GTK_STYLE_PROVIDER(provider),
+									GTK_STYLE_PROVIDER_PRIORITY_USER);
+}
