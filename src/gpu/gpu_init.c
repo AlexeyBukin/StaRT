@@ -21,7 +21,7 @@
 int				gpu_init(t_rt *rt)
 {
 	char		*lib_source_str;
-	t_texture	*render_result;
+	t_txr		*render_result;
 
 	if (rt == NULL)
 		return (rt_err("rt is NULL pointer"));
@@ -31,10 +31,10 @@ int				gpu_init(t_rt *rt)
 	if (mtl_lib_load_source(rt->gpu.mtl, lib_source_str))
 		return (rt_err("gpu_init(): load_lib() fail"));
 	free(lib_source_str);
-	if ((render_result = (t_texture*)ft_memalloc(sizeof(t_texture))) == NULL)
-		return (rt_err("gpu_init(): ft_memalloc() fail"));
-	if ((render_result->index = mtl_texture_create(rt->gpu.mtl, MTL_WIDTH, MTL_HEIGHT)) < 0)
-		return (rt_err("gpu_init(): texture_create() fail"));
+//	if (txr_init(&render_result, MTL_HEIGHT, MTL_WIDTH))
+//		return (rt_err("gpu_init(): Cannot create texture"));
+//	if ((render_result->index = mtl_texture_create(rt->gpu.mtl, MTL_WIDTH, MTL_HEIGHT)) < 0)
+//		return (rt_err("gpu_init(): texture_create() fail"));
 	render_result->width = MTL_WIDTH;
 	render_result->height = MTL_HEIGHT;
 	if ((render_result->stride = mtl_texture_get_stride(rt->gpu.mtl, render_result->index)) <= 0)
