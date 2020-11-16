@@ -15,4 +15,6 @@
 
 # include "obj_types.h"
 
+int			obj_grp_init(t_obj **dest, char *name);
+
 #endif

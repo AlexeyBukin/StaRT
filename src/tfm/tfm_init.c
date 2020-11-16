@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_id.h                                           :+:      :+:    :+:   */
+/*   tfm_zero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_ID_H
-# define SCN_ID_H
+#include "rt.h"
 
-typedef unsigned int		t_id;
-
-# define DEFAULT_GROUP_ID 1
-# define DEFAULT_GROUP_NAME "scene"
-
-# define DEFAULT_MATERIAL_ID 2
-# define DEFAULT_MATERIAL_NAME "mat_001"
-
-# define DEFAULT_CAMERA_ID 3
-# define DEFAULT_CAMERA_NAME "cam_001"
-
-# define DEFAULT_TEXTURE_ID 4
-# define DEFAULT_TEXTURE_NAME "txr_001"
-
-#endif
+int		tfm_init(t_tfm *tfm)
+{
+	if (tfm == NULL)
+		return (rt_err("Given pointer is NULL"));
+	tfm->pos_global = vec3_zero();
+	tfm->pos_local = vec3_zero();
+	tfm->rot_global = mat3x3_identity();
+	tfm->rot_local = mat3x3_identity();
+	return (0);
+}

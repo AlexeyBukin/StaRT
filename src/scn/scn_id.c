@@ -19,7 +19,7 @@
 
 t_id				scn_id()
 {
-	static uint		id = 100;
+	static uint		id = 101;
 
 	return (id++);
 }

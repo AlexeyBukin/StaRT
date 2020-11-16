@@ -15,4 +15,6 @@
 
 # include "tfm_types.h"
 
+int		tfm_init(t_tfm *tfm);
+
 #endif
