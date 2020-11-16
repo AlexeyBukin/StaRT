@@ -5,6 +5,8 @@
 #ifndef CAM_TYPES_H
 # define CAM_TYPES_H
 
+# include "tfm_types.h"
+
 typedef struct		s_cam
 {
 	t_id			id;

@@ -35,4 +35,10 @@ typedef struct		s_scn
 //	size_t			models_num;
 }					t_scn;
 
+typedef struct		s_component_base
+{
+	t_id			id;
+	char			*name;
+}					t_component_base;
+
 #endif
