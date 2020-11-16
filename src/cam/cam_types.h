@@ -11,6 +11,7 @@ typedef struct		s_cam
 	char			*name;
 	t_tfm			transform;
 	t_vec2			fov;
+	t_rt			*rt;
 }					t_cam;
 
 #endif //CAM_TYPES_H

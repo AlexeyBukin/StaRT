@@ -8,6 +8,8 @@ int		cam_init(t_cam **cam, char *name)
 {
 	t_cam		*init_cam;
 
+	if (scn_name_check((*cam)->rt, name) == -1)
+		return (-1);
 	if (!(init_cam = (t_cam *)ft_memalloc(sizeof(t_cam)))
 		return (rt_err("cam_init(): malloc returned NULL pointer"));
 	if (!(init_cam->name = ft_strdup(name)))

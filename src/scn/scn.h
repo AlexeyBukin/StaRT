@@ -56,8 +56,11 @@ struct s_plane		*scn_get_plane(t_scn *scn, char *name);
 struct s_cone		*scn_get_cone(t_scn *scn, char *name);
 struct s_cylinder	*scn_get_cylinder(t_scn *scn, char *name);
 
+/*
+**		scn_name
+*/
 
-
+int					scn_name_check(t_scn *scn, char *name);
 
 //TODO implement funcs
 //int				scn_component_get_id(t_scn *scn, t_component_type type, char *name, uint *id);
