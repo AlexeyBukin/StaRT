@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ int				scn_init_mat(t_scn *scn)
 	if (scn == NULL)
 		return (rt_err("Given pointer is NULL"));
 	scn->materials = ft_memalloc(sizeof(t_mat *));;
-//	if (mat_init(scn->materials, ft_strdup(DEFAULT_MATERIAL_NAME)))
-//	{
-//		scn_deinit(scn);
-//		return (rt_err("scn_init(): cannot init material"));
-//	}
+	if (mat_init_default(scn, scn->materials))
+	{
+		scn_deinit(scn);
+		return (rt_err("scn_init(): cannot init material"));
+	}
 	scn->materials[0]->id = DEFAULT_MATERIAL_ID;
 	scn->materials_num = 1;
 	return (0);

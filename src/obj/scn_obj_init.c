@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scn_obj_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 20:32:03 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 20:32:03 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:32:27 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		obj_init(t_obj **dest, t_scn *scn, t_obj_type type)
 //		ft_free(obj);
 //		return (rt_err("Cannot set default shape"));
 //	}
+	*dest = obj;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/16 22:29:23 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct				s_mat_pbr
 {
 	t_vec3					albedo;
 	t_vec3					f0;
-	t_vec3					metalness;
-	t_vec3					roughness;
+	t_num					metalness;
+	t_num					roughness;
 	t_num					transparency;
 	t_num					ior;
 	t_txr					*map_albedo;

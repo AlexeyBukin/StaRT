@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat.h                                              :+:      :+:    :+:   */
+/*   scn_get_mat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 21:57:47 by jvoor            ###   ########.fr       */
+/*   Created: 2020/11/16 22:10:28 by jvoor             #+#    #+#             */
+/*   Updated: 2020/11/16 22:17:27 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAT_H
-# define MAT_H
+#include "rt.h"
 
-# include "mat_types.h"
-
-int             mat_init(t_scn *scn, t_mat **mat_container, char *mat_name);
-int				mat_init_default(t_scn *scn, t_mat **mat_container);
-
-#endif
+int         scn_get_mat(t_mat **material, char *name)
+{
+    t_mat	*mat;
+	
+	
+}
