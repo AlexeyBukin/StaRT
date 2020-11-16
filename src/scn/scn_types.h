@@ -18,14 +18,7 @@
 # include "txr_types.h"
 # include "mat_types.h"
 # include "obj_types.h"
-
-typedef struct		s_cam
-{
-	t_id			id;
-	char			*name;
-	t_tfm			transform;
-	t_vec2			fov;
-}					t_cam;
+# include "cam_types.h"
 
 typedef struct		s_scn
 {
