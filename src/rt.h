@@ -22,6 +22,8 @@
 # include "srv.h"
 # include "scn.h"
 # include "cmd.h"
+# include "tfm.h"
+# include "obj.h"
 
 //# define PLATFORM_MACOS
 

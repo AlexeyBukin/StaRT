@@ -45,7 +45,8 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 		t_rt *rt = srv->rt;
 
 		g_mutex_lock(rt->mutex);
-		msg = cmd_parse_line(srv->rt, (char *)request);
+		//TODO on!
+//		msg = cmd_parse_line(srv->rt, (char *)request);
 		g_mutex_unlock(rt->mutex);
 //		ft_printf("done parsing line \'%s\'\n", srv->client_line);
 		//TODO unlock mutex

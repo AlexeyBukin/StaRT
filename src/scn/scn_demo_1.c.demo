@@ -1,0 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_demo_1.c.demo                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+int		main()
+{
+	t_scn		*scn;
+	t_obj		*group;
+	t_obj		*obj_1;
+	t_obj		*obj_2;
+	t_obj		*obj_3;
+
+	//BASIC INIT
+	if (scn_init(&scn))
+		return (rt_error("Cannot init scene", 0));
+
+	//ADDING OBJECT TO MAIN GROUP
+	if (obj_init(&obj_1, "my_obj_1"))
+		return (rt_error("Cannot create object", 0));
+	if (scn_add_object(scn, obj_1))
+		return (rt_error("Cannot add object", 0));
+
+	//ADDING OBJECT TO NESTED GROUP
+	if (obj_init(&obj_2, "my_obj_2"))
+		return (rt_error("Cannot create object", 0));
+	if (grp_init(&group, "my_group_1"))
+		return (rt_error("Cannot create group", 0));
+	if (scn_add_group(scn, group))
+		return (rt_error("Cannot add object", 0));
+	if (scn_add_object_to_group(scn, obj_2, group->name))
+		return (rt_error("Cannot add object to group", 0));
+
+	//ADDING OBJECT COPY
+	if (obj_init_copy(&obj_3, "my_obj_2_copy"))
+		return (rt_error("Cannot create object", 0));
+	if (scn_add_object_to_group(scn, obj_3, group->name))
+		return (rt_error("Cannot add object to group", 0));
+
+	rt_warn("DEMO_1 completed!");
+	return (0);
+}

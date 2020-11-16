@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_objects.h                                      :+:      :+:    :+:   */
+/*   gpu_objects.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCN_OBJECTS_H
-# define SCN_OBJECTS_H
-
-typedef float				t_num;
-typedef	unsigned int		uint;
-
-typedef struct		s_vec2
-{
-	t_num				x;
-	t_num				y;
-}						t_vec2;
-
-typedef struct			s_vec3
-{
-	t_num				x;
-	t_num				y;
-	t_num				z;
-}						t_vec3;
+#ifndef GPU_OBJECTS_H
+# define GPU_OBJECTS_H
 
 enum e_obj_type
 {
@@ -73,12 +57,12 @@ union					u_shape
 	struct s_cylinder	cylinder;
 };
 
-typedef struct			s_obj
+typedef struct			s_gpu_obj
 {
-	uint				id;
-	uint				material_id;
+	t_id				id;
+	t_id				material_id;
 	enum e_obj_type		type;
 	union u_shape		shape;
-}						t_obj;
+}						t_gpu_obj;
 
 #endif

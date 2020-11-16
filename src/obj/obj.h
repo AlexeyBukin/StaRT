@@ -14,7 +14,8 @@
 # define OBJ_H
 
 # include "obj_types.h"
+# include "tfm.h"
 
-int			obj_grp_init(t_obj **dest, char *name);
+int			grp_init(t_obj **dest, char *name);
 
 #endif

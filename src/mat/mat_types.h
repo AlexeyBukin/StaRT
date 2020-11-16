@@ -22,8 +22,8 @@ typedef struct				s_mat_pbr
 	t_vec3					f0;
 	t_vec3					metalness;
 	t_vec3					roughness;
-	t_vec					transparency;
-	t_vec					ior;
+	t_num					transparency;
+	t_num					ior;
 	t_txr					*map_albedo;
 	t_txr					*map_f0;
 	t_txr					*map_metalness;

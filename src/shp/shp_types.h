@@ -36,7 +36,7 @@ typedef struct				s_shp_plane
 typedef struct				s_shp_sphere
 {
 	t_num					radius;
-}							t_shp_cylinder;
+}							t_shp_sphere;
 
 typedef struct				s_shp_cylinder
 {

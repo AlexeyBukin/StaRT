@@ -23,7 +23,8 @@
 **		scn_init
 */
 
-int		scn_init(t_rt *rt);
+int				scn_init(t_scn **dest);
+int				scn_deinit(t_scn *dest);
 
 /*
 **		scn_id
@@ -59,9 +60,9 @@ struct s_cylinder	*scn_get_cylinder(t_scn *scn, char *name);
 
 
 //TODO implement funcs
-int				scn_component_get_id(t_scn *scn, enum e_component_type type, char *name, uint *id);
-int				scn_component_get_name(t_scn *scn, uint comp_id);
-int				scn_component_get_type(t_scn *scn, uint comp_id, enum e_component_type *type);
+//int				scn_component_get_id(t_scn *scn, t_component_type type, char *name, uint *id);
+//int				scn_component_get_name(t_scn *scn, uint comp_id);
+//int				scn_component_get_type(t_scn *scn, uint comp_id, enum e_component_type *type);
 
 int				scn_component_set_name(t_scn *scn, uint comp_id, char *name);
 

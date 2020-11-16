@@ -12,53 +12,57 @@
 
 #define RT_ID_DEFAULT_MATERIAL 0
 
-int		scn_obj_init(t_obj **dest, t_scn *scn, t_obj_type type)
+#include "rt.h"
+
+int		obj_init(t_obj **dest, t_scn *scn, t_obj_type type)
 {
-	int			res;
 	t_obj		*obj;
 
 	if (dest == NULL || scn == NULL)
 		return (rt_err("Given pointer is NULL"));
 	if ((obj = ft_memalloc(sizeof(t_obj))) == NULL)
 		return (rt_err("Cannot create object"));
-	obj->id = scn_id_next();
-	obj->material_id = RT_ID_DEFAULT_MATERIAL;
+	obj->id = scn_id();
+//	obj->material = scn_get_mat_by_id(DEFAULT_MATERIAL_ID);
 	obj->name = NULL;
-	scn_obj_transform_default(obj);
-	if (scn_obj_shape_default(obj, type))
-	{
-		ft_free(obj);
-		return (rt_err("Cannot set default shape"));
-	}
+	tfm_init(&(obj->transform));
+	(void)type;
+//	if (scn_obj_shape_default(obj, type))
+//	{
+//		ft_free(obj);
+//		return (rt_err("Cannot set default shape"));
+//	}
 	return (0);
 }
 
-int		scn_obj_shape_default(t_obj *obj, t_obj_type type)
+int		obj_shape_default(t_obj *obj, t_shp_type type)
 {
+	int		res;
+
 	if (obj == NULL)
 		return (rt_err("Given pointer is NULL"));
-	if (type == OBJ_PLANE)
-		res = scn_obj_plane_default(obj);
-	else if (type == OBJ_SPHERE)
-		res = scn_obj_sphere_default(obj);
-	else if (type == OBJ_CYLINDER)
-		res = scn_obj_cylinder_default(obj);
-	else if (type == OBJ_CONE)
-		res = scn_obj_cone_default(obj);
-	else
-		res = rt_err("Unknown object type");
+	res = 0;
+	(void)type;
+//	if (type == SHP_PLANE)
+//		res = obj_plane_default(obj);
+//	else if (type == SHP_SPHERE)
+//		res = obj_sphere_default(obj);
+//	else if (type == SHP_CYLINDER)
+//		res = obj_cylinder_default(obj);
+//	else if (type == SHP_CONE)
+//		res = obj_cone_default(obj);
+//	else
+//		res = rt_err("Unknown object type");
 	return (res);
 }
 
-void		scn_obj_transform_default(t_obj *obj)
-{
-	if (obj == NULL)
-		return ;
-	obj->pos_local = vec3(0, 0, 0);
-	obj->pos_global = vec3(0, 0, 0);
-	obj->pos_diff = vec3(0, 0, 0);
-	obj->rot_local = mat3x3_identity();
-	obj->rot_global = mat3x3_identity();
-	obj->rot_diff = mat3x3_identity();
-	return (0);
-}
+//int		obj_transform_default(t_obj *obj)
+//{
+//	if (obj == NULL)
+//		return (rt_err("Given pointer is NULL"));
+//	obj->transform.pos_local = vec3(0, 0, 0);
+//	obj->transform.pos_global = vec3(0, 0, 0);
+//	obj->transform.rot_local = mat3x3_identity();
+//	obj->transform.rot_global = mat3x3_identity();
+//	return (0);
+//}

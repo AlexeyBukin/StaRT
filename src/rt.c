@@ -21,7 +21,7 @@ int				rt_init(t_rt **rt)
 		return (rt_err("rt malloc fail"));
 	if (gpu_init(*rt))
 		return (rt_err("scn_init() fail"));
-	if (scn_init(*rt))
+	if (scn_init(&((*rt)->scene)))
 		return (rt_err("gpu_init() fail"));
 	(*rt)->mutex = &((*rt)->mutex_true);
 	g_mutex_init((*rt)->mutex);

@@ -19,15 +19,16 @@
 # include "srv_types.h"
 # include "scn_types.h"
 # include "gui_types.h"
+# include "txr_types.h"
 
-typedef struct		s_texture
-{
-	int					index;
-	int					width;
-	int					height;
-	int					stride;
-	t_texture_rgba		*data;
-}					t_texture;
+//typedef struct		s_texture
+//{
+//	int					index;
+//	int					width;
+//	int					height;
+//	int					stride;
+//	t_texture_rgba		*data;
+//}					t_texture;
 
 typedef struct		s_rt
 {
@@ -38,7 +39,7 @@ typedef struct		s_rt
 	GThread				*server_thread;
 	t_gpu				gpu;
 	t_scn				*scene;
-	t_texture			*render_result;
+	t_txr			*render_result;
 	t_srv				*server;
 }					t_rt;
 

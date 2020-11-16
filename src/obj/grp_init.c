@@ -12,13 +12,13 @@
 
 #include "rt.h"
 
-int			obj_grp_init(t_obj **dest, char *name)
+int			grp_init(t_obj **dest, char *name)
 {
-	t_obj		*gpr;
+	t_obj		*grp;
 
 	if (name == NULL || dest == NULL)
 		return (rt_err("Given pointer is NULL"));
-	gpr = ft_memalloc(sizeof(t_obj));
+	grp = ft_memalloc(sizeof(t_obj));
 	if (grp == NULL)
 		return (rt_err("Cannot malloc group"));
 	grp->name = name;
