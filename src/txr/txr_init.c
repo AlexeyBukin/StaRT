@@ -32,7 +32,7 @@ int		txr_init(t_txr **dest, t_scn *scn, char *name, t_size2 size)
 	txr->content = ft_memalloc(sizeof(char) * txr->stride * txr->height);
 	if (txr->content == NULL)
 	{
-		txr_deinit(&txr);
+		txr_deinit(txr);
 		return (rt_err("Cannot init texture"));
 	}
 	*dest = txr;
@@ -45,8 +45,8 @@ int		txr_init_default(t_txr **dest, t_scn *scn, char *name)
 
 	if (dest == NULL || name == NULL || scn == NULL)
 		return (rt_err("Given pointer is NULL"));
-	if (scn_name_check(scn, name))
-		return (rt_err("Incorrect name"));
+//	if (scn_name_check(scn, name))
+//		return (rt_err("Incorrect name"));
 	txr = ft_memalloc(sizeof(t_txr));
 	if (txr == NULL)
 		return (rt_err("Malloc returned NULL"));
@@ -62,20 +62,17 @@ int		txr_init_default(t_txr **dest, t_scn *scn, char *name)
 	return (0);
 }
 
-int		txr_deinit(t_txr **txr)
+int		txr_deinit(t_txr *txr)
 {
 	if (txr == NULL)
 		return (rt_err("Given pointer is NULL"));
-	if (*txr == NULL)
-		return (rt_err("Dereference to NULL"));
-	ft_free((*txr)->name);
-	ft_free((*txr)->content);
-	ft_free(*txr);
-	*txr = NULL;
+	ft_free(txr->name);
+	ft_free(txr->content);
+	ft_free(txr);
 	return (0);
 }
 
-//txr_init_gpu_synced?
+//txr_init_gpu_dynamic?
 //txr_init_gpu_const?
 //int		txr_init_gpu_synced(t_txr **dest, t_rt *rt, char *name, t_size2 size)
 //{

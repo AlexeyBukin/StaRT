@@ -14,8 +14,10 @@
 # define MAT_H
 
 # include "mat_types.h"
+# include "scn_types.h"
 
-int             mat_init(t_scn *scn, t_mat **mat_container, char *mat_name);
-int				mat_init_default(t_scn *scn, t_mat **mat_container);
+int             mat_init(t_mat **mat_container, t_scn *scn, char *mat_name);
+int				mat_init_default(t_mat **mat_container, t_scn *scn);
+int				mat_deinit(t_mat *mat);
 
 #endif

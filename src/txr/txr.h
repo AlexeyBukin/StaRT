@@ -17,7 +17,7 @@
 # include "txr_types.h"
 
 int		txr_init(t_txr **dest, t_scn *scn, char *name, t_size2 size);
-int		txr_deinit(t_txr **txr);
 int		txr_init_default(t_txr **dest, t_scn *scn, char *name);
+int		txr_deinit(t_txr *txr);
 
 #endif

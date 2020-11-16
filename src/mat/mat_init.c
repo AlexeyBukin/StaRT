@@ -15,7 +15,7 @@
 int				mat_init_pbr(t_mat_pbr *pbr)
 {
 	if (pbr == NULL)
-		returt(rt_err("NULL pointer at mat pbr"));
+		return(rt_err("NULL pointer at mat pbr"));
 	pbr->albedo = vec3(0.5, 0.5, 0.5);
 	pbr->f0 = vec3(0.05, 0.05, 0.05);
 	pbr->metalness = 0;
@@ -35,7 +35,7 @@ int				mat_init_default(t_mat **mat_container, t_scn *scn)
 {
 	t_mat		*mat;
 	
-	if (mat_init(scn, &mat, ft_strdup(DEFAULT_MATERIAL_NAME)))
+	if (mat_init(&mat, scn, ft_strdup(DEFAULT_MATERIAL_NAME)))
 		return (rt_err("can't init material"));
 	mat->type = MAT_PBR;
 	mat_init_pbr(&(mat->content.pbr));
@@ -51,8 +51,8 @@ int             mat_init(t_mat **mat_container, t_scn *scn, char *mat_name)
 	
 	if (mat_container == NULL || mat_name == NULL || scn == NULL)
 		return (rt_err("mat_init(): mat_container is NULL pointer"));
-	if (scn_name_check(scn, mat_name))
-		return (rt_err("mat name is already used, try another"));
+//	if (scn_name_check(scn, mat_name))
+//		return (rt_err("mat name is already used, try another"));
 	if ((mat = ft_memalloc(sizeof(t_mat))) == NULL)
 		return (rt_err("mat_init(): malloc returned NULL pointer"));
     mat->id = scn_id();
@@ -66,12 +66,11 @@ int             mat_init(t_mat **mat_container, t_scn *scn, char *mat_name)
 	return(0);
 }
 
-int				mat_deinit(t_mat **mat)
+int				mat_deinit(t_mat *mat)
 {
 	if (mat == NULL)
 		return (rt_err("NULL pointer at mat deinint"));
-	if (*mat == NULL)
-		return (rt_err("NULL pointer at mat deinint"));
-	ft_free((*mat)->name);
-	ft_free(&mat);
+	ft_free(mat->name);
+	ft_free(mat);
+	return (0);
 }

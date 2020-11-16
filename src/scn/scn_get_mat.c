@@ -12,9 +12,9 @@
 
 #include "rt.h"
 
-int         scn_get_mat(t_mat **material, char *name)
-{
-    t_mat	*mat;
-	
-	
-}
+//int         scn_get_mat(t_mat **material, char *name)
+//{
+//    t_mat	*mat;
+//
+//
+//}

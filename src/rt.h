@@ -25,6 +25,8 @@
 # include "tfm.h"
 # include "obj.h"
 # include "mat.h"
+# include "cam.h"
+# include "txr.h"
 
 //# define PLATFORM_MACOS
 

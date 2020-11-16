@@ -21,7 +21,7 @@ BUILD_DIRS	= $(patsubst $(SRC_DIR)%, $(BUILD_DIR)%, $(SRC_DIRS))
 
 ### Libraries declarations
 LIB_FT = $(LIB)/ft/libft.a
-LIB_NUM = $(LIB)/ft/libft.a
+LIB_NUM = $(LIB)/num/libnum.a
 LIB_FLAGS = -L $(LIB)/ft -lft -L $(LIB)/num -lnum $(GTK_LIB_FLAGS)
 LIB_DEPENDENCY = $(LIB_FT) $(LIB_NUM)
 
@@ -60,7 +60,7 @@ endif
 
 ### C Flags settings
 INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
--I src/cmd -I src/err -I src/gpu \
+-I src/cmd -I src/cam -I src/err -I src/gpu \
 -I src/gui -I src/mat -I src/mtl \
 -I src/obj -I src/scn -I src/shp \
 -I src/srv -I src/tfm -I src/txr -I src/vlk \
@@ -83,29 +83,24 @@ src/gpu/gpu_types.h     src/obj/obj_types.h     src/shp/shp_types.h     src/vlk/
 src/gui/gui.h           src/rt.h                src/srv/srv.h
 
 # no main.c!
-# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
+# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
 SRC_SHARED	:= \
-src/err/rt_warn.c \
-src/gpu/gpu_buffer_load.c \
-src/gpu/gpu_init.c \
-src/gpu/gpu_kernel_run.c \
-src/gui/gui_init.c \
-src/obj/grp_init.c \
-src/obj/scn_obj_init.c \
-src/obj/scn_obj_plane.c \
-src/rt.c \
+src/cam/cam_init.c                      src/scn/scn_get_mat.c \
 src/scn/scn_id.c \
-src/scn/scn_init.c \
-src/srv/srv_deinit.c \
-src/srv/srv_ext.c \
-src/srv/srv_ext_data.c \
-src/srv/srv_init.c \
-src/srv/srv_loop.c \
-src/srv/srv_parse.c \
-src/err/msg_err.c                       src/srv/srv_utils.c \
-src/err/msg_ok.c                        src/tfm/tfm_init.c \
-src/err/msg_warn.c                      src/tfm/tfm_move.c \
-src/err/rt_err.c                        src/vlk/vlk_init.c
+src/err/msg_err.c                       src/scn/scn_init.c \
+src/err/msg_ok.c                        src/srv/srv_deinit.c \
+src/err/msg_warn.c                      src/srv/srv_ext.c \
+src/err/rt_err.c                        src/srv/srv_ext_data.c \
+src/err/rt_warn.c                       src/srv/srv_init.c \
+src/gpu/gpu_buffer_load.c               src/srv/srv_loop.c \
+src/gpu/gpu_init.c                      src/srv/srv_parse.c \
+src/gpu/gpu_kernel_run.c                src/srv/srv_utils.c \
+src/gui/gui_init.c                      src/tfm/tfm_init.c \
+src/mat/mat_init.c                      src/tfm/tfm_move.c \
+src/obj/grp_init.c                      src/txr/txr_init.c \
+src/obj/scn_obj_init.c                  src/vlk/vlk_init.c \
+src/obj/scn_obj_plane.c \
+src/rt.c
 
 SRC 		= $(SRC_SHARED) src/main.c
 
