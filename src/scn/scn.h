@@ -16,6 +16,7 @@
 
 # define ALLOC_SIZE_STEP	16
 # include "scn_types.h"
+# include "obj_types.h"
 # define GET_OBJ "object"
 # define GET_MATERIAL "material"
 
@@ -31,6 +32,13 @@ int				scn_deinit(t_scn *dest);
 */
 
 uint	scn_id();
+
+/*
+**		scn/get/
+*/
+
+t_obj			*scn_get_obj_by_name(t_scn *scn, char *name);
+t_obj			*scn_get_obj_by_id(t_scn *scn, t_id id);
 
 /*
 **		scn_check_arguments
