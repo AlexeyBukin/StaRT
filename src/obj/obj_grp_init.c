@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grp_init.c                                         :+:      :+:    :+:   */
+/*   obj_grp_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-int			grp_init(t_obj **dest, char *name)
+int				obj_grp_init(t_obj **dest, char *name)
 {
 	t_obj		*grp;
 
@@ -21,6 +21,8 @@ int			grp_init(t_obj **dest, char *name)
 	grp = ft_memalloc(sizeof(t_obj));
 	if (grp == NULL)
 		return (rt_err("Cannot malloc group"));
+
+	grp->id = scn_id();
 	grp->name = name;
 	grp->parent = NULL;
 	grp->visible = TRUE;
@@ -33,5 +35,25 @@ int			grp_init(t_obj **dest, char *name)
 	grp->transform.parent = NULL;
 
 	*dest = grp;
+	return (0);
+}
+
+int				obj_grp_deinit(t_obj *group)
+{
+	size_t		i;
+
+	if (group == NULL)
+		return (rt_err("Given pointer is NULL"));
+	if (group->type != OBJ_GROUP)
+		return (rt_err("Cannot deinit object: not a group"));
+	i = 0;
+	while (i < group->content.group.child_num)
+	{
+		if (obj_deinit(group->content.group.children[i]))
+			return (rt_err("Cannot deinit object"));
+		i++;
+	}
+	ft_free(group->name);
+	ft_free(group);
 	return (0);
 }

@@ -27,6 +27,7 @@
 # include "mat.h"
 # include "cam.h"
 # include "txr.h"
+# include "shp.h"
 
 //# define PLATFORM_MACOS
 

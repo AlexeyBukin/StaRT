@@ -14,8 +14,41 @@
 # define OBJ_H
 
 # include "obj_types.h"
-# include "tfm.h"
 
-int			grp_init(t_obj **dest, char *name);
+/*
+** obj_init.c
+*/
+
+int				obj_init(t_obj **dest, char *name, t_obj_type type);
+int				obj_deinit(t_obj *obj);
+
+/*
+** obj_grp_init.c
+*/
+
+int				obj_grp_init(t_obj **dest, char *name);
+int				obj_grp_deinit(t_obj *group);
+
+/*
+** obj_container_init.c
+*/
+
+int				obj_container_init(t_obj **dest, char *name);
+int				obj_container_deinit(t_obj *cont);
+
+/*
+** obj_copy_init.c
+*/
+
+int				obj_copy_init(t_obj **dest, char *name);
+int				obj_copy_deinit(t_obj *copy);
+
+// TODO: deinit copies from scene
+//	if (scn_deinit_copies(scn, group))
+//		return (rt_err("Cannot deinit group copies"));
+
+// TODO: add material when add to scene
+//if (scn_get_default_material(scn, &(obj->material)))
+//return (rt_err("Cannot get default material"));
 
 #endif

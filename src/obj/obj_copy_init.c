@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_obj_init.c                                     :+:      :+:    :+:   */
+/*   obj_copy_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,30 +12,38 @@
 
 #include "rt.h"
 
-//int		scn_obj_plane_default(t_obj *obj)
-//{
-//	int			res;
-//
-//	if (obj == NULL)
-//		return (rt_err("Given pointer is NULL"));
-//	if ((obj = ft_memalloc(sizeof(t_obj))) == NULL)
-//		return (rt_err("Cannot create object"));
-//	obj->id = scn_id_next();
-//	obj->material_id = 0;
-//	if (type == OBJ_PLANE)
-//		res = scn_obj_plane_default();
-//	else if (type == OBJ_SPHERE)
-//		res = scn_obj_sphere_default();
-//	else if (type == OBJ_CYLINDER)
-//		res = scn_obj_cylinder_default();
-//	else if (type == OBJ_CONE)
-//		res = scn_obj_cone_default();
-//	else
-//		res = rt_err("Unknown object type");
-//	if (res)
-//	{
-//		ft_free(obj);
-//		return (rt_err("Cannot set default object"));
-//	}
-//	return (0);
-//}
+int				obj_copy_init(t_obj **dest, char *name)
+{
+	t_obj		*copy;
+
+	if (name == NULL || dest == NULL)
+		return (rt_err("Given pointer is NULL"));
+	copy = ft_memalloc(sizeof(t_obj));
+	if (copy == NULL)
+		return (rt_err("Cannot malloc object copy"));
+
+	copy->id = scn_id();
+	copy->name = name;
+	copy->parent = NULL;
+	copy->visible = TRUE;
+
+	copy->type = OBJ_COPY;
+	copy->content.copy = NULL;
+
+	tfm_init(&(copy->transform));
+	copy->transform.parent = NULL;
+
+	*dest = copy;
+	return (0);
+}
+
+int				obj_copy_deinit(t_obj *copy)
+{
+	if (copy == NULL)
+		return (rt_err("Given pointer is NULL"));
+	if (copy->type != OBJ_COPY)
+		return (rt_err("Cannot deinit object: not a copy"));
+	ft_free(copy->name);
+	ft_free(copy);
+	return (0);
+}

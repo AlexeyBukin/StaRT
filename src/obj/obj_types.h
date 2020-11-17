@@ -17,6 +17,14 @@
 # include "shp_types.h"
 # include "mat_types.h"
 
+typedef enum				s_obj_type
+{
+	OBJ_NONE,
+	OBJ_CONTAINER,
+	OBJ_COPY,
+	OBJ_GROUP
+}							t_obj_type;
+
 typedef struct				s_obj_container
 {
 	t_shp_type				shape_type;
@@ -26,31 +34,23 @@ typedef struct				s_obj_container
 
 typedef struct				s_obj_group
 {
-	struct s_scn_object		*children;
+	struct s_scn_object		**children;
 	size_t					child_num;
 }							t_obj_group;
-
-typedef enum				s_obj_type
-{
-	OBJ_NONE,
-	OBJ_CONTAINER,
-	OBJ_COPY,
-	OBJ_GROUP
-}							t_obj_type;
 
 typedef union				s_obj_content
 {
 	t_obj_container			container;
-	t_obj_container			*copy;
+	struct s_scn_object		*copy;
 	t_obj_group				group;
 }							t_obj_content;
 
 typedef struct				s_scn_object
 {
 	t_id					id;
+	char					*name;
 	struct s_scn_object		*parent;
 	t_tfm					transform;
-	char					*name;
 	t_bool					visible;
 	t_obj_type				type;
 	t_obj_content			content;
