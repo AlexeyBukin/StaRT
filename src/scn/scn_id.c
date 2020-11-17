@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_parse.c                                        :+:      :+:    :+:   */
+/*   scn_id.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,14 @@
 
 #include "rt.h"
 
-uint				scn_id()
-{
-	static uint		id = 0;
+/*
+** Scene ids begin with 100
+** Lower values reserved for default components
+*/
 
-	return (++id);
+t_id				scn_id()
+{
+	static uint		id = 101;
+
+	return (id++);
 }

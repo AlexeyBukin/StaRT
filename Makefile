@@ -21,8 +21,9 @@ BUILD_DIRS	= $(patsubst $(SRC_DIR)%, $(BUILD_DIR)%, $(SRC_DIRS))
 
 ### Libraries declarations
 LIB_FT = $(LIB)/ft/libft.a
-LIB_FLAGS = -L $(LIB)/ft -lft $(GTK_LIB_FLAGS)
-LIB_DEPENDENCY = $(LIB_FT)
+LIB_NUM = $(LIB)/num/libnum.a
+LIB_FLAGS = -L $(LIB)/ft -lft -L $(LIB)/num -lnum $(GTK_LIB_FLAGS)
+LIB_DEPENDENCY = $(LIB_FT) $(LIB_NUM)
 
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
@@ -58,9 +59,12 @@ LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
 endif
 
 ### C Flags settings
-INCLUDE   = 	-I src -I src/err -I src/gui -I lib/ft/inc -I src/gpu -I src/srv \
-				-I src/cmd -I src/scn \
-				-I src/mtl -I src/vlk $(GTK_INCLUDE)
+INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
+-I src/cmd -I src/cam -I src/err -I src/gpu \
+-I src/gui -I src/mat -I src/mtl \
+-I src/obj -I src/scn -I src/shp \
+-I src/srv -I src/tfm -I src/txr -I src/vlk \
+$(GTK_INCLUDE)
 
 CFLAGS := -Wall -Wextra -Werror -g $(CFLAGS)
 COMPILE = gcc $(CFLAGS) $(INCLUDE)
@@ -69,28 +73,34 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 ### Sources
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
-HEADERS	:= src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/srv/srv_types.h \
-src/err/err.h           src/mtl/mtl.h           src/scn/scn_objects.h   src/vlk/vlk.h \
-src/gpu/gpu.h           src/rt.h                src/scn/scn_types.h \
-src/gpu/gpu_types.h     src/rt_types.h          src/srv/srv.h \
-src/scn/scn_map.h
+HEADERS	:= \
+src/cmd/cmd.h           src/gui/gui_types.h     src/rt_types.h          src/srv/srv_types.h \
+src/cmd/cmd_types.h     src/mat/mat.h           src/scn/scn.h           src/tfm/tfm.h \
+src/err/err.h           src/mat/mat_types.h     src/scn/scn_id.h        src/tfm/tfm_types.h \
+src/gpu/gpu.h           src/mtl/mtl.h           src/scn/scn_types.h     src/txr/txr.h \
+src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp.h           src/txr/txr_types.h \
+src/gpu/gpu_types.h     src/obj/obj_types.h     src/shp/shp_types.h     src/vlk/vlk.h \
+src/gui/gui.h           src/rt.h                src/srv/srv.h
 
 # no main.c!
-# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:= src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_sphere.c \
-               src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_id.c \
-               src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_init.c \
-               src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_deinit.c \
-               src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
-               src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext_data.c \
-               src/cmd/cmd_set_sphere.c        src/rt.c                        src/srv/srv_init.c \
-               src/cmd/cmd_utils.c             src/scn/check_arguments.c       src/srv/srv_loop.c \
-               src/cmd/cmd_valid.c             src/scn/cone.c                  src/srv/srv_parse.c \
-               src/err/msg_err.c               src/scn/cylinder.c              src/srv/srv_utils.c \
-               src/err/msg_ok.c                src/scn/plane.c                 src/vlk/vlk_init.c \
-               src/err/msg_warn.c              src/scn/scn_add_material.c
+# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
+SRC_SHARED	:= \
+src/cam/cam_init.c                      src/rt.c \
+src/err/msg_err.c                       src/scn/scn_id.c \
+src/err/msg_ok.c                        src/scn/scn_init.c \
+src/err/msg_warn.c                      \
+src/err/rt_err.c                        src/srv/srv_deinit.c \
+src/err/rt_warn.c                       src/srv/srv_ext.c \
+src/gpu/gpu_buffer_load.c               src/srv/srv_ext_data.c \
+src/gpu/gpu_init.c                      src/srv/srv_init.c \
+src/gpu/gpu_kernel_run.c                src/srv/srv_loop.c \
+src/gui/gui_init.c                      src/srv/srv_parse.c \
+src/mat/mat_init.c                      src/srv/srv_utils.c \
+src/obj/obj_container_init.c            src/tfm/tfm_init.c \
+src/obj/obj_copy_init.c                 src/tfm/tfm_move.c \
+src/obj/obj_grp_init.c                  src/txr/txr_init.c \
+src/obj/obj_init.c                      src/vlk/vlk_init.c
 
-# SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c
 
 OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))
@@ -145,6 +155,9 @@ rebuild: clean
 $(LIB_FT):
 	make -C $(LIB)/ft
 
+$(LIB_NUM):
+	make -C $(LIB)/num
+
 $(GTK_BUNDLE):
 	zsh rt_school21_get_bundle.sh
 
@@ -195,5 +208,6 @@ $(DEMO_DIR)/err/err: $(DEMO_DIRS)
 $(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
 	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
+	 install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" $@
    
    

@@ -6,57 +6,112 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 23:20:28 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 01:31:46 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/13 07:53:56 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-#define KW_CAP "-c"
-#define KW_PARAM_P "-p"
-#define KW_PARAM_R "-r"
-#define KW_PARAM_M "-m"
-#define KW_PARAM_NAME "-N"
-#define KW_PARAM_NORM "-n"
-#define KW_PARAM_D "-d"
+t_msg					cmd_add(t_rt *rt, char *source)
+{
+	static t_parse_fw	arr[CMD_ADD_NUM] = {
+		(t_parse_fw){cmd_add_sphere, KW_SPHERE},
+		(t_parse_fw){cmd_add_plane, KW_PLANE},
+		// (t_parse_fw){cmd_add_cylinder, KW_CYLINDER},
+		// (t_parse_fw){cmd_add_cone, KW_CONE},
+		// (t_parse_fw){cmd_add_material, KW_MATERIAL}
+	};
 
-#define KW_PARAM_LEN 2
+	if (rt == NULL || source == NULL)
+		return (msg_err("Argument is NULL pointer"));
+	return (cmd_parse_tree(rt, source, arr, CMD_ADD_NUM));
+}
 
-t_msg					cmd_add_sphere(t_rt *rt, char *source)
+//TODO add -N name, -M material, -T tag, -G group
+
+t_msg					cmd_parse_object_param(t_scn *scn, t_obj *obj, char **source)
 {
 	t_msg				result;
-	t_sphere			*sphere;
-	t_msg				(*parse_func)(char **, t_sphere *);
-	
-	if (rt == NULL || source == NULL)
+	t_obj				*sphere;
+	t_msg				(*parse_func)(char **, t_obj *);
+
+	if (scn == NULL || obj == NULL || source == NULL)
 		return (msg_err("Entered NULL pointers"));
-	result = (t_msg){MSG_NONE, NULL};
-
-	t_sphere	s;
-	sphere = &s;
-
-	// sphere = NULL;// TODO scn_get_obj(rt->scene);
-	if (sphere == NULL)
-		return (msg_err("Given pointer is NULL"));
-
-	// scn have to init sphere to defaut values
-
+	if (*source == NULL)
+		return (msg_err("Dereference to NULL pointer"));
+	
+	if (ft_str_next_is(*source, KW_PARAM_NAME))
+		parse_func = cmd_parse_object_name;
+	else if (ft_str_next_is(*source, KW_PARAM_MAT))
+		parse_func = cmd_set_sphere_radius;
+	else if (ft_str_next_is(*source, KW_PARAM_MAT))
+		parse_func = cmd_set_object_material;
+	else if (ft_str_next_is(source, KW_PARAM_NAME))
+		parse_func = cmd_set_object_name;
+	else
+		return (msg_warn("Unknown flag"));
+		
 	while (*source != '\0' && *source != '\n')
 	{
-		if (ft_str_next_is(source, KW_PARAM_P))
+		if (ft_str_next_is(source, KW_PARAM_POS))
 			parse_func = cmd_set_sphere_pos;
-		else if (ft_str_next_is(source, KW_PARAM_R))
+		else if (ft_str_next_is(source, KW_PARAM_RAD))
 			parse_func = cmd_set_sphere_radius;
-		else if (ft_str_next_is(source, KW_PARAM_M))
-			parse_func = cmd_set_sphere_material;
+		else if (ft_str_next_is(source, KW_PARAM_MAT))
+			parse_func = cmd_set_object_material;
 		else if (ft_str_next_is(source, KW_PARAM_NAME))
-			parse_func = cmd_set_sphere_name;
+			parse_func = cmd_set_object_name;
 		else
 			return (msg_warn("Unknown flag"));
 		source += KW_PARAM_LEN;
 		result = parse_func(&source, sphere);
-		if (result.status == MSG_ERROR)
+		if (result.status != MSG_OK)
 			return (result);
+		// TODO why we have to free it?
+		// Concatenate with next 	
+		ft_free(result.str);
+		if (cmd_read_space_req(&source))
+			return (msg_warn("Expected \' \'"));
+	}
+	return (msg_oks("Added sphere"));
+}
+
+t_msg					cmd_add_sphere(t_rt *rt, char *source)
+{
+	t_msg				result;
+	t_obj				*sphere;
+	t_msg				(*parse_func)(char **, t_obj *);
+
+	if (rt == NULL || source == NULL)
+		return (msg_err("Entered NULL pointers"));
+	result = (t_msg){MSG_NONE, NULL};
+
+	if ((sphere = scn_create_object(rt->scene)) == NULL)
+		return (msg_err("Cannot create object"));
+		
+	// scn have to init sphere to defaut values
+	if (scn_set_default_sphere(sphere))
+		return (msg_err("Cannot set default values"));
+	
+	while (*source != '\0' && *source != '\n')
+	{
+		if (ft_str_next_is(source, KW_PARAM_POS))
+			parse_func = cmd_set_sphere_pos;
+		else if (ft_str_next_is(source, KW_PARAM_RAD))
+			parse_func = cmd_set_sphere_radius;
+		else if (ft_str_next_is(source, KW_PARAM_MAT))
+			parse_func = cmd_set_object_material;
+		else if (ft_str_next_is(source, KW_PARAM_NAME))
+			parse_func = cmd_set_object_name;
+		else
+			return (msg_warn("Unknown flag"));
+		source += KW_PARAM_LEN;
+		result = parse_func(&source, sphere);
+		if (result.status != MSG_OK)
+			return (result);
+		// TODO why we have to free it?
+		// Concatenate with next 	
+		ft_free(result.str);
 		if (cmd_read_space_req(&source))
 			return (msg_warn("Expected \' \'"));
 	}
@@ -84,11 +139,11 @@ t_msg					cmd_add_plane(t_rt *rt, char *source)
 
 	while (*source != '\0' && *source != '\n')
 	{
-		if (ft_str_next_is(source, KW_PARAM_D))
+		if (ft_str_next_is(source, KW_PARAM_DIST))
 			parse_func = cmd_set_plane_dist;
-		else if (ft_str_next_is(source, KW_PARAM_R))
+		else if (ft_str_next_is(source, KW_PARAM_RAD))
 			parse_func = cmd_set_plane_dist;
-		else if (ft_str_next_is(source, KW_PARAM_M))
+		else if (ft_str_next_is(source, KW_PARAM_MAT))
 			parse_func = cmd_set_plane_material; 
 		else if (ft_str_next_is(source, KW_PARAM_NAME))
 			parse_func = cmd_set_plane_name;

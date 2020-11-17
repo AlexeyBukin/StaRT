@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scn_demo.c.demo                                    :+:      :+:    :+:   */
+/*   tfm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 20:32:03 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/09 20:32:03 by kcharla          ###   ########.fr       */
+/*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#ifndef TFM_H
+# define TFM_H
 
-int		main(int ac, char **av)
-{
-	t_rt		rt;
-	t_scn		*scn;
+# include "tfm_types.h"
 
-	(void)ac;
-	(void)av;
-	if (scn_init(&rt))
-		return (rt_err("Cannot init scene"));
-	scn = rt.scene;
-	rt_warn("All demo tests run successfully");
-	return (0);
-}
+int		tfm_init(t_tfm *tfm);
+
+#endif

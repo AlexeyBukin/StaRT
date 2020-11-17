@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:09:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 07:47:50 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:53:20 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** cmd_parse_space() moves source to end of space sequence
 ** returns number of skipped spaces
+** returns -1 on error
 */
 
 int			cmd_read_space(char **source)
@@ -40,7 +41,9 @@ int			cmd_read_space(char **source)
 
 /*
 ** cmd_parse_space_req() moves source to end of space sequence
-** returns error if no spaces was skipped
+** returns  0 on success
+** returns -1 on error
+** returns  1 on warning (no any space)
 */
 
 int			cmd_read_space_req(char **source)
@@ -55,9 +58,9 @@ int			cmd_read_space_req(char **source)
 		if (*source == NULL)
 			return (rt_err("Dereference to NULL"));
 		if (**source != '\0' && **source != '\n')
-			return (rt_err("Syntax error: \' \' expected"));
+			return (rt_warning("Syntax error: \' \' expected", 1));
 	}
-	return (spaces);
+	return (0);
 }
 
 /*
@@ -80,6 +83,8 @@ int			cmd_read_comma(char **str)
 /*
 ** cmd_read_string() moves source to end of string
 ** returns 0 and sets dest to duplicated string on success
+** returns  1 on warning
+** returns -1 on error
 */
 
 int			cmd_read_string(char **source, char **dest)
@@ -93,11 +98,11 @@ int			cmd_read_string(char **source, char **dest)
 		return (rt_err("Dereference to NULL"));
 	i = 1;
 	if (*str != '\"')
-		return (rt_err("Expected '\"' at the start of string"));
+		return (rt_warning("Syntax error: Expected '\"' at the start of string", 1));
 	while (str[i] != '\"' && str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (str[i] != '\"')
-		return (rt_err("Expected '\"' at the end of string"));
+		return (rt_warning("Syntax error: Expected '\"' at the end of string", 1));
 	*source += i + 1;
 	str = ft_strndup(str + 1, i - 1);
 	if (str == NULL)
@@ -108,11 +113,14 @@ int			cmd_read_string(char **source, char **dest)
 
 /*
 ** cmd_read_id_name() moves source to end of id uint or string
-** returns error if no uint or string found
+** returns  0 on success
+** returns -1 on error
+** returns  1 on warning
 */
 
-int			cmd_read_id_name(t_rt *rt, char **source, uint *id)
+int			cmd_read_id_name(t_scn *scn, char **source, uint *id)
 {
+	int			tmp;
 	char		*name;
 
 	if (rt == NULL || source == NULL || id == NULL)
@@ -121,18 +129,26 @@ int			cmd_read_id_name(t_rt *rt, char **source, uint *id)
 		return (rt_err("Dereference to NULL"));
 	if (**source == '\"')
 	{
-		if (cmd_read_string(source, &name))
-			return (rt_err("Cannot read string"));
+		if ((tmp = cmd_read_string(source, &name)))
+		{
+			if (tmp < 0)
+				return (rt_err("Cannot read string"));
+			return (rt_warning("Cannot read string", 1));
+		}
 		//TODO implement scn_id_by_name()
-		*id = 0;//scn_id_by_name(rt->scene, name);
+		*id = scn_get_id_by_name(scn, COMPONENT_ANY, name);
 		ft_free(name);
 	}
 	else
 	{
-		if (cmd_read_uint(source, id))
-			return (rt_err("Cannot read uint"));
+		if ((tmp = cmd_read_uint(source, id)))
+		{
+			if (tmp < 0)
+				return (rt_err("Cannot read uint"));
+			return (rt_warning("Cannot read uint", 1));
+		}
 	}
 	if (*id == 0)
-		return (rt_err("Object cannot be specified"));
+		return (rt_warning("Object cannot be specified", 1));
 	return (0);
 }
