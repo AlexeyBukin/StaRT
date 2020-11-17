@@ -3,74 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   scn_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCN_TYPES_H
 # define SCN_TYPES_H
 
-# include "scn_objects.h"
-#include "scn_map.h"
-# define SIZE_STEP 16
-
-struct				s_cam
-{
-	uint			id;
-	char			*name;
-	t_vec3			pos;
-	t_vec3			forward;
-	t_vec3			right;
-	t_vec3			up;
-	t_vec2			fov;
-};
-
-typedef union		u_mat_param
-{
-	uint			map_id;
-	t_num 			value;
-}					t_mat_param;
-
-typedef union		u_mat_param3
-{
-	uint			map_id;
-	t_vec3 			value;
-}					t_mat_param3;
-
-typedef struct				s_mat
-{
-	uint			id;
-	char			*name;
-	t_mat_param		metalness;
-	t_mat_param		roughness;
-	t_mat_param		ior;
-	t_mat_param		transparency;
-	t_mat_param3	albedo;
-	t_mat_param3	f0;
-}							t_mat;
+# include "libnum.h"
+# include "scn_id.h"
+# include "txr_types.h"
+# include "mat_types.h"
+# include "obj_types.h"
+# include "cam_types.h"
 
 typedef struct		s_scn
 {
-	uint				id;
-	char				*name;
-	struct s_obj		*objects;
-	uint				objects_num;
-	uint				objects_max;
-	struct s_mat		*materials;
-	uint				materials_num;
-	uint				materials_max;
-	struct s_cam		camera;
-	struct s_cam		*cameras;
-	uint				cameras_num;
-	uint				cameras_max;
-	//maps: hash and regular; names?
-	t_map				id_to_name;
-	t_hash_map			name_to_id;
-//	t_map				*id_to_name;
-//	t_hash_map			*name_to_id;
+	char			*filename;
+	t_obj			*main_group;
+	t_cam			*camera_active;
+	t_mat			**materials;
+	size_t			materials_num;
+	t_cam			**cameras;
+	size_t			cameras_num;
+	t_txr			**textures;
+	size_t			textures_num;
+//	t_mdl			**models;
+//	size_t			models_num;
 }					t_scn;
+
+typedef struct		s_component_base
+{
+	t_id			id;
+	char			*name;
+}					t_component_base;
 
 #endif

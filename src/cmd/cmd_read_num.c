@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:46:20 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 16:52:57 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/13 07:04:05 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 
 /*
 ** cmd_read_uint() moves source to end of num
-** returns 0 on success
+** returns  0 on success
+** returns -1 on error
+** returns  1 on warning
 */
 
 int			cmd_read_uint(char **source, uint *num)
@@ -83,7 +85,7 @@ int			cmd_read_uint(char **source, uint *num)
 	if ((ptr = *source) == NULL)
 		return (rt_err("Dereference to NULL pointer"));
 	if ((res = ft_atoi(ptr)) <= 0)
-		return (rt_err("Bad uint"));
+		return (rt_warning("Bad uint", 1));
 	*num = (uint)res;
 	while (ft_isnum(*ptr))
 		ptr++;

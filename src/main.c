@@ -19,21 +19,23 @@ int				main(int ac, char **av)
 {
 	t_rt				*rt;
 
+	(void)ac;
+	(void)av;
 	if (rt_init(&rt))
 		return (rt_error("Cannot init t_rt struct", 0));
 	{
-		if (srv_init(rt))
-			return (rt_error("Cannot init server", 0));
-		{
-			if (gui_init(rt))
-				return (rt_error("Cannot init GUI", 0));
-			if (gui_loop(rt, ac, av))
-				return (rt_error("Main loop quit in unexpected manner", 0));
-			if (gui_deinit(rt))
-				return (rt_error("Cannot deinit GUI", 0));
-		}
-		if (srv_deinit(rt))
-			return (rt_error("Cannot deinit server", 0));
+//		if (srv_init(rt))
+//			return (rt_error("Cannot init server", 0));
+//		{
+//			if (gui_init(rt))
+//				return (rt_error("Cannot init GUI", 0));
+//			if (gui_loop(rt, ac, av))
+//				return (rt_error("Main loop quit in unexpected manner", 0));
+//			if (gui_deinit(rt))
+//				return (rt_error("Cannot deinit GUI", 0));
+//		}
+//		if (srv_deinit(rt))
+//			return (rt_error("Cannot deinit server", 0));
 	}
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));
