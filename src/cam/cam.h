@@ -17,4 +17,10 @@ int		cam_deinit(t_cam *cam);
 
 int		cam_add(t_scn *scn, t_cam *cam);
 
+/*
+**		cam_remove
+*/
+
+int		cam_remove_by_name(t_scn *scn, char *name);
+
 #endif //CAM_H

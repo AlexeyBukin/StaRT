@@ -56,7 +56,7 @@ int             mat_init(t_mat **mat_container, char *mat_name)
 	if ((mat = ft_memalloc(sizeof(t_mat))) == NULL)
 		return (rt_err("mat_init(): malloc returned NULL pointer"));
     mat->id = scn_id();
-	mat->name = mat_name;///??? ft_strdup???
+	mat->name = mat_name;
 	mat->type = MAT_NONE;
 	// mat->content = NULL;
 	mat->maps_pos = vec2_zero();

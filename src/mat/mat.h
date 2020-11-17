@@ -25,5 +25,6 @@ int				mat_deinit(t_mat *mat);
 */
 
 int				mat_add(t_scn *scn, t_mat *mat);
+int				mat_remove_by_name(t_scn *scn, char *name);
 
 #endif

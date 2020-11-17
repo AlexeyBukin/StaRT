@@ -13,7 +13,7 @@ int		cam_init(t_cam **dest, char *name)
 		return (rt_err("Given pointer is NULL"));
 	if ((cam = (t_cam *)ft_memalloc(sizeof(t_cam))) == NULL)
 		return (rt_err("cam_init(): malloc returned NULL pointer"));
-	cam->name = name;///??? ft_strdup ???
+	cam->name = name;
 	cam->fov = vec2(90, 50.6);
 	tfm_init(&(cam->transform));
 	cam->id = scn_id();

@@ -107,7 +107,10 @@ src/scn/get/scn_get_cam_by_name.c \
 src/scn/get/scn_get_mat_by_name.c \
 src/txr/txr_add.c \
 src/mat/mat_add.c \
-src/cam/cam_add.c
+src/cam/cam_add.c \
+src/cam/cam_remove.c \
+src/mat/mat_remove.c \
+src/txr/txr_remove.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
@@ -214,7 +217,7 @@ $(DEMO_DIR)/err/err: $(DEMO_DIRS)
 
 ### Scene demo
 $(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
-	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo.c.demo -o $@
+	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/scn/scn_demo_1.c.demo -o $@
 	 zsh rt_school21_linking.sh $(DEMO_DIR)/scn/scn
 	 install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" $@
    
