@@ -37,6 +37,30 @@ int				main(int ac, char **av)
 //		if (srv_deinit(rt))
 //			return (rt_error("Cannot deinit server", 0));
 	}
+
+//	t_cam		*here;
+//	t_cam		*same_name;
+//
+//	cam_init(&here, "random_string");
+//	cam_init(&same_name, "random_string");
+//	if (cam_add(rt->scene, here))
+//		ft_putstr("Ok\n");
+//	if (cam_add(rt->scene, here))
+//		ft_putstr("Ok\n");
+//	if (cam_add(rt->scene, same_name))
+//		ft_putstr("Ok\n");
+//	if (cam_add(rt->scene, here))
+//		ft_putstr("Ok\n");
+//	ft_printf("%d\n", rt->scene->cameras_num);
+//	size_t 	i;
+//	i = 0;
+//	while (i < rt->scene->cameras_num)
+//	{
+//		ft_printf("cameras_num = %s\n", rt->scene->cameras[i]->name);
+//		i++;
+//	}
+//	if (scn_name_check(rt->scene, DEFAULT_MATERIAL_NAME))
+//		ft_putendl(scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME)->name);
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));
 	return (0);

@@ -17,7 +17,7 @@ t_obj				*scn_get_obj_by_id_rec(t_obj *grp, t_id id)
 	t_obj			*tmp;
 	size_t			i;
 
-	if (grp == NULL || name == NULL)
+	if (grp == NULL)
 		return (null(rt_err("Given pointer is NULL")));
 	if (grp->id == id)
 		return (grp);
@@ -38,7 +38,7 @@ t_obj				*scn_get_obj_by_id_rec(t_obj *grp, t_id id)
 
 t_obj				*scn_get_obj_by_id(t_scn *scn, t_id id)
 {
-	if (name == NULL || scn == NULL)
+	if (scn == NULL)
 		return (null(rt_err("Given pointer is NULL")));
 	return (scn_get_obj_by_id_rec(scn->main_group, id));
 }

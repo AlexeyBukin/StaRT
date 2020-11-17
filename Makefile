@@ -99,7 +99,15 @@ src/mat/mat_init.c                      src/srv/srv_utils.c \
 src/obj/obj_container_init.c            src/tfm/tfm_init.c \
 src/obj/obj_copy_init.c                 src/tfm/tfm_move.c \
 src/obj/obj_grp_init.c                  src/txr/txr_init.c \
-src/obj/obj_init.c                      src/vlk/vlk_init.c
+src/obj/obj_init.c                      src/vlk/vlk_init.c \
+src/scn/get/scn_get_obj_by_id.c         src/scn/get/scn_get_obj_by_name.c \
+src/scn/scn_name.c \
+src/scn/get/scn_get_txr_by_name.c \
+src/scn/get/scn_get_cam_by_name.c \
+src/scn/get/scn_get_mat_by_name.c \
+src/txr/txr_add.c \
+src/mat/mat_add.c \
+src/cam/cam_add.c
 
 SRC 		= $(SRC_SHARED) src/main.c
 

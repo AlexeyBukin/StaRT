@@ -22,7 +22,7 @@ for file in $(otool -l $lib | grep "name lib" | awk '{print $2}');
 #    install_name_tool -change "$file" "@rpath/`echo $file | rev | cut -d/ -f 1 | rev`" $lib;
     install_name_tool -change "$file" "@rpath/$file" $lib;
   done
-install_name_tool -add_rpath "@executable_path"$prefix"gtk_bundle_42/lib" $lib
+#install_name_tool -add_rpath "@executable_path"$prefix"gtk_bundle_42/lib" $lib
 
 #IFS=$OLD_IFS
 
