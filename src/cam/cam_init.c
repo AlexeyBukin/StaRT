@@ -3,15 +3,14 @@
 //
 
 #include "rt.h"
+#include "scn.h"
 
-int		cam_init(t_cam **dest, t_scn *scn, char *name)
+int		cam_init(t_cam **dest, char *name)
 {
 	t_cam		*cam;
 
-	if (scn == NULL || dest == NULL || name == NULL)
+	if (dest == NULL || name == NULL)
 		return (rt_err("Given pointer is NULL"));
-//	if (scn_name_check(name))
-//		return (rt_err("cam_init(): invalid name"));
 	if ((cam = (t_cam *)ft_memalloc(sizeof(t_cam))) == NULL)
 		return (rt_err("cam_init(): malloc returned NULL pointer"));
 	cam->name = name;
@@ -22,11 +21,11 @@ int		cam_init(t_cam **dest, t_scn *scn, char *name)
 	return (0);
 }
 
-int		cam_init_default(t_cam **dest, t_scn *scn)
+int		cam_init_default(t_cam **dest)
 {
 	t_cam		*cam_default;
 
-	if (cam_init(&cam_default, scn, ft_strdup(DEFAULT_CAMERA_NAME)))
+	if (cam_init(&cam_default, ft_strdup(DEFAULT_CAMERA_NAME)))
 		return (rt_err("Cannot init camera"));
 	cam_default->id = DEFAULT_CAMERA_ID;
 	*dest = cam_default;

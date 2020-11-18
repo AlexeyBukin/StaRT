@@ -37,6 +37,7 @@ int				main(int ac, char **av)
 //		if (srv_deinit(rt))
 //			return (rt_error("Cannot deinit server", 0));
 	}
+
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));
 	return (0);

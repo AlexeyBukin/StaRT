@@ -39,6 +39,9 @@ uint	scn_id();
 
 t_obj			*scn_get_obj_by_name(t_scn *scn, char *name);
 t_obj			*scn_get_obj_by_id(t_scn *scn, t_id id);
+t_txr			*scn_get_txr_by_name(t_scn *scn, char *name);
+t_cam			*scn_get_cam_by_name(t_scn *scn, char *name);
+t_mat			*scn_get_mat_by_name(t_scn *scn, char *name);
 
 /*
 **		scn_check_arguments
