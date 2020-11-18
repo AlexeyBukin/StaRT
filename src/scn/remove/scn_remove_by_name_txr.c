@@ -29,13 +29,14 @@ int		txr_del(t_scn *scn, t_txr *txr)
 	if (!(textures = (t_txr **)ft_memalloc(sizeof(t_txr *) * (scn->textures_num - 1))))
 		return (rt_err("txr_remove_by_name(): malloc crashed"));
 	copy_textures(scn, textures, txr);
+	//	txr_deinit(txr);///TODO do we need to deinit this?
 	ft_free(scn->textures);
 	scn->textures = textures;
 	scn->textures_num--;
 	return (0);
 }
 
-int		txr_remove_by_name(t_scn *scn, char *name)
+int		scn_remove_by_name_txr(t_scn *scn, char *name)
 {
 	t_txr		*txr_to_del;
 

@@ -4,7 +4,7 @@
 
 #include "rt.h"
 
-int		mat_add(t_scn *scn, t_mat *mat)
+int		scn_add_mat(t_scn *scn, t_mat *mat)
 {
 	t_mat		**new_array;
 	t_mat		*copy;

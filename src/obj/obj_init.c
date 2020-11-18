@@ -30,7 +30,7 @@ int			obj_deinit(t_obj *obj)
 	if (obj == NULL)
 		return (rt_err("Given pointer is NULL"));
 	if (obj->type == OBJ_GROUP)
-		return (obj_grp_deinit(obj));
+		return (grp_deinit(obj));
 	if (obj->type == OBJ_CONTAINER)
 		return (obj_container_deinit(obj));
 	if (obj->type == OBJ_COPY)

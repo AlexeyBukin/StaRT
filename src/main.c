@@ -37,6 +37,16 @@ int				main(int ac, char **av)
 //		if (srv_deinit(rt))
 //			return (rt_error("Cannot deinit server", 0));
 	}
+//
+//	t_mat		*test1;
+//	mat_init(&test1, ft_strdup("test1"));
+//
+//	scn_add_mat(rt->scene, test1);
+//	scn_add_mat(rt->scene, test1);
+//	scn_remove_by_name_mat(rt->scene, test1->name);
+//	scn_remove_by_name_mat(rt->scene, test1->name);
+//	scn_add_mat(rt->scene, test1);
+//	scn_remove_by_name_mat(rt->scene, test1->name);
 
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));

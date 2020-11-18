@@ -105,12 +105,18 @@ src/scn/scn_name.c \
 src/scn/get/scn_get_txr_by_name.c \
 src/scn/get/scn_get_cam_by_name.c \
 src/scn/get/scn_get_mat_by_name.c \
-src/txr/txr_add.c \
-src/mat/mat_add.c \
-src/cam/cam_add.c \
-src/cam/cam_remove.c \
-src/mat/mat_remove.c \
-src/txr/txr_remove.c \
+src/scn/add/scn_add_txr.c \
+src/scn/add/scn_add_mat.c \
+src/scn/add/scn_add_cam.c \
+src/scn/remove/scn_remove_by_name_cam.c \
+src/scn/remove/scn_remove_by_name_mat.c \
+src/scn/remove/scn_remove_by_name_txr.c \
+src/scn/add/scn_add_to_group_copy.c \
+src/scn/add/scn_add_to_group_obj.c \
+src/scn/add/scn_add_to_group_grp.c \
+src/scn/remove/scn_remove_by_name_copy.c \
+src/scn/remove/scn_remove_by_name_obj.c \
+src/scn/remove/scn_remove_by_name_grp.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
