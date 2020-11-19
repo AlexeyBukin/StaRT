@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 11:28:41 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/19 14:47:56 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,25 @@
 
 # define RT_GTK_THEME "src/gui/theme.css"
 
+enum e_type_box {
+	OBJECT,
+	LIGHT
+};
+
+enum e_styles {
+	GENERAL,
+	PERSONAL
+};
+
 int				gui_loop(t_rt *rt, int ac, char **av);
 int				gui_init(t_rt *rt);
 int				gui_deinit(t_rt *rt);
-void			gui_style(GtkWidget *widget);
+GObject			*gui_get_info_and_style(GtkBuilder *builder,
+									const gchar *name, int style);
+void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
+															t_rt *user_data);
+GtkBuilder		*gui_create_builder(void);
+void			gui_add_widgets_to_list(GtkListBox *list_box, t_rt *user_data,
+																int type_box);
 
 #endif

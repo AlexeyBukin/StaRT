@@ -6,7 +6,7 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/16 11:28:19 by rtacos           ###   ########.fr        #
+#    Updated: 2020/11/19 21:15:08 by rtacos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,18 +77,19 @@ HEADERS	:=	src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h        
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 100 | sed 's/$/ \\/'
-SRC_SHARED	:=	src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_map.c \
-				src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_set_plane.c \
-				src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_set_sphere.c \
-				src/cmd/cmd_parse_tree.c        src/gpu/gpu_init.c              src/srv/srv_deinit.c \
-				src/cmd/cmd_read.c              src/gpu/gpu_kernel_run.c        src/srv/srv_ext.c \
-				src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext_data.c \
-				src/cmd/cmd_set_sphere.c        src/gui/gui_style.c             src/srv/srv_init.c \
-				src/cmd/cmd_utils.c             src/rt.c                        src/srv/srv_loop.c \
-				src/cmd/cmd_valid.c             src/scn/scn_check_arguments.c   src/srv/srv_parse.c \
-				src/err/msg_err.c               src/scn/scn_get_obj.c           src/srv/srv_utils.c \
-				src/err/msg_ok.c                src/scn/scn_id.c                src/vlk/vlk_init.c \
-				src/err/msg_warn.c              src/scn/scn_init.c \
+SRC_SHARED	:=	src/cmd/cmd_add.c               src/err/rt_warn.c               src/scn/scn_init.c \
+				src/cmd/cmd_ls.c                src/gpu/gpu_buffer_load.c       src/scn/scn_map.c \
+				src/cmd/cmd_parse.c             src/gpu/gpu_init.c              src/scn/scn_set_plane.c \
+				src/cmd/cmd_parse_tree.c        src/gpu/gpu_kernel_run.c        src/scn/scn_set_sphere.c \
+				src/cmd/cmd_read.c              src/gui/gui_builder.c           src/srv/srv_deinit.c \
+				src/cmd/cmd_read_num.c          src/gui/gui_init.c              src/srv/srv_ext.c \
+				src/cmd/cmd_set_sphere.c        src/gui/gui_list_widgets.c      src/srv/srv_ext_data.c \
+				src/cmd/cmd_utils.c             src/gui/gui_singals.c           src/srv/srv_init.c \
+				src/cmd/cmd_valid.c             src/gui/gui_style.c             src/srv/srv_loop.c \
+				src/err/msg_err.c               src/rt.c                        src/srv/srv_parse.c \
+				src/err/msg_ok.c                src/scn/scn_check_arguments.c   src/srv/srv_utils.c \
+				src/err/msg_warn.c              src/scn/scn_get_obj.c           src/vlk/vlk_init.c \
+				src/err/rt_err.c                src/scn/scn_id.c \
 
 # SRC 		= $(SRC_SHARED) src/main_check.c
 SRC 		= $(SRC_SHARED) src/main.c

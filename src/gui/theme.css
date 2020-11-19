@@ -2,15 +2,33 @@ window {
     background: #2d2d30;
 }
 
-#menu_bar{
+menubar{
     color: rgb(255, 115, 0);
 }
 
-#paned {
+paned {
     background: #5f5f66;
 }
 
-#list_box {
+menuitem:hover {
+    color: white;
+    box-shadow: none;
+    background-color: rgb(141, 104, 74);
+}
+
+list {
     background: #3c3c41;
-    color: red;
+    color: rgb(255, 115, 0);
+    box-shadow: none;
+}
+
+list>row {
+    box-shadow: none;
+    border: 0px;
+}
+
+list>row:selected {
+    background: rgb(141, 104, 74);
+    box-shadow: none;
+    color: rgb(255, 255, 255);
 }
