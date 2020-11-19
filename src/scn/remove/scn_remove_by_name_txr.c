@@ -45,6 +45,6 @@ int		scn_remove_by_name_txr(t_scn *scn, char *name)
 	txr_to_del = scn_get_txr_by_name(scn, name);
 	if (!txr_to_del)
 		return (rt_err("txr_remove_by_name(): there is no"
-					   " camera with given name"));
+					   " txr with given name"));
 	return (txr_del(scn, txr_to_del));
 }

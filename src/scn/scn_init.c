@@ -80,7 +80,7 @@ int				scn_init(t_scn **dest)
 	if ((scn = ft_memalloc(sizeof(t_scn))) == NULL)
 		return (rt_err("scn_init(): malloc returned NULL pointer"));
 	scn->filename = ft_strdup(DEFAULT_GROUP_NAME);
-	if (obj_grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
+	if (grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
 	{
 		scn_deinit(scn);
 		return (rt_err("scn_init(): cannot init main group"));

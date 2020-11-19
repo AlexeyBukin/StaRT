@@ -19,7 +19,7 @@
 ** grp_init.c
 */
 
-int				grp_init(t_obj **dest, char *name)
+int				grp_init(t_obj **dest, char *name);
 int				grp_deinit(t_obj *group);
 
 /*

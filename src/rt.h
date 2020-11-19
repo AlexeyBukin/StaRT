@@ -28,6 +28,7 @@
 # include "cam.h"
 # include "txr.h"
 # include "shp.h"
+# include "grp.h"
 
 //# define PLATFORM_MACOS
 

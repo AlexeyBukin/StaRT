@@ -15,7 +15,6 @@ t_txr				*scn_get_txr_by_name(t_scn *scn, char *name)
 	{
 		if (ft_strequ(scn->textures[i]->name, name))
 		{
-			ft_putstr(scn->textures[i]->name);
 			return (scn->textures[i]);
 		}
 		i++;

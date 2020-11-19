@@ -13,6 +13,7 @@ int		scn_add_txr(t_scn *scn, t_txr *txr)
 		return (rt_err("txr_add(): was given a NULL pointer"));
 	if ((txr_copy = scn_get_txr_by_name(scn, txr->name)) || scn_name_check(scn, txr->name))
 	{
+		ft_printf("2\n");
 //		if (txr_copy == txr)
 //			return (rt_err("mat_add(): object is inside the scene already"));
 		return (rt_err("txr_add(): name collision"));

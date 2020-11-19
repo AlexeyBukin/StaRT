@@ -2,9 +2,10 @@
 // Created by Hugor Chau on 11/18/20.
 //
 
-
+#include "rt.h"
 //TODO
-int		scn_group_inc(t_obj_group *grp, t_obj *obj)
+
+int		scn_group_inc(t_obj_group *grp)
 {
 	t_obj			**children;
 

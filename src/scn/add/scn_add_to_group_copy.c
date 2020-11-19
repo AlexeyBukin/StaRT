@@ -11,5 +11,10 @@ int 			scn_add_to_group_copy(t_scn *scn, t_obj *dest, t_obj *copy)//TODO make li
 		return (rt_err("scn_add_to_group_copy(): dest is not a group"));
 	if ((scn_name_check(scn, copy->name)))
 		return (rt_err("scn_add_to_group_copy(): id collision"));
-	return (realloc_group_add_obj(&dest->content.group, copy));
+	if (scn_group_inc(&dest->content.group))
+		return (rt_err(""));
+	dest->content.group.children[dest->content.group.child_num - 1] = copy;
+	copy->parent = dest;
+	copy->transform.parent = &(dest->transform);
+	return (0);
 }
