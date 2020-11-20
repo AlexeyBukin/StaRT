@@ -6,14 +6,14 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/23 23:45:34 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef GUI_H
 # define GUI_H
 
-# include "rts.h"
+# include "rt_types.h"
 
 int				gui_loop(t_rt *rt, int ac, char **av);
 int				gui_init(t_rt *rt);

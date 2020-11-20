@@ -6,14 +6,14 @@
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/25 14:47:45 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GPU_TYPES_H
 # define GPU_TYPES_H
 
-# include "rts.h"
+# include "rt_types.h"
 # include "mtl.h"
 # include "vlk.h"
 
