@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 22:04:16 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 19:49:05 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "gpu_types.h"
 # include "srv_types.h"
 # include "scn_types.h"
+# include "cmd_types.h"
 # include "gui_types.h"
 # include "txr_types.h"
 # include "mat_types.h"
