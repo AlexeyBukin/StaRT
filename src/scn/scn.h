@@ -82,6 +82,16 @@ int					scn_name_check(t_scn *scn, char *name);
 int				scn_component_set_name(t_scn *scn, uint comp_id, char *name);
 
 /*
+**			scn/print
+*/
+
+int				scn_print(t_scn *scn);
+void			scn_print_cam(t_scn *scn);
+void			scn_print_txr(t_scn *scn);
+void			scn_print_mat(t_scn *scn);
+int				scn_print_grps(t_scn *scn);
+
+/*
 **			scn/remove/
 */
 

@@ -15,6 +15,6 @@ int 			scn_add_to_group_obj(t_scn *scn, t_obj *dest, t_obj *obj)
 		return (rt_err(""));
 	dest->content.group.children[dest->content.group.child_num - 1] = obj;
 	obj->parent = dest;
-	obj->transform.parent = &(dest->transform);//TODO what
+	obj->transform.parent = &(dest->transform);
 	return (0);
 }

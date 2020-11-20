@@ -89,8 +89,13 @@ int				scn_init(t_scn **dest)
 		return (rt_err("scn_init(): cannot init default material"));
 	if (scn_init_cam(scn))
 		return (rt_err("scn_init(): cannot init default camera"));
+
 	scn->textures = NULL;
 	scn->textures_num = 0;
+
+//	scn_remove_by_name_txr(scn, txr->name);
+//	scn_remove_by_name_txr(scn, txr->name);
+
 //	if (scn_init_txr(scn))
 //		return (rt_err("scn_init(): cannot init camera"));
 	*dest = scn;

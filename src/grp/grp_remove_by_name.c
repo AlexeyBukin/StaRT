@@ -38,13 +38,14 @@ int				grp_swap_with_last_by_name(t_obj *from, char *name)
 
 int				grp_remove_by_name(t_obj *from, char *name)
 {
+	t_obj			*extra;
 	t_obj			**tmp;
 	t_obj_group		*grp;
 
 	if (grp_swap_with_last_by_name(from, name))
 		return (rt_err("grp_remove_by_name(): cannot swap with last"));
 	grp = &(from->content.group);
-	obj_deinit(grp->children[grp->child_num - 1]);
+	extra = (grp->children[grp->child_num - 1]);
 	if (grp->child_num == 1)
 	{
 		ft_free(grp->children);
@@ -59,6 +60,7 @@ int				grp_remove_by_name(t_obj *from, char *name)
 			return (rt_err("malloc error"));
 		grp->children = tmp;
 	}
+	obj_deinit(extra);
 	grp->child_num--;
 	return (0);
 }

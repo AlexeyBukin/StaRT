@@ -18,6 +18,7 @@
 int				scn_add_mat(t_scn *scn, t_mat *mat);
 int				scn_add_txr(t_scn *scn, t_txr *txr);
 int				scn_add_cam(t_scn *scn, t_cam *cam);
+int				scn_add_obj(t_scn *scn, t_obj *obj);
 
 /*
 **			scn_add_to_group_xxx

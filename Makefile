@@ -121,6 +121,12 @@ src/obj/obj_copy_init.c                         src/tfm/tfm_move.c \
 src/obj/obj_init.c                              src/txr/txr_init.c \
 src/rt.c                                        src/vlk/vlk_init.c \
 src/scn/add/scn_add_cam.c \
+src/scn/print/scn_print.c \
+src/scn/print/scn_print_cam.c \
+src/scn/print/scn_print_txr.c \
+src/scn/print/scn_print_mat.c \
+src/scn/print/scn_print_grp.c \
+src/scn/print/scn_print_obj_params.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

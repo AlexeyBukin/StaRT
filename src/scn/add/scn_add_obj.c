@@ -12,8 +12,15 @@
 
 #include "rt.h"
 
-//int			scn_add_obj(t_scn *scn, t_obj *obj)
-//{
-//	if (scn == NULL || obj == NULL)
-//		return (rt_err(""))
-//}
+int			scn_add_obj(t_scn *scn, t_obj *obj)
+{
+	if (scn == NULL || obj == NULL)
+		return (rt_err("scn_add_obj(): was given a NULL pointer"));
+	if (obj->type == OBJ_COPY)
+		return (scn_add_to_group_copy(scn, scn->main_group, obj));
+	if (obj->type == OBJ_CONTAINER)
+		return (scn_add_to_group_obj(scn, scn->main_group, obj));
+	if (obj->type == OBJ_GROUP)
+		return (scn_add_to_group_grp(scn, scn->main_group, obj));
+	return (rt_err("scn_add_obj(): can\'t recognise object type"));
+}

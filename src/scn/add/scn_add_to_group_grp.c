@@ -6,7 +6,7 @@ int 			scn_add_to_group_grp(t_scn *scn, t_obj *dest, t_obj *grp)//TODO make like
 	if (scn == NULL || dest == NULL || grp == NULL)
 		return (rt_err("scn_add_to_group_grp(): Given pointer is NULL"));
 	if (grp->type != OBJ_GROUP)
-		return (rt_err("scn_add_to_group_grp(): given obj is not a container"));
+		return (rt_err("scn_add_to_group_grp(): given obj is not a group"));
 	if (dest->type != OBJ_GROUP)
 		return (rt_err("scn_add_to_group_grp(): dest is not a group"));
 	if ((scn_name_check(scn, grp->name)))
