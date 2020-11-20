@@ -6,13 +6,13 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/11/18 18:41:44 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/20 16:44:05 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "rt.h"
 
-static void		gui_style(GtkWidget *widget)
+void			gui_style(GtkWidget *widget)
 {
 	GtkStyleContext	*context;
 	GtkCssProvider	*provider;

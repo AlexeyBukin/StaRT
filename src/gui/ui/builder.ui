@@ -214,7 +214,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="selection-mode">1</property>
-                            <child>
+                            <!-- <child>
                               <object class="GtkListBoxRow" id="obj1_scene">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -243,7 +243,7 @@
                                   </object>
                                 </child>
                               </object>
-                            </child>
+                            </child> -->
                           </object>
                         </child>
                       </object>
@@ -274,7 +274,7 @@
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
                             <property name="selection-mode">1</property>
-                            <child>
+                            <!-- <child>
                               <object class="GtkListBoxRow" id="obj3_scene">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -303,7 +303,7 @@
                                   </object>
                                 </child>
                               </object>
-                            </child>
+                            </child> -->
                           </object>
                         </child>
                       </object>
