@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:09:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:53:20 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/19 16:35:04 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int			cmd_read_comma(char **str)
 ** returns -1 on error
 */
 
-int			cmd_read_string(char **source, char **dest)
+int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 {
 	char		*str;
 	int			i;

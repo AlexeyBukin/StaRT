@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 11:05:57 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 17:40:18 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,27 @@ t_msg				cmd_parse_type_name(char **source, t_parse_help *helper)
 	return (msg_oks("Parsed component type"));
 }
 
+t_msg					cmd_parse_chain(t_rt *rt, t_parser *parser)
+{
+	if (parser == NULL)
+		return (msg_err("NULL pointer in cmd_parse_chain()"))
+	cmd_parse_command(parser);
+	/*
+	** TODO: apply result of changes here
+	*/
+}
+
 t_msg					cmd_parse_line(t_rt *rt, char *source)
 {
-	static t_parse_fw	arr[KW_CMD_NUM] = {
-		(t_parse_fw){&cmd_add, KW_CMD_ADD},
-		// (t_parse_fw){&cmd_ls, KW_CMD_LS},
-		// (t_parse_fw){&cmd_rm, KW_CMD_RM},
-		(t_parse_fw){&cmd_set, KW_CMD_SET}
-	};
+	t_parser			*parser;
+	if (parser = ft_malloc(sizeof(t_parser)) == NULL)
+		return (msg_err("Memory allocation error on cmd_parse_line"));
+	parser->cont = &pareser->object.content.container;
+    parser->transform = &pareser->object.transform;
+	parser->source = source;
+	parser->cur = source;
 
 	if (rt == NULL || source == NULL)
 		return (msg_err("Argument is NULL pointer"));
-	return (cmd_parse_tree(rt, source, arr, KW_CMD_NUM));
+	return (cmd_parse_chain(rt, parser));
 }

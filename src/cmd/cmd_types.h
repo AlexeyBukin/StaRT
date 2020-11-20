@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 11:02:30 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/19 22:07:10 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 
 # include "srv_types.h"
 # include "rt_types.h"
+
+typedef struct		s_parser
+{
+	t_obj			*object;
+	t_obj_container *container;
+	t_tfm			*transform;
+	t_vec3			rot_euler_xyz;
+	t_cam			*camera;
+	t_mat			*material;
+	t_txr			*texture;
+	char			*name;
+	char			*source;
+	char			*cur;
+}					t_parser;
+
 
 typedef struct		s_parse_fw
 {
