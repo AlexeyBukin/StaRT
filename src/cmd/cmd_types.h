@@ -16,17 +16,21 @@
 # include "srv_types.h"
 # include "rt_types.h"
 
-typedef struct		s_parse_fw
+typedef struct		s_parser
 {
-	t_msg			(*func)(t_rt *, char *);
-	char			*word;
-}					t_parse_fw;
+	t_obj			*obj;
+	t_mat			*mat;
+	t_cam			*cam;
+	t_txr			*txr;
+	char			*origin;
+	char			*current;
+}					t_parser;
 
-typedef struct		s_set_fork
+typedef struct		s_parse_pair
 {
-	t_msg			(*func)(t_scn *, t_obj *, char **);
+	t_msg			(*func)(t_scn *, t_parser *);
 	char			*word;
-}					t_set_fork;
+}					t_parse_pair;
 
 //union				u_comp_type
 //{

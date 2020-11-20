@@ -79,16 +79,16 @@ You can comment only full line by starting it with `#`
 # This is comment
 
 # Adding default material
-add material "my_material"
+add material pbr "my_material"
 
 #Adding sphere to the origin with default material, index 8 and radius 3 named my_sphere
-add sphere -i8 -m"my_material" -r3.0 "my_sphere"
+add object sphere -i8 -m"my_material" -r3.0 "my_sphere"
 
 #add works like this
-add sphere "my_sphere" -p<0, 0, 0>
+add object sphere "my_sphere" -p<0, 0, 0>
 
 #set works like this
-set sphere "my_sphere" -p<0, 0, 0>
+set object sphere "my_sphere" -p<0, 0, 0>
 ```
 
 P.S.
