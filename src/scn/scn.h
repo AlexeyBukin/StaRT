@@ -50,10 +50,11 @@ int		scn_check_mid(t_scn *scn, uint mid);
 int		set_obj_mid(t_scn *scn, uint obj_id, uint mid);
 
 /*
-**		scn_get_obj
+**		scn/get
 */
 
-t_obj	*scn_get_obj(t_scn *scn, char *obj_name);
+int					scn_get_obj_num(t_scn *scn);
+t_obj				*scn_get_obj_by_name(t_scn *scn, char *obj_name);
 
 /*
 **		scn_get_shape
@@ -76,5 +77,6 @@ int					scn_name_check(t_scn *scn, char *name);
 //int				scn_component_get_type(t_scn *scn, uint comp_id, enum e_component_type *type);
 
 int				scn_component_set_name(t_scn *scn, uint comp_id, char *name);
+
 
 #endif

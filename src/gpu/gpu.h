@@ -15,14 +15,14 @@
 
 # include "gpu_types.h"
 
-/*
-** TODO: manage platform definition
-*/
+int				gpu_init(t_gpu **gpu);
+int				gpu_deinit(t_gpu *gpu);
 
-//# define PLATFORM_MACOS
+int				gpu_buffer_load(t_gpu *gpu);
+int				gpu_kernel_run(t_gpu *gpu);
 
-int				gpu_init(t_rt *rt);
-int				gpu_buffer_load(t_rt *rt);
-int				gpu_kernel_run(t_rt *rt);
+int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn);
+int				gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global);
+int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global);
 
 #endif

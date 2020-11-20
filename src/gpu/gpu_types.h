@@ -14,13 +14,23 @@
 # define GPU_TYPES_H
 
 # include "rt_types.h"
+# include "gpu_objects.h"
+# include "obj_types.h"
 # include "mtl.h"
 # include "vlk.h"
 
-typedef union		u_gpu
+typedef union		u_gpu_device
 {
 	t_mtl			*mtl;
 	t_vlk			*vlk;
+}					t_gpu_dev;
+
+typedef struct		s_gpu
+{
+	t_gpu_dev		dev;
+	t_gpu_obj		*obj_buf;
+	size_t			obj_num;
+	size_t			obj_current;
 }					t_gpu;
 
 #endif
