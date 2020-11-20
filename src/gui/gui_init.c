@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/20 15:26:39 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/20 20:01:06 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 								builder, "AppWindow", GENERAL);
 	gui_get_info_and_style(builder, "menu_bar", GENERAL);
 	gui_get_info_and_style(builder, "paned", GENERAL);
-	gui_get_info_and_style(builder, "list_box_all", GENERAL);
-	list_box = gui_get_info_and_style(builder, "list_box_scene", GENERAL);
+	list_box = gui_get_info_and_style(builder, "list_box_all", GENERAL);
+	// gui_get_info_and_style(builder, "list_box_scene", GENERAL);
 	gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, OBJECT);
 	/*list_box = */gui_get_info_and_style(builder, "list_box_light", GENERAL);
 	// gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, LIGHT);
@@ -54,7 +54,7 @@ int				gui_init(t_rt *rt)
 	rt->app = gtk_application_new("ru.school-21.start",
 									G_APPLICATION_FLAGS_NONE);
 	if (g_signal_connect(rt->app, "activate",
-							G_CALLBACK(activate), NULL) <= 0)
+							G_CALLBACK(activate), rt) <= 0)
 		return (rt_err("Cannot connect \'activate\' signal to rt->app"));
 //	if (g_signal_connect (rt->app, "handle", G_CALLBACK (activate), rt) <= 0)
 //		return (rt_err("Cannot connect \'activate\' signal to rt->app"));

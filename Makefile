@@ -6,7 +6,7 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/19 21:15:08 by rtacos           ###   ########.fr        #
+#    Updated: 2020/11/20 18:38:32 by rtacos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,36 +97,34 @@ src/scn/get/scn_get_mat_by_name.c \
 src/scn/get/scn_get_obj_by_id.c \
 src/scn/get/scn_get_obj_by_name.c \
 src/scn/get/scn_get_txr_by_name.c \
-src/scn/remove/scn_remove_by_name_cam.c \
-src/scn/remove/scn_remove_by_name_copy.c \
-src/scn/remove/scn_remove_by_name_grp.c \
-src/scn/remove/scn_remove_by_name_mat.c \
-src/scn/remove/scn_remove_by_name_obj.c \
-src/scn/remove/scn_remove_by_name_txr.c \
-src/scn/scn_get_mat.c \
-src/err/msg_err.c                               src/scn/scn_id.c \
-src/err/msg_ok.c                                src/scn/scn_init.c \
-src/err/msg_warn.c                              src/scn/scn_name.c \
-src/err/rt_err.c                                src/scn/utils/scn_del_copies_of.c \
-src/err/rt_warn.c                               src/scn/utils/scn_group_mem.c \
-src/gpu/gpu_buffer_load.c                       src/srv/srv_deinit.c \
-src/gpu/gpu_init.c                              src/srv/srv_ext.c \
-src/gpu/gpu_kernel_run.c                        src/srv/srv_ext_data.c \
-src/grp/grp_init.c                              src/srv/srv_init.c \
-src/grp/grp_remove_by_name.c                    src/srv/srv_loop.c \
-src/gui/gui_init.c                              src/srv/srv_parse.c \
-src/mat/mat_init.c                              src/srv/srv_utils.c \
-src/obj/obj_container_init.c                    src/tfm/tfm_init.c \
-src/obj/obj_copy_init.c                         src/tfm/tfm_move.c \
-src/obj/obj_init.c                              src/txr/txr_init.c \
-src/rt.c                                        src/vlk/vlk_init.c \
-src/scn/add/scn_add_cam.c \
 src/scn/print/scn_print.c \
 src/scn/print/scn_print_cam.c \
-src/scn/print/scn_print_txr.c \
-src/scn/print/scn_print_mat.c \
 src/scn/print/scn_print_grp.c \
-src/scn/print/scn_print_obj_params.c \
+src/scn/print/scn_print_mat.c \
+src/scn/print/scn_print_txr.c \
+src/scn/remove/scn_remove_by_name_cam.c \
+src/scn/remove/scn_remove_by_name_copy.c \
+src/err/msg_err.c                               src/scn/remove/scn_remove_by_name_grp.c \
+src/err/msg_ok.c                                src/scn/remove/scn_remove_by_name_mat.c \
+src/err/msg_warn.c                              src/scn/remove/scn_remove_by_name_obj.c \
+src/err/rt_err.c                                src/scn/remove/scn_remove_by_name_txr.c \
+src/err/rt_warn.c                               src/scn/scn_get_mat.c \
+src/gpu/gpu_buffer_load.c                       src/scn/scn_id.c \
+src/gpu/gpu_init.c                              src/scn/scn_init.c \
+src/gpu/gpu_kernel_run.c                        src/scn/scn_name.c \
+src/grp/grp_init.c                              src/scn/utils/scn_del_copies_of.c \
+src/grp/grp_remove_by_name.c                    src/scn/utils/scn_group_mem.c \
+src/gui/gui_builder.c                           src/srv/srv_deinit.c \
+src/gui/gui_init.c                              src/srv/srv_ext.c \
+src/gui/gui_list_widgets.c                      src/srv/srv_ext_data.c \
+src/gui/gui_singals.c                           src/srv/srv_init.c \
+src/gui/gui_style.c                             src/srv/srv_loop.c \
+src/mat/mat_init.c                              src/srv/srv_parse.c \
+src/obj/obj_container_init.c                    src/srv/srv_utils.c \
+src/obj/obj_copy_init.c                         src/tfm/tfm_init.c \
+src/obj/obj_init.c                              src/tfm/tfm_move.c \
+src/rt.c                                        src/txr/txr_init.c \
+src/scn/add/scn_add_cam.c                       src/vlk/vlk_init.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

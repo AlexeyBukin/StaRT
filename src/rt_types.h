@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 22:04:16 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 18:46:42 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct		s_rt
 	GThread				*server_thread;
 	t_gpu				gpu;
 	t_scn				*scene;
-	t_txr			*render_result;
+	t_txr				*render_result;
 	t_srv				*server;
 }					t_rt;
 
