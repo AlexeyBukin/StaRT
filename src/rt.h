@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:33:21 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:24:27 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/16 21:39:54 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include "srv.h"
 # include "scn.h"
 # include "cmd.h"
+# include "tfm.h"
+# include "obj.h"
+# include "mat.h"
+# include "cam.h"
+# include "txr.h"
+# include "shp.h"
+# include "grp.h"
 
 //# define PLATFORM_MACOS
 

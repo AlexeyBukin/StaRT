@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_read_num.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:46:20 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 02:49:40 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/13 07:04:05 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,23 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 
 /*
 ** cmd_read_uint() moves source to end of num
-** returns 0 on success
+** returns  0 on success
+** returns -1 on error
+** returns  1 on warning
 */
 
 int			cmd_read_uint(char **source, uint *num)
 {
+	int			res;
 	char		*ptr;
 
-	if (source == NULL)
+	if (source == NULL || num == NULL)
 		return (rt_err("Arguments are NULL"));
 	if ((ptr = *source) == NULL)
 		return (rt_err("Dereference to NULL pointer"));
-	*num = (uint)ft_atoi(ptr);
+	if ((res = ft_atoi(ptr)) <= 0)
+		return (rt_warning("Bad uint", 1));
+	*num = (uint)res;
 	while (ft_isnum(*ptr))
 		ptr++;
 	*source = ptr;

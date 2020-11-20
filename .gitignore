@@ -5,6 +5,9 @@ demo
 res
 gtk_bundle_42
 
+# Mac trash
+.DS_Store
+
 # CLion ignores
 cmake-build-debug
 .idea

@@ -83,4 +83,16 @@ add material "my_material"
 
 #Adding sphere to the origin with default material, index 8 and radius 3 named my_sphere
 add sphere -i8 -m"my_material" -r3.0 "my_sphere"
+
+#add works like this
+add sphere "my_sphere" -p<0, 0, 0>
+
+#set works like this
+set sphere "my_sphere" -p<0, 0, 0>
 ```
+
+P.S.
+
+В течении add и set комманд мы пытаемся провернуть операцию с временным объектом
+Если в течении парсинга происходят ошибки просто очищаем временный объект
+Иначе копируем временный объект в постоянное хранилище
