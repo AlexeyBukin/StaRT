@@ -11,7 +11,7 @@ public class StartMTL {
 	public var bufNamedList = [String : MTLBuffer]()
 	public var arguments = [MTLArgumentDescriptor]()
 
-	public var sceneBuffer : MTLBuffer?
+	public var infoBuffer : MTLBuffer?
 	public var objectsBuffer : MTLBuffer?
 	public var materialsBuffer : MTLBuffer?
 
@@ -39,7 +39,7 @@ public class StartMTL {
 		guard let lib = library else { return Int32(1) }
 		print("metal lib ready")
 
-		guard sceneBuffer != nil  && objectsBuffer != nil && materialsBuffer != nil else { return Int32(1) }
+		guard infoBuffer != nil  && objectsBuffer != nil && materialsBuffer != nil else { return Int32(1) }
 		print("metal basic buffers ready")
 
 //		print("SWIFT: textureID is \(textureID)")
@@ -61,7 +61,7 @@ public class StartMTL {
 
 		guard let computeEncoder = buffer.makeComputeCommandEncoder() else { return Int32(1) }
 		computeEncoder.setComputePipelineState(pipelineState)
-		computeEncoder.setBuffer(sceneBuffer, offset: 0, index: 0)
+		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
 		computeEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
 		computeEncoder.setBuffer(materialsBuffer, offset: 0, index: 2)
 		computeEncoder.setTexture(textureOut, index: 3)

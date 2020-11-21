@@ -75,11 +75,11 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 
 /* BUFFER PART */
 
-@_cdecl("mtl_buffer_load_scene")
-public func mtl_buffer_load_scene_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+@_cdecl("mtl_buffer_load_info")
+public func mtl_buffer_load_info_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	return (sm.loadSceneBuffer(ptr: ptr, len: len))
+	return (sm.loadInfoBuffer(ptr: ptr, len: len))
 }
 
 @_cdecl("mtl_buffer_load_objects")
