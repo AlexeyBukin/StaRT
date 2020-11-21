@@ -17,8 +17,10 @@ int		tfm_apply_from_to(t_tfm *from, t_tfm *to)
 	if (from == NULL || to == NULL)
 		return (rt_err("Given pointer is NULL"));
 	to->pos_global = vec3_plus(from->pos_global, to->pos_local);
-	tfm->pos_local = vec3_zero();
-	tfm->rot_global = mat3x3_identity();
-	tfm->rot_local = mat3x3_identity();
+	// TODO : global rotation of rot_origin
+	// TODO : get_quant_rot
+	// TODO : apply_quant_rot
+	//	to->rot_global = mat3x3_identity();
+	to->rot_global = to->rot_local;
 	return (0);
 }

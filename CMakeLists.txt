@@ -16,6 +16,7 @@ set(${PROJECT_NAME}_SOURCES
         src/err/rt_err.c                        src/scn/scn_init.c
         src/err/rt_warn.c                       src/scn/scn_name.c
         src/gpu/gpu_buffer_load.c               src/srv/srv_deinit.c
+        src/gpu/gpu_buffer_objects.c
         src/gpu/gpu_init.c                      src/srv/srv_ext.c
         src/gpu/gpu_kernel_run.c                src/srv/srv_ext_data.c
         src/gui/gui_init.c                      src/srv/srv_init.c

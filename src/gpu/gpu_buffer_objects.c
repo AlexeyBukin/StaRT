@@ -75,7 +75,7 @@ int				gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global)
 		return (rt_err("Object is not container"));
 	gpu_obj = &(gpu->obj_buf[gpu->obj_current]);
 	gpu_obj->type = obj->content.container.shape_type;
-	// TODO: kcharla: texture mapping using rot in gpu_obj
+	gpu_obj->map_axis = obj->transform.rot_global;
 	if (gpu_obj->type == SHP_PLANE)
 	{
 		//manage inversion of D ??

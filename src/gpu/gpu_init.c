@@ -22,7 +22,7 @@ int				gpu_init(t_gpu **gpu_dest)
 {
 	t_gpu		*gpu;
 	char		*lib_source_str;
-	t_txr		*render_result;
+//	t_txr		*render_result;
 
 	if (gpu_dest == NULL)
 		return (rt_err("Given pointer is NULL"));

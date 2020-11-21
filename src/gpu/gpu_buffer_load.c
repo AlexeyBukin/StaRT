@@ -14,22 +14,20 @@
 
 #if defined(PLATFORM_MACOS)
 
-// int				gpu_buffer_load(t_rt *rt)
-// {
-// 	t_scn		*scene;
-
-// 	if (rt == NULL)
-// 		return (rt_err("rt is NULL pointer"));
-// 	if ((scene = rt->scene) == NULL)
-// 		return (rt_err("scene is NULL pointer"));
-// 	if (mtl_buffer_load_scene(rt->gpu.mtl, scene, sizeof(t_scn)))
-// 		return (rt_err("cannot load scene buffer"));
-// 	if (mtl_buffer_load_objects(rt->gpu.mtl, scene->objects, sizeof(t_obj) * scene->objects_num))
-// 		return (rt_err("cannot load objects buffer"));
-// 	if (mtl_buffer_load_materials(rt->gpu.mtl, scene->materials, sizeof(t_mat) * scene->materials_num))
-// 		return (rt_err("cannot load materials buffer"));
-// 	return (0);
-// }
+ int				gpu_buffer_load(t_gpu *gpu)
+ {
+ 	if (gpu == NULL)
+ 		return (rt_err("gpu is NULL pointer"));
+ 	if (mtl_buffer_load_info(gpu->dev.mtl, gpu->obj_buf, sizeof(t_scn)))
+ 		return (rt_err("cannot load scene buffer"));
+ 	if (mtl_buffer_load_objects(gpu->dev.mtl, gpu->obj_buf,
+							  (int)(sizeof(t_gpu_obj) * gpu->info.obj_num)))
+ 		return (rt_err("cannot load objects buffer"));
+ 	if (mtl_buffer_load_materials(gpu->dev.mtl, gpu->mat_buf,
+								(int)(sizeof(t_mat) * gpu->info.mat_num)))
+ 		return (rt_err("cannot load materials buffer"));
+ 	return (0);
+ }
 
 #elif defined(PLATFORM_LINUX) || defined(PLATFORM_WINDOWS)
 
