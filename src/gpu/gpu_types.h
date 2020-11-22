@@ -16,6 +16,8 @@
 # include "rt_types.h"
 # include "gpu_objects.h"
 # include "obj_types.h"
+# include "vlk.h"
+# include "mtl.h"
 
 typedef union		u_gpu_device
 {

@@ -21,6 +21,7 @@ typedef enum				s_obj_type
 {
 	OBJ_NONE,
 	OBJ_CONTAINER,
+	OBJ_LIGHT,
 	OBJ_COPY,
 	OBJ_GROUP
 }							t_obj_type;

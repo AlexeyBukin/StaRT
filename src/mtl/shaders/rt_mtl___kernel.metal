@@ -15,73 +15,85 @@ using namespace metal;
 
 constant const float pi = 3.14159265358979323846f;
 
-enum e_obj_type
+typedef enum				s_shp_type
 {
-	OBJ_NONE = 0,
-	OBJ_PLANE,
-	OBJ_SPHERE
+	SHP_NONE,
+	SHP_PLANE,
+	SHP_SPHERE,
+	SHP_CYLINDER,
+	SHP_CONE
+//	SHP_MODEL
+}							t_shp_type;
+
+struct					s_sphere
+{
+	packed_float3		pos;
+	float				r;
 };
 
-struct				s_sphere
+struct					s_plane
 {
-	packed_float3	pos;
-	float			r;
+	packed_float3		n;
+	float				d;
 };
 
-struct				s_plane
-{
-	packed_float3	n;
-	float			d;
-};
-
-union				u_shape
+typedef union			u_gpu_shape
 {
 	struct s_sphere		sphere;
 	struct s_plane		plane;
-};
+}						t_gpu_shape;
 
-struct				s_obj
+struct					s_cam
 {
 	int					id;
-	int					material_id;
-	enum e_obj_type		type;
-	union u_shape		shape;
+	packed_float3		pos;
+	packed_float3		forward;
+	packed_float3		up;
+	packed_float3		right;
+	packed_float2		fov;
 };
 
-struct				s_cam
+struct					s_c_mat
 {
-	int				id;
-	packed_float3	pos;
-	packed_float3	forward;
-	packed_float3	up;
-	packed_float3	right;
-	packed_float2	fov;
+	float 				metalness;
+	float 				roughness;
+	float 				ior;
+	float 				transparency;
+	packed_float3		albedo;
+	packed_float3		f0;
 };
 
-struct				s_mat
+typedef struct			s_material
 {
-	int				id;
-	float 			metalness;
-	float 			roughness;
-	float 			ior;
-	float 			transparency;
-	packed_float3	albedo;
-	packed_float3	f0;
-};
+	struct s_c_mat		c_mat;
+	texture2d<float>	albedo_map;
+}						t_material;
 
-typedef struct		s_scn
+typedef struct			s_gpu_obj
 {
-	int						id;
-	device struct s_obj		*objects;
-	int						objects_num;
-	device struct s_mat		*materials;
-	int						materials_num;
-	struct s_cam			camera;
-}					t_scn;
+	unsigned int		id;
+	unsigned int		mat_index;
+	packed_float3		map_axis_x;
+	packed_float3		map_axis_y;
+	packed_float3		map_axis_z;
+	int					shape_type;
+	t_gpu_shape			shape;
+}						t_gpu_obj;
 
-kernel void scene_test(		device struct		s_scn		*scene		[[buffer(0)]],
-							device struct		s_obj		*objects	[[buffer(1)]],
-							device struct		s_mat		*materials	[[buffer(2)]],
+typedef struct			s_gpu_info
+{
+	size_t				obj_num;
+	size_t				mat_num;
+	size_t				txr_num;
+	size_t				render_size;
+	size_t				render_square_num;
+	size_t				render_square_current;
+	t_gpu_cam			camera;
+}						t_gpu_info;
+
+kernel void scene_test(		device struct		s_gpu_info	info		[[buffer(0)]],
+							device struct		s_gpu_obj	*objects	[[buffer(1)]],
+							device struct		s_material	*materials	[[buffer(2)]],
 							texture2d<float,access::write> 	out			[[texture(3)]],
 							uint2                  			gid			[[thread_position_in_grid]])
 {
@@ -91,34 +103,6 @@ kernel void scene_test(		device struct		s_scn		*scene		[[buffer(0)]],
 	if (gid.x < size.x && gid.y < size.y)
 	{
 		float4 color = float4(0.5, 0.5, 0.5, 0);
-
-//		Ray ray = rt_camera_get_ray(cam, size, gid);
-//
-//		int		nearest_id = -1;
-//		float	nearest_dist = INFINITY;
-//
-//		for (int i = 0; i < scene->objects_num; i++)
-//		{
-//			float dist = rt_dist(ray, &scene->objects[i]);
-//			if (dist < nearest_dist && dist != INFINITY) {
-//				nearest_id = i;
-//				nearest_dist = dist;
-//			}
-//		}
-//
-//		if (nearest_id >= 0) {
-////			color = float4(0, 1, 0, 0);
-//			int index = find_material_by_id(
-//					scene->objects[nearest_id].material_id,
-//					scene->materials, scene->materials_num);
-//			if (scene->materials_num == 1) {
-//				color = float4(1, 1, 1, 0.0f);
-//			}
-//			else
-//			{
-//				color = float4(float3(scene->materials[index].albedo), 0.0f);
-//			}
-//		}
 		out.write(color, gid);
 	}
 }

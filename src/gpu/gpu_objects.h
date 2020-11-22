@@ -56,7 +56,6 @@ typedef struct			s_gpu_obj
 	t_mat3x3			map_axis;
 	t_shp_type			type;
 	t_gpu_shape			shape;
-	// texture mapping
 }						t_gpu_obj;
 
 #endif

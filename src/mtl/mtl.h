@@ -48,7 +48,7 @@ int						mtl_texture_get_stride(t_mtl *mtl, int index);
 ** return 0 on success
 */
 
-int						mtl_buffer_load_scene(t_mtl *mtl, void *ptr, int len);
+int						mtl_buffer_load_info(t_mtl *mtl, void *ptr, int len);
 int						mtl_buffer_load_objects(t_mtl *mtl, void *ptr, int len);
 int						mtl_buffer_load_materials(t_mtl *mtl, void *ptr, int len);
 
