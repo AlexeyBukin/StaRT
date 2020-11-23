@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/20 20:01:06 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/23 15:55:50 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	list_box = gui_get_info_and_style(builder, "list_box_all", GENERAL);
 	// gui_get_info_and_style(builder, "list_box_scene", GENERAL);
 	gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, OBJECT);
-	/*list_box = */gui_get_info_and_style(builder, "list_box_light", GENERAL);
+	// /*list_box = */gui_get_info_and_style(builder, "list_box_light", GENERAL);
 	// gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, LIGHT);
-	gui_get_info_and_style(builder, "box_objs", GENERAL);
-	gui_get_info_and_style(builder, "box_light", GENERAL);
+	// gui_get_info_and_style(builder, "box_objs", GENERAL);
+	// gui_get_info_and_style(builder, "box_light", GENERAL);
 	// gui_get_info_and_style(builder, "obj1_scene", GENERAL);
 	// gui_get_info_and_style(builder, "obj2_scene", GENERAL);
 	// gui_get_info_and_style(builder, "obj3_scene", GENERAL);

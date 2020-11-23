@@ -20,7 +20,6 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">File</property>
-                <!-- <property name="use-underline">False</property> -->
                 <child type="submenu">
                   <object class="GtkMenu">
                     <property name="visible">True</property>

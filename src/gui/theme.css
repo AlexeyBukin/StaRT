@@ -32,3 +32,18 @@ list>row:selected {
     box-shadow: none;
     color: rgb(255, 255, 255);
 }
+
+#row_expander:selected {
+    background: rgb(146, 92, 51);
+    color: #ffffff;
+}
+
+#expander-open {
+    color:rgb(255, 115, 0);
+    background-color: #3c3c41;
+}
+#exander-closer {
+    background: #3c3c41;
+    color: rgb(255, 115, 0);
+    box-shadow: none;
+}
