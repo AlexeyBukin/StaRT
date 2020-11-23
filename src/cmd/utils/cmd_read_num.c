@@ -46,7 +46,7 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 		return (rt_err("Arguments are NULL"));
 	if ((str = *source) == NULL)
 		return (rt_err("Dereference to NULL pointer"));
-	if (*(str++) != '<')
+	if (!*str || *(str++) != '<')
 		return (rt_err("Expected \'<\'"));
 	err = 0;
 	err += cmd_read_space(&str) < 0 ? -1 : 0;
@@ -62,8 +62,32 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 	err += cmd_read_space(&str) < 0 ? -1 : 0;
 	if (err < 0)
 		return (rt_err("Syntax error: bad vector string"));
-	if (*(str++) != '>')
+	if (!*str || *(str++) != '>')
 		return (rt_err("Syntax error: expected \'>\'"));
+	*source = str;
+	return (0);
+}
+
+int 		cmd_read_matrix(char **source, t_mat3x3 *mtx)
+{
+	char		*str;
+
+	if (source == NULL || mtx == NULL)
+		return (rt_err("Arguments are NULL"));
+	if ((str = *source) == NULL)
+		return (rt_err("Dereference to NULL pointer"));
+	if (!*str || *(str++) != '[')
+		return (rt_err("Expected \'[\'"));
+	if (cmd_read_vec(&str, &(mtx->y)))
+		return (-1);
+	cmd_read_space(&str);
+	if (cmd_read_vec(&str, &(mtx->x)))
+		return (-1);
+	cmd_read_space(&str);
+	if (cmd_read_vec(&str, &(mtx->z)))
+		return (-1);
+	if (!*str || *(str++) != ']')
+		return (rt_err("Expected \']\'"));
 	*source = str;
 	return (0);
 }

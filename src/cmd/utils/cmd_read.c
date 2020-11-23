@@ -29,7 +29,7 @@ int			cmd_read_space(char **source)
 		return (rt_err("cmd_parse_space(): dereference to NULL pointer"));
 	str = *source;
 	i = 0;
-	while (*str == ' ')
+	while (*str && *str == ' ')
 	{
 		str++;
 		i++;
@@ -53,6 +53,8 @@ int			cmd_read_space_req(char **source)
 	if (source == NULL)
 		return (rt_err("Arguments are NULL"));
 	spaces = cmd_read_space(source);
+	if (spaces < 0)
+		return (rt_err("cmd_read_space returned err"));
 	if (spaces == 0)
 	{
 		if (*source == NULL)
@@ -97,6 +99,7 @@ int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 	if ((str = *source) == NULL)
 		return (rt_err("Dereference to NULL"));
 	i = 1;
+	str = *source;
 	if (*str != '\"')
 		return (rt_warning("Syntax error: Expected '\"' at the start of string", 1));
 	while (str[i] != '\"' && str[i] != '\0' && str[i] != '\n')

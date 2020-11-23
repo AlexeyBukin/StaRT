@@ -15,17 +15,15 @@
 t_msg           cmd_parse_command(t_parser *parser)
 {
     char        *str;
-    
+
     if (parser == NULL || parser->source == NULL || parser->cur == NULL)
         return (msg_err("Given NULL pointer in cmd_parce_commands"));
-    while (*parser->cur == ' ')
-        (parser->cur)++;
+	cmd_read_space(&parser->cur);
     str = parser->cur;
-    if (ft_str_next_is(str, "add"))
+	if (ft_str_next_is(str, "add"))
     {
-        ft_printf("%s\n", parser->cur);
         parser->cur += ft_strlen("add");
-        return (cmd_add(parser));
+		return (cmd_add(parser));
     }
     // else if (ft_str_next_is(str, "set"))
     // {

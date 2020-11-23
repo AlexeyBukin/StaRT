@@ -28,40 +28,12 @@
 **		(if not - set default vals)
 */
 
-// t_msg				cmd_parse_type_name(char **source, t_parse_help *helper)
-// {
-// 	int				ecode;
-
-// 	if (scn == NULL || source == NULL || helper == NULL)
-// 		return (msg_err("Given pointer is NULL"));
-// 	if ((ecode = cmd_parse_switch(source, helper)))
-// 	{
-// 		if (ecode < 0)
-// 			return (msg_err("Cannot parse first argument"));
-// 		return (msg_warn("Cannot parse first argument"));
-// 	}
-// 	if ((ecode = cmd_read_space_req(source)))
-// 	{
-// 		if (ecode < 0)
-// 			return (msg_err("Cannot read space"));
-// 		return (msg_warn("Cannot read space"));
-// 	}
-// 	if ((ecode = cmd_read_string(source, &(helper->name))))
-// 	{
-// 		if (ecode < 0)
-// 			return (msg_err("Cannot read space"));
-// 		return (msg_warn("Cannot read space"));
-// 	}
-// 	return (msg_oks("Parsed component type"));
-// }
-
 t_msg					cmd_parse_chain(t_rt *rt, t_parser *parser)
 {
 	(void)rt;
 	if (parser == NULL)
 		return (msg_err("NULL pointer in cmd_parse_chain()"));
 	return (cmd_parse_command(parser));
-	// return(msg_oks("oks"));
 }
 
 t_msg					cmd_parse_line(t_rt *rt, char *source)
@@ -74,7 +46,6 @@ t_msg					cmd_parse_line(t_rt *rt, char *source)
     parser->transform = &parser->object->transform;
 	parser->source = source;
 	parser->cur = source;
-	// ft_printf("\'%s\' - is me\n", parser->cur);
 	if (rt == NULL || source == NULL)
 		return (msg_err("Argument is NULL pointer"));
 	return (cmd_parse_chain(rt, parser));

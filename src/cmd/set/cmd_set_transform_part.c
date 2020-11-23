@@ -12,18 +12,26 @@
 
 #include "rt.h"
 
+/*
+**		mb move it to set? it'll be like cmd_set_transform_locals or whatever
+*/
+
 int			cmd_pos(t_parser *parser)
 {
 	if (parser == NULL)
 		return (-1);
-	return (cmd_read_vec(&parser->cur, &parser->transform->pos_local));
+	if (cmd_read_space_req(&(parser->cur)))
+		return (rt_err("cmd_pos(): Bad syntax"));
+	return (cmd_read_vec(&(parser->cur), &(parser->transform->pos_local)));
 }
 
 int			cmd_rot(t_parser *parser)
 {
 	if (parser == NULL)
 		return (-1);
-	return (cmd_read_vec(&parser->cur, &parser->rot_euler_xyz));
+	if (cmd_read_space_req(&(parser->cur)))
+		return (rt_err("cmd_rot(): Bad syntax"));
+	return (cmd_read_matrix(&(parser->cur), &(parser->transform->rot_local)));
 }
 
 int			cmd_read_transform_part(t_parser *parser)
@@ -36,7 +44,7 @@ int			cmd_read_transform_part(t_parser *parser)
         if (cmd_pos(parser))
 			return (-1);
     }
-	else if (ft_str_next_is(parser->cur, "-a"))
+	if (ft_str_next_is(parser->cur, "-a"))
 	{
         parser->cur += ft_strlen("-a");
         if (cmd_rot(parser))
