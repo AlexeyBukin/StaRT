@@ -43,15 +43,14 @@ typedef union			u_gpu_shape
 	struct s_plane		plane;
 }						t_gpu_shape;
 
-struct					s_cam
+typedef struct			s_cam
 {
-	int					id;
 	packed_float3		pos;
-	packed_float3		forward;
-	packed_float3		up;
-	packed_float3		right;
+	packed_float3		local_x;
+	packed_float3		local_y;
+	packed_float3		local_z;
 	packed_float2		fov;
-};
+}						t_gpu_cam;
 
 struct					s_c_mat
 {
@@ -65,8 +64,8 @@ struct					s_c_mat
 
 typedef struct			s_material
 {
-	struct s_c_mat		c_mat;
-	texture2d<float>	albedo_map;
+	texture2d<float,access::read>	albedo_map [[id(0)]];
+	struct s_c_mat					c_mat;
 }						t_material;
 
 typedef struct			s_gpu_obj
@@ -82,27 +81,29 @@ typedef struct			s_gpu_obj
 
 typedef struct			s_gpu_info
 {
-	size_t				obj_num;
-	size_t				mat_num;
-	size_t				txr_num;
-	size_t				render_size;
-	size_t				render_square_num;
-	size_t				render_square_current;
+	unsigned			obj_num;
+	unsigned			mat_num;
+	unsigned			txr_num;
+	unsigned			render_size;
+	unsigned			render_square_num;
+	unsigned			render_square_current;
 	t_gpu_cam			camera;
 }						t_gpu_info;
 
-kernel void scene_test(		device struct		s_gpu_info	info		[[buffer(0)]],
+kernel void scene_test(		device struct		s_gpu_info	*info		[[buffer(0)]],
 							device struct		s_gpu_obj	*objects	[[buffer(1)]],
 							device struct		s_material	*materials	[[buffer(2)]],
 							texture2d<float,access::write> 	out			[[texture(3)]],
 							uint2                  			gid			[[thread_position_in_grid]])
 {
 	uint2 size = uint2(out.get_width(), out.get_height());
-	device struct s_cam *cam = &scene->camera;
 
+	device struct s_material *mat = &(materials[0]);
+	if (mat == nullptr)
+		return ;
 	if (gid.x < size.x && gid.y < size.y)
 	{
-		float4 color = float4(0.5, 0.5, 0.5, 0);
+		float4 color = mat->albedo_map.read(gid);//[gid.y][gid.x];
 		out.write(color, gid);
 	}
 }

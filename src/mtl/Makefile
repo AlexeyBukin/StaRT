@@ -45,3 +45,13 @@ $(MTL_BUILD_EXT)/%.o: $(MTL_DIR_EXT)/%.swift $(MTL_MODULE_OBJ)
 $(MTL_BUILD_EXT)/%.swiftmodule: $(MTL_DIR_EXT)/%.swift
 	swiftc $(MTL_INCLUDE_SWIFT) -parse-as-library -c $< -o $@ -emit-module -module-link-name $(patsubst $(MTL_DIR_EXT)/%.swift,%,$<)
 	@touch $@
+
+### DEMO PART ###
+
+demo_mat: all
+	gcc -x c _mtl_materials.c.demo -L ../../build/mtl -lmtl \
+	-I . -I ../gpu -I ../ -I ../scn -I ../../lib/num/include \
+	-I ../txr -I ../mat -I ../obj -I ../tfm -I ../shp -I ../cam \
+	-I ../vlk -I ../../lib/ft/inc -L ../../lib/num -lnum -L ../../lib/ft -lft -o demo_mat.exe
+	install_name_tool -change libmtl.dylib "@rpath/libmtl.dylib" demo_mat.exe
+	install_name_tool -add_rpath "@executable_path/../../build/mtl/" demo_mat.exe

@@ -32,7 +32,7 @@ public func mtl_init_swift() -> UnsafeRawPointer
 public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: UnsafePointer<CChar>?) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	guard libsrcptr != nil else { return (Int32(-1)) }
+	guard libsrcptr != nil else { print("mtl: NULL pointer error"); return (Int32(-1)) }
 	return (sm.loadLibrary(source: String(cString: libsrcptr!)))
 }
 

@@ -59,6 +59,12 @@ public class StartMTL {
 		guard let buffer = queue.makeCommandBuffer() else { return Int32(1) }
 		print("metal queue buffer ready")
 
+		let materialArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 2)
+		materialArgumentEncoder.setArgumentBuffer(materialsBuffer,offset: 0)
+//		let materialEncoder = kernel.makeArgumentEncoder(bufferIndex: 2);// else { return Int32(1) }
+//		materialEncoder.setArgumentBuffer(materialsBuffer, offset: 0)
+		materialArgumentEncoder.setTexture(textures[1], index: 0)
+
 		guard let computeEncoder = buffer.makeComputeCommandEncoder() else { return Int32(1) }
 		computeEncoder.setComputePipelineState(pipelineState)
 		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
