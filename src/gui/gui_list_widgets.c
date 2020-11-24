@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/11/24 16:21:20 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/24 16:43:14 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			push_widgets(GtkWidget *in, t_obj *from)
 		expander = gtk_expander_new(from->name);
 
 		
-		gtk_widget_set_margin_start(GTK_WIDGET(expander), 35);
+		// gtk_widget_set_margin_start(GTK_WIDGET(expander), 35);
 		
 		// g_signal_connect(G_OBJECT(expander), "notify::expanded",
 		// 					G_CALLBACK(gui_expander_callback), NULL);
