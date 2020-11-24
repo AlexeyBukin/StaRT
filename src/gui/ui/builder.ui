@@ -189,11 +189,77 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="selection-mode">0</property>
+                <!-- <property name="orientation">vertical</property> -->
+                <!-- <child>
+                  <object class="GtkListBoxRow">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child>
+                      <object class="GtkExpander">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="can-focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkExpander">
+                                <property name="visible">True</property>
+                                <property name="can-focus">True</property>
+                                <property name="margin-start">20</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child type="label">
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can-focus">False</property>
+                                    <property name="margin-start">12</property>
+                                    <property name="xpad">10</property>
+                                    <property name="label" translatable="yes">expander</property>
+                                    <property name="justify">center</property>
+                                    <property name="width-chars">7</property>
+                                    <property name="xalign">1</property>
+                                  </object>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                            <child>
+                              <placeholder/>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child> -->
                 <!-- <child>
                   <object class="GtkListBoxRow" id="box_objs">
                     <property name="visible">True</property>
-                    <property name="can-focus">True</property> -->
-                    <!-- <child>
+                    <property name="can-focus">True</property>
+                    <child>
                       <object class="GtkExpander" id="expender_objs">
                         <property name="name">Objects</property>
                         <property name="visible">True</property>
@@ -212,8 +278,8 @@
                           <object class="GtkListBox" id="list_box_scene">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="selection-mode">1</property> -->
-                            <!-- <child>
+                            <property name="selection-mode">1</property>
+                            <child>
                               <object class="GtkListBoxRow" id="obj1_scene">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -242,18 +308,18 @@
                                   </object>
                                 </child>
                               </object>
-                            </child> -->
-                          <!-- </object>
+                            </child>
+                          </object>
                         </child>
                       </object>
-                    </child> -->
-                  <!-- </object>
+                    </child>
+                  </object>
                 </child> -->
                 <!-- <child>
                   <object class="GtkListBoxRow" id="box_light">
                     <property name="visible">True</property>
-                    <property name="can-focus">True</property> -->
-                    <!-- <child>
+                    <property name="can-focus">True</property>
+                    <child>
                       <object class="GtkExpander">
                         <property name="name">Objects</property>
                         <property name="visible">True</property>
@@ -272,8 +338,8 @@
                           <object class="GtkListBox" id="list_box_light">
                             <property name="visible">True</property>
                             <property name="can-focus">False</property>
-                            <property name="selection-mode">1</property> -->
-                            <!-- <child>
+                            <property name="selection-mode">1</property>
+                            <child>
                               <object class="GtkListBoxRow" id="obj3_scene">
                                 <property name="visible">True</property>
                                 <property name="can-focus">False</property>
@@ -302,12 +368,12 @@
                                   </object>
                                 </child>
                               </object>
-                            </child> -->
-                          <!-- </object>
+                            </child>
+                          </object>
                         </child>
                       </object>
-                    </child> -->
-                  <!-- </object>
+                    </child>
+                  </object>
                 </child> -->
               </object>
               <packing>

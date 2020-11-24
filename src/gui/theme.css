@@ -22,6 +22,12 @@ list {
     box-shadow: none;
 }
 
+box:selected {
+    background: rgb(141, 104, 74);
+    box-shadow: none;
+    color: rgb(255, 255, 255);
+}
+
 list>row {
     box-shadow: none;
     border: 0px;
@@ -38,9 +44,14 @@ list>row:selected {
     color: #ffffff;
 }
 
+expander {
+    margin-left: 2000px;
+}
+
 #expander-open {
     color:rgb(255, 115, 0);
     background-color: #3c3c41;
+    margin-right: 2000px;
 }
 #exander-closer {
     background: #3c3c41;
