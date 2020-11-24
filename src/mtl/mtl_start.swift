@@ -59,18 +59,35 @@ public class StartMTL {
 		guard let buffer = queue.makeCommandBuffer() else { return Int32(1) }
 		print("metal queue buffer ready")
 
-		let materialArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 2)
-		materialArgumentEncoder.setArgumentBuffer(materialsBuffer,offset: 0)
+		let materialArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 0)
+		let argumentBufferLength = materialArgumentEncoder.encodedLength
+
+//		_sourceTextures = [_device newBufferWithLength:argumentBufferLength options:0];
+		print("my aglen: \(argumentBufferLength)")
+		guard let sourceMaterials = device.makeBuffer(length: argumentBufferLength, options: []) else { print("cannot malloc buffer on gpu"); return Int32(1) }
+
+//		print()
+//		sourceMaterials.label = "Texture List"
+		materialArgumentEncoder.setArgumentBuffer(sourceMaterials, offset: 0)
+		materialArgumentEncoder.setTexture(textures[0], index: 0)
+		materialArgumentEncoder.setBuffer(materialsBuffer, offset: 0, index: 1)
+		let constantPointer = materialArgumentEncoder.constantData(at: 2)
+		constantPointer.storeBytes(of: 0.2, as: Float.self)
+
+//		materialArgumentEncoder.setArgumentBuffer(materialsBuffer, offset: 0)
 //		let materialEncoder = kernel.makeArgumentEncoder(bufferIndex: 2);// else { return Int32(1) }
 //		materialEncoder.setArgumentBuffer(materialsBuffer, offset: 0)
-		materialArgumentEncoder.setTexture(textures[1], index: 0)
+//		materialArgumentEncoder.setTexture(textures[1], index: 0)
 
 		guard let computeEncoder = buffer.makeComputeCommandEncoder() else { return Int32(1) }
 		computeEncoder.setComputePipelineState(pipelineState)
-		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
-		computeEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
-		computeEncoder.setBuffer(materialsBuffer, offset: 0, index: 2)
-		computeEncoder.setTexture(textureOut, index: 3)
+//		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
+//		computeEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
+		computeEncoder.setBuffer(sourceMaterials, offset: 0, index: 0)
+		computeEncoder.useResource(textures[0], usage: MTLResourceUsage.read)
+		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)
+//		computeEncoder.setTexture(textures[0], index: 0)
+		computeEncoder.setTexture(textureOut, index: 1)
 
 		let threadsPerThreadgroup = MTLSize(width: 32, height: 16, depth: 1)
 		let numGroups = MTLSize(width: 1 + textureOut.width/threadsPerThreadgroup.width, height: 1 + textureOut.height/threadsPerThreadgroup.height, depth: 1)

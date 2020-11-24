@@ -48,7 +48,7 @@ $(MTL_BUILD_EXT)/%.swiftmodule: $(MTL_DIR_EXT)/%.swift
 
 ### DEMO PART ###
 
-demo_mat: all
+demo_mat.exe: all
 	gcc -x c _mtl_materials.c.demo -L ../../build/mtl -lmtl \
 	-I . -I ../gpu -I ../ -I ../scn -I ../../lib/num/include \
 	-I ../txr -I ../mat -I ../obj -I ../tfm -I ../shp -I ../cam \
