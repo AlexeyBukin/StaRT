@@ -73,6 +73,15 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 	return (sm.getTextureStride(index: index))
 }
 
+@_cdecl("mtl_texture_target_save")
+public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int32, _ path: UnsafePointer<CChar>?) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	if (path == nil) { print ("mtl: NULL pointer"); return (Int32(-1)) }
+	let pathString = String(cString: path!)
+	return (sm.saveTargetTextureAsPNG(index: Int(index), path: pathString))
+}
+
 /* BUFFER PART */
 
 @_cdecl("mtl_buffer_load_info")

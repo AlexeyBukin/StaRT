@@ -17,6 +17,7 @@ public class StartMTL {
 	public var texturesBuffer : MTLBuffer?
 
 	public var textures = [MTLTexture]()
+	public var targetTextures = [MTLTexture]()
 //	public var models = [MTLBuffer]()
 
 	public init() {

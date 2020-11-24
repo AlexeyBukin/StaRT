@@ -62,5 +62,53 @@ extension StartMTL {
 		guard (i < 0 || i >= textures.count) else { return Int32(0) }
 		return (Int32(textures[Int(i)].height))
 	}
+
+	func makeCGImage(for texture: MTLTexture) -> CGImage? {
+		assert(texture.pixelFormat == .rgba8Unorm)
+
+		let width = texture.width
+		let height = texture.height
+		let pixelByteCount = 4 * MemoryLayout<UInt8>.size
+		let imageBytesPerRow = width * pixelByteCount
+		let imageByteCount = imageBytesPerRow * height
+		let imageBytes = UnsafeMutableRawPointer.allocate(byteCount: imageByteCount, alignment: pixelByteCount)
+		defer {
+			imageBytes.deallocate()
+		}
+
+		texture.getBytes(imageBytes,
+				bytesPerRow: imageBytesPerRow,
+				from: MTLRegionMake2D(0, 0, width, height),
+				mipmapLevel: 0)
+
+		guard let colorSpace = CGColorSpace(name: CGColorSpace.linearSRGB) else { return nil }
+		let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
+		guard let bitmapContext = CGContext(data: nil,
+				width: width,
+				height: height,
+				bitsPerComponent: 8,
+				bytesPerRow: imageBytesPerRow,
+				space: colorSpace,
+				bitmapInfo: bitmapInfo) else { return nil }
+		bitmapContext.data?.copyMemory(from: imageBytes, byteCount: imageByteCount)
+		let image = bitmapContext.makeImage()
+		return image
+	}
+
+	func saveTextureAsPNG(_ texture: MTLTexture, path: String) -> Int32 {
+		guard let image = makeCGImage(for: texture) else { return Int32(-1) }
+		guard let fileUrl = URL(string: path)  else { return Int32(-1) }
+
+		if let imageDestination = CGImageDestinationCreateWithURL(fileUrl as CFURL, kUTTypePNG, 1, nil) {
+			CGImageDestinationAddImage(imageDestination, image, nil)
+			CGImageDestinationFinalize(imageDestination)
+		}
+		return (Int32(0))
+	}
+
+	public func saveTargetTextureAsPNG(index i: Int, path: String) -> Int32 {
+		guard (i < 0 || i >= targetTextures.count) else { return Int32(-1) }
+		return (saveTextureAsPNG(targetTextures[i], path: path))
+	}
 }
 
