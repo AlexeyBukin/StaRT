@@ -14,9 +14,10 @@ public class StartMTL {
 	public var infoBuffer : MTLBuffer?
 	public var objectsBuffer : MTLBuffer?
 	public var materialsBuffer : MTLBuffer?
+	public var texturesBuffer : MTLBuffer?
 
 	public var textures = [MTLTexture]()
-	public var models = [MTLBuffer]()
+//	public var models = [MTLBuffer]()
 
 	public init() {
 		device = MTLCreateSystemDefaultDevice()!
