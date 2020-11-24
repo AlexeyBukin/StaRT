@@ -64,6 +64,7 @@ INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
 -I src/gui -I src/mat -I src/mtl \
 -I src/obj -I src/scn -I src/shp \
 -I src/srv -I src/tfm -I src/txr -I src/vlk \
+-I src/grp \
 $(GTK_INCLUDE)
 
 CFLAGS := -Wall -Wextra -Werror -g $(CFLAGS)
@@ -74,6 +75,14 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
 HEADERS	:= \
+src/cmd/cmd.h           src/gui/gui_types.h     src/rt_types.h          src/srv/srv_types.h \
+src/cmd/cmd_types.h     src/mat/mat.h           src/scn/scn.h           src/tfm/tfm.h \
+src/err/err.h           src/mat/mat_types.h     src/scn/scn_id.h        src/tfm/tfm_types.h \
+src/gpu/gpu.h           src/mtl/mtl.h           src/scn/scn_types.h     src/txr/txr.h \
+src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp.h           src/txr/txr_types.h \
+src/gpu/gpu_types.h     src/obj/obj_types.h     src/shp/shp_types.h     src/vlk/vlk.h \
+src/gui/gui.h           src/rt.h                src/srv/srv.h           src/grp/grp.h
+=======
 src/cam/cam.h           src/gui/gui.h           src/rt_types.h          src/tfm/tfm.h \
 src/cam/cam_types.h     src/gui/gui_types.h     src/scn/scn.h           src/tfm/tfm_types.h \
 src/cmd/cmd.h           src/mat/mat.h           src/scn/scn_id.h        src/txr/txr.h \
@@ -85,9 +94,50 @@ src/gpu/gpu_types.h     src/rt.h                src/srv/srv_types.h \
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
-SRC_SHARED	:= \
+SRC_SHARED	:=
+src/cam/cam_init.c                              src/scn/add/scn_add_mat.c \
+src/scn/add/scn_add_obj.c \
+src/scn/add/scn_add_to_group_copy.c \
+src/scn/add/scn_add_to_group_grp.c \
+src/scn/add/scn_add_to_group_obj.c \
+src/scn/add/scn_add_txr.c \
+src/scn/get/scn_get_cam_by_name.c \
+src/scn/get/scn_get_mat_by_name.c \
+src/scn/get/scn_get_obj_by_id.c \
+src/scn/get/scn_get_obj_by_name.c \
+src/scn/get/scn_get_txr_by_name.c \
+src/scn/remove/scn_remove_by_name_cam.c \
+src/scn/remove/scn_remove_by_name_copy.c \
+src/scn/remove/scn_remove_by_name_grp.c \
+src/scn/remove/scn_remove_by_name_mat.c \
+src/scn/remove/scn_remove_by_name_obj.c \
+src/scn/remove/scn_remove_by_name_txr.c \
+src/scn/scn_get_mat.c \
+src/err/msg_err.c                               src/scn/scn_id.c \
+src/err/msg_ok.c                                src/scn/scn_init.c \
+src/err/msg_warn.c                              src/scn/scn_name.c \
+src/err/rt_err.c                                src/scn/utils/scn_del_copies_of.c \
+src/err/rt_warn.c                               src/scn/utils/scn_group_mem.c \
+src/gpu/gpu_buffer_load.c                       src/srv/srv_deinit.c \
+src/gpu/gpu_init.c                              src/srv/srv_ext.c \
+src/gpu/gpu_kernel_run.c                        src/srv/srv_ext_data.c \
+src/grp/grp_init.c                              src/srv/srv_init.c \
+src/grp/grp_remove_by_name.c                    src/srv/srv_loop.c \
+src/gui/gui_init.c                              src/srv/srv_parse.c \
+src/mat/mat_init.c                              src/srv/srv_utils.c \
+src/obj/obj_container_init.c                    src/tfm/tfm_init.c \
+src/obj/obj_copy_init.c                         src/tfm/tfm_move.c \
+src/obj/obj_init.c                              src/txr/txr_init.c \
+src/rt.c                                        src/vlk/vlk_init.c \
+src/scn/add/scn_add_cam.c \
+src/scn/print/scn_print.c \
+src/scn/print/scn_print_cam.c \
+src/scn/print/scn_print_txr.c \
+src/scn/print/scn_print_mat.c \
+src/scn/print/scn_print_grp.c \
+src/scn/print/scn_print_obj_pa
 src/cam/cam_add.c                       src/err/rt_warn.c                       src/scn/scn_get_mat.c \
-src/cam/cam_init.c                      src/gpu/gpu_buffer_load.c               src/scn/scn_id.c \
+src/cam/cam_init.c                     src/gpu/gpu_buffer_load.c               src/scn/scn_id.c \
 src/cam/cam_remove.c                    src/gpu/gpu_init.c                      src/scn/scn_init.c \
 src/cmd/add/cmd_add.c                   src/gpu/gpu_kernel_run.c                src/scn/scn_name.c \
 src/cmd/set/cmd_set_transform_part.c   src/gui/gui_init.c                      src/srv/srv_deinit.c \
@@ -108,8 +158,7 @@ src/cmd/set/cmd_set_sphere.c \
 src/cmd/set/cmd_set_cylinder.c \
 src/cmd/set/cmd_set_plane.c \
 src/cmd/set/cmd_set_object_attributes.c \
-src/cmd/set/cmd_set.c \
-
+src/cmd/set/cm
 SRC 		= $(SRC_SHARED) src/main.c
 
 OBJ_SHARED  = $(patsubst $(SRC_DIR)%.c, $(BUILD_DIR)%.o, $(SRC_SHARED))

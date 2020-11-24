@@ -28,14 +28,14 @@ int		mat_del(t_scn *scn, t_mat *mat)
 	if (!(materials = (t_mat **)ft_memalloc(sizeof(t_mat *) * (scn->materials_num - 1))))
 		return (rt_err("mat_remove_by_name(): malloc crashed"));
 	mat_memmove(scn, materials, mat);
-	mat_deinit(mat);///TODO do we need to deinit this?
+//	mat_deinit(mat);///TODO do we need to deinit this?
 	free(scn->materials);
 	scn->materials = materials;
 	scn->materials_num--;
 	return (0);
 }
 
-int		mat_remove_by_name(t_scn *scn, char *name)
+int		scn_remove_by_name_mat(t_scn *scn, char *name)
 {
 	t_mat		*mat_to_del;
 

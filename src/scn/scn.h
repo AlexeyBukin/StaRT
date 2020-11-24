@@ -17,6 +17,7 @@
 # define ALLOC_SIZE_STEP	16
 # include "scn_types.h"
 # include "obj_types.h"
+# include "scn_add.h"
 # define GET_OBJ "object"
 # define GET_MATERIAL "material"
 
@@ -79,5 +80,40 @@ int					scn_name_check(t_scn *scn, char *name);
 //int				scn_component_get_type(t_scn *scn, uint comp_id, enum e_component_type *type);
 
 int				scn_component_set_name(t_scn *scn, uint comp_id, char *name);
+
+/*
+**			scn/print
+*/
+
+int				scn_print(t_scn *scn);
+void			scn_print_cam(t_scn *scn);
+void			scn_print_txr(t_scn *scn);
+void			scn_print_mat(t_scn *scn);
+int				scn_print_grps(t_scn *scn);
+
+/*
+**			scn/remove/
+*/
+
+int				scn_remove_by_name_txr(t_scn *scn, char *name);
+int				scn_remove_by_name_mat(t_scn *scn, char *name);
+int				scn_remove_by_name_cam(t_scn *scn, char *name);
+
+int				scn_remove_by_name_grp(t_scn *scn, char *name);
+int				scn_remove_by_name_obj(t_scn *scn, char *name);
+int				scn_remove_by_name_copy(t_scn *scn, char *name);
+
+//it's useful if we wanna delete object's copy
+int				delete_copy(t_obj *obj);
+int				del_obj_copies(t_obj *from, t_obj *original);
+void			grp_memmove(t_obj_group *grp, t_obj **dst, t_obj *del);
+
+/*
+**			scn/utils/
+*/
+
+int				scn_group_inc(t_obj_group *grp);
+int				scn_del_copies_of(t_obj *from, t_obj *original);
+
 
 #endif

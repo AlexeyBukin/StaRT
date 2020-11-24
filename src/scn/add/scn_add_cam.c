@@ -4,7 +4,7 @@
 
 #include "rt.h"
 
-int		cam_add(t_scn *scn, t_cam *cam)
+int		scn_add_cam(t_scn *scn, t_cam *cam)
 {
 	t_cam		**new_array;
 	t_cam		*cam_copy;
@@ -18,7 +18,7 @@ int		cam_add(t_scn *scn, t_cam *cam)
 		return (rt_err("cam_add(): name collision"));
 	}
 	if (!(new_array = (t_cam **)ft_realloc(scn->cameras, sizeof(t_cam *) * scn->cameras_num,
-										   sizeof(t_cam *) * (scn->cameras_num + 1))))
+										sizeof(t_cam *) * (scn->cameras_num + 1))))
 		return (rt_err("cam_add(): malloc returned NULL pointer"));
 	scn->cameras = new_array;
 	scn->cameras_num++;

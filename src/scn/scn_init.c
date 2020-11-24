@@ -80,7 +80,7 @@ int				scn_init(t_scn **dest)
 	if ((scn = ft_memalloc(sizeof(t_scn))) == NULL)
 		return (rt_err("scn_init(): malloc returned NULL pointer"));
 	scn->filename = ft_strdup(DEFAULT_GROUP_NAME);
-	if (obj_grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
+	if (grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
 	{
 		scn_deinit(scn);
 		return (rt_err("scn_init(): cannot init main group"));
@@ -89,8 +89,13 @@ int				scn_init(t_scn **dest)
 		return (rt_err("scn_init(): cannot init default material"));
 	if (scn_init_cam(scn))
 		return (rt_err("scn_init(): cannot init default camera"));
+
 	scn->textures = NULL;
 	scn->textures_num = 0;
+
+//	scn_remove_by_name_txr(scn, txr->name);
+//	scn_remove_by_name_txr(scn, txr->name);
+
 //	if (scn_init_txr(scn))
 //		return (rt_err("scn_init(): cannot init camera"));
 	*dest = scn;

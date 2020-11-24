@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat.h                                              :+:      :+:    :+:   */
+/*   grp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAT_H
-# define MAT_H
+#ifndef GRP_H
+# define GRP_H
 
-# include "mat_types.h"
 # include "scn_types.h"
 
-int             mat_init(t_mat **mat_container, char *mat_name);
-int				mat_init_default(t_mat **mat_container);
-int				mat_deinit(t_mat *mat);
+/*
+** grp_init.c
+*/
+
+int				grp_init(t_obj **dest, char *name);
+int				grp_deinit(t_obj *group);
+
+/*
+** grp_remove_by_name.c
+*/
+
+int				grp_remove_by_name(t_obj *from, char *name);
 
 #endif

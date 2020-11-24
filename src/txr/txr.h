@@ -20,10 +20,4 @@ int		txr_init(t_txr **dest, char *name, t_size2 size);
 int		txr_init_default(t_txr **dest, char *name);
 int		txr_deinit(t_txr *txr);
 
-/*
-**		txr_add
-*/
-
-int		txr_add(t_scn *scn, t_txr *txr);
-
 #endif

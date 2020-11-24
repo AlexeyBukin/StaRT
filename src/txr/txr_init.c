@@ -57,6 +57,7 @@ int		txr_init_default(t_txr **dest, char *name)
 	txr->height = 0;
 	txr->stride = 0;
 	txr->content = NULL;
+	*dest = txr;
 	return (0);
 }
 

@@ -36,14 +36,14 @@ int		cam_del(t_scn *scn, t_cam *cam)
 	return (0);
 }
 
-int		cam_remove_by_name(t_scn *scn, char *name)
+int		scn_remove_by_name_cam(t_scn *scn, char *name)
 {
 	t_cam		*cam_to_del;
 
-	if (!scn || !name)
+	if (scn == NULL || name == NULL)
 		return (rt_err("cam_remove_by_name(): was given a NULL pointer"));
 	cam_to_del = scn_get_cam_by_name(scn, name);
-	if (!cam_to_del)
+	if (cam_to_del == NULL)
 		return (rt_err("cam_remove_by_name(): there is no"
 			" camera with given name"));
 	return (cam_del(scn, cam_to_del));

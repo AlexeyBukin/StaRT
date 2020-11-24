@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_grp_init.c                                     :+:      :+:    :+:   */
+/*   grp_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-int				obj_grp_init(t_obj **dest, char *name)
+int				grp_init(t_obj **dest, char *name)
 {
 	t_obj		*grp;
 
@@ -38,7 +38,7 @@ int				obj_grp_init(t_obj **dest, char *name)
 	return (0);
 }
 
-int				obj_grp_deinit(t_obj *group)
+int				grp_deinit(t_obj *group)
 {
 	size_t		i;
 
