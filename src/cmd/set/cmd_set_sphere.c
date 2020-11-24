@@ -1,79 +1,52 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cmd_set_sphere.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 23:44:09 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 08:01:42 by jvoor            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+//
+// Created by Hugor Chau on 11/23/20.
+//
 
 #include "rt.h"
 
-t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere)
+static int			sphere_set_radius(t_parser *parser)
 {
-	if (source == NULL || sphere == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_vec(source, &(sphere->pos)))
-		return (msg_warn("Syntax error: expected vector"));
-	return (msg_oks("Set sphere position"));
-}
-
-t_msg					cmd_set_sphere_radius(char **source, t_sphere *sphere)
-{
-	if (source == NULL || sphere == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_num(source, &(sphere->r)))
-		return (msg_warn("Syntax error: expected num"));
-	return (msg_oks("Set sphere radius"));
-}
-
-t_msg					cmd_set_sphere(t_scn *scn, t_obj *sphere, char **source)
-{
-	t_msg				tmp;
-	
-	if (scn == NULL || sphere == NULL || source == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	while (*source != '\0' && *source != '\n')
+	if (ft_str_next_is(parser->cur, "-r"))
 	{
-		tmp = cmd_set_object_param(scn, sphere, source);
-		if (tmp.status == MSG_ERROR || tmp.status == MSG_WARN)
-			return (tmp);
-		//TODO concat, dont free
-		if (tmp.status == MSG_OK)
-		{
-			ft_free(tmp.str);
-			continue ;
-		}
-		
-		//here only if tmp.status is MSG_NONE
-		
-		if (ft_str_next_is(*source, KW_PARAM_POS))
-		{
-			*source += KW_PARAM_LEN;
-			tmp = cmd_set_sphere_pos(source, &(sphere->shape.sphere));
-		}
-		else if (ft_str_next_is(*source, KW_PARAM_RAD))
-		{
-			*source += KW_PARAM_LEN;
-			tmp = cmd_set_sphere_radius(source, &(sphere->shape.sphere));
-		}
-		else
-			return (msg_warn("Unknown flag"));
-		if (tmp.status != MSG_OK)
-			return (tmp);
-		ft_free(tmp.str);
-		if (cmd_read_space_req(&source))
-			return (msg_warn("Expected \' \'"));
+		parser->cur += ft_strlen("-r");
+		cmd_read_space(&parser->cur);
+		if (cmd_read_num(&parser->cur, &parser->container->shape.sphere.radius))
+			return (-1);
+		return (1);
 	}
-	return (msg_oks("Sphere parameters set"));
+	return (0);
 }
 
+static t_msg		sphere_parse_flags(t_parser *parser)
+{
+	int		parsed_args;
+
+	parsed_args = 0;
+	if ((parsed_args | (cmd_read_transform_part(parser))) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in transform"));
+	if ((parsed_args | sphere_set_radius(parser)) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in rad"));
+	if ((parsed_args | cmd_set_obj_attributes(parser)) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in attributes"));
+	if (parsed_args < 1)
+		return (msg_err("sphere_parse_flags(): bad syntax"));
+	return (msg_oks("oks"));
+}
+
+void				cmd_set_sphere_default(t_parser *parser)
+{
+	ft_bzero(parser->transform, sizeof(t_tfm));
+	parser->container->shape.sphere.radius = 0.0;
+}
+
+t_msg				cmd_set_sphere(t_parser *parser)
+{
+	cmd_set_sphere_default(parser);
+	while (*parser->cur != '\0' && *parser->cur != '\n')
+	{
+		if (cmd_read_space_req(&parser->cur))
+			return (msg_err("cmd_set_sphere(): bad syntax1"));
+		sphere_parse_flags(parser);
+	}
+	return (msg_oks("it works!"));
+}

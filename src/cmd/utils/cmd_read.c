@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 01:09:42 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:53:20 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 20:13:14 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			cmd_read_space(char **source)
 		return (rt_err("cmd_parse_space(): dereference to NULL pointer"));
 	str = *source;
 	i = 0;
-	while (*str == ' ')
+	while (*str && *str == ' ')
 	{
 		str++;
 		i++;
@@ -53,6 +53,8 @@ int			cmd_read_space_req(char **source)
 	if (source == NULL)
 		return (rt_err("Arguments are NULL"));
 	spaces = cmd_read_space(source);
+	if (spaces < 0)
+		return (rt_err("cmd_read_space returned err"));
 	if (spaces == 0)
 	{
 		if (*source == NULL)
@@ -87,7 +89,7 @@ int			cmd_read_comma(char **str)
 ** returns -1 on error
 */
 
-int			cmd_read_string(char **source, char **dest)
+int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 {
 	char		*str;
 	int			i;
@@ -97,6 +99,7 @@ int			cmd_read_string(char **source, char **dest)
 	if ((str = *source) == NULL)
 		return (rt_err("Dereference to NULL"));
 	i = 1;
+	str = *source;
 	if (*str != '\"')
 		return (rt_warning("Syntax error: Expected '\"' at the start of string", 1));
 	while (str[i] != '\"' && str[i] != '\0' && str[i] != '\n')
@@ -111,44 +114,3 @@ int			cmd_read_string(char **source, char **dest)
 	return (0);
 }
 
-/*
-** cmd_read_id_name() moves source to end of id uint or string
-** returns  0 on success
-** returns -1 on error
-** returns  1 on warning
-*/
-
-int			cmd_read_id_name(t_scn *scn, char **source, uint *id)
-{
-	int			tmp;
-	char		*name;
-
-	if (rt == NULL || source == NULL || id == NULL)
-		return (rt_err("Arguments are NULL"));
-	if (*source == NULL)
-		return (rt_err("Dereference to NULL"));
-	if (**source == '\"')
-	{
-		if ((tmp = cmd_read_string(source, &name)))
-		{
-			if (tmp < 0)
-				return (rt_err("Cannot read string"));
-			return (rt_warning("Cannot read string", 1));
-		}
-		//TODO implement scn_id_by_name()
-		*id = scn_get_id_by_name(scn, COMPONENT_ANY, name);
-		ft_free(name);
-	}
-	else
-	{
-		if ((tmp = cmd_read_uint(source, id)))
-		{
-			if (tmp < 0)
-				return (rt_err("Cannot read uint"));
-			return (rt_warning("Cannot read uint", 1));
-		}
-	}
-	if (*id == 0)
-		return (rt_warning("Object cannot be specified", 1));
-	return (0);
-}

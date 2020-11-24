@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:09:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 10:08:57 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/11/20 21:51:57 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ t_msg		srv_parse_str(t_srv *srv, const char* request)
 	{
 		//TODO lock mutex
 //		ft_printf("parsing line \'%s\'\n", srv->client_line);
-		t_rt *rt = srv->rt;
+		// t_rt *rt = srv->rt;
 
-		g_mutex_lock(rt->mutex);
+		// g_mutex_lock(rt->mutex);
 		//TODO on!
-//		msg = cmd_parse_line(srv->rt, (char *)request);
-		g_mutex_unlock(rt->mutex);
-//		ft_printf("done parsing line \'%s\'\n", srv->client_line);
+		ft_printf("incoming line \'%s\'\n", srv->client_line);
+		msg = cmd_parse_line(srv->rt, (char *)request);
+		// g_mutex_unlock(rt->mutex);
+		ft_printf("done parsing line \'%s\'\n", srv->client_line);
 		//TODO unlock mutex
 	}
 	return (msg);

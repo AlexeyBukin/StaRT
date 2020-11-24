@@ -12,6 +12,8 @@ gtk_bundle_42
 cmake-build-debug
 .idea
 
+# VSCode ignores
+.vscode
 
 # Prerequisites
 *.d
