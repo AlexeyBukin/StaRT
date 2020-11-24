@@ -9,20 +9,27 @@ static int			sphere_set_radius(t_parser *parser)
 	if (ft_str_next_is(parser->cur, "-r"))
 	{
 		parser->cur += ft_strlen("-r");
-		if (cmd_read_space_req(&parser->cur))
-			return (-1);
+		cmd_read_space(&parser->cur);
 		if (cmd_read_num(&parser->cur, &parser->container->shape.sphere.radius))
 			return (-1);
+		return (1);
 	}
 	return (0);
 }
 
 static t_msg		sphere_parse_flags(t_parser *parser)
 {
-	if ((cmd_read_transform_part(parser)) < 0)
-		return (msg_err("cmd_set_sphere(): bad syntax in transform"));
-	else if ((sphere_set_radius(parser)) < 0)
-		return (msg_err("cmd_set_sphere(): bad syntax in rad"));
+	int		parsed_args;
+
+	parsed_args = 0;
+	if ((parsed_args | (cmd_read_transform_part(parser))) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in transform"));
+	if ((parsed_args | sphere_set_radius(parser)) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in rad"));
+	if ((parsed_args | cmd_set_obj_attributes(parser)) < 0)
+		return (msg_err("sphere_parse_flags(): bad syntax in attributes"));
+	if (parsed_args < 1)
+		return (msg_err("sphere_parse_flags(): bad syntax"));
 	return (msg_oks("oks"));
 }
 

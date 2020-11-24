@@ -4,14 +4,15 @@
 
 #include "rt.h"
 
-//1) `-v` - visibility. Should be valid string - "true" or "false"
-//1) `-n` - name. Should be valid string - name
-//1) `-p` - position. Should be valid vector
-//1) `-a` - axis. Should be valid matrix 3x3
-//1) `-m` - material. Should be valid string - name of material
-//1) `-g` - group. Should be valid string - name of group
+/*
+** `-v` - visibility. Should be valid string - "true" or "false"
+** `-n` - name. Should be valid string - name
+** `-m` - material. Should be valid string - name of material
+** `-g` - group. Should be valid string - name of group
+**
+*/
 
-t_msg		cmd_set_visibility(t_parser *parser)
+int				cmd_set_visibility(t_parser *parser)
 {
 	if (ft_str_next_is(parser->cur, "-v"))
 	{
@@ -22,25 +23,27 @@ t_msg		cmd_set_visibility(t_parser *parser)
 		else if (ft_str_next_is(parser->cur, "false"))
 			parser->object->visible = FALSE;
 		else
-			return (msg_err("cmd_set_visibility(): Bad syntax"));
+			return (rt_err("cmd_set_visibility(): Bad syntax"));
+		return (1);
 	}
-	return (msg_oks("Oks"));
+	return (0);
 }
 
-t_msg			cmd_set_name(t_parser *parser)
+int				cmd_set_name(t_parser *parser)
 {
 	if (ft_str_next_is(parser->cur, "-n"))
 	{
 		parser->cur += ft_strlen("-n");
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_err("cmd_set_name(): Bad syntax"));
+			return (rt_err("cmd_set_name(): Bad syntax"));
 		if (cmd_read_string(&(parser->cur), &(parser->name)))
-			return (msg_err("cmd_add_sphere(): bad name"));
+			return (rt_err("cmd_add_sphere(): bad name"));
+		return (1);
 	}
-	return (msg_oks("Oks"));
+	return (0);
 }
 
-t_msg		cmd_set_material(t_parser *parser)//find material please!
+int				cmd_set_material(t_parser *parser)//find material please!
 {
 	char		*material_name;
 
@@ -48,14 +51,15 @@ t_msg		cmd_set_material(t_parser *parser)//find material please!
 	{
 		parser->cur += ft_strlen("-m");
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_err("cmd_set_name(): Bad syntax"));
+			return (rt_err("cmd_set_name(): Bad syntax"));
 		if (cmd_read_string(&(parser->cur), &(material_name)))
-			return (msg_err("cmd_add_sphere(): bad name"));
+			return (rt_err("cmd_add_sphere(): bad name"));
+		return (1);
 	}
-	return (msg_oks("Oks"));
+	return (0);
 }
 
-t_msg		cmd_set_group(t_parser *parser)//find group please!
+int				cmd_set_group(t_parser *parser)//find group please!
 {
 	char		*group_name;
 
@@ -63,9 +67,22 @@ t_msg		cmd_set_group(t_parser *parser)//find group please!
 	{
 		parser->cur += ft_strlen("-g");
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_err("cmd_set_name(): Bad syntax"));
+			return (rt_err("cmd_set_name(): Bad syntax"));
 		if (cmd_read_string(&(parser->cur), &(group_name)))
-			return (msg_err("cmd_add_sphere(): bad name"));
+			return (rt_err("cmd_add_sphere(): bad name"));
+		return (1);
 	}
-	return (msg_oks("Oks"));
+	return (0);
+}
+
+int				cmd_set_obj_attributes(t_parser *parser)
+{
+	int		parsed_flags;
+
+	parsed_flags = 0;
+	if ((parsed_flags | cmd_set_visibility(parser)) < 0)
+		return (rt_err("cmd_set_obj_attributes: bad syntax"));
+	if ((parsed_flags | cmd_set_name(parser)) < 0)
+		return (rt_err("cmd_set_obj_attributes: bad syntax"));
+	return (parsed_flags);
 }

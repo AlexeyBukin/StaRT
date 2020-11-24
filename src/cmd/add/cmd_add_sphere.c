@@ -33,6 +33,6 @@ t_msg           cmd_add_sphere(t_parser *parser)
         return (msg_err("cmd_add_sphere(): bad syntax"));
     if (cmd_read_string(&(parser->cur), &(parser->name)))
         return (msg_err("cmd_add_sphere(): bad name"));
-    init_sphere_parser(parser);
+	init_sphere_parser(parser);
 	return (cmd_set_sphere(parser));
 }

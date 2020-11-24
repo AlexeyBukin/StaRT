@@ -90,7 +90,7 @@ src/cam/cam_add.c                       src/err/rt_warn.c                       
 src/cam/cam_init.c                      src/gpu/gpu_buffer_load.c               src/scn/scn_id.c \
 src/cam/cam_remove.c                    src/gpu/gpu_init.c                      src/scn/scn_init.c \
 src/cmd/add/cmd_add.c                   src/gpu/gpu_kernel_run.c                src/scn/scn_name.c \
-src/cmd/utils/cmd_read_transform_part.c src/gui/gui_init.c                      src/srv/srv_deinit.c \
+src/cmd/set/cmd_set_transform_part.c   src/gui/gui_init.c                      src/srv/srv_deinit.c \
 src/cmd/add/cmd_add_plane.c             src/mat/mat_add.c                       src/srv/srv_ext.c \
 src/cmd/add/cmd_add_sphere.c            src/mat/mat_init.c                      src/srv/srv_ext_data.c \
 src/cmd/cmd_parce_command.c             src/mat/mat_remove.c                    src/srv/srv_init.c \

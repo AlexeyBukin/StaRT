@@ -62,7 +62,13 @@ int					cmd_set_radius(t_parser *parser);
 **              cmd/set/cmd_set_transform_part
 */
 
-int			        cmd_read_transform_part(t_parser *parser);
+int					cmd_read_transform_part(t_parser *parser);
+
+/*
+**              cmd/set/cmd_set_object_attributes
+*/
+
+int					cmd_set_obj_attributes(t_parser *parser);
 
 /*
 **				cmd_add
