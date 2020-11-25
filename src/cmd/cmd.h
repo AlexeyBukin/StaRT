@@ -36,7 +36,7 @@ t_msg				cmd_parse_command(t_rt *rt, t_parser *parser);
 **				cmd/set
 */
 
-int					cmd_set(t_parser *parser);
+t_msg				cmd_set(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/set/cmd_set_sphere
@@ -105,6 +105,7 @@ t_msg				cmd_add_plane(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_cone(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_cylinder(t_rt *rt, t_parser *parser);
 t_msg           	cmd_add_group(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_camera(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/ls
@@ -133,6 +134,7 @@ int					cmd_read_id_name(t_scn *scn, char **source, uint *id);
 **				cmd/utils/cmd_read_num
 */
 
+int					cmd_read_vec2(char **source, t_vec2 *vec);
 int					cmd_read_num(char **source, t_num *num);
 int					cmd_read_vec(char **source, t_vec3 *vec);
 int					cmd_read_uint(char **source, uint *num);

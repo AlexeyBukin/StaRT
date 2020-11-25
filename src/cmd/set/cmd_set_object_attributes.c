@@ -45,11 +45,10 @@ int				cmd_set_name(t_rt *rt, t_parser *parser)
 			return (rt_err("cmd_set_name(): Bad syntax"));
 		if (cmd_read_string(&(parser->cur), &tmp))
 			return (rt_err("cmd_add_sphere(): bad name"));
-		ft_free(parser->name);
 		if (scn_name_check(rt->scene, tmp))
 			return (rt_err("cmd_set_name(): name collision"));
+		ft_free(parser->name);
 		parser->name = tmp;
-		parser->object->name = tmp;
 	}
 	return (0);
 }

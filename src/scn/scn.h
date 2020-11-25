@@ -115,5 +115,10 @@ void			grp_memmove(t_obj_group *grp, t_obj **dst, t_obj *del);
 int				scn_group_inc(t_obj_group *grp);
 int				scn_del_copies_of(t_obj *from, t_obj *original);
 
+/*
+**		scn/move
+*/
+
+int		scn_move_obj(t_scn *scn, t_obj *dst, t_obj *obj);
 
 #endif

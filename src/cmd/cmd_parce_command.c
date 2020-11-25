@@ -26,11 +26,11 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
         parser->cur += ft_strlen("add");
 		return (cmd_add(rt, parser));
     }
-    // else if (ft_str_next_is(str, "set"))
-    // {
-    //     parser->cur += ft_strlen("set");
-    //     return (cmd_parse_set());
-    // }
+     else if (ft_str_next_is(str, "set"))
+     {
+         parser->cur += ft_strlen("set");
+         return (cmd_set(rt, parser));
+     }
     // else if (ft_str_next_is(str, "rm"))
     // {
     //     parser->cur += ft_strlen("rm");

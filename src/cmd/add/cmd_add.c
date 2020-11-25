@@ -15,7 +15,6 @@
 t_msg				cmd_add(t_rt *rt, t_parser *parser)
 {
 	char			*str;
-	t_msg			res;
 
 	if (parser == NULL)
 		return(msg_warn("Given NULL pointer in cmd_add()"));
@@ -25,32 +24,34 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 	if (ft_str_next_is(str, "sphere"))
 	{
 		parser->cur += ft_strlen("sphere");
-		res = cmd_add_sphere(rt, parser);
+		return cmd_add_sphere(rt, parser);
 	}
-	 else if (ft_str_next_is(str, "plane"))
-		{
+	else if (ft_str_next_is(str, "plane"))
+	{
 		parser->cur += ft_strlen("plane");
-		res = (cmd_add_plane(rt, parser));
+		return (cmd_add_plane(rt, parser));
 	}
 	 else if (ft_str_next_is(str, "cylinder"))
 	 {
 		parser->cur += ft_strlen("cylinder");
-		res = (cmd_add_cylinder(rt, parser));
+		return (cmd_add_cylinder(rt, parser));
 	 }
 	 else if (ft_str_next_is(str, "cone"))
 	 {
 		parser->cur += ft_strlen("cone");
-		res = (cmd_add_cone(rt, parser));
+		return (cmd_add_cone(rt, parser));
 	 }
 	else if (ft_str_next_is(str, "group"))
 	{
 		parser->cur += ft_strlen("group");
-		res = (cmd_add_group(rt, parser));
+		return (cmd_add_group(rt, parser));
+	}
+	else if (ft_str_next_is(str, "camera"))
+	{
+		parser->cur += ft_strlen("camera");
+		return (cmd_add_camera(rt, parser));
 	}
 	else
 		return (msg_warn("Syntax error: Unknown object type"));
-	if (res.status != MSG_OK)
-		return (res);
-	scn_add_to_group(rt->scene, parser->group, parser->object);
 	return (msg_oks("oks"));
 }

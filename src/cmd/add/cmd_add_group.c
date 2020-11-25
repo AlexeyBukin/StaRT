@@ -29,6 +29,8 @@ static t_msg	cmd_parse_group_flags(t_rt *rt, t_parser *parser)
 		if (cmd_set_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
 	}
+	parser->object->name = parser->name;
+	scn_add_to_group(rt->scene, parser->group, parser->object);
 	return (msg_oks("it works!"));
 }
 

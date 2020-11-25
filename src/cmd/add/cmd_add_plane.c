@@ -39,8 +39,10 @@ static t_msg	cmd_parse_plane_flags(t_rt *rt, t_parser *parser)
 		if (cmd_set_material(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
 	}
+	parser->object->name = parser->name;
 	parser->object->content.container.material = parser->material;
 //	parser->object->content.container.texture = parser->texture;//?? where to put?
+	scn_add_to_group(rt->scene, parser->group, parser->object);
 	return (msg_oks("it works!"));
 }
 
