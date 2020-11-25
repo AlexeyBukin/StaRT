@@ -7,6 +7,52 @@ import mtl_start
 
 extension StartMTL {
 
+	func	addTextureTarget(_ newTarget: MTLTexture?) -> Int32 {
+		if (newTarget != nil) {
+			let index = targetTextures.count
+			targetTextures.append(newTarget!)
+			return (Int32(index))
+		}
+		return (Int32(-1))
+	}
+
+	func	addTextureResource(_ newResource: MTLTexture?) -> Int32 {
+		if (newResource != nil) {
+			let index = textures.count
+			textures.append(newResource!)
+			return (Int32(index))
+		}
+		return (Int32(-1))
+	}
+
+	public func	loadTextureResourceRGBA8(data ptr: UnsafeRawPointer, width:Int, height:Int) -> Int32 {
+		let textureDesc = MTLTextureDescriptor()
+		textureDesc.width = width
+		textureDesc.height = height
+		textureDesc.usage = .shaderRead
+		textureDesc.pixelFormat = MTLPixelFormat.rgba8Unorm
+
+		let stride = 4 * width;
+		let texture_buff = device.makeBuffer(bytes: ptr, length: stride * height, options: [])
+		let texture = texture_buff?.makeTexture(descriptor:textureDesc, offset:0, bytesPerRow:stride)
+
+		return (addTextureResource(texture))
+	}
+
+	public func	loadTextureTargetRGBA8(data ptr: UnsafeRawPointer, width:Int, height:Int) -> Int32 {
+		let textureDesc = MTLTextureDescriptor()
+		textureDesc.width = width
+		textureDesc.height = height
+		textureDesc.usage = .shaderRead
+		textureDesc.pixelFormat = MTLPixelFormat.rgba8Unorm
+
+		let stride = 4 * width;
+		let texture_buff = device.makeBuffer(bytes: ptr, length: stride * height, options: [])
+		let texture = texture_buff?.makeTexture(descriptor:textureDesc, offset:0, bytesPerRow:stride)
+
+		return (addTextureTarget(texture))
+	}
+
 	public func createTexture(d device:MTLDevice, w width:Int, h height:Int) -> Int32 {
 
 		let texture_width = width

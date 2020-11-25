@@ -45,9 +45,9 @@ public class StartMTL {
 		print("metal basic buffers ready")
 
 //		print("SWIFT: textureID is \(textureID)")
-		guard (textureID >= 0 && textureID < textures.count) else { return Int32(1) }
-		let textureOut = textures[textureID]
-		print("metal out texture ready")
+		guard (textureID >= 0 && textureID < targetTextures.count) else { return Int32(1) }
+		let textureOut = targetTextures[textureID]
+		print("metal target texture ready")
 
 		guard let queue = device.makeCommandQueue() else {  return Int32(1) }
 		print("metal queue ready")
@@ -61,20 +61,24 @@ public class StartMTL {
 		guard let buffer = queue.makeCommandBuffer() else { return Int32(1) }
 		print("metal queue buffer ready")
 
-		let materialArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 0)
-		let argumentBufferLength = materialArgumentEncoder.encodedLength
+		let texturesArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 3)
+		let oneTextureArgumentLength = texturesArgumentEncoder.encodedLength
+		let textureBufferLength = oneTextureArgumentLength * (textures.count)
 
 //		_sourceTextures = [_device newBufferWithLength:argumentBufferLength options:0];
-		print("my aglen: \(argumentBufferLength)")
-		guard let sourceMaterials = device.makeBuffer(length: argumentBufferLength, options: []) else { print("cannot malloc buffer on gpu"); return Int32(1) }
+		print("mtl: my aglen: \(textureBufferLength)")
+		guard let textureResBuffer = device.makeBuffer(length: textureBufferLength, options: []) else { print("cannot malloc buffer on gpu"); return Int32(1) }
 
 //		print()
 //		sourceMaterials.label = "Texture List"
-		materialArgumentEncoder.setArgumentBuffer(sourceMaterials, offset: 0)
-		materialArgumentEncoder.setTexture(textures[0], index: 0)
-		materialArgumentEncoder.setBuffer(materialsBuffer, offset: 0, index: 1)
-		let constantPointer = materialArgumentEncoder.constantData(at: 2)
-		constantPointer.storeBytes(of: 0.2, as: Float.self)
+		for i in 0..<textures.count {
+			texturesArgumentEncoder.setArgumentBuffer(textureResBuffer, startOffset: 0, arrayElement: i)
+			texturesArgumentEncoder.setTexture(textures[i], index: 0)
+		}
+
+//		materialArgumentEncoder.setBuffer(materialsBuffer, offset: 0, index: 1)
+//		let constantPointer = materialArgumentEncoder.constantData(at: 2)
+//		constantPointer.storeBytes(of: 0.2, as: Float.self)
 
 //		materialArgumentEncoder.setArgumentBuffer(materialsBuffer, offset: 0)
 //		let materialEncoder = kernel.makeArgumentEncoder(bufferIndex: 2);// else { return Int32(1) }
@@ -83,13 +87,19 @@ public class StartMTL {
 
 		guard let computeEncoder = buffer.makeComputeCommandEncoder() else { return Int32(1) }
 		computeEncoder.setComputePipelineState(pipelineState)
-//		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
-//		computeEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
-		computeEncoder.setBuffer(sourceMaterials, offset: 0, index: 0)
-		computeEncoder.useResource(textures[0], usage: MTLResourceUsage.read)
-		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)
+		computeEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
+		computeEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
+		computeEncoder.setBuffer(materialsBuffer, offset: 0, index: 3)
+		computeEncoder.setBuffer(textureResBuffer, offset: 0, index: 4)
+
+		for i in 0..<textures.count {
+			computeEncoder.useResource(textures[i], usage: MTLResourceUsage.read)
+		}
+
+//		computeEncoder.useResource(textures[0], usage: MTLResourceUsage.read)
+//		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)
 //		computeEncoder.setTexture(textures[0], index: 0)
-		computeEncoder.setTexture(textureOut, index: 1)
+		computeEncoder.setTexture(textureOut, index: 5)
 
 		let threadsPerThreadgroup = MTLSize(width: 32, height: 16, depth: 1)
 		let numGroups = MTLSize(width: 1 + textureOut.width/threadsPerThreadgroup.width, height: 1 + textureOut.height/threadsPerThreadgroup.height, depth: 1)
@@ -103,7 +113,11 @@ public class StartMTL {
 		buffer.commit()
 		buffer.waitUntilCompleted()
 
-		if let _ = buffer.error { print("metal kernel run failed"); return Int32(1) }
+		if let _ = buffer.error {
+			print("metal kernel run failed");
+			print("mtl: error_str: \(String(describing:buffer.error))")
+			return Int32(1)
+		}
 
 		print("metal kernel run success")
 		return Int32(0)

@@ -45,6 +45,7 @@ int		main()
 	unsigned char *texture_rbga_second = get_texture_rgba_fine_64();
 	unsigned char *texture_rbga_target = get_texture_rgba_fine_64();
 
+	printf("mtl: %p\n", gpu->dev.mtl);
 	// first added resource texture must have id = 0, second id = 1 ...
 	int index0 = mtl_texture_resource_rgba8_load(gpu->dev.mtl, texture_rbga_first, 64, 64);
 	int index1 = mtl_texture_resource_rgba8_load(gpu->dev.mtl, texture_rbga_second, 64, 64);
@@ -52,19 +53,19 @@ int		main()
 		return (0);
 
 	// first added target texture must have id = 0, second id = 1 ...
-	int target_res = mtl_texture_target_rgba8_load(gpu->dev.mtl, texture_rbga_second, 64, 64);
-	if (target_res != 0)
+	int target_index0 = mtl_texture_target_rgba8_load(gpu->dev.mtl, texture_rbga_second, 64, 64);
+	if (target_index0 != 0)
 		return (0);
 
 	mtl_buffer_load_info(gpu->dev.mtl, &(gpu->info), sizeof(t_gpu_info));
 	mtl_buffer_load_objects(gpu->dev.mtl, gpu->obj_buf, gpu->info.obj_num * sizeof(t_gpu_obj));
 	mtl_buffer_load_materials(gpu->dev.mtl, gpu->mat_buf, gpu->info.mat_num * sizeof(t_gpu_mat));
 
-	int res = mtl_kernel_run(gpu->dev.mtl, "scene_test", 1);
+	int res = mtl_kernel_run(gpu->dev.mtl, "scene_test", target_index0);
 	printf("mtl_lib_kernel_run(): %d\n", res);
 	if (res != 0)
 		return (0);
-	mtl_texture_target_save(gpu->dev.mtl, "scene_test.png");
+	mtl_texture_target_save(gpu->dev.mtl, target_index0, "~/Desktop/scene_test.png");
 	return (0);
 }
 
@@ -128,10 +129,12 @@ int		gpu_init(t_gpu **gpu_dest)
 	gpu->dev.mtl = mtl_init();
 	if (gpu->dev.mtl == NULL)
 		return (-1);
+	printf("mtl: %p\n", gpu->dev.mtl);
 	char *libstr = ft_read_file(METAL_SHADER_FILENAME);
 	int res = mtl_lib_load_source(gpu->dev.mtl, libstr);
 	free(libstr);
 	if (res != 0)
 		return (-1);
+	*gpu_dest = gpu;
 	return (0);
 }
