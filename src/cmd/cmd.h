@@ -52,6 +52,11 @@ int 				cmd_set_sphere_default(t_rt *rt, t_parser *parser);
 t_msg				cmd_set_plane(t_rt *rt, t_parser *parser);
 int 				cmd_set_plane_default(t_rt *rt, t_parser *parser);
 
+/*
+**				cmd/set/cmd_set_material
+*/
+
+int 				cmd_set_material_default(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/set/cmd_set_cylinder
@@ -106,6 +111,7 @@ t_msg				cmd_add_cone(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_cylinder(t_rt *rt, t_parser *parser);
 t_msg           	cmd_add_group(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_camera(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_material(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/ls

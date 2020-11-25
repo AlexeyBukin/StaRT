@@ -60,7 +60,6 @@ int				grp_remove_by_name(t_obj *from, char *name)
 			return (rt_err("malloc error"));
 		grp->children = tmp;
 	}
-	obj_deinit(extra);
 	grp->child_num--;
 	return (0);
 }

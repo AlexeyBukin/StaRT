@@ -17,5 +17,7 @@ int				scn_remove_by_name_obj(t_scn *scn, char *name)
 	if (scn_del_copies_of(scn->main_group, obj))
 		return (rt_err("scn_remove_by_name_obj():"
 				" del_obj_copies(): couldn't delete copies"));
-	return (grp_remove_by_name(obj->parent, obj->name)); //obj->id
+	if (grp_remove_by_name(obj->parent, obj->name))
+		return (rt_err("scn_remove_by_name_copy(): couldn't delete copy"));
+	return (obj_deinit(obj));
 }

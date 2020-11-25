@@ -51,6 +51,11 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 		parser->cur += ft_strlen("camera");
 		return (cmd_add_camera(rt, parser));
 	}
+	else if (ft_str_next_is(str, "material"))
+	{
+		parser->cur += ft_strlen("material");
+		return (cmd_add_material(rt, parser));
+	}
 	else
 		return (msg_warn("Syntax error: Unknown object type"));
 	return (msg_oks("oks"));

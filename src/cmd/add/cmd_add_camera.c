@@ -8,8 +8,6 @@ int 				cmd_set_camera_default(t_rt *rt, t_parser *parser)
 		return (rt_err("cmd_set_camera_default(): was given a NULL pointer"));
 	ft_bzero(parser->transform, sizeof(t_tfm));
 	parser->camera->fov = vec2_zero();
-//	ft_bzero(&parser->camera->fov, sizeof(t_vec2));
-//	parser->object->visible = TRUE;
 	return (0);
 }
 
