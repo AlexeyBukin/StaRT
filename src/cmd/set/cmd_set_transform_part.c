@@ -20,8 +20,7 @@ int			cmd_pos(t_parser *parser)
 {
 	if (parser == NULL)
 		return (-1);
-	if (cmd_read_space_req(&(parser->cur)))
-		return (rt_err("cmd_pos(): Bad syntax"));
+	cmd_read_space(&parser->cur);
 	return (cmd_read_vec(&(parser->cur), &(parser->transform->pos_local)));
 }
 
@@ -29,8 +28,7 @@ int			cmd_rot(t_parser *parser)
 {
 	if (parser == NULL)
 		return (-1);
-	if (cmd_read_space_req(&(parser->cur)))
-		return (rt_err("cmd_rot(): Bad syntax"));
+	cmd_read_space(&parser->cur);
 	return (cmd_read_matrix(&(parser->cur), &(parser->transform->rot_local)));
 }
 

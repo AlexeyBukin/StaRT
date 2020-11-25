@@ -78,11 +78,13 @@ int 		cmd_read_matrix(char **source, t_mat3x3 *mtx)
 		return (rt_err("Dereference to NULL pointer"));
 	if (!*str || *(str++) != '[')
 		return (rt_err("Expected \'[\'"));
-	if (cmd_read_vec(&str, &(mtx->y)))
-		return (-1);
-	cmd_read_space(&str);
 	if (cmd_read_vec(&str, &(mtx->x)))
 		return (-1);
+	cmd_read_comma(&str);
+	cmd_read_space(&str);
+	if (cmd_read_vec(&str, &(mtx->y)))
+		return (-1);
+	cmd_read_comma(&str);
 	cmd_read_space(&str);
 	if (cmd_read_vec(&str, &(mtx->z)))
 		return (-1);

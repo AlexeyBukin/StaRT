@@ -16,8 +16,8 @@ void	write_tabs(int tab_num)
 void		scn_print_obj_params(int id, char *name, t_tfm *trf, int tab_num)
 {
 	write_tabs(tab_num);
-	ft_printf("%s id %d pos <%d, %d, %d>\n", name, id,
-		   (int)trf->pos_local.x, (int)trf->pos_local.y, (int)trf->pos_local.z);
+	ft_printf("%s id %d pos <%f, %f, %f>\n", name, id,
+		   trf->pos_local.x, trf->pos_local.y, trf->pos_local.z);
 //	printf("%*s%s id %d pos <%d, %d, %d>\n", tab_num * 4, 1, name, id,
 //		   (int)trf->pos_local.x, (int)trf->pos_local.y, (int)trf->pos_local.z);
 }

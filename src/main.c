@@ -103,10 +103,10 @@ int				main(int ac, char **av)
 			if (gui_deinit(rt))
 				return (rt_error("Cannot deinit GUI", 0));
 		}
-		if (srv_deinit(rt))
-			return (rt_error("Cannot deinit server", 0));
+//		if (srv_deinit(rt))
+//			return (rt_error("Cannot deinit server", 0));
 	}
-	test(rt->scene);
+//	test(rt->scene);
 	scn_print(rt->scene);
 	if (rt_deinit(rt))
 		return (rt_error("Cannot deinit t_rt struct", 0));

@@ -4,57 +4,68 @@
 
 #include "rt.h"
 
-static int			cylinder_set_radius(t_parser *parser)
-{
-	if (ft_str_next_is(parser->cur, "-r"))
-	{
-		parser->cur += ft_strlen("-r");
-		if (cmd_read_space_req(&parser->cur))
-			return (-1);
-		if (cmd_read_num(&parser->cur, &parser->container->shape.cylinder.radius))
-			return (-1);
-	}
-	return (0);
-}
-
 static int			cylinder_set_length(t_parser *parser)
 {
 	if (ft_str_next_is(parser->cur, "-l"))
 	{
 		parser->cur += ft_strlen("-l");
-		if (cmd_read_space_req(&parser->cur))
-			return (-1);
+		cmd_read_space(&parser->cur);
 		if (cmd_read_num(&parser->cur, &parser->container->shape.cylinder.length))
 			return (-1);
 	}
 	return (0);
 }
 
-static t_msg		cylinder_parse_flags(t_parser *parser)
+static int			cylinder_set_radius(t_parser *parser)
 {
-	if ((cmd_read_transform_part(parser)) < 0)
-		return (msg_err("cylinder_parse_flags(): bad syntax in transform"));
-	else if ((cylinder_set_radius(parser)) < 0)
-		return (msg_err("cylinder_parse_flags(): bad syntax in rad"));
-	else if (cylinder_set_length(parser) < 0)
-		return (msg_err("cylinder_parse_flags(): bad syntax"));
-	return (msg_oks("oks"));
+	if (ft_str_next_is(parser->cur, "-r"))
+	{
+		parser->cur += ft_strlen("-r");
+		cmd_read_space(&parser->cur);
+		if (cmd_read_num(&parser->cur, &parser->container->shape.cylinder.radius))
+			return (-1);
+	}
+	return (0);
 }
 
-void				cmd_set_cylinder_default(t_parser *parser)
+int					cmd_set_cylinder_default(t_rt *rt, t_parser *parser)
 {
+	if (parser == NULL || parser->container == NULL || parser->object == NULL ||
+		parser->transform == NULL)
+		return (rt_err("cmd_set_cylinder_default(): was given a NULL pointer"));
 	ft_bzero(parser->transform, sizeof(t_tfm));
 	parser->container->shape.cylinder.radius = 0.0;
+	parser->container->shape.cylinder.length = 0.0;
+	parser->object->visible = TRUE;
+	parser->object->content.container.shape_type = SHP_CYLINDER;
+	parser->object->type = OBJ_CONTAINER;
+	parser->material = scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME);
+	parser->texture = scn_get_txr_by_name(rt->scene, DEFAULT_TEXTURE_NAME);
+	parser->group = rt->scene->main_group;
+	return (0);
 }
 
-t_msg				cmd_set_cylinder(t_parser *parser)
+t_msg				cmd_set_cylinder(t_rt *rt, t_parser *parser)
 {
-	cmd_set_cylinder_default(parser);
+//	cmd_set_cylinder_default(parser);
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_err("cmd_set_cylinder(): bad syntax1"));
-		cylinder_parse_flags(parser);
+			return (msg_warn("cmd_set_cylinder(): bad syntax1"));
+		if (cylinder_set_radius(parser) < 0)
+			return (msg_warn("cylinder_parse_flags(): bad syntax in rad"));
+		if (cylinder_set_length(parser) < 0)
+			return (msg_warn("cylinder_parse_flags(): bad syntax in rad"));
+		if (cmd_read_transform_part(parser) < 0)
+			return (msg_warn("cylinder_parse_flags(): bad syntax in transform"));
+		if (cmd_set_visibility(parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+		if (cmd_set_grp(rt, parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+		if (cmd_set_material(rt, parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
+		if (cmd_set_name(rt, parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
 	return (msg_oks("it works!"));
 }

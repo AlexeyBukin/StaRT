@@ -6,7 +6,7 @@
 
 void		scn_print_cam_params(int id, char *name, t_tfm *trf)
 {
-	ft_printf("\t%s id %d pos <%d, %d, %d>\n", name, id,
+	ft_printf("\t%s id %d pos <%f, %f, %f>\n", name, id,
 			  trf->pos_local.x, trf->pos_local.y, trf->pos_local.z);
 }
 

@@ -27,10 +27,10 @@
 t_msg               cmd_parse_line(t_rt *rt, char *source);
 
 /*
-**				cmd_parse_command
+**				cmd_parse_command TODO replace t_rt with t_parse_help
 */
 
-t_msg				cmd_parse_command(t_parser *parser);
+t_msg				cmd_parse_command(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/set
@@ -42,15 +42,37 @@ int					cmd_set(t_parser *parser);
 **				cmd/set/cmd_set_sphere
 */
 
-t_msg				cmd_set_sphere(t_parser *parser);
-void				cmd_set_sphere_default(t_parser *parser);
+t_msg				cmd_set_sphere(t_rt *rt, t_parser *parser);
+int 				cmd_set_sphere_default(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/set/cmd_set_plane
 */
 
-t_msg				cmd_set_plane(t_parser *parser);
-void				cmd_set_plane_default(t_parser *parser);
+t_msg				cmd_set_plane(t_rt *rt, t_parser *parser);
+int 				cmd_set_plane_default(t_rt *rt, t_parser *parser);
+
+
+/*
+**				cmd/set/cmd_set_cylinder
+*/
+
+t_msg				cmd_set_cylinder(t_rt *rt, t_parser *parser);
+int					cmd_set_cylinder_default(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/set/cmd_set_cylinder
+*/
+
+t_msg				cmd_set_cone(t_rt *rt, t_parser *parser);
+int					cmd_set_cone_default(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/set/cmd_set_group
+*/
+
+t_msg				cmd_set_group(t_rt *rt, t_parser *parser);
+int					cmd_set_group_default(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/set/cmd_set_tools
@@ -68,15 +90,21 @@ int					cmd_read_transform_part(t_parser *parser);
 **              cmd/set/cmd_set_object_attributes
 */
 
-int					cmd_set_obj_attributes(t_parser *parser);
+int				cmd_set_visibility(t_parser *parser);
+int				cmd_set_name(t_rt *rt, t_parser *parser);
+int				cmd_set_grp(t_rt *rt, t_parser *parser);
+int				cmd_set_material(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd_add
 */
 
-t_msg               cmd_add(t_parser *parser);
-t_msg				cmd_add_sphere(t_parser *parser);
-t_msg				cmd_add_plane(t_parser *parser);
+t_msg               cmd_add(t_rt *rt, t_parser *parser);
+t_msg           	cmd_add_sphere(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_plane(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_cone(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_cylinder(t_rt *rt, t_parser *parser);
+t_msg           	cmd_add_group(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/ls

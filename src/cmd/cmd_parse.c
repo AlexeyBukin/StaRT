@@ -28,14 +28,6 @@
 **		(if not - set default vals)
 */
 
-t_msg					cmd_parse_chain(t_rt *rt, t_parser *parser)
-{
-	(void)rt;
-	if (parser == NULL)
-		return (msg_err("NULL pointer in cmd_parse_chain()"));
-	return (cmd_parse_command(parser));
-}
-
 t_msg					cmd_parse_line(t_rt *rt, char *source)
 {
 	t_parser			*parser;
@@ -48,5 +40,5 @@ t_msg					cmd_parse_line(t_rt *rt, char *source)
 	parser->cur = source;
 	if (rt == NULL || source == NULL)
 		return (msg_err("Argument is NULL pointer"));
-	return (cmd_parse_chain(rt, parser));
+	return (cmd_parse_command(rt, parser));
 }

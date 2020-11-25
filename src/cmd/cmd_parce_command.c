@@ -12,10 +12,11 @@
 
 #include "rt.h"
 
-t_msg           cmd_parse_command(t_parser *parser)
+t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
 {
     char        *str;
 
+	(void )rt;
     if (parser == NULL || parser->source == NULL || parser->cur == NULL)
         return (msg_err("Given NULL pointer in cmd_parce_commands"));
 	cmd_read_space(&parser->cur);
@@ -23,7 +24,7 @@ t_msg           cmd_parse_command(t_parser *parser)
 	if (ft_str_next_is(str, "add"))
     {
         parser->cur += ft_strlen("add");
-		return (cmd_add(parser));
+		return (cmd_add(rt, parser));
     }
     // else if (ft_str_next_is(str, "set"))
     // {
