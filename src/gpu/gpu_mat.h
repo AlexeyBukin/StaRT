@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gpu_types.h                                        :+:      :+:    :+:   */
+/*   gpu_mat.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GPU_TYPES_H
-# define GPU_TYPES_H
+#ifndef GPU_MAT_H
+# define GPU_MAT_H
 
 //# include "rt_types.h"
 # include "gpu_objects.h"
@@ -19,44 +19,32 @@
 # include "vlk.h"
 # include "mtl.h"
 
-typedef union		u_gpu_device
+typedef struct				s_gpu_mat_pbr
 {
-	t_mtl			*mtl;
-	t_vlk			*vlk;
-}					t_gpu_dev;
+	t_vec3					albedo;
+	t_vec3					f0;
+	t_num					metalness;
+	t_num					roughness;
+	t_num					transparency;
+	t_num					ior;
+	int 					albedo_txr_index;
+	int 					f0_txr_index;
+	int 					metalness_txr_index;
+	int 					roughness_txr_index;
+	int 					transparency_txr_index;
+	int 					normal_txr_index;
+}							t_gpu_mat_pbr;
 
-typedef struct		s_gpu_cam
+typedef union				u_gpu_mat_content
 {
-	t_vec3			pos;
-	t_mat3x3		rot_axis;
-	t_vec2			fov;
-}					t_gpu_cam;
+	t_gpu_mat_pbr			pbr;
+}							t_gpu_mat_content;
 
-typedef struct		s_gpu_info
+typedef struct				s_gpu_mat
 {
-	size_t			obj_num;
-	size_t			mat_num;
-	size_t			txr_num;
-	size_t			render_size;
-	size_t			render_square_num;
-	size_t			render_square_current;
-	t_gpu_cam		camera;
-}					t_gpu_info;
-
-typedef struct		s_gpu_mat
-{
-	t_id			id;
-	t_mat_type		type;
-	t_mat_content	content;
-}					t_gpu_mat;
-
-typedef struct		s_gpu
-{
-	t_gpu_dev		dev;
-	t_gpu_obj		*obj_buf;
-	t_gpu_mat		*mat_buf;
-	t_gpu_info		info;
-	size_t			obj_current;
-}					t_gpu;
+	t_id					id;
+	t_mat_type				type;
+	t_gpu_mat_content		content;
+}							t_gpu_mat;
 
 #endif

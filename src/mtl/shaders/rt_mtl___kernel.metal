@@ -44,9 +44,7 @@ kernel void scene_test	(
 {
 	{
 		float4 color = textures[0].texture.read(gid);
-//		float4 color = float4(0.5, 0.5, 0.5, 0.5);
-//		color = float4(materials.test_float);
-//		float4 color = float4(materials.exampleBuffer[0]);
+//		float4 color = float4(0.5, 1, 0.5, 0.5);
 		out.write(color, gid);
 	}
 }

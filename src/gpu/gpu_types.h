@@ -13,8 +13,9 @@
 #ifndef GPU_TYPES_H
 # define GPU_TYPES_H
 
-# include "rt_types.h"
+//# include "rt_types.h"
 # include "gpu_objects.h"
+# include "gpu_mat.h"
 # include "obj_types.h"
 # include "vlk.h"
 # include "mtl.h"
@@ -47,7 +48,7 @@ typedef struct		s_gpu
 {
 	t_gpu_dev		dev;
 	t_gpu_obj		*obj_buf;
-	t_gpu_obj		*mat_buf;
+	t_gpu_mat		*mat_buf;
 	t_gpu_info		info;
 	size_t			obj_current;
 }					t_gpu;

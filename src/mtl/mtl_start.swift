@@ -66,12 +66,17 @@ public class StartMTL {
 		let textureBufferLength = oneTextureArgumentLength * (textures.count)
 
 //		_sourceTextures = [_device newBufferWithLength:argumentBufferLength options:0];
-		print("mtl: my aglen: \(textureBufferLength)")
+		print("mtl: oneTextureArgumentLength: \(oneTextureArgumentLength)")
+		print("mtl: textureBufferLength: \(textureBufferLength)")
 		guard let textureResBuffer = device.makeBuffer(length: textureBufferLength, options: []) else { print("cannot malloc buffer on gpu"); return Int32(1) }
 
+//		texturesArgumentEncoder.setArgumentBuffer(textureResBuffer, offset: 0)
+//		texturesArgumentEncoder.setTexture(textures[0], index: 0)
 //		print()
 //		sourceMaterials.label = "Texture List"
 		for i in 0..<textures.count {
+			print("i: \(i)")
+//			texturesArgumentEncoder.setArgumentBuffer(textureResBuffer, offset: oneTextureArgumentLength * i)
 			texturesArgumentEncoder.setArgumentBuffer(textureResBuffer, startOffset: 0, arrayElement: i)
 			texturesArgumentEncoder.setTexture(textures[i], index: 0)
 		}
@@ -99,7 +104,9 @@ public class StartMTL {
 //		computeEncoder.useResource(textures[0], usage: MTLResourceUsage.read)
 //		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)
 //		computeEncoder.setTexture(textures[0], index: 0)
+		computeEncoder.useResource(textureOut, usage: MTLResourceUsage.write)
 		computeEncoder.setTexture(textureOut, index: 5)
+		computeEncoder.useResource(textureOut, usage: MTLResourceUsage.write)
 
 		let threadsPerThreadgroup = MTLSize(width: 32, height: 16, depth: 1)
 		let numGroups = MTLSize(width: 1 + textureOut.width/threadsPerThreadgroup.width, height: 1 + textureOut.height/threadsPerThreadgroup.height, depth: 1)

@@ -38,14 +38,14 @@ public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: Un
 
 /* TEXTURE PART */
 
-@_cdecl("mtl_texture_create")
+@_cdecl("mtl_texture_create_target")
 public func mtl_texture_create_swift(_ smptr: UnsafeRawPointer, _ width: Int32, _ height: Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.createTexture(d: sm.device, w: Int(width), h: Int(height)))
 }
 
-@_cdecl("mtl_texture_get_ptr")
+@_cdecl("mtl_texture_get_ptr_target")
 public func mtl_texture_get_ptr_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> UnsafeMutablePointer<UInt32>?
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)

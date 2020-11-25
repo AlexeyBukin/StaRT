@@ -52,7 +52,7 @@ typedef struct				s_scn_object
 	char					*name;
 	struct s_scn_object		*parent;
 	t_tfm					transform;
-	t_bool					visible;
+//	t_bool					visible;
 	t_obj_type				type;
 	t_obj_content			content;
 }							t_obj;

@@ -43,13 +43,14 @@ extension StartMTL {
 		let textureDesc = MTLTextureDescriptor()
 		textureDesc.width = width
 		textureDesc.height = height
-		textureDesc.usage = .shaderRead
+		textureDesc.usage = .shaderWrite
 		textureDesc.pixelFormat = MTLPixelFormat.rgba8Unorm
 
 		let stride = 4 * width;
 		let texture_buff = device.makeBuffer(bytes: ptr, length: stride * height, options: [])
 		let texture = texture_buff?.makeTexture(descriptor:textureDesc, offset:0, bytesPerRow:stride)
 
+		print ("mtl: adding texture target...")
 		return (addTextureTarget(texture))
 	}
 
@@ -57,23 +58,20 @@ extension StartMTL {
 
 		let texture_width = width
 		let texture_height = height
-		let texture_stride = getStride(width: width)
+		//.TODO split to createTextureRGBA8 and other
+		let texture_stride = 4 * width
+		//getStride(width: width)
 
 		let textureDesc = MTLTextureDescriptor()
 		textureDesc.width = texture_width
 		textureDesc.height = texture_height
-		textureDesc.usage = .shaderRead
+		textureDesc.usage = .shaderWrite
 
-		textureDesc.pixelFormat = MTLPixelFormat.bgra8Unorm
+		textureDesc.pixelFormat = MTLPixelFormat.rgba8Unorm
 		let texture_buff = device.makeBuffer(length: texture_stride * height)
 		let texture = texture_buff?.makeTexture(descriptor:textureDesc, offset:0, bytesPerRow:texture_stride)
 
-		if (texture != nil) {
-			let index = textures.count
-			textures.append(texture!)
-			return (Int32(index))
-		}
-		return (Int32(-1))
+		return (addTextureTarget(texture))
 	}
 
 	public func getStride(width : Int) -> Int {
@@ -84,10 +82,10 @@ extension StartMTL {
 	}
 
 	public func getTexturePointer(index i:Int) -> UnsafeMutablePointer<UInt32>? {
-		if (i < 0 || i >= textures.count) {
+		if (i < 0 || i >= targetTextures.count) {
 			return (nil);
 		}
-		guard let tmpptr = textures[i].buffer?.contents() else {return (nil)}
+		guard let tmpptr = targetTextures[i].buffer?.contents() else {return (nil)}
 		return (tmpptr.assumingMemoryBound(to:UInt32.self))
 	}
 
@@ -145,15 +143,22 @@ extension StartMTL {
 		guard let image = makeCGImage(for: texture) else { return Int32(-1) }
 		guard let fileUrl = URL(string: path)  else { return Int32(-1) }
 
-		if let imageDestination = CGImageDestinationCreateWithURL(fileUrl as CFURL, kUTTypePNG, 1, nil) {
+		print("mtl: saving as png...")
+		print(fileUrl)
+
+		if let imageDestination = CGImageDestinationCreateWithURL(fileUrl as CFURL, kUTTypePNG as CFString, 1, nil) {
+			print("mtl: saving as png...")
 			CGImageDestinationAddImage(imageDestination, image, nil)
 			CGImageDestinationFinalize(imageDestination)
+		} else {
+//			print("mtl: cannot save image")
+			return (Int32(-1))
 		}
 		return (Int32(0))
 	}
 
 	public func saveTargetTextureAsPNG(index i: Int, path: String) -> Int32 {
-		guard (i < 0 || i >= targetTextures.count) else { return Int32(-1) }
+		guard (i >= 0 && i <= targetTextures.count) else { return Int32(-1) }
 		return (saveTextureAsPNG(targetTextures[i], path: path))
 	}
 }
