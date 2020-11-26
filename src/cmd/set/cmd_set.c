@@ -14,7 +14,7 @@ t_msg		cmd_set(t_rt *rt, t_parser *parser)
 		return (msg_warn("Bad syntax"));
 	str = parser->cur;
 	if (ft_str_next_is(str, "cone"))
-		cmd_set_cone(rt, parser);
+		return (cmd_set_cone(rt, parser));
 	if (ft_str_next_is(str, "plane"))
 		return (cmd_set_plane(rt, parser));
 	if (ft_str_next_is(str, "cylinder"))
@@ -23,6 +23,8 @@ t_msg		cmd_set(t_rt *rt, t_parser *parser)
 		return (cmd_set_sphere(rt, parser));
 	if (ft_str_next_is(str, "group"))
 		return (cmd_set_group(rt, parser));
+	if (ft_str_next_is(str, "material"))
+		return (cmd_set_material(rt, parser));
 //	else if (ft_str_next_is(str, "camera"))
 //	{
 //		parser->cur += ft_strlen("camera");
