@@ -136,7 +136,7 @@ t_msg				cmd_ls_sphere(t_rt *rt, char *source);
 **				cmd/rm
 */
 
-// t_msg					cmd_parse_rm(t_parser *parser);
+t_msg           cmd_rm(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/utils/cmd_read

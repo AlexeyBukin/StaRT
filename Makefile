@@ -137,6 +137,7 @@ src/cmd/set/cmd_set_material.c \
 src/cmd/utils/cmd_switch_cond.c \
 src/cmd/utils/cmd_read_camera.c \
 src/cmd/utils/cmd_read_material.c \
+src/cmd/rm/cmd_rm.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

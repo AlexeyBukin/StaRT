@@ -40,7 +40,7 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
     else if (ft_str_next_is(str, "rm"))
     {
         parser->cur += ft_strlen("rm");
-        return (cmd_parse_rm());
+        return (cmd_rm(rt, parser));
     }
     // else if (ft_str_next_is(str, "ls"))
     // {

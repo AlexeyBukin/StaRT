@@ -3,7 +3,7 @@
 int				cmd_rm_recur(t_rt *rt, t_parser *parser)
 {
 	if (rt == NULL || parser == NULL)
-        return (msg_err("NULL ptr in cmd_rm_name"));
+        return (rt_err("NULL ptr in cmd_rm_name"));
 	if (ft_str_next_is(parser->cur, "-r"))
 	{
 		parser->cur += ft_strlen("-n");
@@ -11,13 +11,13 @@ int				cmd_rm_recur(t_rt *rt, t_parser *parser)
 			return (-1);
 		
 	}
-
+	return (0);
 }
 
 int				cmd_rm_name(t_rt *rt, t_parser *parser)
 {
 	if (rt == NULL || parser == NULL)
-        return (msg_err("NULL ptr in cmd_rm_name"));
+        return (rt_err("NULL ptr in cmd_rm_name"));
 	if (ft_str_next_is(parser->cur, "-n"))
 	{
 		parser->cur += ft_strlen("-n");
@@ -46,5 +46,6 @@ t_msg           cmd_rm(t_rt *rt, t_parser *parser)
     if (cmd_read_space_req(&parser->cur))
         return (msg_warn("bad syntax"));
     
-    if (scn_get_obj_by_name(rt->scene, parser->name))
+//    if (scn_get_obj_by_name(rt->scene, parser->name))
+	return (msg_oks("oks"));
 }
