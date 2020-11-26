@@ -81,8 +81,9 @@ t_msg				cmd_set_cylinder(t_rt *rt, t_parser *parser)
 {
 	t_obj		*tmp;
 
-	if (parser == NULL)
+	if (rt == NULL || parser == NULL)
 		return(msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
+	parser->cur += ft_strlen("cylinder");
 	if (cmd_read_space_req(&parser->cur))
 		return (msg_warn("cmd_add_camera(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))

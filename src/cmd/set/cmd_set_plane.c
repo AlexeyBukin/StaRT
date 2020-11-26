@@ -49,12 +49,13 @@ t_msg				cmd_set_plane(t_rt *rt, t_parser *parser)
 {
 	t_obj		*tmp;
 
-	if (parser == NULL)
-		return(msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
+	if (rt == NULL || parser == NULL)
+		return(msg_err("cmd_add_plane(): given NULL pointer in cmd_add()"));
+	parser->cur += ft_strlen("plane");
 	if (cmd_read_space_req(&parser->cur))
-		return (msg_warn("cmd_add_camera(): bad syntax"));
+		return (msg_warn("cmd_add_plane(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))
-		return (msg_warn("cmd_add_camera(): bad name"));
+		return (msg_warn("cmd_add_plane(): bad name"));
 	if (!(tmp = scn_get_obj_by_name(rt->scene, parser->name)))
 		return (msg_warn("cmd_set_plane(): couldn\'t find object"));
 	if (tmp->type != OBJ_CONTAINER || tmp->content.container.shape_type != SHP_PLANE)

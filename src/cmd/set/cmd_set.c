@@ -14,33 +14,19 @@ t_msg		cmd_set(t_rt *rt, t_parser *parser)
 		return (msg_warn("Bad syntax"));
 	str = parser->cur;
 	if (ft_str_next_is(str, "cone"))
-		cmd_switch_condition(rt, parser, cmd_set_cone, "cone");
-	else if (ft_str_next_is(str, "plane"))
-	{
-		parser->cur += ft_strlen("plane");
+		cmd_set_cone(rt, parser);
+	if (ft_str_next_is(str, "plane"))
 		return (cmd_set_plane(rt, parser));
-	}
-	else if (ft_str_next_is(str, "cylinder"))
-	{
-		parser->cur += ft_strlen("cylinder");
+	if (ft_str_next_is(str, "cylinder"))
 		return (cmd_set_cylinder(rt, parser));
-	}
-	else if (ft_str_next_is(str, "sphere"))
-	{
-		parser->cur += ft_strlen("sphere");
+	if (ft_str_next_is(str, "sphere"))
 		return (cmd_set_sphere(rt, parser));
-	}
-	else if (ft_str_next_is(str, "group"))
-	{
-		parser->cur += ft_strlen("group");
+	if (ft_str_next_is(str, "group"))
 		return (cmd_set_group(rt, parser));
-	}
 //	else if (ft_str_next_is(str, "camera"))
 //	{
 //		parser->cur += ft_strlen("camera");
 //		return (cmd_set_camera(rt, parser));
 //	}
-	else
-		return (msg_warn("Syntax error: Unknown object type"));
-	return (msg_oks("oks"));
+	return (msg_warn("Syntax error: Unknown object type"));
 }

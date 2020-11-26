@@ -51,8 +51,9 @@ static t_msg	cmd_parse_camera_flags(t_rt *rt, t_parser *parser)
 
 t_msg           cmd_add_camera(t_rt *rt, t_parser *parser)
 {
-	if (parser == NULL)
+	if (rt == NULL || parser == NULL)
 		return(msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
+	parser->cur += ft_strlen("camera");
 	if (cmd_read_space_req(&parser->cur))
 		return (msg_warn("cmd_add_camera(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))

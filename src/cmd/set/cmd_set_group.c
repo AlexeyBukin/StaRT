@@ -42,8 +42,9 @@ t_msg			cmd_set_group(t_rt *rt, t_parser *parser)
 {
 	t_obj		*tmp;
 
-	if (parser == NULL)
+	if (rt == NULL || parser == NULL)
 		return(msg_err("cmd_add_group(): given NULL pointer in cmd_add()"));
+	parser->cur += ft_strlen("group");
 	if (cmd_read_space_req(&parser->cur))
 		return (msg_warn("cmd_add_group(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))

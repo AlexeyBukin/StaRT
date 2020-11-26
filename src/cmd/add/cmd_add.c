@@ -23,41 +23,18 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
         return (msg_warn("Bad syntax"));
 	str = parser->cur;
 	if (ft_str_next_is(str, "sphere"))
-	{
-		parser->cur += ft_strlen("sphere");
 		return cmd_add_sphere(rt, parser);
-	}
-	else if (ft_str_next_is(str, "plane"))
-	{
-		parser->cur += ft_strlen("plane");
+	if (ft_str_next_is(str, "plane"))
 		return (cmd_add_plane(rt, parser));
-	}
-	 else if (ft_str_next_is(str, "cylinder"))
-	 {
-		parser->cur += ft_strlen("cylinder");
+	if (ft_str_next_is(str, "cylinder"))
 		return (cmd_add_cylinder(rt, parser));
-	 }
-	 else if (ft_str_next_is(str, "cone"))
-	 {
-		parser->cur += ft_strlen("cone");
+	if (ft_str_next_is(str, "cone"))
 		return (cmd_add_cone(rt, parser));
-	 }
-	else if (ft_str_next_is(str, "group"))
-	{
-		parser->cur += ft_strlen("group");
+	if (ft_str_next_is(str, "group"))
 		return (cmd_add_group(rt, parser));
-	}
-	else if (ft_str_next_is(str, "camera"))
-	{
-		parser->cur += ft_strlen("camera");
+	if (ft_str_next_is(str, "camera"))
 		return (cmd_add_camera(rt, parser));
-	}
-	else if (ft_str_next_is(str, "material"))
-	{
-		parser->cur += ft_strlen("material");
+	if (ft_str_next_is(str, "material"))
 		return (cmd_add_material(rt, parser));
-	}
-	else
-		return (msg_warn("Syntax error: Unknown object type"));
-	return (msg_oks("oks"));
+	return (msg_warn("Syntax error: Unknown object type"));
 }
