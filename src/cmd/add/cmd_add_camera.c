@@ -30,7 +30,6 @@ t_msg           cmd_add_camera(t_rt *rt, t_parser *parser)
 		return (msg_warn("cmd_add_camera(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))
 		return (msg_warn("cmd_add_camera(): bad name"));
-	parser->object->name = parser->name;
 	init_camera_parser(rt, parser);
 	return (cmd_parse_camera_flags(rt, parser));
 }

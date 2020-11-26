@@ -19,7 +19,7 @@ t_msg	    cmd_parse_camera_flags(t_rt *rt, t_parser *parser)
 	{
 		if (cmd_read_space_req(&parser->cur))
 			return (msg_warn("cmd_set_camera(): bad syntax1"));
-		if (cmd_read_transform_part(parser) < 0)
+		if (cmd_read_transform_part(parser))
 			return (msg_warn("camera_parse_flags(): bad syntax in transform"));
 		if (cmd_read_fov(parser))
 			return (msg_warn("camera_parse_flags(): bad syntax in fov"));

@@ -31,6 +31,12 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
          parser->cur += ft_strlen("set");
          return (cmd_set(rt, parser));
      }
+	else if (ft_str_next_is(str, "render"))
+	{
+		parser->cur += ft_strlen("render");
+		return (msg_warn("WERE IS RENDER PUT IT IN HERE"));
+	}
+     //render
     // else if (ft_str_next_is(str, "rm"))
     // {
     //     parser->cur += ft_strlen("rm");

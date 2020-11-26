@@ -1,7 +1,20 @@
 
 #include "rt.h"
 
-t_msg               cmd_set_cametra_flags(t_cam *dest, t_parser *parser)
+static int			cmd_read_fov(t_parser *parser)
+{
+	if (parser == NULL)
+		return (-1);
+	if (ft_str_next_is(parser->cur, "-f"))
+	{
+		parser->cur += ft_strlen("-f");
+		cmd_read_space(&parser->cur);
+		return (cmd_read_vec2(&(parser->cur), &(parser->camera->fov)));
+	}
+	return (0);
+}
+
+static t_msg               cmd_set_camera_flags(t_cam *dest, t_parser *parser)
 {
     if (dest == NULL || parser == NULL)
         return (msg_err ("NULL in cmd_set_cametra_flags"));
@@ -31,7 +44,9 @@ t_msg				cmd_set_camera(t_rt *rt, t_parser *parser)
 		return (msg_warn("cmd_set_camera: bad name"));
 	if ((tmp = scn_get_cam_by_name(rt->scene, parser->name)) == NULL)
 		return (msg_warn("no camera with this name found"));
-	parser->camera = ft_memalloc(sizeof(t_cam));
+	parser->camera = (t_cam *)ft_memalloc(sizeof(t_cam));
 	ft_memcpy(parser->camera, tmp, sizeof(t_cam));
+	parser->transform = &parser->camera->transform;
+//	return (msg_oks("lal"));
 	return (cmd_set_camera_flags(tmp, parser));
 }

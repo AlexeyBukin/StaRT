@@ -53,7 +53,7 @@ int				cmd_set_name(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-int				cmd_set_material(t_rt *rt, t_parser *parser)//find material please!
+int				cmd_set_mat(t_rt *rt, t_parser *parser)//find material please!
 {
 	char		*material_name;
 	t_mat		*material;

@@ -130,10 +130,13 @@ src/cmd/set/cmd_set_cone.c \
 src/cmd/add/cmd_add_group.c \
 src/cmd/set/cmd_set_group.c \
 src/cmd/add/cmd_add_camera.c \
+src/cmd/set/cmd_set_camera.c \
 src/scn/move/scn_move_obj.c \
 src/cmd/add/cmd_add_material.c \
 src/cmd/set/cmd_set_material.c \
 src/cmd/utils/cmd_switch_cond.c \
+src/cmd/utils/cmd_read_camera.c \
+src/cmd/utils/cmd_read_material.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

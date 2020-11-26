@@ -48,7 +48,7 @@ t_msg				cmd_set_sphere_read(t_rt *rt, t_parser *parser)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 		if (cmd_set_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
-		if (cmd_set_material(rt, parser) < 0)
+		if (cmd_set_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
 		if (cmd_set_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));

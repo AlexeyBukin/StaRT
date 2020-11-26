@@ -52,7 +52,7 @@ static t_msg	cmd_parse_cylinder_flags(t_rt *rt, t_parser *parser)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 		if (cmd_set_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
-		if (cmd_set_material(rt, parser) < 0)
+		if (cmd_set_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
 	}
 	parser->object->content.container.material = parser->material;

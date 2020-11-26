@@ -19,10 +19,10 @@ int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
 // 3) `-a` - albedo. Should be valid vector (values clamped 0..1)
 // 3) `-f` - f0. Should be valid vector (values clamped 0..1)
 
-t_msg				cmd_set_material_flags(t_mat *origin, t_parser *parser)
+t_msg				cmd_set_material_flags(t_mat *dest, t_parser *parser)
 {
-	if (rt == NULL || parser == NULL)
-		return (msg_err("NULL pointer in cmd_set_material_flags"))
+	if (dest == NULL || parser == NULL)
+		return (msg_err("NULL pointer in cmd_set_material_flags"));
 	while (*parser->cur != '\n' && *parser->cur != '\0')
 	{
 		if (cmd_read_space_req(&parser->cur))
@@ -30,7 +30,7 @@ t_msg				cmd_set_material_flags(t_mat *origin, t_parser *parser)
 		if (cmd_read_material(parser))
 			return (msg_warn("cmd_set_material_flags: bad syntax"));
 	}
-	ft_memcpy(origin, parser->material, sizeof(t_mat));
+	ft_memcpy(dest, parser->material, sizeof(t_mat));
 	return (msg_oks("material set success"));
 }
 

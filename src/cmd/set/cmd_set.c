@@ -25,6 +25,8 @@ t_msg		cmd_set(t_rt *rt, t_parser *parser)
 		return (cmd_set_group(rt, parser));
 	if (ft_str_next_is(str, "material"))
 		return (cmd_set_material(rt, parser));
+	if (ft_str_next_is(str, "camera"))
+		return (cmd_set_camera(rt, parser));
 //	else if (ft_str_next_is(str, "camera"))
 //	{
 //		parser->cur += ft_strlen("camera");

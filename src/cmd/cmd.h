@@ -80,6 +80,18 @@ t_msg				cmd_set_group(t_rt *rt, t_parser *parser);
 int					cmd_set_group_default(t_rt *rt, t_parser *parser);
 
 /*
+**				cmd/set/cmd_set_material
+*/
+
+t_msg				cmd_set_material(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/set/cmd_set_material
+*/
+
+t_msg				cmd_set_camera(t_rt *rt, t_parser *parser);
+
+/*
 **				cmd/set/cmd_set_tools
 */
 
@@ -98,7 +110,7 @@ int					cmd_read_transform_part(t_parser *parser);
 int				cmd_set_visibility(t_parser *parser);
 int				cmd_set_name(t_rt *rt, t_parser *parser);
 int				cmd_set_grp(t_rt *rt, t_parser *parser);
-int				cmd_set_material(t_rt *rt, t_parser *parser);
+int				cmd_set_mat(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd_add
