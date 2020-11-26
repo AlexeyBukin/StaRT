@@ -15,6 +15,7 @@
 t_msg				cmd_add(t_rt *rt, t_parser *parser)
 {
 	char			*str;
+	//t_msg			res;
 
 	if (parser == NULL)
 		return(msg_warn("Given NULL pointer in cmd_add()"));
