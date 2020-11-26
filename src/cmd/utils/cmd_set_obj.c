@@ -38,22 +38,17 @@ t_msg			cmd_set_obj(t_rt *rt, t_parser *parser)
 	return (msg_warn("cmd_set_obj(): can\'t recognise object type or shape"));
 }
 
-t_msg			cmd_set_obj_to_scn(t_rt *rt, t_parser *parser)
+t_msg			cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest)
 {
-	t_obj		*tmp;
-
-	if (rt == NULL || parser == NULL)
+	if (rt == NULL || parser == NULL || dest == NULL)
 		return (msg_warn("cmd_set_obj_to_scn(): given NULL pointer"));
-	tmp = scn_get_obj_by_name(rt->scene, parser->object->name);
-	if (!tmp)
-		return (msg_warn("cmd_set_obj_to_scn(): couldn\'t find source obj"));
-	ft_memcpy(tmp, parser->object, sizeof(t_obj));
-	tmp->name = parser->name;
-	if (tmp->type != OBJ_GROUP)
+	ft_memcpy(dest, parser->object, sizeof(t_obj));
+	dest->name = parser->name;
+	if (dest->type != OBJ_GROUP)
 	{
-		tmp->content.container.material = parser->material;
+		dest->content.container.material = parser->material;
 	}
-	if (parser->group != tmp->parent && parser->group != NULL)
-		scn_move_obj(rt->scene, parser->group, tmp);
+	if (parser->group != dest->parent && parser->group != NULL)
+		scn_move_obj(rt->scene, parser->group, dest);
 	return (msg_oks("oks"));
 }

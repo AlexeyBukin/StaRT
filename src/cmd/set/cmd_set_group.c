@@ -12,7 +12,7 @@ int				cmd_set_group_default(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-t_msg					cmd_set_group_params(t_rt *rt, t_parser *parser)
+t_msg					cmd_set_group_params(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
@@ -27,7 +27,7 @@ t_msg					cmd_set_group_params(t_rt *rt, t_parser *parser)
 		if (cmd_set_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
-	return (cmd_set_obj_to_scn(rt, parser));
+	return (cmd_set_obj_to_scn(rt, parser, dest));
 }
 
 t_msg			cmd_set_group(t_rt *rt, t_parser *parser, t_obj *dest)
@@ -36,5 +36,5 @@ t_msg			cmd_set_group(t_rt *rt, t_parser *parser, t_obj *dest)
 		return(msg_err("cmd_add_group(): given NULL pointer in cmd_add()"));
 	if (cmd_set_prepare_obj(parser, dest))
 		return (msg_err("cmd_set_cone(): critical malloc error"));
-	return (cmd_set_group_params(rt, parser));
+	return (cmd_set_group_params(rt, parser, dest));
 }

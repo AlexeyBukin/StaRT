@@ -82,7 +82,7 @@ t_msg					cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
 **				cmd/utils/cmd_set_obj
 */
 
-t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser);
+t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest);
 
 /*
 **				cmd/utils/cmd_set_obj TODO move to set
