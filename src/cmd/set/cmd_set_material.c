@@ -34,20 +34,22 @@ t_msg				cmd_set_material_flags(t_mat *dest, t_parser *parser)
 	return (msg_oks("material set success"));
 }
 
+static int			init_material_parser(t_parser *parser, t_mat *src)
+{
+	parser->material = ft_memalloc(sizeof(t_mat));
+	ft_memcpy(parser->material, src, sizeof(t_mat));
+	return (0);
+}
+
 t_msg				cmd_set_material(t_rt *rt, t_parser *parser)
 {
 	t_mat			*tmp;
 
 	if (rt == NULL || parser == NULL)
 		return (msg_err("NULL pointer in cmd_set_material"));
-	parser->cur += ft_strlen("material");
-	if (cmd_read_space_req(&parser->cur))
-		return(msg_warn("bad syntax: no space after material"));
-	if (cmd_read_string(&(parser->cur), &(parser->name)))
-		return (msg_warn("cmd_set_material: bad name"));
 	if ((tmp = scn_get_mat_by_name(rt->scene, parser->name)) == NULL)
 		return (msg_warn("no material with this name found"));
-	parser->material = ft_memalloc(sizeof(t_mat));
-	ft_memcpy(parser->material, tmp, sizeof(t_mat));
+	if (init_material_parser(parser, tmp))
+		return (msg_err("cmd_set_material(): critical malloc error"));
 	return (cmd_set_material_flags(tmp, parser));
 }

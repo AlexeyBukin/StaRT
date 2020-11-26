@@ -23,12 +23,21 @@ static t_msg               cmd_set_camera_flags(t_cam *dest, t_parser *parser)
 		if (cmd_read_space_req(&parser->cur))
 			return (msg_warn("cmd_set_camera(): bad syntax1"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("camera_parse_flags(): bad syntax in transform"));
+			return (msg_warn("camera_parse_flags(): bad syntax in transform"));//add -n
 		if (cmd_read_fov(parser))
 			return (msg_warn("camera_parse_flags(): bad syntax in fov"));
 	}
     ft_memcpy(dest, parser->camera, sizeof(t_cam));
     return (msg_oks("camera set done"));
+}
+
+static int			init_camera_parser(t_parser *parser, t_cam *src)
+{
+	if ((parser->camera = (t_cam *)ft_memalloc(sizeof(t_cam))) == NULL)
+		return (rt_err("Criticall err malloc"));
+	ft_memcpy(parser->camera, src, sizeof(t_cam));
+	parser->transform = &parser->camera->transform;
+	return (0);
 }
 
 t_msg				cmd_set_camera(t_rt *rt, t_parser *parser)
@@ -37,16 +46,9 @@ t_msg				cmd_set_camera(t_rt *rt, t_parser *parser)
 
 	if (rt == NULL || parser == NULL)
 		return (msg_err("NULL pointer in cmd_set_camera"));
-	parser->cur += ft_strlen("camera");
-	if (cmd_read_space_req(&parser->cur))
-		return(msg_warn("bad syntax: no space after camera"));
-	if (cmd_read_string(&(parser->cur), &(parser->name)))
-		return (msg_warn("cmd_set_camera: bad name"));
 	if ((tmp = scn_get_cam_by_name(rt->scene, parser->name)) == NULL)
 		return (msg_warn("no camera with this name found"));
-	parser->camera = (t_cam *)ft_memalloc(sizeof(t_cam));
-	ft_memcpy(parser->camera, tmp, sizeof(t_cam));
-	parser->transform = &parser->camera->transform;
-//	return (msg_oks("lal"));
+	if (init_camera_parser(parser, tmp))
+		return (msg_err("cmd_set_camera(): critical malloc error"));
 	return (cmd_set_camera_flags(tmp, parser));
 }

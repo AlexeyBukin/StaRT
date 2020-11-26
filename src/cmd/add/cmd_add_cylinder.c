@@ -24,20 +24,19 @@ static int			cylinder_set_length(t_parser *parser)
 	return (0);
 }
 
-static t_msg			init_cylinder_parser(t_rt *rt, t_parser *parser)
+static int			init_cylinder_parser(t_rt *rt, t_parser *parser)
 {
 	if (obj_init(&parser->object, parser->name, OBJ_CONTAINER))
-		return (msg_err("Criticall err malloc"));
+		return (rt_err("init_cylinder_parser(): critical malloc error"));
 	parser->container = &parser->object->content.container;
 	parser->transform = &parser->object->transform;
 	if (cmd_set_cylinder_default(rt, parser))
-		return (msg_err("Given a NULL pointer"));
-	return (msg_oks("ok"));
+		return (rt_err("init_cylinder_parser(): critical malloc error"));
+	return (0);
 }
 
 static t_msg	cmd_parse_cylinder_flags(t_rt *rt, t_parser *parser)
 {
-	(void)rt;
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
@@ -55,11 +54,7 @@ static t_msg	cmd_parse_cylinder_flags(t_rt *rt, t_parser *parser)
 		if (cmd_set_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
 	}
-	parser->object->content.container.material = parser->material;
-	parser->object->name = parser->name;
-//	parser->object->content.container.texture = parser->texture;//?? where to put?
-	scn_add_to_group(rt->scene, parser->group, parser->object);
-	return (msg_oks("it works!"));
+	return (cmd_add_obj_to_scn(rt, parser));
 }
 
 t_msg           cmd_add_cylinder(t_rt *rt, t_parser *parser)
@@ -71,6 +66,7 @@ t_msg           cmd_add_cylinder(t_rt *rt, t_parser *parser)
 		return (msg_warn("cmd_add_cylinder(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))
 		return (msg_warn("cmd_add_cylinder(): bad name"));
-	init_cylinder_parser(rt, parser);
+	if (init_cylinder_parser(rt, parser))
+		return (msg_err("Criticall err malloc"));
 	return (cmd_parse_cylinder_flags(rt, parser));
 }

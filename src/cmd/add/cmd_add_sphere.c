@@ -27,19 +27,8 @@ static int			sphere_set_radius(t_parser *parser)
 	return (0);
 }
 
-static t_msg			init_sphere_parser(t_rt *rt, t_parser *parser)
-{
-	if (obj_init(&parser->object, parser->name, OBJ_CONTAINER))
-		return (msg_err("Criticall err malloc"));
-	parser->container = &parser->object->content.container;
-	parser->transform = &parser->object->transform;
-	cmd_set_sphere_default(rt, parser);
-	return (msg_oks("ok"));
-}
-
 static t_msg	cmd_parse_sphere_flags(t_rt *rt, t_parser *parser)
 {
-	(void)rt;
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
@@ -55,11 +44,16 @@ static t_msg	cmd_parse_sphere_flags(t_rt *rt, t_parser *parser)
 		if (cmd_set_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
 	}
-	parser->object->name = parser->name;
-	parser->object->content.container.material = parser->material;
-//	parser->object->content.container.texture = parser->texture;//?? where to put?
-	scn_add_to_group(rt->scene, parser->group, parser->object);
-	return (msg_oks("it works!"));
+	return (cmd_add_obj_to_scn(rt, parser));
+}
+
+static int			init_sphere_parser(t_rt *rt, t_parser *parser)
+{
+	if (obj_init(&parser->object, parser->name, OBJ_CONTAINER))
+		return (rt_err("Criticall err malloc"));
+	parser->container = &parser->object->content.container;
+	parser->transform = &parser->object->transform;
+	return (cmd_set_sphere_default(rt, parser));
 }
 
 t_msg           cmd_add_sphere(t_rt *rt, t_parser *parser)
@@ -71,6 +65,7 @@ t_msg           cmd_add_sphere(t_rt *rt, t_parser *parser)
         return (msg_warn("cmd_add_sphere(): bad syntax"));
 	if (cmd_read_string(&(parser->cur), &(parser->name)))
         return (msg_warn("cmd_add_sphere(): bad name"));
-	init_sphere_parser(rt, parser);
+	if (init_sphere_parser(rt, parser))
+		return (msg_err("cmd_add_sphere(): critical malloc error"));
 	return (cmd_parse_sphere_flags(rt, parser));
 }

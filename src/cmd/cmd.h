@@ -17,7 +17,8 @@
 # include "srv_types.h"
 # include "rt_types.h" 
 # include "cmd_types.h"
-
+# include "cmd_add.h"
+# include "cmd_set.h"
 //TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
 
 /*
@@ -31,99 +32,6 @@ t_msg               cmd_parse_line(t_rt *rt, char *source);
 */
 
 t_msg				cmd_parse_command(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set
-*/
-
-t_msg				cmd_set(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_sphere
-*/
-
-t_msg				cmd_set_sphere(t_rt *rt, t_parser *parser);
-int 				cmd_set_sphere_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_plane
-*/
-
-t_msg				cmd_set_plane(t_rt *rt, t_parser *parser);
-int 				cmd_set_plane_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_material
-*/
-
-int 				cmd_set_material_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_cylinder
-*/
-
-t_msg				cmd_set_cylinder(t_rt *rt, t_parser *parser);
-int					cmd_set_cylinder_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_cylinder
-*/
-
-t_msg				cmd_set_cone(t_rt *rt, t_parser *parser);
-int					cmd_set_cone_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_group
-*/
-
-t_msg				cmd_set_group(t_rt *rt, t_parser *parser);
-int					cmd_set_group_default(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_material
-*/
-
-t_msg				cmd_set_material(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_material
-*/
-
-t_msg				cmd_set_camera(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd/set/cmd_set_tools
-*/
-
-int					cmd_set_radius(t_parser *parser);
-
-/*
-**              cmd/set/cmd_set_transform_part
-*/
-
-int					cmd_read_transform_part(t_parser *parser);
-
-/*
-**              cmd/set/cmd_set_object_attributes
-*/
-
-int				cmd_set_visibility(t_parser *parser);
-int				cmd_set_name(t_rt *rt, t_parser *parser);
-int				cmd_set_grp(t_rt *rt, t_parser *parser);
-int				cmd_set_mat(t_rt *rt, t_parser *parser);
-
-/*
-**				cmd_add
-*/
-
-t_msg               cmd_add(t_rt *rt, t_parser *parser);
-t_msg           	cmd_add_sphere(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_plane(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_cone(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_cylinder(t_rt *rt, t_parser *parser);
-t_msg           	cmd_add_group(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_camera(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_material(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/ls
@@ -165,9 +73,22 @@ int 				cmd_read_matrix(char **source, t_mat3x3 *mtx);
 int						cmd_read_material(t_parser *parser);
 
 /*
-**				cmd/utils/cmd_read_camera
+**				cmd/utils/cmd_add_obj_to_scn
 */
 
-t_msg	   				cmd_parse_camera_flags(t_rt *rt, t_parser *parser);
+t_msg					cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/utils/cmd_set_obj
+*/
+
+t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/utils/cmd_set_obj TODO move to set
+*/
+
+int 					cmd_set_prepare_obj(t_parser *parser, t_obj *src);
+t_msg					cmd_set_obj(t_rt *rt, t_parser *parser);
 
 #endif

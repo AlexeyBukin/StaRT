@@ -19,8 +19,6 @@ int				cmd_set_plane_default(t_rt *rt, t_parser *parser)
 
 t_msg				cmd_set_plane_read(t_rt *rt, t_parser *parser)
 {
-	t_obj		*tmp;
-
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
@@ -36,35 +34,14 @@ t_msg				cmd_set_plane_read(t_rt *rt, t_parser *parser)
 		if (cmd_set_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
-	tmp = scn_get_obj_by_name(rt->scene, parser->object->name);
-	ft_memcpy(tmp, parser->object, sizeof(t_obj));
-	tmp->name = parser->name;
-	tmp->content.container.material = parser->material;
-	if (parser->group != tmp->parent)
-		scn_move_obj(rt->scene, parser->group, tmp);
-	return (msg_oks("it works!"));
+	return (cmd_set_obj_to_scn(rt, parser));
 }
 
-t_msg				cmd_set_plane(t_rt *rt, t_parser *parser)
+t_msg				cmd_set_plane(t_rt *rt, t_parser *parser, t_obj *dest)
 {
-	t_obj		*tmp;
-
 	if (rt == NULL || parser == NULL)
 		return(msg_err("cmd_add_plane(): given NULL pointer in cmd_add()"));
-	parser->cur += ft_strlen("plane");
-	if (cmd_read_space_req(&parser->cur))
-		return (msg_warn("cmd_add_plane(): bad syntax"));
-	if (cmd_read_string(&(parser->cur), &(parser->name)))
-		return (msg_warn("cmd_add_plane(): bad name"));
-	if (!(tmp = scn_get_obj_by_name(rt->scene, parser->name)))
-		return (msg_warn("cmd_set_plane(): couldn\'t find object"));
-	if (tmp->type != OBJ_CONTAINER || tmp->content.container.shape_type != SHP_PLANE)
-		return (msg_warn("cmd_set_plane(): object is not a plane"));
-	if (!(parser->object = (t_obj *)ft_memalloc(sizeof(t_obj))))
-		return (msg_err("cmd_set_plane(): malloc error"));
-	ft_memcpy(parser->object, tmp, sizeof(t_obj));
-	parser->name = ft_strdup(tmp->name);
-	parser->transform = &parser->object->transform;
-	parser->material = tmp->content.container.material;
+	if (cmd_set_prepare_obj(parser, dest))
+		return (msg_err("cmd_set_cone(): critical malloc error"));
 	return (cmd_set_plane_read(rt, parser));
 }
