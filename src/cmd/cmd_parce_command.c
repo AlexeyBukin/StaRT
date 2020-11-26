@@ -37,11 +37,11 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
 		return (msg_warn("WERE IS RENDER PUT IT IN HERE"));
 	}
      //render
-    // else if (ft_str_next_is(str, "rm"))
-    // {
-    //     parser->cur += ft_strlen("rm");
-    //     return (cmd_parse_rm());
-    // }
+    else if (ft_str_next_is(str, "rm"))
+    {
+        parser->cur += ft_strlen("rm");
+        return (cmd_parse_rm());
+    }
     // else if (ft_str_next_is(str, "ls"))
     // {
     //     parser->cur += ft_strlen("ls");
