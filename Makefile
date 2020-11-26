@@ -133,6 +133,7 @@ src/cmd/add/cmd_add_camera.c \
 src/scn/move/scn_move_obj.c \
 src/cmd/add/cmd_add_material.c \
 src/cmd/set/cmd_set_material.c \
+src/cmd/utils/cmd_switch_cond.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

@@ -14,11 +14,7 @@ t_msg		cmd_set(t_rt *rt, t_parser *parser)
 		return (msg_warn("Bad syntax"));
 	str = parser->cur;
 	if (ft_str_next_is(str, "cone"))
-		cmd_swich_condition(rt, parser, cmd_set_cone, "cone");
-	// {
-	// 	parser->cur += ft_strlen("cone");
-	// 	return cmd_set_cone(rt, parser);
-	// }
+		cmd_switch_condition(rt, parser, cmd_set_cone, "cone");
 	else if (ft_str_next_is(str, "plane"))
 	{
 		parser->cur += ft_strlen("plane");

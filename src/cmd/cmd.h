@@ -146,4 +146,10 @@ int					cmd_read_vec(char **source, t_vec3 *vec);
 int					cmd_read_uint(char **source, uint *num);
 int 				cmd_read_matrix(char **source, t_mat3x3 *mtx);
 
+/*
+**				cmd/utils/cmd_read_num
+*/
+
+t_msg				cmd_switch_condition(t_rt *rt, t_parser *parser,
+					t_msg(*f)(t_rt *, t_parser *), char *str);
 #endif
