@@ -14,7 +14,7 @@ static int			cmd_read_fov(t_parser *parser)
 	return (0);
 }
 
-static t_msg               cmd_set_camera_flags(t_cam *dest, t_parser *parser)
+static t_msg               cmd_set_camera_flags(t_rt *rt, t_cam *dest, t_parser *parser)
 {
     if (dest == NULL || parser == NULL)
         return (msg_err ("NULL in cmd_set_cametra_flags"));
@@ -23,11 +23,14 @@ static t_msg               cmd_set_camera_flags(t_cam *dest, t_parser *parser)
 		if (cmd_read_space_req(&parser->cur))
 			return (msg_warn("cmd_set_camera(): bad syntax1"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("camera_parse_flags(): bad syntax in transform"));//add -n
+			return (msg_warn("camera_parse_flags(): bad syntax in transform"));
 		if (cmd_read_fov(parser))
 			return (msg_warn("camera_parse_flags(): bad syntax in fov"));
+		if (cmd_set_name(rt, parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
     ft_memcpy(dest, parser->camera, sizeof(t_cam));
+    dest->name = parser->name;
     return (msg_oks("camera set done"));
 }
 
@@ -50,5 +53,5 @@ t_msg				cmd_set_camera(t_rt *rt, t_parser *parser)
 		return (msg_warn("no camera with this name found"));
 	if (init_camera_parser(parser, tmp))
 		return (msg_err("cmd_set_camera(): critical malloc error"));
-	return (cmd_set_camera_flags(tmp, parser));
+	return (cmd_set_camera_flags(rt, tmp, parser));
 }
