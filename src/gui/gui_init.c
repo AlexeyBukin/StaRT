@@ -24,6 +24,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	GtkApplicationWindow	*window;
 	GtkBuilder 				*builder;
 	GtkWidget				*tree_view;
+	GObject					*tree_obj;
 
 	(void)user_data;
 	(void)app;
@@ -38,9 +39,13 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	
 	GtkTreeStore *store = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 	GtkTreeIter parent_iter, child_iter;
-	tree_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
-	gui_get_info_and_style(builder, "tree_view", GENERAL);
-	//gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(store));
+	
+
+
+	
+	tree_obj = gui_get_info_and_style(builder, "tree_view", GENERAL);
+	tree_view = GTK_WIDGET(tree_obj);
+	gtk_tree_view_set_model(GTK_TREE_VIEW(tree_obj), GTK_TREE_MODEL(store));
 	
 	gtk_tree_store_append(store, &parent_iter, NULL);
     gtk_tree_store_set(store, &parent_iter,
