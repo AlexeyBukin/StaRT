@@ -42,6 +42,13 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
         parser->cur += ft_strlen("rm");
         return (cmd_rm(rt, parser));
     }
+	else if (ft_str_next_is(str, "ls"))
+	{
+		parser->cur += ft_strlen("ls");
+		if (scn_print(rt->scene))
+			return (msg_warn("cmd_parse_command(): couldn\'t print objects"));
+		return (msg_oks("It\'s for debug only"));
+	}
     // else if (ft_str_next_is(str, "ls"))
     // {
     //     parser->cur += ft_strlen("ls");

@@ -7,7 +7,6 @@ int				cmd_set_group_default(t_rt *rt, t_parser *parser)
 		return (rt_err("cmd_set_cone_default(): was given a NULL pointer"));
 	ft_bzero(parser->transform, sizeof(t_tfm));
 	parser->object->visible = TRUE;
-	parser->object->type = OBJ_GROUP;
 	parser->group = rt->scene->main_group;
 	return (0);
 }
