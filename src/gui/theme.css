@@ -16,6 +16,18 @@ menuitem:hover {
     background-color: rgb(141, 104, 74);
 }
 
+menu {
+    color:  white;
+    box-shadow: none;
+    background-color: rgb(141, 104, 74);
+}
+
+#submenu:hover {
+    color:  rgb(141, 104, 74);
+    box-shadow: none;
+    background-color: white;
+}
+
 list {
     background: #3c3c41;
     color: rgb(255, 115, 0);
@@ -44,15 +56,7 @@ list>row:selected {
     color: #ffffff;
 }
 
-expander {
-    margin-left: 2000px;
-}
-
-lable {
-    
-}
-
-#expander-open {
+/* #expander-open {
     color:rgb(255, 115, 0);
     background-color: #3c3c41;
     margin-right: 2000px;
@@ -61,4 +65,4 @@ lable {
     background: #3c3c41;
     color: rgb(255, 115, 0);
     box-shadow: none;
-}
+} */

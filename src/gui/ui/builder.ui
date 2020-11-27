@@ -3,7 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkApplicationWindow" id="AppWindow">
-    <property name="can-focus">False</property>
+    <property name="can-focus">True</property>
     <property name="default-width">2000</property>
     <property name="default-height">1000</property>
     <child>
@@ -18,46 +18,42 @@
             <child>
               <object class="GtkMenuItem" id="item_File">
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
+                <property name="can-focus">True</property>
                 <property name="label" translatable="yes">File</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="menu_file">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-new</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_1">
+                        <property name="label">New</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-open</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_2">
+                        <property name="label">Open</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-save</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_3">
+                        <property name="label">Save</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-save-as</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_4">
+                        <property name="label">Save as</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
@@ -67,12 +63,11 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="quit">
-                        <property name="label">gtk-quit</property>
+                      <object class="GtkMenuItem" id="quit">
+                        <property name="label">Quit</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                   </object>
@@ -85,43 +80,39 @@
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Edit</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="menu_edit">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-cut</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_5">
+                        <property name="label">Cut</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-copy</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_6">
+                        <property name="label">Copy</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-paste</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_7">
+                        <property name="label">Paste</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-delete</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_8">
+                        <property name="label">Delete</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                   </object>
@@ -134,16 +125,15 @@
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">View</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="menu_view">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="render">
-                        <property name="label">_Render</property>
+                      <object class="GtkMenuItem" id="render">
+                        <property name="label">Render</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                   </object>
@@ -156,16 +146,15 @@
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">Help</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
+                  <object class="GtkMenu" id="menu_help">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem">
-                        <property name="label">gtk-about</property>
+                      <object class="GtkMenuItem" id="menuitem_submenu_9">
+                        <property name="label">About</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
-                        <property name="use-stock">True</property>
                       </object>
                     </child>
                   </object>
@@ -254,8 +243,8 @@
                       </object>
                     </child>
                   </object>
-                </child> -->
-                <!-- <child>
+                </child>
+                <child>
                   <object class="GtkListBoxRow" id="box_objs">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -314,8 +303,8 @@
                       </object>
                     </child>
                   </object>
-                </child> -->
-                <!-- <child>
+                </child>
+                <child>
                   <object class="GtkListBoxRow" id="box_light">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
@@ -390,13 +379,13 @@
                   <object class="GtkViewport">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <child>
+                    <!-- <child>
                       <object class="GtkImage" id="image">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="file">/Users/rtacos/Desktop/StaRT/res/fotosasss-1.jpg</property>
                       </object>
-                    </child>
+                    </child> -->
                   </object>
                 </child>
               </object>

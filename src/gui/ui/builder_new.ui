@@ -14,15 +14,15 @@
         <child>
           <object class="GtkMenuBar" id="menu_bar">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
+            <property name="can-focus">False</property>
             <child>
               <object class="GtkMenuItem" id="item_File">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="label" translatable="yes">File</property>
                 <child type="submenu">
-                  <object class="GtkMenu">
-                    <property name="visible">True</property>
+                  <object class="GtkMenuShell" id="menu_file">
+                    <property name="visible">False</property>
                     <property name="can-focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem">
