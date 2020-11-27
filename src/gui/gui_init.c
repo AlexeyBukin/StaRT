@@ -40,13 +40,19 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	GtkTreeStore *store = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 	GtkTreeIter parent_iter, child_iter;
 	
-
-
-	
 	tree_obj = gui_get_info_and_style(builder, "tree_view", GENERAL);
 	tree_view = GTK_WIDGET(tree_obj);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(tree_obj), GTK_TREE_MODEL(store));
 	
+	gtk_tree_store_append(store, &parent_iter, NULL);
+    gtk_tree_store_set(store, &parent_iter,
+                       COLUMN_TITLE, "Dark Side of the Moon",
+                       COLUMN_ARTIST, "Pink Floyd",
+                       COLUMN_CATALOGUE, "B000024D4P",
+                       -1);
+	gtk_tree_store_append(store, &child_iter, &parent_iter);
+    gtk_tree_store_set(store, &child_iter, COLUMN_TITLE, "Speak to Me", -1);
+
 	gtk_tree_store_append(store, &parent_iter, NULL);
     gtk_tree_store_set(store, &parent_iter,
                        COLUMN_TITLE, "Dark Side of the Moon",
@@ -77,7 +83,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	gui_get_info_and_style(builder, "item_View", GENERAL);
 	gui_get_info_and_style(builder, "item_Help", GENERAL);
 	gui_signals(window, builder, user_data);
-	gtk_container_add(GTK_CONTAINER(window), tree_view);
+	//gtk_container_add(GTK_CONTAINER(window), tree_view);
 	gtk_widget_show_all(GTK_WIDGET(window));
 	gtk_main ();
 }

@@ -16,7 +16,7 @@ menuitem:hover {
     background-color: rgb(141, 104, 74);
 }
 
-tree_view {
+view {
     background: #3c3c41;
     color: rgb(255, 115, 0);
     box-shadow: none;
