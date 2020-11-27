@@ -9,6 +9,12 @@ int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
 	(void)rt;
 	if (parser == NULL)
 		return (rt_err("cmd_set_camera_default(): was given a NULL pointer"));
+	parser->material->content.pbr.metalness = 0.0;
+	parser->material->content.pbr.roughness = 0.5;
+	parser->material->content.pbr.ior = 1.2;
+	parser->material->content.pbr.transparency = 0.0;
+	parser->material->content.pbr.albedo = vec3(0.5, 0.5, 0.5);
+	parser->material->content.pbr.f0 = vec3(0.05, 0.05, 0.05);
 	return (0);
 }
 

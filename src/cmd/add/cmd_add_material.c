@@ -32,6 +32,7 @@ t_msg				cmd_parse_material_flags(t_rt *rt, t_parser *parser)
 		if (cmd_read_material(parser))
 			return (msg_warn("cmd_parse_material_flags(): bad syntax1"));
 	}
+//	parser->material
 	scn_add_mat(rt->scene, parser->material);
 	return (msg_oks("it works!"));
 }

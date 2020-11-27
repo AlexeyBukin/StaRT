@@ -52,8 +52,8 @@ Cannot specify material, `-m` will give an error.
 
 #### `add material`
 Material is not an object, so non of previous object flags can be used.
-1) `-m` - metalness. Should be valid vector
-2) `-r` - roughness. Should be be valid vector
+1) `-m` - metalness. Should be valid scalar
+2) `-r` - roughness. Should be be valid scalar
 3) `-i` - ior. Should be valid scalar
 3) `-t` - transparency. Should be valid scalar
 3) `-a` - albedo. Should be valid vector (values clamped 0..1)
@@ -63,7 +63,6 @@ Material is not an object, so non of previous object flags can be used.
 Removes component from scene.
 Be careful because it will remove all copies as well.
 If object is group all it's children's copies will be deleted.
-1) `-n` - remove component by name
 1) `-r` - remove recursively
 
 ### Command `set`

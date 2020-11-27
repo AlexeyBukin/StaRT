@@ -34,8 +34,8 @@ int					cmd_set_cylinder_default(t_rt *rt, t_parser *parser)
 		parser->transform == NULL)
 		return (rt_err("cmd_set_cylinder_default(): was given a NULL pointer"));
 	ft_bzero(parser->transform, sizeof(t_tfm));
-	parser->container->shape.cylinder.radius = 0.0;
-	parser->container->shape.cylinder.length = 0.0;
+	parser->container->shape.cylinder.radius = 1.0;
+	parser->container->shape.cylinder.length = 1.0;
 	parser->object->visible = TRUE;
 	parser->object->content.container.shape_type = SHP_CYLINDER;
 	parser->object->type = OBJ_CONTAINER;
@@ -57,13 +57,13 @@ t_msg				cmd_set_cylinder_read(t_rt *rt, t_parser *parser, t_obj *dest)
 			return (msg_warn("cylinder_parse_flags(): bad syntax in length"));
 		if (cmd_read_transform_part(parser) < 0)
 			return (msg_warn("cylinder_parse_flags(): bad syntax in transform"));
-		if (cmd_set_visibility(parser) < 0)
+		if (cmd_set_obj_visibility(parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
-		if (cmd_set_grp(rt, parser) < 0)
+		if (cmd_set_obj_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
-		if (cmd_set_mat(rt, parser) < 0)
+		if (cmd_set_obj_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
-		if (cmd_set_name(rt, parser) < 0)
+		if (cmd_set_obj_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));

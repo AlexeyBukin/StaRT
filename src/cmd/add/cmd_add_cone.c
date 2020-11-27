@@ -38,11 +38,11 @@ static t_msg	cmd_parse_cone_flags(t_rt *rt, t_parser *parser)
 			return (msg_warn("cone_parse_flags(): bad syntax in rad"));
 		if (cmd_read_transform_part(parser) < 0)
 			return (msg_warn("cone_parse_flags(): bad syntax in transform"));
-		if (cmd_set_visibility(parser) < 0)
+		if (cmd_set_obj_visibility(parser) < 0)
 			return (msg_warn("cone_parse_flags(): bad syntax visibility"));
-		if (cmd_set_grp(rt, parser) < 0)
+		if (cmd_set_obj_grp(rt, parser) < 0)
 			return (msg_warn("cone_parse_flags(): bad syntax group"));
-		if (cmd_set_mat(rt, parser) < 0)
+		if (cmd_set_obj_mat(rt, parser) < 0)
 			return (msg_warn("cone_parse_flags(): bad syntax material"));
 	}
 	return (cmd_add_obj_to_scn(rt, parser));

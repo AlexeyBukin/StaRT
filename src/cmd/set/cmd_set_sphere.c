@@ -23,7 +23,7 @@ int				cmd_set_sphere_default(t_rt *rt, t_parser *parser)
 		return (rt_err("cmd_set_cone_default(): was given a NULL pointer"));
 	parser->object->content.container.shape_type = SHP_SPHERE;
 	ft_bzero(parser->transform, sizeof(t_tfm));
-	parser->container->shape.sphere.radius = 0.0;
+	parser->container->shape.sphere.radius = 1.0;
 	parser->object->visible = TRUE;
 	parser->object->type = OBJ_CONTAINER;
 	parser->material = scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME);
@@ -42,13 +42,13 @@ t_msg				cmd_set_sphere_read(t_rt *rt, t_parser *parser, t_obj *dest)
 			return (msg_warn("sphere_parse_flags(): bad syntax in transform"));
 		if (sphere_set_radius(parser) < 0)
 			return (msg_warn("sphere_parse_flags(): bad syntax in rad"));
-		if (cmd_set_visibility(parser) < 0)
+		if (cmd_set_obj_visibility(parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
-		if (cmd_set_grp(rt, parser) < 0)
+		if (cmd_set_obj_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
-		if (cmd_set_mat(rt, parser) < 0)
+		if (cmd_set_obj_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
-		if (cmd_set_name(rt, parser) < 0)
+		if (cmd_set_obj_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));

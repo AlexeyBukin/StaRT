@@ -81,9 +81,9 @@ int					cmd_read_transform_part(t_parser *parser);
 **              cmd/set/cmd_set_object_attributes
 */
 
-int				cmd_set_visibility(t_parser *parser);
-int				cmd_set_name(t_rt *rt, t_parser *parser);
-int				cmd_set_grp(t_rt *rt, t_parser *parser);
-int				cmd_set_mat(t_rt *rt, t_parser *parser);
+int				cmd_set_obj_visibility(t_parser *parser);
+int				cmd_set_obj_name(t_rt *rt, t_parser *parser);
+int				cmd_set_obj_grp(t_rt *rt, t_parser *parser);
+int				cmd_set_obj_mat(t_rt *rt, t_parser *parser);
 
 #endif

@@ -11,29 +11,36 @@
 ** `-g` - group. Should be valid string - name of group
 */
 
-int				cmd_set_visibility(t_parser *parser)
+int				cmd_set_obj_visibility(t_parser *parser)
 {
+	int			quotes;
+
 	if (ft_str_next_is(parser->cur, "-v"))
 	{
 		parser->cur += ft_strlen("-v");
 		cmd_read_space(&parser->cur);
-		if (ft_str_next_is(parser->cur, "\"true\""))
+		quotes = ft_str_next_is(parser->cur, "\"");
+		parser->cur += quotes;
+		if (ft_str_next_is(parser->cur, "true"))
 		{
 			parser->object->visible = TRUE;
-			parser->cur += ft_strlen("\"true\"");
+			parser->cur += ft_strlen("true");
 		}
-		else if (ft_str_next_is(parser->cur, "\"false\""))
+		else if (ft_str_next_is(parser->cur, "false"))
 		{
 			parser->object->visible = FALSE;
-			parser->cur += ft_strlen("\"false\"");
+			parser->cur += ft_strlen("false");
 		}
 		else
 			return (rt_err("cmd_set_visibility(): Bad syntax"));
+		if (quotes == 1 && !(ft_str_next_is(parser->cur, "\"")))
+			return (rt_err("cmd_set_obj_visibility(): Bad syntax"));
+		parser->cur += quotes;
 	}
 	return (0);
 }
 
-int				cmd_set_name(t_rt *rt, t_parser *parser)
+int				cmd_set_obj_name(t_rt *rt, t_parser *parser)
 {
 	char		*tmp;
 
@@ -53,7 +60,7 @@ int				cmd_set_name(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-int				cmd_set_mat(t_rt *rt, t_parser *parser)//find material please!
+int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)//find material please!
 {
 	char		*material_name;
 	t_mat		*material;
@@ -73,7 +80,7 @@ int				cmd_set_mat(t_rt *rt, t_parser *parser)//find material please!
 	return (0);
 }
 
-int				cmd_set_grp(t_rt *rt, t_parser *parser)//find group please!
+int				cmd_set_obj_grp(t_rt *rt, t_parser *parser)//find group please!
 {
 	char		*group_name;
 	t_obj		*group;

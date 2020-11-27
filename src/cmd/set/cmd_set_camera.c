@@ -26,7 +26,7 @@ static t_msg               cmd_set_camera_flags(t_rt *rt, t_cam *dest, t_parser 
 			return (msg_warn("camera_parse_flags(): bad syntax in transform"));
 		if (cmd_read_fov(parser))
 			return (msg_warn("camera_parse_flags(): bad syntax in fov"));
-		if (cmd_set_name(rt, parser) < 0)
+		if (cmd_set_obj_name(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
 	}
     ft_memcpy(dest, parser->camera, sizeof(t_cam));

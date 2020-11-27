@@ -12,10 +12,24 @@
 
 #include "rt.h"
 
+t_msg		cmd_add_obj_to_scn(t_rt *rt, t_parser *parser)
+{
+	if (parser->object->type != OBJ_GROUP)
+	{
+		parser->object->content.container.material = parser->material;
+		//	parser->object->content.container.texture = parser->texture;//?? where to put?
+	}
+	parser->object->transform.rot_local.x = vec3_normalize(parser->object->transform.rot_local.x);
+	parser->object->transform.rot_local.y = vec3_normalize(parser->object->transform.rot_local.y);
+	parser->object->transform.rot_local.z = vec3_normalize(parser->object->transform.rot_local.z);
+	if (scn_add_to_group(rt->scene, parser->group, parser->object))
+		return (msg_oks("couldn\'t add obj to scene"));
+	return (msg_oks("added object to scene successfully"));
+}
+
 t_msg				cmd_add(t_rt *rt, t_parser *parser)
 {
 	char			*str;
-	//t_msg			res;
 
 	if (parser == NULL)
 		return(msg_warn("Given NULL pointer in cmd_add()"));

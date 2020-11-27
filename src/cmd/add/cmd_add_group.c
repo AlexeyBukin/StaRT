@@ -19,13 +19,13 @@ static t_msg		cmd_parse_group_flags(t_rt *rt, t_parser *parser)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_group(): bad syntax1"));
+			return (msg_warn("cmd_parse_group_flags(): bad syntax or unknown flag"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("group_parse_flags(): bad syntax in transform"));
-		if (cmd_set_visibility(parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
-		if (cmd_set_grp(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+			return (msg_warn("cmd_parse_group_flags(): bad syntax in transform"));
+		if (cmd_set_obj_visibility(parser) < 0)
+			return (msg_warn("cmd_parse_group_flags(): bad syntax visibility"));
+		if (cmd_set_obj_grp(rt, parser) < 0)
+			return (msg_warn("cmd_parse_group_flags(): bad syntax group"));
 	}
 	return (cmd_add_obj_to_scn(rt, parser));
 }

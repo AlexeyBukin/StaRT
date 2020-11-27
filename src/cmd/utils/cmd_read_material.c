@@ -10,7 +10,17 @@
 **	`-f` - f0. Should be valid vector (values clamped 0..1)
 */
 
-int 					cmd_read_material_limited_vecs(t_parser *parser)
+static int 		check_limited_vec(t_vec3 vec)
+{
+	if (vec.x < 0 || vec.x > 1.0
+		|| vec.y < 0 || vec.y > 1.0
+		|| vec.z < 0 || vec.z > 1.0)
+		return (rt_err("cmd_read_material_limited_vecs(): "
+					   "vec values should be clamped 0..1"));
+	return (0);
+}
+
+static int 		cmd_read_material_limited_vecs(t_parser *parser)
 {
 	t_vec3			tmp;
 
@@ -20,11 +30,8 @@ int 					cmd_read_material_limited_vecs(t_parser *parser)
 		cmd_read_space(&parser->cur);
 		if (cmd_read_vec(&(parser->cur), &tmp))
 			return (rt_err("couldn\'t parse vector"));
-		if (tmp.x < 0 || tmp.x > 1.0
-			|| tmp.y < 0 || tmp.y > 1.0
-			|| tmp.z < 0 || tmp.z > 1.0)
-			return (rt_err("cmd_read_material_limited_vecs(): "
-				"albedo values should be clamped 0..1"));
+		if (check_limited_vec(tmp))
+			return (-1);
 		parser->material->content.pbr.albedo = tmp;
 	}
 	if (ft_str_next_is(parser->cur, "-f"))
@@ -33,18 +40,15 @@ int 					cmd_read_material_limited_vecs(t_parser *parser)
 		cmd_read_space(&parser->cur);
 		if (cmd_read_vec(&(parser->cur), &tmp))
 			return (rt_err("couldn\'t parse vector"));
-		if (tmp.x < 0 || tmp.x > 1.0
-			|| tmp.y < 0 || tmp.y > 1.0
-			|| tmp.z < 0 || tmp.z > 1.0)
-			return (rt_err("cmd_read_material_limited_vecs(): "
-						   "f0 values should be clamped 0..1"));
+		if (check_limited_vec(tmp))
+			return (-1);
 		parser->material->content.pbr.f0 = tmp;
 
 	}
 	return (0);
 }
 
-int						cmd_read_material(t_parser *parser)
+int				cmd_read_material(t_parser *parser)
 {
 	if (ft_str_next_is(parser->cur, "-m"))
 	{

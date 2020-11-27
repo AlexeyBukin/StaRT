@@ -12,10 +12,6 @@
 
 #include "rt.h"
 
-/*
-**		mb move it to set? it'll be like cmd_set_transform_locals or whatever
-*/
-
 int			cmd_pos(t_parser *parser)
 {
 	if (parser == NULL)

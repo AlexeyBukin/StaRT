@@ -25,14 +25,15 @@ t_msg				cmd_set_plane_read(t_rt *rt, t_parser *parser, t_obj *dest)
 			return (msg_warn("cmd_set_plane(): bad syntax1"));
 		if (cmd_read_transform_part(parser) < 0)
 			return (msg_warn("plane_parse_flags(): bad syntax in transform"));
-		if (cmd_set_visibility(parser) < 0)
+		if (cmd_set_obj_visibility(parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
-		if (cmd_set_grp(rt, parser) < 0)
+		if (cmd_set_obj_grp(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
-		if (cmd_set_mat(rt, parser) < 0)
+		if (cmd_set_obj_mat(rt, parser) < 0)
 			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
-		if (cmd_set_name(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+		if (cmd_set_obj_name(rt, parser) < 0)
+			return (msg_warn("cmd_set_obj_attributes: bad syntax "
+			"name or name collision"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }
