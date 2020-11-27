@@ -19,7 +19,9 @@ GtkBuilder		*gui_create_builder(void)
 
 	error = NULL;
 	builder = gtk_builder_new();
-	if (!gtk_builder_add_from_file(builder, "src/gui/ui/builder.ui", &error))
+	//"src/gui/ui/builder.ui"
+	//"src/gui/layout_editor.glade"
+	if (!gtk_builder_add_from_file(builder, "src/gui/layout_editor.glade", &error))
 	{
 		g_printerr("Error loading file: %s\n", error->message);
 		g_clear_error(&error);

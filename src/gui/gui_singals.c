@@ -53,6 +53,8 @@ void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
 	GObject *signal;
 	(void)user_data;
 
+	
+	(void)window;
 	g_signal_connect(G_OBJECT(window), "destroy",
 									G_CALLBACK(gtk_main_quit), NULL);
 	signal = gtk_builder_get_object(builder, "quit");

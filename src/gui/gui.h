@@ -37,6 +37,7 @@ void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
 GtkBuilder		*gui_create_builder(void);
 void			gui_add_widgets_to_list(GtkListBox *list_box, t_rt *user_data,
 																int type_box);
+void			gui_add_widgets_to_tree(GtkTreeStore *list_box, t_rt *user_data, int type_box);
 void			gui_style(GtkWidget *widget);
 
 #endif

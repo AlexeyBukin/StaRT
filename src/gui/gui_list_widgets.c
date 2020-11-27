@@ -38,7 +38,8 @@ int			push_widgets(GtkWidget *in, t_obj *from, int shift)
 	// int a;
 	// GtkWidget		*tmp;
 
-	row = gtk_list_box_row_new();
+	//row = gtk_list_box_row_new();
+	row = gtk_tree_view_new();
 	gui_style(row);
 	if (from->type == OBJ_GROUP)
 	{
@@ -137,6 +138,25 @@ int			push_widgets(GtkWidget *in, t_obj *from, int shift)
 	// }
 	
 }
+
+void			gui_add_widgets_to_tree(GtkTreeStore *list_box, t_rt *user_data, int type_box)
+{
+	// t_objs *objs_array = create_array_obj();
+	// t_light *light_array = create_array_light();
+	// GtkListBoxRow	*row;
+	// GtkLabel		*lable;
+	t_obj *obj;
+
+	obj = user_data->scene->main_group;
+	if (type_box == OBJECT)
+		push_widgets(GTK_WIDGET(list_box), obj, 0);
+	// if (type_box == LIGHT)
+	// lable = GTK_LABEL(gtk_label_new("objects"));
+	// row = GTK_LIST_BOX_ROW(gtk_list_box_new());
+	// gtk_container_add(GTK_CONTAINER(row), GTK_WIDGET(lable));
+	// gtk_container_add(GTK_CONTAINER(list_box), GTK_WIDGET(row));
+}
+
 
 void			gui_add_widgets_to_list(GtkListBox *list_box, t_rt *user_data, int type_box)
 {

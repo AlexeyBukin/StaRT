@@ -12,11 +12,18 @@
 
 # include "rt.h"
 
+enum {
+    COLUMN_TITLE,
+    COLUMN_ARTIST,
+    COLUMN_CATALOGUE,
+    N_COLUMNS
+};
+
 static void		activate(GtkApplication* app, t_rt *user_data)
 {
 	GtkApplicationWindow	*window;
 	GtkBuilder 				*builder;
-	GObject 				*list_box;
+	GtkWidget				*tree_view;
 
 	(void)user_data;
 	(void)app;
@@ -27,9 +34,31 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 								builder, "AppWindow", GENERAL);
 	gui_get_info_and_style(builder, "menu_bar", GENERAL);
 	gui_get_info_and_style(builder, "paned", GENERAL);
-	list_box = gui_get_info_and_style(builder, "list_box_all", GENERAL);
-	// gui_get_info_and_style(builder, "list_box_scene", GENERAL);
-	gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, OBJECT);
+
+	
+	GtkTreeStore *store = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
+	GtkTreeIter parent_iter, child_iter;
+	tree_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+	gui_get_info_and_style(builder, "tree_view", GENERAL);
+	//gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(store));
+	
+	gtk_tree_store_append(store, &parent_iter, NULL);
+    gtk_tree_store_set(store, &parent_iter,
+                       COLUMN_TITLE, "Dark Side of the Moon",
+                       COLUMN_ARTIST, "Pink Floyd",
+                       COLUMN_CATALOGUE, "B000024D4P",
+                       -1);
+	gtk_tree_store_append(store, &child_iter, &parent_iter);
+    gtk_tree_store_set(store, &child_iter, COLUMN_TITLE, "Speak to Me", -1);
+
+	GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tree_view),
+                                                COLUMN_TITLE,
+                                                "Title", renderer,
+                                                "text", COLUMN_TITLE,
+                                                NULL);
+	//gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, OBJECT);
+
 	// /*list_box = */gui_get_info_and_style(builder, "list_box_light", GENERAL);
 	// gui_add_widgets_to_list(GTK_LIST_BOX(list_box), user_data, LIGHT);
 	// gui_get_info_and_style(builder, "box_objs", GENERAL);
@@ -43,6 +72,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	gui_get_info_and_style(builder, "item_View", GENERAL);
 	gui_get_info_and_style(builder, "item_Help", GENERAL);
 	gui_signals(window, builder, user_data);
+	gtk_container_add(GTK_CONTAINER(window), tree_view);
 	gtk_widget_show_all(GTK_WIDGET(window));
 	gtk_main ();
 }
