@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/24 16:12:41 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/28 18:03:52 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ enum e_styles {
 	PERSONAL
 };
 
+enum {
+    COLUMN_TITLE,
+    COLUMN_ARTIST,
+    COLUMN_CATALOGUE,
+    N_COLUMNS
+};
+
 int				gui_loop(t_rt *rt, int ac, char **av);
 int				gui_init(t_rt *rt);
 int				gui_deinit(t_rt *rt);
@@ -35,8 +42,6 @@ GObject			*gui_get_info_and_style(GtkBuilder *builder,
 void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
 															t_rt *user_data);
 GtkBuilder		*gui_create_builder(void);
-void			gui_add_widgets_to_list(GtkListBox *list_box, t_rt *user_data,
-																int type_box);
 void			gui_add_widgets_to_tree(GtkTreeStore *list_box, t_rt *user_data, int type_box);
 void			gui_style(GtkWidget *widget);
 

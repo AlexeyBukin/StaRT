@@ -34,38 +34,3 @@ box:selected {
     box-shadow: none;
     color: rgb(255, 255, 255);
 }
-
-list>row {
-    box-shadow: none;
-    border: 0px;
-}
-
-list>row:selected {
-    background: rgb(141, 104, 74);
-    box-shadow: none;
-    color: rgb(255, 255, 255);
-}
-
-#row_expander:selected {
-    background: rgb(146, 92, 51);
-    color: #ffffff;
-}
-
-expander {
-    margin-left: 2000px;
-}
-
-lable {
-    
-}
-
-#expander-open {
-    color:rgb(255, 115, 0);
-    background-color: #3c3c41;
-    margin-right: 2000px;
-}
-#exander-closer {
-    background: #3c3c41;
-    color: rgb(255, 115, 0);
-    box-shadow: none;
-}
