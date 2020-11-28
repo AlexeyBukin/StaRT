@@ -18,6 +18,7 @@ static int			init_camera_parser(t_parser *parser)
 {
 	if (cam_init(&parser->camera, parser->name))
 		return (rt_err("Criticall err malloc"));
+	parser->camera->transform.rot_local = mat3x3_identity();
 	parser->transform = &parser->camera->transform;
 	return (0);
 }

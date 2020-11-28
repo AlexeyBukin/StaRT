@@ -22,7 +22,6 @@ int				cmd_set_sphere_default(t_rt *rt, t_parser *parser)
 		parser->transform == NULL)
 		return (rt_err("cmd_set_cone_default(): was given a NULL pointer"));
 	parser->object->content.container.shape_type = SHP_SPHERE;
-	ft_bzero(parser->transform, sizeof(t_tfm));
 	parser->container->shape.sphere.radius = 1.0;
 	parser->object->visible = TRUE;
 	parser->object->type = OBJ_CONTAINER;
@@ -37,22 +36,21 @@ t_msg				cmd_set_sphere_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_sphere(): bad syntax1"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("sphere_parse_flags(): bad syntax in transform"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax transform"));
 		if (sphere_set_radius(parser) < 0)
-			return (msg_warn("sphere_parse_flags(): bad syntax in rad"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax rad"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (set_error(parser, "cmd_set_sphere(): bad syntax name"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
-
 }
 
 t_msg				cmd_set_sphere(t_rt *rt, t_parser *parser, t_obj *dest)

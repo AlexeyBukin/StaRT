@@ -7,8 +7,6 @@ int				cmd_set_plane_default(t_rt *rt, t_parser *parser)
 		parser->transform == NULL)
 		return (rt_err("cmd_set_cone_default(): was given a NULL pointer"));
 	parser->object->content.container.shape_type = SHP_PLANE;
-	ft_bzero(parser->transform, sizeof(t_tfm));
-	parser->container->shape.plane.radius = 0.0;
 	parser->object->visible = TRUE;
 	parser->object->type = OBJ_CONTAINER;
 	parser->material = scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME);
@@ -22,18 +20,18 @@ t_msg				cmd_set_plane_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_plane(): bad syntax1"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("plane_parse_flags(): bad syntax in transform"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax "
-			"name or name collision"));
+			return (set_error(parser, "cmd_set_plane(): bad syntax name or "
+							 "name collision"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }

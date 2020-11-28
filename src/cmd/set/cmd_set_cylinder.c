@@ -33,7 +33,6 @@ int					cmd_set_cylinder_default(t_rt *rt, t_parser *parser)
 	if (parser == NULL || parser->container == NULL || parser->object == NULL ||
 		parser->transform == NULL)
 		return (rt_err("cmd_set_cylinder_default(): was given a NULL pointer"));
-	ft_bzero(parser->transform, sizeof(t_tfm));
 	parser->container->shape.cylinder.radius = 1.0;
 	parser->container->shape.cylinder.length = 1.0;
 	parser->object->visible = TRUE;
@@ -50,21 +49,21 @@ t_msg				cmd_set_cylinder_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_cylinder(): bad syntax1"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax"));
 		if (cylinder_set_radius(parser) < 0)
-			return (msg_warn("cylinder_parse_flags(): bad syntax in rad"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax rad"));
 		if (cylinder_set_length(parser) < 0)
-			return (msg_warn("cylinder_parse_flags(): bad syntax in length"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax length"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("cylinder_parse_flags(): bad syntax in transform"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (set_error(parser, "cmd_set_cylinder(): bad syntax name"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }

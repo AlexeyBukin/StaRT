@@ -86,4 +86,12 @@ int				cmd_set_obj_name(t_rt *rt, t_parser *parser);
 int				cmd_set_obj_grp(t_rt *rt, t_parser *parser);
 int				cmd_set_obj_mat(t_rt *rt, t_parser *parser);
 
+/*
+**				cmd/utils/cmd_set_obj TODO move to set
+*/
+
+int 					cmd_set_prepare_obj(t_parser *parser, t_obj *src);
+t_msg					cmd_set_type(t_rt *rt, t_parser *parser);
+t_msg					set_error(t_parser *parser, char *message);
+
 #endif

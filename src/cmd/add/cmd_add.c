@@ -17,7 +17,7 @@ t_msg		cmd_add_obj_to_scn(t_rt *rt, t_parser *parser)
 	if (parser->object->type != OBJ_GROUP)
 	{
 		parser->object->content.container.material = parser->material;
-		//	parser->object->content.container.texture = parser->texture;//?? where to put?
+//		parser->object->content.container.texture = parser->texture;//?? where to put?
 	}
 	parser->object->transform.rot_local.x = vec3_normalize(parser->object->transform.rot_local.x);
 	parser->object->transform.rot_local.y = vec3_normalize(parser->object->transform.rot_local.y);

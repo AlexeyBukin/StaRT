@@ -4,6 +4,21 @@
 
 #include "rt.h"
 
+/*
+**  `-m` - metalness. Should be valid vector
+**  `-r` - roughness. Should be be valid vector
+**  `-i` - ior. Should be valid scalar
+**  `-t` - transparency. Should be valid scalar
+**  `-a` - albedo. Should be valid vector (values clamped 0..1)
+**  `-f` - f0. Should be valid vector (values clamped 0..1)
+*/
+
+static t_msg		set_material_error(t_parser *parser, char *message)
+{
+	mat_deinit(parser->material);
+	return (msg_warn(message));
+}
+
 int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
 {
 	(void)rt;
@@ -18,32 +33,30 @@ int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-// 1) `-m` - metalness. Should be valid vector
-// 2) `-r` - roughness. Should be be valid vector
-// 3) `-i` - ior. Should be valid scalar
-// 3) `-t` - transparency. Should be valid scalar
-// 3) `-a` - albedo. Should be valid vector (values clamped 0..1)
-// 3) `-f` - f0. Should be valid vector (values clamped 0..1)
-
-t_msg				cmd_set_material_flags(t_mat *dest, t_parser *parser)
+t_msg				cmd_set_material_flags(t_rt *rt, t_mat *dest, t_parser *parser)
 {
 	if (dest == NULL || parser == NULL)
 		return (msg_err("NULL pointer in cmd_set_material_flags"));
 	while (*parser->cur != '\n' && *parser->cur != '\0')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_material_flags: bad spaces"));
+			return (set_material_error(parser, "cmd_set_material_flags: bad spaces"));
 		if (cmd_read_material(parser))
-			return (msg_warn("cmd_set_material_flags: bad syntax"));
+			return (set_material_error(parser, "cmd_set_material_flags: bad syntax"));
+		if (cmd_set_obj_name(rt, parser))
+			return (set_material_error(parser, "cmd_set_material_flags: bad name"));
 	}
 	ft_memcpy(dest, parser->material, sizeof(t_mat));
+	dest->name = ft_strdup(parser->name);
+	mat_deinit(parser->material);
 	return (msg_oks("material set success"));
 }
 
 static int			init_material_parser(t_parser *parser, t_mat *src)
 {
-	parser->material = ft_memalloc(sizeof(t_mat));
+	mat_init(&parser->material, parser->name);
 	ft_memcpy(parser->material, src, sizeof(t_mat));
+	parser->material->name = ft_strdup(parser->name);
 	return (0);
 }
 
@@ -54,8 +67,14 @@ t_msg				cmd_set_material(t_rt *rt, t_parser *parser)
 	if (rt == NULL || parser == NULL)
 		return (msg_err("NULL pointer in cmd_set_material"));
 	if ((tmp = scn_get_mat_by_name(rt->scene, parser->name)) == NULL)
+	{
+		ft_free(parser->name);
 		return (msg_warn("no material with this name found"));
+	}
 	if (init_material_parser(parser, tmp))
+	{
+		ft_free(parser->name);
 		return (msg_err("cmd_set_material(): critical malloc error"));
-	return (cmd_set_material_flags(tmp, parser));
+	}
+	return (cmd_set_material_flags(rt, tmp, parser));
 }

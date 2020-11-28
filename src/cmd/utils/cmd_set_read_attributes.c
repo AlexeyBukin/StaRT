@@ -44,7 +44,6 @@ int				cmd_set_obj_name(t_rt *rt, t_parser *parser)
 {
 	char		*tmp;
 
-	(void)rt;
 	if (ft_str_next_is(parser->cur, "-n"))
 	{
 		parser->cur += ft_strlen("-n");

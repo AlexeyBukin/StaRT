@@ -112,12 +112,11 @@ src/cmd/set/cmd_set_object_attributes.c         src/scn/print/scn_print_txr.c \
 src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_cam.c \
 src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_copy.c \
 src/cmd/set/cmd_set_transform_part.c            src/scn/remove/scn_remove_by_name_grp.c \
-src/scn/remove/scn_remove_by_name_mat.c \
 src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_name_obj.c \
 src/cmd/utils/cmd_read_material.c               src/scn/remove/scn_remove_by_name_txr.c \
 src/cmd/utils/cmd_read_num.c                    src/scn/scn_get_mat.c \
-src/cmd/set/cmd_set_obj.c                       src/scn/scn_id.c \
-src/cmd/utils/cmd_set_prepare_obj.c             src/scn/scn_init.c \
+src/cmd/set/cmd_set_obj_to_scn.c                src/scn/scn_id.c \
+src/cmd/set/cmd_set_prepare_obj.c               src/scn/scn_init.c \
 src/err/msg_err.c                               src/scn/scn_name.c \
 src/err/msg_ok.c                                src/scn/utils/scn_del_copies_of.c \
 src/err/msg_warn.c                              src/scn/utils/scn_group_mem.c \
@@ -133,6 +132,7 @@ src/mat/mat_init.c                              src/tfm/tfm_move.c \
 src/obj/obj_container_init.c                    src/txr/txr_init.c \
 src/obj/obj_copy_init.c                         src/vlk/vlk_init.c \
 src/cmd/rm/cmd_rm_material.c \
+src/scn/remove/scn_remove_by_name_mat.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
