@@ -108,7 +108,7 @@ src/cmd/set/cmd_set_cone.c                      src/scn/print/scn_print.c \
 src/cmd/set/cmd_set_cylinder.c                  src/scn/print/scn_print_cam.c \
 src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print_grp.c \
 src/cmd/set/cmd_set_material.c                  src/scn/print/scn_print_mat.c \
-src/cmd/set/cmd_set_object_attributes.c         src/scn/print/scn_print_txr.c \
+src/cmd/utils/cmd_set_read_attributes.c         src/scn/print/scn_print_txr.c \
 src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_cam.c \
 src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_copy.c \
 src/cmd/set/cmd_set_transform_part.c            src/scn/remove/scn_remove_by_name_grp.c \
