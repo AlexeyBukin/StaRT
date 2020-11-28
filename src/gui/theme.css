@@ -16,10 +16,17 @@ menuitem:hover {
     background-color: rgb(141, 104, 74);
 }
 
-view {
+
+.view {
     background: #3c3c41;
     color: rgb(255, 115, 0);
     box-shadow: none;
+}
+
+.view:selected {
+    background: rgb(141, 104, 74);
+    box-shadow: none;
+    color: rgb(255, 255, 255);
 }
 
 box:selected {

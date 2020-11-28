@@ -82,8 +82,11 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	gui_get_info_and_style(builder, "item_Edit", GENERAL);
 	gui_get_info_and_style(builder, "item_View", GENERAL);
 	gui_get_info_and_style(builder, "item_Help", GENERAL);
+	
+	//gui_get_info_and_style(builder, "tree_view", GENERAL);
 	gui_signals(window, builder, user_data);
 	//gtk_container_add(GTK_CONTAINER(window), tree_view);
+	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 	gtk_widget_show_all(GTK_WIDGET(window));
 	gtk_main ();
 }
