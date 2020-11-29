@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/17 14:50:47 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/28 20:07:25 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		create_img(guchar **img)
 	}
 }
 
-static void		on_render_rt(t_rt *user_data, GtkBuilder *builder)
+void		on_render_rt(t_rt *user_data, GtkBuilder *builder)
 {
 	(void)user_data;
 	GdkPixbuf *pix_buf;
@@ -63,4 +63,6 @@ void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
 	signal = gtk_builder_get_object(builder, "render");
 	g_signal_connect(signal, "activate",
 					G_CALLBACK(on_render_rt), (GtkBuilder *)builder);
+	g_signal_connect(G_OBJECT(window), "destroy",
+									G_CALLBACK(gtk_main_quit), NULL);
 }

@@ -16,6 +16,17 @@ menuitem:hover {
     background-color: rgb(141, 104, 74);
 }
 
+menu {
+    color:  white;
+    box-shadow: none;
+    background-color: rgb(141, 104, 74);
+}
+
+#submenu:hover {
+    color:  rgb(141, 104, 74);
+    box-shadow: none;
+    background-color: white;
+}
 
 .view {
     background: #3c3c41;
@@ -33,4 +44,9 @@ box:selected {
     background: rgb(141, 104, 74);
     box-shadow: none;
     color: rgb(255, 255, 255);
+}
+
+button {
+    background: rgb(141, 104, 74);
+    color: rgb(0, 0, 0);
 }
