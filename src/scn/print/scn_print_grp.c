@@ -47,6 +47,13 @@ void		scn_print_obj_params(t_obj *obj, int tab_num)
 		}
 		ft_printf(" material_name %s ", obj->content.container.material->name);
 	}
+	if (obj->type == OBJ_LIGHT)
+	{
+		ft_printf("LIGHT intensity %.3f %sпше фвв ; color <%.3f, %.3f, %.3f> ", obj->content.light.light.intensity,
+				obj->content.light.lgt_type == LGT_PARALLEL ? "PARALLEL" : "POINT",
+				obj->content.light.light.color.x,obj->content.light.light.color.y,
+				  obj->content.light.light.color.z);
+	}
 	scn_print_obj_common_params(&obj->transform);
 }
 
@@ -77,6 +84,16 @@ int		scn_print_grp_rec(t_obj *obj, int tab_num)
 	while (i < grp.child_num)
 	{
 		if (grp.children[i]->type == OBJ_CONTAINER)
+		{
+			if (scn_print_grp_rec(grp.children[i], tab_num + 1))
+				return (rt_err("scn_print_grp_rec(): couldn\'t get info about obj"));
+		}
+		i++;
+	}
+	i = 0;
+	while (i < grp.child_num)
+	{
+		if (grp.children[i]->type == OBJ_LIGHT)
 		{
 			if (scn_print_grp_rec(grp.children[i], tab_num + 1))
 				return (rt_err("scn_print_grp_rec(): couldn\'t get info about obj"));

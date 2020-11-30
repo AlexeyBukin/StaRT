@@ -83,6 +83,14 @@ int 				cmd_read_matrix(char **source, t_mat3x3 *mtx);
 int						cmd_read_material(t_parser *parser);
 
 /*
+**				cmd/utils/cmd_read_light
+*/
+
+int						cmd_light_set_color(t_parser *parser);
+int						cmd_light_set_type(t_parser *parser);
+int						cmd_light_set_intensity(t_parser *parser);
+
+/*
 **				cmd/utils/cmd_add_obj_to_scn
 */
 

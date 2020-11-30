@@ -64,7 +64,7 @@ INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
 -I src/gui -I src/mat -I src/mtl \
 -I src/obj -I src/scn -I src/shp \
 -I src/srv -I src/tfm -I src/txr -I src/vlk \
--I src/grp \
+-I src/grp -I src/lgt \
 $(GTK_INCLUDE)
 
 CFLAGS := -Wall -Wextra -Werror -g $(CFLAGS)
@@ -75,48 +75,51 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
 HEADERS	:= \
-src/cam/cam.h           src/gpu/gpu_types.h     src/rt.h                src/srv/srv_types.h \
-src/cam/cam_types.h     src/grp/grp.h           src/rt_types.h          src/tfm/tfm.h \
-src/cmd/cmd.h           src/gui/gui.h           src/scn/scn.h           src/tfm/tfm_types.h \
-src/cmd/cmd_add.h       src/gui/gui_types.h     src/scn/scn_add.h       src/txr/txr.h \
-src/cmd/cmd_set.h       src/mat/mat.h           src/scn/scn_id.h        src/txr/txr_types.h \
-src/cmd/cmd_types.h     src/mat/mat_types.h     src/scn/scn_types.h     src/vlk/vlk.h \
-src/err/err.h           src/mtl/mtl.h           src/shp/shp.h \
-src/gpu/gpu.h           src/obj/obj.h           src/shp/shp_types.h \
-src/gpu/gpu_objects.h   src/obj/obj_types.h     src/srv/srv.h \
+src/cam/cam.h           src/gpu/gpu_types.h     src/obj/obj_types.h     src/srv/srv.h \
+src/cam/cam_types.h     src/grp/grp.h           src/rt.h                src/srv/srv_types.h \
+src/cmd/cmd.h           src/gui/gui.h           src/rt_types.h          src/tfm/tfm.h \
+src/cmd/cmd_add.h       src/gui/gui_types.h     src/scn/scn.h           src/tfm/tfm_types.h \
+src/cmd/cmd_set.h       src/lgt/lgt_types.h     src/scn/scn_add.h       src/txr/txr.h \
+src/cmd/cmd_types.h     src/mat/mat.h           src/scn/scn_id.h        src/txr/txr_types.h \
+src/err/err.h           src/mat/mat_types.h     src/scn/scn_types.h     src/vlk/vlk.h \
+src/gpu/gpu.h           src/mtl/mtl.h           src/shp/shp.h \
+src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp_types.h \
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
 SRC_SHARED	:= \
-src/cam/cam_init.c                              src/obj/obj_copy_init.c \
-src/cmd/add/cmd_add.c                           src/obj/obj_init.c \
-src/cmd/add/cmd_add_camera.c                    src/rt.c \
-src/cmd/add/cmd_add_cone.c                      src/scn/add/scn_add_cam.c \
-src/cmd/add/cmd_add_cylinder.c                  src/scn/add/scn_add_mat.c \
-src/cmd/add/cmd_add_group.c                     src/scn/add/scn_add_obj.c \
-src/cmd/add/cmd_add_material.c                  src/scn/add/scn_add_to_group.c \
-src/cmd/add/cmd_add_plane.c                     src/scn/add/scn_add_to_group_copy.c \
-src/cmd/add/cmd_add_sphere.c                    src/scn/add/scn_add_to_group_grp.c \
-src/cmd/cmd_error.c                             src/scn/add/scn_add_to_group_obj.c \
-src/cmd/cmd_parce_command.c                     src/scn/add/scn_add_txr.c \
-src/cmd/cmd_parse.c                             src/scn/get/scn_get_cam_by_name.c \
-src/cmd/ls/cmd_ls.c                             src/scn/get/scn_get_mat_by_name.c \
-src/cmd/render/cmd_render.c                     src/scn/get/scn_get_obj_by_id.c \
-src/cmd/rm/cmd_rm.c                             src/scn/get/scn_get_obj_by_name.c \
-src/cmd/rm/cmd_rm_by_name.c                     src/scn/get/scn_get_txr_by_name.c \
-src/cmd/rm/cmd_rm_material.c                    src/scn/move/scn_move_obj.c \
-src/cmd/set/cmd_set.c                           src/scn/print/scn_print.c \
-src/cmd/set/cmd_set_camera.c                    src/scn/print/scn_print_cam.c \
-src/cmd/set/cmd_set_cone.c                      src/scn/print/scn_print_grp.c \
-src/cmd/set/cmd_set_cylinder.c                  src/scn/print/scn_print_mat.c \
-src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print_txr.c \
+src/cam/cam_init.c                              src/obj/obj_container_init.c \
+src/cmd/add/cmd_add.c                           src/obj/obj_copy_init.c \
+src/cmd/add/cmd_add_camera.c                    src/obj/obj_init.c \
+src/cmd/add/cmd_add_cone.c                      src/rt.c \
+src/cmd/add/cmd_add_cylinder.c                  src/scn/add/scn_add_cam.c \
+src/cmd/add/cmd_add_group.c                     src/scn/add/scn_add_ligth.c \
+src/cmd/add/cmd_add_light.c                     src/scn/add/scn_add_mat.c \
+src/cmd/add/cmd_add_material.c                  src/scn/add/scn_add_obj.c \
+src/cmd/add/cmd_add_plane.c                     src/scn/add/scn_add_to_group.c \
+src/cmd/add/cmd_add_sphere.c                    src/scn/add/scn_add_to_group_copy.c \
+src/cmd/cmd_error.c                             src/scn/add/scn_add_to_group_grp.c \
+src/cmd/cmd_parce_command.c                     src/scn/add/scn_add_to_group_obj.c \
+src/cmd/cmd_parse.c                             src/scn/add/scn_add_txr.c \
+src/cmd/ls/cmd_ls.c                             src/scn/get/scn_get_cam_by_name.c \
+src/cmd/render/cmd_render.c                     src/scn/get/scn_get_mat_by_name.c \
+src/cmd/rm/cmd_rm.c                             src/scn/get/scn_get_obj_by_id.c \
+src/cmd/rm/cmd_rm_by_name.c                     src/scn/get/scn_get_obj_by_name.c \
+src/cmd/rm/cmd_rm_material.c                    src/scn/get/scn_get_txr_by_name.c \
+src/cmd/set/cmd_set.c                           src/scn/move/scn_move_obj.c \
+src/cmd/set/cmd_set_camera.c                    src/scn/print/scn_print.c \
+src/cmd/set/cmd_set_cone.c                      src/scn/print/scn_print_cam.c \
+src/cmd/set/cmd_set_cylinder.c                  src/scn/print/scn_print_grp.c \
+src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print_mat.c \
+src/cmd/set/cmd_set_light.c                     src/scn/print/scn_print_txr.c \
 src/cmd/set/cmd_set_material.c                  src/scn/remove/scn_remove_by_name_cam.c \
 src/cmd/set/cmd_set_obj_to_scn.c                src/scn/remove/scn_remove_by_name_copy.c \
 src/cmd/set/cmd_set_object.c                    src/scn/remove/scn_remove_by_name_grp.c \
-src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_mat.c \
-src/cmd/set/cmd_set_prepare_obj.c               src/scn/remove/scn_remove_by_name_obj.c \
-src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_txr.c \
-src/cmd/utils/cmd_read.c                        src/scn/scn_get_mat.c \
+src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_lgt.c \
+src/cmd/set/cmd_set_prepare_obj.c               src/scn/remove/scn_remove_by_name_mat.c \
+src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_obj.c \
+src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_name_txr.c \
+src/cmd/utils/cmd_read_light.c                  src/scn/scn_get_mat.c \
 src/cmd/utils/cmd_read_material.c               src/scn/scn_id.c \
 src/cmd/utils/cmd_read_num.c                    src/scn/scn_init.c \
 src/cmd/utils/cmd_set_read_attributes.c         src/scn/scn_name.c \
@@ -132,8 +135,8 @@ src/gpu/gpu_kernel_run.c                        src/srv/srv_utils.c \
 src/grp/grp_init.c                              src/tfm/tfm_init.c \
 src/grp/grp_remove_by_name.c                    src/tfm/tfm_move.c \
 src/gui/gui_init.c                              src/txr/txr_init.c \
-src/mat/mat_init.c                              src/vlk/vlk_init.c \
-src/obj/obj_container_init.c \
+src/lgt/lgt_init.c                              src/vlk/vlk_init.c \
+src/mat/mat_init.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
