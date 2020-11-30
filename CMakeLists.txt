@@ -9,32 +9,31 @@ project(RT)
 add_definitions(-DPLATFORM_MACOS)
 
 #  find src -type f -name '*.c' | sort | column -c 100
-set(${PROJECT_NAME}_SOURCES
-        src/cam/cam_add.c                       src/err/msg_err.c                       src/scn/get/scn_get_obj_by_id.c
-        src/cam/cam_init.c                      src/err/msg_ok.c                        src/scn/get/scn_get_obj_by_name.c
-        src/cam/cam_remove.c                    src/err/msg_warn.c                      src/scn/get/scn_get_txr_by_name.c
-        src/err/rt_err.c                        src/scn/scn_get_mat.c
-        src/err/rt_warn.c                       src/scn/scn_id.c
-        src/gpu/gpu_buffer_load.c               src/scn/scn_init.c
-        src/gpu/gpu_init.c src/scn/utils/scn_name.c
-        src/gpu/gpu_kernel_run.c                src/srv/srv_deinit.c
-        src/gui/gui_init.c                      src/srv/srv_ext.c
-        src/main.c                              src/srv/srv_ext_data.c
-        src/mat/mat_add.c                       src/srv/srv_init.c
-        src/mat/mat_init.c                      src/srv/srv_loop.c
-        src/mat/mat_remove.c                    src/srv/srv_parse.c
+set(${PROJECT_NAME}_SOURCE
+        src/cam/cam_init.c                      src/err/msg_err.c                       src/scn/get/scn_get_obj_by_name.c
+        src/err/msg_ok.c                        src/scn/scn_get_mat.c
+        src/err/msg_warn.c                      src/scn/scn_id.c
+        src/err/rt_err.c                        src/scn/scn_init.c
+        src/err/rt_warn.c                       src/scn/scn_name.c
+        src/gpu/gpu_buffer_load.c               src/srv/srv_deinit.c
+        src/gpu/gpu_init.c                      src/srv/srv_ext.c
+        src/gpu/gpu_kernel_run.c                src/srv/srv_ext_data.c
+        src/gui/gui_init.c                      src/srv/srv_init.c
+        src/main.c                              src/srv/srv_loop.c
+        src/mat/mat_init.c                      src/srv/srv_parse.c
         src/obj/obj_container_init.c            src/srv/srv_utils.c
         src/obj/obj_copy_init.c                 src/tfm/tfm_init.c
         src/obj/obj_grp_init.c                  src/tfm/tfm_move.c
-        src/obj/obj_init.c                      src/txr/txr_add.c
-        src/rt.c                                src/txr/txr_init.c
-        src/scn/get/scn_get_cam_by_name.c       src/txr/txr_remove.c
-        src/scn/get/scn_get_mat_by_name.c       src/vlk/vlk_init.c
-        )
+        src/obj/obj_init.c                      src/txr/txr_init.c
+        src/rt.c                                src/vlk/vlk_init.c
+        src/scn/add/scn_add_obj.c
+        src/scn/get/scn_get_obj_by_id.c
+)
 
 add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+<<<<<<< HEAD
         ${PROJECT_SOURCE_DIR}/src              ${PROJECT_SOURCE_DIR}/src/err
         ${PROJECT_SOURCE_DIR}/src/gui          ${PROJECT_SOURCE_DIR}/src/srv
         ${PROJECT_SOURCE_DIR}/src/cmd          ${PROJECT_SOURCE_DIR}/src/gpu
@@ -43,6 +42,16 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/tfm          ${PROJECT_SOURCE_DIR}/src/obj
         ${PROJECT_SOURCE_DIR}/src/shp          ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/vlk
+=======
+        ${PROJECT_SOURCE_DIR}/src       ${PROJECT_SOURCE_DIR}/src/err
+        ${PROJECT_SOURCE_DIR}/src/gui   ${PROJECT_SOURCE_DIR}/src/srv
+        ${PROJECT_SOURCE_DIR}/src/cmd   ${PROJECT_SOURCE_DIR}/src/gpu
+        ${PROJECT_SOURCE_DIR}/src/mtl   ${PROJECT_SOURCE_DIR}/src/scn
+        ${PROJECT_SOURCE_DIR}/src/vlk   ${PROJECT_SOURCE_DIR}/src/txr
+        ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
+        ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
+        ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
+>>>>>>> 04b620ed443469cd16a4ff6214ee6675bbc7b680
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

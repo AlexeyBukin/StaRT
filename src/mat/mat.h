@@ -20,11 +20,4 @@ int             mat_init(t_mat **mat_container, char *mat_name);
 int				mat_init_default(t_mat **mat_container);
 int				mat_deinit(t_mat *mat);
 
-/*
-**			mat_add
-*/
-
-int				mat_add(t_scn *scn, t_mat *mat);
-int				mat_remove_by_name(t_scn *scn, char *name);
-
 #endif

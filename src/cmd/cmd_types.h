@@ -6,7 +6,7 @@
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 11:02:30 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 19:35:41 by jvoor            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct		s_parser
 {
+<<<<<<< HEAD
 	t_obj			*obj;
 	t_mat			*mat;
 	t_cam			*cam;
@@ -52,5 +53,20 @@ typedef struct		s_set_fork
 	t_msg			(t_scn *, t_obj *, char **);
 	char			*word;
 }					t_set_fork;
+=======
+	t_obj			*object;
+	t_obj_container *container;
+	t_tfm			*transform;
+//	t_vec3			rot_euler_xyz;
+//TODO added group in parser
+	t_obj			*group;
+	t_cam			*camera;
+	t_mat			*material;
+	t_txr			*texture;
+	char			*name;
+	char			*source;
+	char			*cur;
+}					t_parser;
+>>>>>>> 04b620ed443469cd16a4ff6214ee6675bbc7b680
 
 #endif
