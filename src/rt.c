@@ -23,8 +23,8 @@ int				rt_init(t_rt **rt)
 	// 	return (rt_err("scn_init() fail"));
 	if (scn_init(&((*rt)->scene)))
 		return (rt_err("gpu_init() fail"));
-	(*rt)->mutex = &((*rt)->mutex_true);
-	g_mutex_init((*rt)->mutex);
+//	(*rt)->mutex = &((*rt)->mutex_true);
+//	g_mutex_init((*rt)->mutex);
 	return (0);
 }
 
@@ -32,7 +32,7 @@ int				rt_deinit(t_rt *rt)
 {
 	if (rt == NULL)
 		return (rt_err("rt is NULL pointer"));
-	g_mutex_clear(rt->mutex);
+//	g_mutex_clear(rt->mutex);
 	scn_deinit(rt->scene);
 	ft_free(rt);
 	return (0);
