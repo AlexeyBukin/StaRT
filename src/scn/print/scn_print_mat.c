@@ -6,13 +6,13 @@
 
 void			print_vec3(t_vec3 vec)
 {
-	ft_printf("<%f, %f, %f> ",
+	ft_printf("<%.3f, %.3f, %.3f> ",
 			  vec.x, vec.y, vec.z);
 }
 
 void			print_vec2(t_vec2 vec)
 {
-	ft_printf("<%f, %f> ",
+	ft_printf("<%.3f, %.3f> ",
 			  vec.x, vec.y);
 }
 
@@ -27,13 +27,13 @@ void			scn_print_mat(t_scn *scn)
 		ft_printf("\t%s id %d ",
 				scn->materials[i]->name, scn->materials[i]->id);
 		ft_printf("-m ");
-		ft_printf("%f ", scn->materials[i]->content.pbr.metalness);
+		ft_printf("%.3f ", scn->materials[i]->content.pbr.metalness);
 		ft_printf("-r ");
-		ft_printf("%f ", scn->materials[i]->content.pbr.roughness);
+		ft_printf("%.3f ", scn->materials[i]->content.pbr.roughness);
 		ft_printf("-i ");
-		ft_printf("%f ", scn->materials[i]->content.pbr.ior);
+		ft_printf("%.3f ", scn->materials[i]->content.pbr.ior);
 		ft_printf("-t ");
-		ft_printf("%f ", scn->materials[i]->content.pbr.transparency);
+		ft_printf("%.3f ", scn->materials[i]->content.pbr.transparency);
 		ft_printf("-a ");
 		print_vec3(scn->materials[i]->content.pbr.albedo);
 		ft_printf("-f ");

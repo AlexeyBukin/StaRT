@@ -6,10 +6,10 @@
 
 void		scn_print_cam_params(int id, char *name, t_tfm *trf, t_vec2 fov)
 {
-	ft_printf("\t%s id %d fov <%f, %f> pos <%f, %f, %f> ", name, id,
+	ft_printf("\t%s id %d fov <%.3f, %.3f> pos <%.3f, %.3f, %.3f> ", name, id,
 			  fov.x, fov.y,
 			  trf->pos_local.x, trf->pos_local.y, trf->pos_local.z);
-	ft_printf("angle [<%f, %f, %f>, <%f, %f, %f>, <%f, %f, %f>]\n",
+	ft_printf("angle [<%.3f, %.3f, %.3f>, <%.3f, %.3f, %.3f>, <%.3f, %.3f, %.3f>]\n",
 				trf->rot_local.x.x, trf->rot_local.x.y, trf->rot_local.x.z,
 				trf->rot_local.y.x, trf->rot_local.y.y, trf->rot_local.y.z,
 				trf->rot_local.z.x, trf->rot_local.z.y, trf->rot_local.z.z);
