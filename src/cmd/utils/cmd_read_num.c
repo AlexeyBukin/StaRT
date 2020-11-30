@@ -25,6 +25,8 @@ int			cmd_read_num(char **source, t_num *num)
 		return (rt_err("Arguments are NULL"));
 	if ((ptr = *source) == NULL)
 		return (rt_err("Dereference to NULL pointer"));
+	if (!ft_isnum(*num))
+		return (-1);
 	*num = (t_num)ft_atod(ptr);
 	while (ft_isnum(*ptr))
 		ptr++;
