@@ -46,10 +46,7 @@ t_msg				cmd_set_material_flags(t_rt *rt, t_mat *dest, t_parser *parser)
 		if (cmd_set_obj_name(rt, parser))
 			return (set_material_error(parser, "cmd_set_material_flags: bad name"));
 	}
-	ft_memcpy(dest, parser->material, sizeof(t_mat));
-	dest->name = ft_strdup(parser->name);
-	mat_deinit(parser->material);
-	return (msg_oks("material set success"));
+	return (cmd_set_mat_to_scn(parser, dest));
 }
 
 static int			init_material_parser(t_parser *parser, t_mat *src)

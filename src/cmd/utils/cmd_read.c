@@ -89,6 +89,20 @@ int			cmd_read_comma(char **str)
 ** returns -1 on error
 */
 
+int			check_name(char *name, char **dest)
+{
+	if (name == NULL)
+		return (rt_err("ft_strndup() returned NULL"));
+	if (ft_strequ(name, "null") || ft_strequ(name, "NULL") ||
+			ft_strequ(name, ""))
+	{
+		ft_free(name);
+		return (-1);
+	}
+	*dest = name;
+	return (0);
+}
+
 int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 {
 	char		*str;
@@ -108,9 +122,6 @@ int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 		return (rt_warning("Syntax error: Expected '\"' at the end of string", 1));
 	*source += i + 1;
 	str = ft_strndup(str + 1, i - 1);
-	if (str == NULL)
-		return (rt_err("ft_strndup() returned NULL"));
-	*dest = str;
-	return (0);
+	return (check_name(str, dest));
 }
 

@@ -36,11 +36,7 @@ static t_msg               cmd_set_camera_flags(t_rt *rt, t_cam *dest, t_parser 
 		if (cmd_set_obj_name(rt, parser))
 			return (set_camera_error(parser, "cmd_set_camera(): bad syntax visibility"));
 	}
-    ft_memcpy(dest, parser->camera, sizeof(t_cam));
-    dest->name = ft_strdup(parser->name);
-	cam_deinit(parser->camera);
-	ft_free(parser->name);
-    return (msg_oks("camera set done"));
+	return (cmd_set_cam_to_scn(parser, dest));
 }
 
 static int			init_camera_parser(t_parser *parser, t_cam *src)

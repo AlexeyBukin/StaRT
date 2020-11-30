@@ -14,13 +14,11 @@ int			cmd_read_fov(t_parser *parser)
 	return (0);
 }
 
-static int			init_camera_parser(t_parser *parser)
+static t_msg		add_camera_error(t_parser *parser, char *message)
 {
-	if (cam_init(&parser->camera, parser->name))
-		return (rt_err("Criticall err malloc"));
-	parser->camera->transform.rot_local = mat3x3_identity();
-	parser->transform = &parser->camera->transform;
-	return (0);
+	ft_free(parser->camera);
+	ft_free(parser->name);
+	return (msg_warn(message));
 }
 
 static t_msg	    cmd_parse_camera_flags(t_rt *rt, t_parser *parser)
@@ -28,14 +26,24 @@ static t_msg	    cmd_parse_camera_flags(t_rt *rt, t_parser *parser)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_camera(): bad syntax1"));
+			return (add_camera_error(parser, "cmd_set_camera(): bad syntax1"));
 		if (cmd_read_transform_part(parser))
-			return (msg_warn("camera_parse_flags(): bad syntax in transform"));
+			return (add_camera_error(parser, "camera_parse_flags(): bad syntax in transform"));
 		if (cmd_read_fov(parser))
-			return (msg_warn("camera_parse_flags(): bad syntax in fov"));
+			return (add_camera_error(parser, "camera_parse_flags(): bad syntax in fov"));
 	}
-	scn_add_cam(rt->scene, parser->camera);
-	return (msg_oks("it works!"));
+	if (scn_add_cam(rt->scene, parser->camera))
+		return (add_camera_error(parser, "couldn\'t add camera to scene"));
+	return (msg_oks("camera added successfully"));
+}
+
+static int			init_camera_parser(t_parser *parser)
+{
+	if (cam_init(&parser->camera, parser->name))
+		return (rt_err("Criticall err malloc"));
+	parser->camera->transform.rot_local = mat3x3_identity();
+	parser->transform = &parser->camera->transform;
+	return (0);
 }
 
 t_msg           cmd_add_camera(t_rt *rt, t_parser *parser)

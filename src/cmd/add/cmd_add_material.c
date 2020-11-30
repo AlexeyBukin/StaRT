@@ -22,19 +22,26 @@ static int			init_material_parser(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
+static t_msg		add_material_error(t_parser *parser, char *message)
+{
+	ft_free(parser->material);
+	ft_free(parser->name);
+	return (msg_warn(message));
+}
+
 t_msg				cmd_parse_material_flags(t_rt *rt, t_parser *parser)
 {
 	(void)rt;
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_parse_material_flags(): bad syntax1"));
+			return (add_material_error(parser, "cmd_parse_material_flags(): bad syntax1"));
 		if (cmd_read_material(parser))
-			return (msg_warn("cmd_parse_material_flags(): bad syntax1"));
+			return (add_material_error(parser, "cmd_parse_material_flags(): bad syntax1"));
 	}
-//	parser->material
-	scn_add_mat(rt->scene, parser->material);
-	return (msg_oks("it works!"));
+	if (scn_add_mat(rt->scene, parser->material))
+		return (add_material_error(parser, "couldn\'t add material to scene"));
+	return (msg_oks("material added successfully"));
 }
 
 t_msg				cmd_add_material(t_rt *rt, t_parser *parser)

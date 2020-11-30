@@ -30,6 +30,7 @@
 
 t_msg					cmd_parse_line(t_rt *rt, char *source)
 {
+	t_msg				res;
 	t_parser			*parser;
 	
 	if ((parser = ft_malloc(sizeof(t_parser))) == NULL)
@@ -40,5 +41,7 @@ t_msg					cmd_parse_line(t_rt *rt, char *source)
 	parser->cur = source;
 	if (rt == NULL || source == NULL)
 		return (msg_err("Argument is NULL pointer"));
-	return (cmd_parse_command(rt, parser));
+	res = cmd_parse_command(rt, parser);
+	ft_free(parser);
+	return (res);
 }

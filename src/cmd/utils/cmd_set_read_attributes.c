@@ -52,7 +52,10 @@ int				cmd_set_obj_name(t_rt *rt, t_parser *parser)
 		if (cmd_read_string(&(parser->cur), &tmp))
 			return (rt_err("cmd_add_sphere(): bad name"));
 		if (scn_name_check(rt->scene, tmp))
+		{
+			ft_free(tmp);
 			return (rt_err("cmd_set_name(): name collision"));
+		}
 		ft_free(parser->name);
 		parser->name = tmp;
 	}
@@ -72,8 +75,12 @@ int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)//find material please!
 		if (cmd_read_string(&(parser->cur), &(material_name)))
 			return (rt_err("cmd_add_sphere(): bad name"));
 		if ((material = scn_get_mat_by_name(rt->scene, material_name)) == NULL)
-			return (rt_err("cmd_add_sphere(): material with given "
-				"name does not exist"));
+		{
+			ft_free(material_name);
+			return (rt_err("cmd_set_obj_mat(): material with given "
+						   "name does not exist"));
+		}
+		ft_free(material_name);
 		parser->material = material;
 	}
 	return (0);
@@ -92,11 +99,18 @@ int				cmd_set_obj_grp(t_rt *rt, t_parser *parser)//find group please!
 		if (cmd_read_string(&(parser->cur), &(group_name)))
 			return (rt_err("cmd_add_sphere(): bad name"));
 		if ((group = scn_get_obj_by_name(rt->scene, group_name)) == NULL)
+		{
+			ft_free(group_name);
 			return (rt_err("cmd_add_sphere(): couldn't find group"));
+		}
 		if (group->type != OBJ_GROUP)
+		{
+			ft_free(group_name);
 			return (rt_err("cmd_add_sphere(): object with given"
-			" name is not a group"));
+								  " name is not a group"));
+		}
 		parser->group = group;
+		ft_free(group_name);
 	}
 	return (0);
 }

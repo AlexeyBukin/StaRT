@@ -36,7 +36,7 @@ set(${PROJECT_NAME}_SOURCE
         src/cmd/utils/cmd_read.c src/gpu/gpu_kernel_run.c        src/srv/srv_deinit.c
         src/cmd/utils/cmd_read_num.c src/gui/gui_init.c              src/srv/srv_ext.c
         src/cmd/cmd_set_sphere.c        src/main.c                      src/srv/srv_ext_data.c
-        src/cmd/set/cmd_set_transform_part.c src/rt.c                        src/srv/srv_init.c
+        src/cmd/utils/cmd_set_read_part.c src/rt.c                        src/srv/srv_init.c
         src/cmd/cmd_valid.c             src/scn/check_arguments.c       src/srv/srv_loop.c
         src/err/msg_err.c               src/scn/cone.c                  src/srv/srv_parse.c
         src/err/msg_ok.c                src/scn/cylinder.c              src/srv/srv_utils.c

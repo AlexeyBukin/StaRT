@@ -22,37 +22,14 @@ t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
 	cmd_read_space(&parser->cur);
     str = parser->cur;
 	if (ft_str_next_is(str, "add"))
-    {
-        parser->cur += ft_strlen("add");
 		return (cmd_add(rt, parser));
-    }
-     else if (ft_str_next_is(str, "set"))
-     {
-         parser->cur += ft_strlen("set");
+    if (ft_str_next_is(str, "set"))
          return (cmd_set(rt, parser));
-     }
-	else if (ft_str_next_is(str, "render"))
-	{
-		parser->cur += ft_strlen("render");
-		return (msg_warn("WERE IS RENDER PUT IT IN HERE"));
-	}
-     //render
-    else if (ft_str_next_is(str, "rm"))
-    {
-        parser->cur += ft_strlen("rm");
+	if (ft_str_next_is(str, "render"))
+		return (cmd_render(rt, parser));
+    if (ft_str_next_is(str, "rm"))
         return (cmd_rm(rt, parser));
-    }
-	else if (ft_str_next_is(str, "ls"))
-	{
-		parser->cur += ft_strlen("ls");
-		if (scn_print(rt->scene))
-			return (msg_warn("cmd_parse_command(): couldn\'t print objects"));
-		return (msg_oks("It\'s for debug only"));
-	}
-    // else if (ft_str_next_is(str, "ls"))
-    // {
-    //     parser->cur += ft_strlen("ls");
-    //     return (cmd_parse_ls());
-    // }
+	if (ft_str_next_is(str, "ls"))
+		return (cmd_ls(rt, parser));
     return (msg_warn("Syntax error: Unknown keyword"));
 }

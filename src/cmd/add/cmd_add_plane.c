@@ -29,15 +29,15 @@ static t_msg		cmd_parse_plane_flags(t_rt *rt, t_parser *parser)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (msg_warn("cmd_set_plane(): bad syntax1"));
+			return (cmd_add_error(parser, "cmd_add_plane(): bad syntax1"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (msg_warn("plane_parse_flags(): bad syntax in transform"));
+			return (cmd_add_error(parser, "cmd_add_plane(): bad syntax in transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax visibility"));
+			return (cmd_add_error(parser, "cmd_add_plane: bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax group"));
+			return (cmd_add_error(parser, "cmd_add_plane: bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (msg_warn("cmd_set_obj_attributes: bad syntax material"));
+			return (cmd_add_error(parser, "cmd_add_plane: bad syntax material"));
 	}
 	return (cmd_add_obj_to_scn(rt, parser));
 }

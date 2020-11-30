@@ -20,17 +20,17 @@ t_msg				cmd_set_plane_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (set_error(parser, "cmd_set_plane(): bad syntax"));
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (set_error(parser, "cmd_set_plane(): bad syntax transform"));
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (set_error(parser, "cmd_set_plane(): bad syntax visibility"));
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_plane(): bad syntax group"));
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_plane(): bad syntax material"));
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_plane(): bad syntax name or "
+			return (cmd_set_error(parser, "cmd_set_plane(): bad syntax name or "
 							 "name collision"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));

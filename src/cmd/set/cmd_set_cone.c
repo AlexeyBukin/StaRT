@@ -48,21 +48,21 @@ t_msg				cmd_set_cone_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (set_error(parser, "cmd_set_cone(): bad syntax"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax"));
 		if (cone_set_radius(parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax in rad"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in rad"));
 		if (cone_set_length(parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax in length"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in length"));
 		if (cmd_read_transform_part(parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax in transform"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in transform"));
 		if (cmd_set_obj_visibility(parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax visibility"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax group"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax material"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser))
-			return (set_error(parser, "cmd_set_cone(): bad syntax name"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax name"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }

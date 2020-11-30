@@ -22,6 +22,12 @@
 //TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
 
 /*
+**				cmd_render
+*/
+
+t_msg					cmd_render(t_rt *rt, t_parser *parser);
+
+/*
 **				cmd_parse
 */
 
@@ -37,6 +43,7 @@ t_msg				cmd_parse_command(t_rt *rt, t_parser *parser);
 **				cmd/ls
 */
 
+t_msg				cmd_ls(t_rt *rt, t_parser *parser);
 t_msg				cmd_ls_scene(t_rt *rt, char *source);
 t_msg				cmd_ls_sphere(t_rt *rt, char *source);
 
@@ -47,6 +54,7 @@ t_msg				cmd_ls_sphere(t_rt *rt, char *source);
 t_msg				cmd_rm(t_rt *rt, t_parser *parser);
 t_msg				cmd_rm_by_name(t_rt *rt, t_parser *parser, int rm_force);
 int					cmd_rm_material(t_rt *rt, t_parser *parser);
+t_msg				cmd_rm_error(t_parser *parser, char *message);
 
 /*
 **				cmd/utils/cmd_read

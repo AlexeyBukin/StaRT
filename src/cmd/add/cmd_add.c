@@ -23,7 +23,10 @@ t_msg		cmd_add_obj_to_scn(t_rt *rt, t_parser *parser)
 	parser->object->transform.rot_local.y = vec3_normalize(parser->object->transform.rot_local.y);
 	parser->object->transform.rot_local.z = vec3_normalize(parser->object->transform.rot_local.z);
 	if (scn_add_to_group(rt->scene, parser->group, parser->object))
-		return (msg_oks("couldn\'t add obj to scene"));
+	{
+		obj_deinit(parser->object);
+		return (msg_warn("couldn\'t add obj to scene"));
+	}
 	return (msg_oks("added object to scene successfully"));
 }
 
@@ -33,6 +36,7 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 
 	if (parser == NULL)
 		return(msg_warn("Given NULL pointer in cmd_add()"));
+	parser->cur += ft_strlen("add");
 	if (cmd_read_space_req(&parser->cur))
         return (msg_warn("Bad syntax"));
 	str = parser->cur;

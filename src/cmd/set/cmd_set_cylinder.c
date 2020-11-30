@@ -49,21 +49,21 @@ t_msg				cmd_set_cylinder_read(t_rt *rt, t_parser *parser, t_obj *dest)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax"));
 		if (cylinder_set_radius(parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax rad"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax rad"));
 		if (cylinder_set_length(parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax length"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax length"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax transform"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax visibility"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax group"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax material"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (set_error(parser, "cmd_set_cylinder(): bad syntax name"));
+			return (cmd_set_error(parser, "cmd_set_cylinder(): bad syntax name"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }

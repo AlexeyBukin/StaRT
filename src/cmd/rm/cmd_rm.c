@@ -29,23 +29,34 @@ static void		cmd_rm_read_force_flag(t_parser *parser, int *rm_force)
 	}
 }
 
+int			cmd_read_rm(t_parser *parser, int *rm_force)
+{
+	*rm_force = 0;
+	parser->cur += ft_strlen("rm");
+	cmd_rm_read_force_flag(parser, rm_force);
+	if (cmd_read_space_req(&parser->cur))
+		return (rt_err("bad syntax"));
+	if (cmd_read_string(&parser->cur, &parser->name))
+		return (rt_err("bad name string"));
+	cmd_rm_read_force_flag(parser, rm_force);
+	cmd_read_space(&parser->cur);
+	if (*parser->cur)
+	{
+		cmd_rm_error(parser, "cmd_rm(): invalid name");
+		return (rt_err("cmd_rm(): invalid syntax"));
+	}
+	return (0);
+}
+
 t_msg           cmd_rm(t_rt *rt, t_parser *parser)
 {
 	int		rm_force;
 
-	rm_force = 0;
 	if (rt == NULL || parser == NULL)
 		return (msg_err("NULL ptr in cmd_rm"));
-	cmd_rm_read_force_flag(parser, &rm_force);
-	if (cmd_read_space_req(&parser->cur))
-		return (msg_warn("bad syntax"));
-	if (cmd_read_string(&parser->cur, &parser->name))
-		return (msg_warn("bad name string"));
-	cmd_rm_read_force_flag(parser, &rm_force);
-	cmd_read_space(&parser->cur);
-	if (*parser->cur)
-		return (msg_warn("cmd_rm(): bad syntax"));
+	if (cmd_read_rm(parser, &rm_force))
+		return (msg_warn("cmd_rm(): invalid syntax or name"));
 	if (check_default_names(parser))
-		return (msg_warn("cmd_rm(): can\'t delete default object"));
+		return (cmd_rm_error(parser, "cmd_rm(): can\'t delete default object"));
 	return (cmd_rm_by_name(rt, parser, rm_force));
 }
