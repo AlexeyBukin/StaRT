@@ -1,6 +1,4 @@
-//
-// Created by Hugor Chau on 11/30/20.
-//
+
 #include "rt.h"
 
 t_msg				cmd_rm_error(t_parser *parser, char *message)

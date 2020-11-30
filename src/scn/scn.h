@@ -102,6 +102,7 @@ int				scn_remove_by_name_cam(t_scn *scn, char *name);
 int				scn_remove_by_name_grp(t_scn *scn, char *name);
 int				scn_remove_by_name_obj(t_scn *scn, char *name);
 int				scn_remove_by_name_copy(t_scn *scn, char *name);
+int				scn_remove_by_name_lgt(t_scn *scn, char *name);
 
 //it's useful if we wanna delete object's copy
 int				delete_copy(t_obj *obj);

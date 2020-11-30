@@ -44,7 +44,7 @@ t_msg			cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest)
 	dest->transform.rot_local.x = vec3_normalize(dest->transform.rot_local.x);
 	dest->transform.rot_local.y = vec3_normalize(dest->transform.rot_local.y);
 	dest->transform.rot_local.z = vec3_normalize(dest->transform.rot_local.z);
-	if (dest->type != OBJ_GROUP)
+	if (dest->type == OBJ_CONTAINER || dest->type == OBJ_COPY)
 	{
 		dest->content.container.material = parser->material;
 	}
