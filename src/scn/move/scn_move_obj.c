@@ -23,6 +23,6 @@ int		scn_move_obj(t_scn *scn, t_obj *dst, t_obj *obj)
 	if (grp_remove_by_name(obj->parent, obj->name))
 		return (rt_err("scn_move_obj(): couldn\'t remove obj from group"));
 	if (scn_add_to_group(scn, dst, obj))
-		return (rt_err("scn_move_obj(): couldn\'t add obj to group"));//remove copies or what?
+		return (rt_err("scn_move_obj(): couldn\'t add obj to group"));
 	return (0);
 }

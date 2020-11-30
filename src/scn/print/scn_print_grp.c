@@ -15,9 +15,9 @@ void	write_tabs(int tab_num)
 
 void		scn_print_obj_common_params(t_tfm *trf)
 {
-	ft_printf("pos <%f, %f, %f> ",
+	ft_printf("pos <%.3f, %.3f, %.3f> ",
 		   trf->pos_local.x, trf->pos_local.y, trf->pos_local.z);
-	ft_printf("angle [<%f, %f, %f>, <%f, %f, %f>, <%f, %f, %f>]\n",
+	ft_printf("angle [<%.3f, %.3f, %.3f>, <%.3f, %.3f, %.3f>, <%.3f, %.3f, %.3f>]\n",
 			  trf->rot_local.x.x, trf->rot_local.x.y, trf->rot_local.x.z,
 			  trf->rot_local.y.x, trf->rot_local.y.y, trf->rot_local.y.z,
 			  trf->rot_local.z.x, trf->rot_local.z.y, trf->rot_local.z.z);
@@ -31,14 +31,14 @@ void		scn_print_obj_params(t_obj *obj, int tab_num)
 	if (obj->type == OBJ_CONTAINER)
 	{
 		if (obj->content.container.shape_type == SHP_SPHERE)
-			ft_printf("shape SPHERE rad %f ", obj->content.container.shape.sphere.radius);
+			ft_printf("shape SPHERE rad %.3f ", obj->content.container.shape.sphere.radius);
 		else if (obj->content.container.shape_type == SHP_PLANE)
 			ft_printf("shape PLANE ");
 		else if (obj->content.container.shape_type == SHP_CONE)
-			ft_printf("shape CONE rad %f len %f ", obj->content.container.shape.cone.radius,
+			ft_printf("shape CONE rad %.3f len %.3f ", obj->content.container.shape.cone.radius,
 					obj->content.container.shape.cone.length);
 		else if (obj->content.container.shape_type == SHP_CYLINDER)
-			ft_printf("shape CYLINDER rad %f len %f ", obj->content.container.shape.cylinder.radius,
+			ft_printf("shape CYLINDER rad %.3f len %.3f ", obj->content.container.shape.cylinder.radius,
 					obj->content.container.shape.cylinder.length);
 		else
 		{

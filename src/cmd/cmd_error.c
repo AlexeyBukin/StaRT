@@ -11,7 +11,8 @@ t_msg				cmd_rm_error(t_parser *parser, char *message)
 
 t_msg				cmd_set_error(t_parser *parser, char *message)
 {
-	obj_deinit(parser->object);
+	ft_free(parser->object->name);
+	ft_free(parser->object);
 	ft_free(parser->name);
 	return (msg_warn(message));
 }

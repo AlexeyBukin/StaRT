@@ -48,7 +48,8 @@ t_msg			cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest)
 	{
 		dest->content.container.material = parser->material;
 	}
-	obj_deinit(parser->object);
+	ft_free(parser->object->name);
+	ft_free(parser->object);
 	ft_free(parser->name);
 	return (msg_oks("oks"));
 }
