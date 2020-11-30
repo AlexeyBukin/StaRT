@@ -1,8 +1,14 @@
-//
-// Created by Hugor Chau on 11/25/20.
-//
 
 #include "rt.h"
+
+int		scn_is_cycled_rec(t_obj *dst, t_obj *obj)
+{
+	if (dst->parent == NULL)
+		return (0);
+	if (dst->parent == obj)
+		return (-1);
+	return (scn_is_cycled_rec(dst->parent, obj));
+}
 
 int		scn_move_obj(t_scn *scn, t_obj *dst, t_obj *obj)
 {
@@ -16,6 +22,8 @@ int		scn_move_obj(t_scn *scn, t_obj *dst, t_obj *obj)
 		return (rt_err("can\'t move object to itself"));
 	if (dst == obj->parent)
 		return (rt_err("can\'t move object to it\'s parent"));
+	if (scn_is_cycled_rec(dst, obj))
+		return (rt_err("detected cycle"));
 	if (dst != (scn_get_obj_by_name(scn, dst->name)))
 		return (rt_err("scn_move_obj(): couldn\'t find given group in scene"));
 	if (obj != (scn_get_obj_by_name(scn, obj->name)))
