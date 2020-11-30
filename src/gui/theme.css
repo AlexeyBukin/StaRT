@@ -47,6 +47,7 @@ box:selected {
 }
 
 button {
-    background: rgb(141, 104, 74);
-    color: rgb(0, 0, 0);
+    background: #2c2c30;
+    color: rgb(255, 115, 0);
+    font-size: 20px;
 }

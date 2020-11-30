@@ -206,7 +206,7 @@
                       <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
+                        <property name="file">res/fotosasss-1.jpg</property>
                       </object>
                     </child>
                   </object>

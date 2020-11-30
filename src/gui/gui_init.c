@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/28 21:12:39 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/11/30 21:24:13 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static void		activate(GtkApplication* app, t_rt *user_data)
     //                                             "text", COLUMN_TITLE,
     //                                             NULL);
 	col = gtk_tree_view_column_new();
-	gtk_tree_view_column_set_widget(col, gtk_label_new("title"));
+	label = gtk_label_new("");
+	gui_style(label);
+	gtk_tree_view_column_set_widget(col, label);
 	// renderer = gtk_cell_renderer_text_new();
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute(col, renderer, "text", COLUMN_TITLE);
@@ -46,7 +48,6 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	col = gtk_tree_view_get_column(GTK_TREE_VIEW(tree_view), 0);
 	label = gtk_tree_view_column_get_widget(col);
 	gtk_widget_show(label);
-
   label = gtk_widget_get_parent (label); /* the alignment */
   /* set_color (w, color); NOK*/
 
