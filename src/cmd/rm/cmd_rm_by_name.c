@@ -43,8 +43,11 @@ t_msg				cmd_rm_obj(t_rt *rt, t_parser *parser, int rm_force)
 		return (cmd_rm_group_force(parser, rt, tmp, rm_force));
 	if (tmp->type == OBJ_COPY)
 		return safe_rm(parser, scn_remove_by_name_obj(rt->scene, tmp->name));
-	else if (tmp->type == OBJ_CONTAINER)
+	if (tmp->type == OBJ_LIGHT)
+		return safe_rm(parser, scn_remove_by_name_lgt(rt->scene, tmp->name));
+	if (tmp->type == OBJ_CONTAINER)
 		return (safe_rm(parser, scn_remove_by_name_copy(rt->scene, tmp->name)));
+	ft_free(parser->name);
 	return (msg_warn("cmd_rm_name(): couldn\'t remove an object"));
 }
 

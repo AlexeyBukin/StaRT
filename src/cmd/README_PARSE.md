@@ -47,6 +47,11 @@ Cannot specify material, `-m` will give an error.
 1) `-i` - intensity. Should be valid scalar
 1) `-c` - color. Should be valid vector (values clamped 0..1)
 
+#### `add copy`
+Adds dynamic copy of object.
+Cannot specify material, `-m` will give an error.
+1) `-o` - Object-original.  Should be valid string - name of object to copy from.
+
 #### `add group`
 Cannot specify material, `-m` will give an error.
 

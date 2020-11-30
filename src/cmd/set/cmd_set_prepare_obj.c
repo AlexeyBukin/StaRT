@@ -1,7 +1,3 @@
-//
-// Created by Hugor Chau on 11/26/20.
-//
-
 #include "rt.h"
 
 int 		cmd_set_prepare_obj(t_parser *parser, t_obj *src)

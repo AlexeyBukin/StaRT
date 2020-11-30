@@ -14,7 +14,8 @@
 
 t_msg		cmd_add_obj_to_scn(t_rt *rt, t_parser *parser)
 {
-	if (parser->object->type != OBJ_GROUP)
+	if (parser->object->type == OBJ_CONTAINER ||
+			parser->object->type == OBJ_COPY)
 	{
 		parser->object->content.container.material = parser->material;
 //		parser->object->content.container.texture = parser->texture;//?? where to put?
@@ -54,5 +55,7 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 		return (cmd_add_camera(rt, parser));
 	if (ft_str_next_is(str, "material"))
 		return (cmd_add_material(rt, parser));
+	if (ft_str_next_is(str, "light"))
+		return (cmd_add_light(rt, parser));
 	return (msg_warn("Syntax error: Unknown object type"));
 }

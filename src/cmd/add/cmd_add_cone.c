@@ -27,7 +27,6 @@ static int			cone_set_length(t_parser *parser)
 
 static t_msg	cmd_parse_cone_flags(t_rt *rt, t_parser *parser)
 {
-	(void)rt;
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
