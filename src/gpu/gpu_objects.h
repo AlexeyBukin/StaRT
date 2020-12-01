@@ -13,56 +13,49 @@
 #ifndef GPU_OBJECTS_H
 # define GPU_OBJECTS_H
 
-enum e_obj_type
-{
-	OBJ_NONE = 0,
-	OBJ_PLANE,
-	OBJ_SPHERE,
-	OBJ_CYLINDER,
-	OBJ_CONE,
-	OBJ_GEOMETRY
-};
+# include "scn_types.h"
 
-typedef struct			s_sphere
+typedef struct			s_gpu_sphere
 {
 	t_vec3				pos;
 	t_num				r;
 }						t_sphere;
 
-typedef struct			s_plane
+typedef struct			s_gpu_plane
 {
 	t_vec3				n;
 	t_num				d;
 }						t_plane;
 
-typedef	struct			s_cone
+typedef	struct			s_gpu_cone
 {
 	t_vec3				pos;
 	t_vec3				cap;
 	t_num				r;
 }						t_cone;
 
-typedef	struct			s_cylinder
+typedef	struct			s_gpu_cylinder
 {
 	t_vec3				pos;
 	t_vec3				cap;
 	t_num				r;
 }						t_cylinder;
 
-union					u_shape
+typedef union			u_gpu_shape
 {
-	struct s_sphere		sphere;
-	struct s_plane		plane;
-	struct s_cone		cone;
-	struct s_cylinder	cylinder;
-};
+	struct s_gpu_sphere		sphere;
+	struct s_gpu_plane		plane;
+	struct s_gpu_cone		cone;
+	struct s_gpu_cylinder	cylinder;
+}						t_gpu_shape;
 
 typedef struct			s_gpu_obj
 {
 	t_id				id;
-	t_id				material_id;
-	enum e_obj_type		type;
-	union u_shape		shape;
+	t_id				mat_index;
+	t_mat3x3			map_axis;
+	t_shp_type			type;
+	t_gpu_shape			shape;
 }						t_gpu_obj;
 
 #endif
