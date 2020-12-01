@@ -49,7 +49,7 @@ void		scn_print_obj_params(t_obj *obj, int tab_num)
 	}
 	if (obj->type == OBJ_LIGHT)
 	{
-		ft_printf("LIGHT intensity %.3f %sпше фвв ; color <%.3f, %.3f, %.3f> ", obj->content.light.light.intensity,
+		ft_printf("LIGHT intensity %.3f %s; color <%.3f, %.3f, %.3f> ", obj->content.light.light.intensity,
 				obj->content.light.lgt_type == LGT_PARALLEL ? "PARALLEL" : "POINT",
 				obj->content.light.light.color.x,obj->content.light.light.color.y,
 				  obj->content.light.light.color.z);

@@ -10,6 +10,8 @@ static t_msg			cmd_set_object_type(t_rt *rt, t_parser *parser, t_obj *obj)
 		return (cmd_set_group(rt, parser, obj));
 	if (obj->type == OBJ_LIGHT)
 		return (cmd_set_light(rt, parser, obj));
+	if (obj->type == OBJ_COPY)
+		return (cmd_set_copy(rt, parser, obj));
 	if (obj->type != OBJ_CONTAINER)
 		return (msg_warn("cmd_set_object(): unknown object type"));
 	if (obj->content.container.shape_type == SHP_CONE)
