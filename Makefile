@@ -25,37 +25,22 @@ LIB_NUM = $(LIB)/num/libnum.a
 LIB_FLAGS = -L $(LIB)/ft -lft -L $(LIB)/num -lnum $(GTK_LIB_FLAGS)
 LIB_DEPENDENCY = $(LIB_FT) $(LIB_NUM)
 
+# on Linux system gtk3 should be installed (for example with `apt-get install libgtk-3-dev`)
+# on MacOS system gtk3 should be installed (for example with `brew install gtk+3`)
+GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
+
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
-# on Linux system gtk3 should be installed (if not install with `apt-get install libgtk-3-dev`)
-	GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
-	GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
 	CFLAGS := $(CFLAGS) -no-pie -D PLATFORM_LINUX
 	LIB_FLAGS := $(LIB_FLAGS) $(VLK_FLAGS)
 	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)
 endif
 ifeq ($(UNAME_SYSTEM),Darwin)
-GTK_BUNDLE   := gtk_bundle_42
-GTK_INC_DIR   = $(GTK_BUNDLE)/include
-GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
-
-GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
-                    -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
-                    -I$(GTK_INC_DIR)/cairo
-
-GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
-                    -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
-                    -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
-                    -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
-                    -lgobject-2.0 -lglib-2.0 -lintl
-
-MTL_DYLIB := build/mtl/libmtl.dylib
-
-CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
-LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
-
-LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
-
+    CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
+    MTL_DYLIB := build/mtl/libmtl.dylib
+    LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
+    LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
 endif
 
 ### C Flags settings
@@ -122,9 +107,9 @@ src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_nam
 src/cmd/utils/cmd_read_light.c                  src/scn/scn_get_mat.c \
 src/cmd/utils/cmd_read_material.c               src/scn/scn_id.c \
 src/cmd/utils/cmd_read_num.c                    src/scn/scn_init.c \
-src/cmd/utils/cmd_set_read_attributes.c         src/scn/scn_name.c \
-src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_del_copies_of.c \
-src/err/msg_err.c                               src/scn/utils/scn_group_mem.c \
+src/cmd/utils/cmd_set_read_attributes.c         src/scn/utils/scn_del_copies_of.c \
+src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_group_mem.c \
+src/err/msg_err.c                               src/scn/utils/scn_name.c \
 src/err/msg_ok.c                                src/srv/srv_deinit.c \
 src/err/msg_warn.c                              src/srv/srv_ext.c \
 src/err/rt_err.c                                src/srv/srv_ext_data.c \
@@ -136,7 +121,7 @@ src/grp/grp_init.c                              src/tfm/tfm_init.c \
 src/grp/grp_remove_by_name.c                    src/tfm/tfm_move.c \
 src/gui/gui_init.c                              src/txr/txr_init.c \
 src/lgt/lgt_init.c                              src/vlk/vlk_init.c \
-src/mat/mat_init.c \
+src/mat/mat_init.c
 
 SRC 		= $(SRC_SHARED) src/main.c
 
