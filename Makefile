@@ -6,12 +6,13 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/20 18:38:32 by rtacos           ###   ########.fr        #
+#    Updated: 2020/12/01 18:31:12 by rtacos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        := RT
 LIB         := lib
+
 SRC_DIR		:= src
 BUILD_DIR	:= build
 
@@ -25,11 +26,14 @@ LIB_NUM = $(LIB)/num/libnum.a
 LIB_FLAGS = -L $(LIB)/ft -lft -L $(LIB)/num -lnum $(GTK_LIB_FLAGS)
 LIB_DEPENDENCY = $(LIB_FT) $(LIB_NUM)
 
+GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
+	
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
 # on Linux system gtk3 should be installed (if not install with `apt-get install libgtk-3-dev`)
-	GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
-	GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
+	# GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+	# GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
 	CFLAGS := $(CFLAGS) -no-pie -D PLATFORM_LINUX
 	LIB_FLAGS := $(LIB_FLAGS) $(VLK_FLAGS)
 	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)
@@ -39,15 +43,15 @@ GTK_BUNDLE   := gtk_bundle_42
 GTK_INC_DIR   = $(GTK_BUNDLE)/include
 GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
 
-GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
-                    -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
-                    -I$(GTK_INC_DIR)/cairo
+# GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
+#                     -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
+#                     -I$(GTK_INC_DIR)/cairo
 
-GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
-                    -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
-                    -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
-                    -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
-                    -lgobject-2.0 -lglib-2.0 -lintl
+# GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
+#                     -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
+#                     -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
+#                     -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
+#                     -lgobject-2.0 -lglib-2.0 -lintl
 
 MTL_DYLIB := build/mtl/libmtl.dylib
 
