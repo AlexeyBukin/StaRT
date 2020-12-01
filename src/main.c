@@ -111,7 +111,7 @@ int				main(int ac, char **av)
 	// scn_print(rt->scene);
 //		if (srv_deinit(rt))
 //			return (rt_error("Cannot deinit server", 0));
-	}
+//	}
 //	test(rt->scene);
 //	scn_print(rt->scene);
 	if (rt_deinit(rt))

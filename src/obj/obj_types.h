@@ -17,6 +17,7 @@
 # include "shp_types.h"
 # include "mat_types.h"
 # include "lgt_types.h"
+# include "libft.h"
 
 typedef enum				s_obj_type
 {
@@ -24,8 +25,7 @@ typedef enum				s_obj_type
 	OBJ_CONTAINER,
 	OBJ_LIGHT,
 	OBJ_COPY,
-	OBJ_GROUP,
-	OBJ_LIGHT
+	OBJ_GROUP
 }							t_obj_type;
 
 typedef struct				s_obj_light
@@ -61,7 +61,7 @@ typedef struct				s_scn_object
 	char					*name;
 	struct s_scn_object		*parent;
 	t_tfm					transform;
-//	t_bool					visible;
+	t_bool					visible;
 	t_obj_type				type;
 	t_obj_content			content;
 }							t_obj;

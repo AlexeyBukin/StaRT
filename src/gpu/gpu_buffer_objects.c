@@ -22,15 +22,15 @@ int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn)
 		return (rt_err("Given pointer is NULL"));
 	if ((obj_num = scn_get_obj_num(scn)) < 0)
 		return (rt_err("Cannot get object num"));
-	if ((gpu->obj_num = obj_num) == 0)
+	if ((gpu->info.obj_num = obj_num) == 0)
 		return (rt_warn("Scene is empty"));
-	if ((gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * gpu->obj_num)) == NULL)
+	if ((gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * gpu->info.obj_num)) == NULL)
 		return (rt_err("Cannot init object buffer"));
 	gpu->obj_current = 0;
-	if (gpu_buffer_objects_fill_rec(gpu, scn->main_group))
+	if (gpu_buffer_objects_fill_rec(gpu, scn->main_group, NULL))
 	{
 		ft_free(gpu->obj_buf);
-		gpu->obj_num = 0;
+		gpu->info.obj_num = 0;
 //		gpu->obj_buf = NULL; // kcharla: maybe we won't quit??
 		return (rt_err("Cannot init object buffer"));
 	}
@@ -44,6 +44,7 @@ int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 
 	if (gpu == NULL || obj == NULL)
 		return (rt_err("Given pointer is NULL"));
+    (void)global;
 //	if (tfm_apply_from_to(global, &tfm))
 //		return (rt_err("Cannot apply transform"));
 	if (obj->type == OBJ_CONTAINER)
