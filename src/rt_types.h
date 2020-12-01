@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/20 19:49:05 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/11/20 18:46:42 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ typedef struct		s_rt
 {
 	GtkApplication		*app;
 	GMainContext		*context;
-	GMutex				mutex_true;
-	GMutex				*mutex;
+//	GMutex				mutex_true;
+//	GMutex				*mutex;
 	GThread				*server_thread;
-	t_gpu				gpu;
+	t_gpu				*gpu;
 	t_scn				*scene;
-	t_txr			*render_result;
+	t_txr				*render_result;
 	t_srv				*server;
 }					t_rt;
 

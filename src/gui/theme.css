@@ -1,16 +1,53 @@
 window {
-    /*font: Comic Sans 12;*/
-    background: blue;
+    background: #2d2d30;
+}
 
+menubar{
+    color: rgb(255, 115, 0);
+}
+
+paned {
+    background: #5f5f66;
+}
+
+menuitem:hover {
+    color: white;
+    box-shadow: none;
+    background-color: rgb(141, 104, 74);
+}
+
+menu {
+    color:  white;
+    box-shadow: none;
+    background-color: rgb(141, 104, 74);
+}
+
+#submenu:hover {
+    color:  rgb(141, 104, 74);
+    box-shadow: none;
+    background-color: white;
+}
+
+.view {
+    background: #3c3c41;
+    color: rgb(255, 115, 0);
+    box-shadow: none;
+}
+
+.view:selected {
+    background: rgb(141, 104, 74);
+    box-shadow: none;
+    color: rgb(255, 255, 255);
+}
+
+box:selected {
+    background: rgb(141, 104, 74);
+    box-shadow: none;
+    color: rgb(255, 255, 255);
 }
 
 button {
-    background: #669999;
-    text-shadow: 1px 1px 5px black;
-    border-radius: 3px;
-    box-shadow: 0px 0px 5px black;
-}
-
-button:hover {
-    background: #3085a9;
+    background: #2c2c30;
+    color: rgb(255, 115, 0);
+    font-size: 20px;
 }

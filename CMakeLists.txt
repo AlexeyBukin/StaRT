@@ -16,6 +16,7 @@ set(${PROJECT_NAME}_SOURCE
         src/err/rt_err.c                        src/scn/scn_init.c
         src/err/rt_warn.c                       src/scn/scn_name.c
         src/gpu/gpu_buffer_load.c               src/srv/srv_deinit.c
+        src/gpu/gpu_buffer_objects.c
         src/gpu/gpu_init.c                      src/srv/srv_ext.c
         src/gpu/gpu_kernel_run.c                src/srv/srv_ext_data.c
         src/gui/gui_init.c                      src/srv/srv_init.c
@@ -28,24 +29,21 @@ set(${PROJECT_NAME}_SOURCE
         src/rt.c                                src/vlk/vlk_init.c
         src/scn/add/scn_add_obj.c
         src/scn/get/scn_get_obj_by_id.c
-=======
-        src/cmd/cmd_add.c               src/err/rt_err.c                src/scn/scn_add_material.c
-        src/cmd/cmd_ls.c                src/err/rt_warn.c               src/scn/scn_add_sphere.c
-        src/cmd/cmd_parse.c             src/gpu/gpu_buffer_load.c       src/scn/scn_id.c
-        src/gpu/gpu_init.c              src/scn/scn_init.c
-        src/cmd/utils/cmd_read.c src/gpu/gpu_kernel_run.c        src/srv/srv_deinit.c
-        src/cmd/utils/cmd_read_num.c src/gui/gui_init.c              src/srv/srv_ext.c
-        src/cmd/cmd_set_sphere.c        src/main.c                      src/srv/srv_ext_data.c
-        src/cmd/utils/cmd_set_read_part.c src/rt.c                        src/srv/srv_init.c
-        src/cmd/cmd_valid.c             src/scn/check_arguments.c       src/srv/srv_loop.c
-        src/err/msg_err.c               src/scn/cone.c                  src/srv/srv_parse.c
-        src/err/msg_ok.c                src/scn/cylinder.c              src/srv/srv_utils.c
-        src/err/msg_warn.c              src/scn/plane.c                 src/vlk/vlk_init.c
-        )
+)
 
 add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+<<<<<<< HEAD
+        ${PROJECT_SOURCE_DIR}/src              ${PROJECT_SOURCE_DIR}/src/err
+        ${PROJECT_SOURCE_DIR}/src/gui          ${PROJECT_SOURCE_DIR}/src/srv
+        ${PROJECT_SOURCE_DIR}/src/cmd          ${PROJECT_SOURCE_DIR}/src/gpu
+        ${PROJECT_SOURCE_DIR}/src/mtl          ${PROJECT_SOURCE_DIR}/src/scn
+        ${PROJECT_SOURCE_DIR}/src/mat          ${PROJECT_SOURCE_DIR}/src/txr
+        ${PROJECT_SOURCE_DIR}/src/tfm          ${PROJECT_SOURCE_DIR}/src/obj
+        ${PROJECT_SOURCE_DIR}/src/shp          ${PROJECT_SOURCE_DIR}/src/cam
+        ${PROJECT_SOURCE_DIR}/src/vlk
+=======
         ${PROJECT_SOURCE_DIR}/src       ${PROJECT_SOURCE_DIR}/src/err
         ${PROJECT_SOURCE_DIR}/src/gui   ${PROJECT_SOURCE_DIR}/src/srv
         ${PROJECT_SOURCE_DIR}/src/cmd   ${PROJECT_SOURCE_DIR}/src/gpu
@@ -54,6 +52,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
         ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
+>>>>>>> 04b620ed443469cd16a4ff6214ee6675bbc7b680
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
