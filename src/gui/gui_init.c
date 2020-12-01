@@ -6,11 +6,106 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/30 21:24:13 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/01 19:45:23 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "rt.h"
+
+// enum
+//   {
+//     COL_ICON = 0,
+//     COL_TEXT,
+//     NUM_COLS
+//   };
+
+//   GtkListStore *create_liststore(void)
+//   {
+//     GtkListStore  *store;
+//     GtkTreeIter    iter;
+//     GdkPixbuf     *icon;
+//     GError        *error = NULL;
+
+//     store = gtk_list_store_new(2, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+
+//     icon = gdk_pixbuf_new_from_file("icon.png", &error);
+//     if (error)
+//     {
+//       g_warning ("Could not load icon: %s\n", error->message);
+//       g_error_free(error);
+//       error = NULL;
+//     }
+
+//     gtk_list_store_append(store, &iter);
+//     gtk_list_store_set(store, &iter,
+//                        COL_ICON, icon,
+//                        COL_TEXT, "example",
+//                        -1);
+
+//     return store;
+//   }
+
+//   GtkWidget *create_treeview(void)
+//   {
+//     GtkTreeModel      *model;
+//     GtkTreeViewColumn *col;
+//     GtkCellRenderer   *renderer;
+//     GtkWidget         *view;
+
+//     model = GTK_TREE_MODEL(create_liststore());
+
+//     view = gtk_tree_view_new_with_model(model);
+
+//     col = gtk_tree_view_column_new();
+//     gtk_tree_view_column_set_title(col, "Title");
+
+//     renderer = gtk_cell_renderer_pixbuf_new();
+//     gtk_tree_view_column_pack_start(col, renderer, FALSE);
+//     gtk_tree_view_column_set_attributes(col, renderer,
+//                                         "pixbuf", COL_ICON,
+//                                         NULL);
+
+//     renderer = gtk_cell_renderer_text_new();
+//     gtk_tree_view_column_pack_start(col, renderer, TRUE);
+//     gtk_tree_view_column_set_attributes(col, renderer,
+//                                         "text", COL_TEXT,
+//                                         NULL);
+
+//     gtk_tree_view_append_column(GTK_TREE_VIEW(view), col);
+
+//     gtk_widget_show_all(view);
+
+//     return view;
+//   }
+
+// void			quick_message(GtkWindow *parent, gchar *message)
+// {
+//  GtkWidget *dialog, *label, *content_area;
+//  GtkDialogFlags flags;
+
+//  // Create the widgets
+//  flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+//  dialog = gtk_dialog_new_with_buttons ("Message",
+//                                        parent,
+//                                        flags,
+//                                        _("_OK"),
+//                                        GTK_RESPONSE_NONE,
+//                                        NULL);
+//  content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+//  label = gtk_label_new (message);
+
+//  // Ensure that the dialog box is destroyed when the user responds
+
+//  g_signal_connect_swapped (dialog,
+//                            "response",
+//                            G_CALLBACK (gtk_widget_destroy),
+//                            dialog);
+
+//  // Add the label, and show everything we’ve added
+
+//  gtk_container_add (GTK_CONTAINER (content_area), label);
+//  gtk_widget_show_all (dialog);
+// }
 
 static void		activate(GtkApplication* app, t_rt *user_data)
 {
@@ -25,7 +120,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 		return ;
 	window = (GtkApplicationWindow *)gui_get_info_and_style(
 								builder, "AppWindow", GENERAL, NULL);
-	gui_style_for_menu_bar(builder);
+	gui_style_for_menu_bar(builder, window);
 	gui_get_info_and_style(builder, "paned", GENERAL, NULL);
 	GtkTreeStore *store = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING);
 	tree_view = GTK_TREE_VIEW(gui_get_info_and_style(builder, "tree_view", GENERAL, NULL));

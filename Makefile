@@ -6,12 +6,13 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/11/20 18:38:32 by rtacos           ###   ########.fr        #
+#    Updated: 2020/12/01 21:25:44 by rtacos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        := RT
 LIB         := lib
+
 SRC_DIR		:= src
 BUILD_DIR	:= build
 
@@ -32,6 +33,9 @@ GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs) $(shell pkg-config libpng --
 
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
+# on Linux system gtk3 should be installed (if not install with `apt-get install libgtk-3-dev`)
+	# GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+	# GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
 	CFLAGS := $(CFLAGS) -no-pie -D PLATFORM_LINUX
 	LIB_FLAGS := $(LIB_FLAGS) $(VLK_FLAGS)
 	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)

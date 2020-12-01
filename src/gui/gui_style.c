@@ -6,11 +6,37 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/11/26 17:28:22 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/01 21:20:46 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "rt.h"
+
+void			gui_on_server_up(GObject *signal, GtkWindow *parent)
+{
+	GtkWidget *dialog, *label, *content_area;
+	GtkDialogFlags flags;
+	(void)signal;
+
+	// Create the widgets
+	flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+	dialog = gtk_dialog_new_with_buttons ("Message",
+										parent,
+										flags,
+										"Shutdown server",
+										GTK_RESPONSE_NONE,
+										NULL);
+	
+	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
+	label = gtk_label_new("Server is running...");
+	g_signal_connect_swapped (dialog,
+							"response",
+							G_CALLBACK (gtk_widget_destroy),
+							dialog);
+	gtk_container_add(GTK_CONTAINER (content_area), label);
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	gtk_widget_show_all (dialog);
+}
 
 void			gui_style(GtkWidget *widget)
 {
@@ -38,8 +64,10 @@ GObject			*gui_get_info_and_style(GtkBuilder *builder,
 	return (obj);
 }
 
-void			gui_style_for_menu_bar(GtkBuilder *builder)
+void			gui_style_for_menu_bar(GtkBuilder *builder, GtkApplicationWindow *parent)
 {
+	GObject *signal;
+	
 	gui_get_info_and_style(builder, "menu_bar", GENERAL, NULL);
 	gui_get_info_and_style(builder, "menu_file", GENERAL, NULL);
 	gui_get_info_and_style(builder, "menu_edit", GENERAL, NULL);
@@ -52,7 +80,9 @@ void			gui_style_for_menu_bar(GtkBuilder *builder)
 	gui_get_info_and_style(builder, "menuitem_submenu_1", PERSONAL, "submenu");
 	gui_get_info_and_style(builder, "menuitem_submenu_2", PERSONAL, "submenu");
 	gui_get_info_and_style(builder, "menuitem_submenu_3", PERSONAL, "submenu");
-	gui_get_info_and_style(builder, "menuitem_submenu_4", PERSONAL, "submenu");
+	signal = gui_get_info_and_style(builder, "menuitem_submenu_4", PERSONAL, "submenu");
+	g_signal_connect(signal, "activate",
+									G_CALLBACK(gui_on_server_up), GTK_WINDOW(parent));
 	gui_get_info_and_style(builder, "menuitem_submenu_5", PERSONAL, "submenu");
 	gui_get_info_and_style(builder, "menuitem_submenu_6", PERSONAL, "submenu");
 	gui_get_info_and_style(builder, "menuitem_submenu_7", PERSONAL, "submenu");
