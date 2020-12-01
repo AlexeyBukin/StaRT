@@ -32,20 +32,20 @@ public func mtl_init_swift() -> UnsafeRawPointer
 public func mtl_lib_load_source_swift(_ smptr: UnsafeRawPointer, _ libsrcptr: UnsafePointer<CChar>?) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	guard libsrcptr != nil else { return (Int32(-1)) }
+	guard libsrcptr != nil else { print("mtl: NULL pointer error"); return (Int32(-1)) }
 	return (sm.loadLibrary(source: String(cString: libsrcptr!)))
 }
 
 /* TEXTURE PART */
 
-@_cdecl("mtl_texture_create")
+@_cdecl("mtl_texture_create_target")
 public func mtl_texture_create_swift(_ smptr: UnsafeRawPointer, _ width: Int32, _ height: Int32) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.createTexture(d: sm.device, w: Int(width), h: Int(height)))
 }
 
-@_cdecl("mtl_texture_get_ptr")
+@_cdecl("mtl_texture_get_ptr_target")
 public func mtl_texture_get_ptr_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> UnsafeMutablePointer<UInt32>?
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
@@ -73,13 +73,41 @@ public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int
 	return (sm.getTextureStride(index: index))
 }
 
-/* BUFFER PART */
-
-@_cdecl("mtl_buffer_load_scene")
-public func mtl_buffer_load_scene_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+@_cdecl("mtl_texture_target_save")
+public func mtl_texture_target_save_swift(_ smptr: UnsafeRawPointer, _ index: Int32, _ path: UnsafePointer<CChar>?) -> Int32
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	return (sm.loadSceneBuffer(ptr: ptr, len: len))
+	if (path == nil) { print ("mtl: NULL pointer"); return (Int32(-1)) }
+	let pathString = String(cString: path!)
+	return (sm.saveTargetTextureAsPNG(index: Int(index), path: pathString))
+}
+
+@_cdecl("mtl_texture_resource_rgba8_load")
+public func mtl_texture_resource_rgba8_load_swift(_ smptr: UnsafeRawPointer?, _ ptr:UnsafeRawPointer?, _ width:Int32, _ height:Int32 ) -> Int32
+{
+	if (smptr == nil || ptr == nil) { print ("mtl: NULL pointer"); return (Int32(-1)) }
+	if (width <= 0 || height <= 0) { print ("mtl: incorrect arguments"); return (Int32(-1)) }
+	let sm:StartMTL = _mtl_bridge(ptr:smptr!)
+	return (sm.loadTextureResourceRGBA8(data: ptr!, width: Int(width), height: Int(height)))
+}
+
+@_cdecl("mtl_texture_target_rgba8_load")
+public func mtl_texture_target_rgba8_load_swift(_ smptr: UnsafeRawPointer?, _ ptr:UnsafeRawPointer?, _ width:Int32, _ height:Int32 ) -> Int32
+{
+	if (smptr == nil || ptr == nil) { print ("mtl: NULL pointer"); return (Int32(-1)) }
+	if (width <= 0 || height <= 0) { print ("mtl: incorrect arguments"); return (Int32(-1)) }
+	let sm:StartMTL = _mtl_bridge(ptr:smptr!)
+	return (sm.loadTextureTargetRGBA8(data: ptr!, width: Int(width), height: Int(height)))
+}
+
+
+/* BUFFER PART */
+
+@_cdecl("mtl_buffer_load_info")
+public func mtl_buffer_load_info_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.loadInfoBuffer(ptr: ptr, len: len))
 }
 
 @_cdecl("mtl_buffer_load_objects")

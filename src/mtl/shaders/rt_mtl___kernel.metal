@@ -13,112 +13,51 @@
 #include <metal_stdlib>
 using namespace metal;
 
-constant const float pi = 3.14159265358979323846f;
-
-enum e_obj_type
+typedef struct					s_gpu_info
 {
-	OBJ_NONE = 0,
-	OBJ_PLANE,
-	OBJ_SPHERE
-};
+	int a;
+}								t_gpu_info;
 
-struct				s_sphere
+typedef struct					s_gpu_obj
 {
-	packed_float3	pos;
-	float			r;
-};
+	int a;
+}								t_gpu_obj;
 
-struct				s_plane
+typedef struct					s_gpu_mat
 {
-	packed_float3	n;
-	float			d;
-};
+	int a;
+}								t_gpu_mat;
 
-union				u_shape
+//typedef struct					s_gpu_texture
+//{
+//	array<texture2d<float,access::read>, 2> texture [[id(0)]];
+//}								t_gpu_texture;
+
+typedef struct					s_gpu_texture
 {
-	struct s_sphere		sphere;
-	struct s_plane		plane;
-};
+	texture2d<float,access::read> texture [[id(0)]];
+//	texture2d<float,access::read> texture1 [[id(1)]];
+}								t_gpu_texture;
 
-struct				s_obj
+typedef struct					s_gpu_scene
 {
-	int					id;
-	int					material_id;
-	enum e_obj_type		type;
-	union u_shape		shape;
-};
+	device t_gpu_info			*info		[[id(0)]];
+	device t_gpu_obj			*objects	[[id(1)]];
+	device t_gpu_mat			*materials	[[id(2)]];
+}								t_scene;
 
-struct				s_cam
+kernel void scene_test	(
+							device t_scene					*scene		[[buffer(0)]],
+							device t_gpu_texture			*textures	[[buffer(1)]],
+							texture2d<float,access::write> 	out			[[texture(2)]],
+							uint2                  			gid			[[thread_position_in_grid]]
+						)
 {
-	int				id;
-	packed_float3	pos;
-	packed_float3	forward;
-	packed_float3	up;
-	packed_float3	right;
-	packed_float2	fov;
-};
-
-struct				s_mat
-{
-	int				id;
-	float 			metalness;
-	float 			roughness;
-	float 			ior;
-	float 			transparency;
-	packed_float3	albedo;
-	packed_float3	f0;
-};
-
-typedef struct		s_scn
-{
-	int						id;
-	device struct s_obj		*objects;
-	int						objects_num;
-	device struct s_mat		*materials;
-	int						materials_num;
-	struct s_cam			camera;
-}					t_scn;
-
-kernel void scene_test(		device struct		s_scn		*scene		[[buffer(0)]],
-							device struct		s_obj		*objects	[[buffer(1)]],
-							device struct		s_mat		*materials	[[buffer(2)]],
-							texture2d<float,access::write> 	out			[[texture(3)]],
-							uint2                  			gid			[[thread_position_in_grid]])
-{
-	uint2 size = uint2(out.get_width(), out.get_height());
-	device struct s_cam *cam = &scene->camera;
-
-	if (gid.x < size.x && gid.y < size.y)
 	{
-		float4 color = float4(0.5, 0.5, 0.5, 0);
-
-//		Ray ray = rt_camera_get_ray(cam, size, gid);
-//
-//		int		nearest_id = -1;
-//		float	nearest_dist = INFINITY;
-//
-//		for (int i = 0; i < scene->objects_num; i++)
-//		{
-//			float dist = rt_dist(ray, &scene->objects[i]);
-//			if (dist < nearest_dist && dist != INFINITY) {
-//				nearest_id = i;
-//				nearest_dist = dist;
-//			}
-//		}
-//
-//		if (nearest_id >= 0) {
-////			color = float4(0, 1, 0, 0);
-//			int index = find_material_by_id(
-//					scene->objects[nearest_id].material_id,
-//					scene->materials, scene->materials_num);
-//			if (scene->materials_num == 1) {
-//				color = float4(1, 1, 1, 0.0f);
-//			}
-//			else
-//			{
-//				color = float4(float3(scene->materials[index].albedo), 0.0f);
-//			}
-//		}
+		float4 color = textures[0].texture.read(gid);
+		color += textures[1].texture.read(gid);
+//		color /= 2;
+//		float4 color = float4(0.5, 1, 0.5, 0.5);
 		out.write(color, gid);
 	}
 }
