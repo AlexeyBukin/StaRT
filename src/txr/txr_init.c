@@ -16,13 +16,13 @@
 //scn_check_name checks if name is unique and strlen() > 0
 //if not returns error
 
-int		txr_init(t_txr **dest, t_scn *scn, char *name, t_size2 size)
+int		txr_init(t_txr **dest, char *name, t_size2 size)
 {
 	t_txr 	*txr;
 
 	if (size.x == 0 || size.y == 0)
 		return (rt_err("Invalid texture size"));
-	if (txr_init_default(&txr, scn, name))
+	if (txr_init_default(&txr, name))
 		return (rt_err("Cannot init texture base"));
 	txr->type = TXR_RGB_8;
 	txr->gpu_type = TXR_GPU_UNSYNCED;
@@ -39,14 +39,12 @@ int		txr_init(t_txr **dest, t_scn *scn, char *name, t_size2 size)
 	return (0);
 }
 
-int		txr_init_default(t_txr **dest, t_scn *scn, char *name)
+int		txr_init_default(t_txr **dest, char *name)
 {
 	t_txr		*txr;
 
-	if (dest == NULL || name == NULL || scn == NULL)
+	if (dest == NULL || name == NULL)
 		return (rt_err("Given pointer is NULL"));
-//	if (scn_name_check(scn, name))
-//		return (rt_err("Incorrect name"));
 	txr = ft_memalloc(sizeof(t_txr));
 	if (txr == NULL)
 		return (rt_err("Malloc returned NULL"));
@@ -59,6 +57,7 @@ int		txr_init_default(t_txr **dest, t_scn *scn, char *name)
 	txr->height = 0;
 	txr->stride = 0;
 	txr->content = NULL;
+	*dest = txr;
 	return (0);
 }
 

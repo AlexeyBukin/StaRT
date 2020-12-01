@@ -7,8 +7,8 @@
 
 #include "cam_types.h"
 
-int		cam_init(t_cam **cam, t_scn *scn, char *name);
-int		cam_init_default(t_cam **dest, t_scn *scn);
+int		cam_init(t_cam **cam, char *name);
+int		cam_init_default(t_cam **dest);
 int		cam_deinit(t_cam *cam);
 
 #endif //CAM_H

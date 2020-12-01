@@ -1,79 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cmd_set_sphere.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 23:44:09 by jvoor             #+#    #+#             */
-/*   Updated: 2020/11/13 08:01:42 by jvoor            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+//
+// Created by Hugor Chau on 11/23/20.
+//
 
 #include "rt.h"
 
-t_msg					cmd_set_sphere_pos(char **source, t_sphere *sphere)
+static int			sphere_set_radius(t_parser *parser)
 {
-	if (source == NULL || sphere == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_vec(source, &(sphere->pos)))
-		return (msg_warn("Syntax error: expected vector"));
-	return (msg_oks("Set sphere position"));
-}
-
-t_msg					cmd_set_sphere_radius(char **source, t_sphere *sphere)
-{
-	if (source == NULL || sphere == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	if (cmd_read_num(source, &(sphere->r)))
-		return (msg_warn("Syntax error: expected num"));
-	return (msg_oks("Set sphere radius"));
-}
-
-t_msg					cmd_set_sphere(t_scn *scn, t_obj *sphere, char **source)
-{
-	t_msg				tmp;
-	
-	if (scn == NULL || sphere == NULL || source == NULL)
-		return (msg_err("Given pointer is NULL"));
-	if (*source == NULL)
-		return (msg_err("Dereference to NULL pointer"));
-	while (*source != '\0' && *source != '\n')
+	if (ft_str_next_is(parser->cur, "-r"))
 	{
-		tmp = cmd_set_object_param(scn, sphere, source);
-		if (tmp.status == MSG_ERROR || tmp.status == MSG_WARN)
-			return (tmp);
-		//TODO concat, dont free
-		if (tmp.status == MSG_OK)
-		{
-			ft_free(tmp.str);
-			continue ;
-		}
-		
-		//here only if tmp.status is MSG_NONE
-		
-		if (ft_str_next_is(*source, KW_PARAM_POS))
-		{
-			*source += KW_PARAM_LEN;
-			tmp = cmd_set_sphere_pos(source, &(sphere->shape.sphere));
-		}
-		else if (ft_str_next_is(*source, KW_PARAM_RAD))
-		{
-			*source += KW_PARAM_LEN;
-			tmp = cmd_set_sphere_radius(source, &(sphere->shape.sphere));
-		}
-		else
-			return (msg_warn("Unknown flag"));
-		if (tmp.status != MSG_OK)
-			return (tmp);
-		ft_free(tmp.str);
-		if (cmd_read_space_req(&source))
-			return (msg_warn("Expected \' \'"));
+		parser->cur += ft_strlen("-r");
+		cmd_read_space(&parser->cur);
+		if (cmd_read_num(&parser->cur, &parser->container->shape.sphere.radius))
+			return (-1);
 	}
-	return (msg_oks("Sphere parameters set"));
+	return (0);
 }
 
+int				cmd_set_sphere_default(t_rt *rt, t_parser *parser)
+{
+	if (parser == NULL || parser->container == NULL || parser->object == NULL ||
+		parser->transform == NULL)
+		return (rt_err("cmd_set_cone_default(): was given a NULL pointer"));
+	parser->object->content.container.shape_type = SHP_SPHERE;
+	parser->container->shape.sphere.radius = 1.0;
+	parser->object->visible = TRUE;
+	parser->object->type = OBJ_CONTAINER;
+	parser->material = scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME);
+	parser->texture = scn_get_txr_by_name(rt->scene, DEFAULT_TEXTURE_NAME);
+	parser->group = rt->scene->main_group;
+	return (0);
+}
+
+t_msg				cmd_set_sphere_read(t_rt *rt, t_parser *parser, t_obj *dest)
+{
+	while (*parser->cur != '\0' && *parser->cur != '\n')
+	{
+		if (cmd_read_space_req(&parser->cur))
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax"));
+		if (cmd_read_transform_part(parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax transform"));
+		if (sphere_set_radius(parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax rad"));
+		if (cmd_set_obj_visibility(parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax visibility"));
+		if (cmd_set_obj_grp(rt, parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax group"));
+		if (cmd_set_obj_mat(rt, parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax material"));
+		if (cmd_set_obj_name(rt, parser) < 0)
+			return (cmd_set_error(parser, "cmd_set_sphere(): bad syntax name"));
+	}
+	return (cmd_set_obj_to_scn(rt, parser, dest));
+}
+
+t_msg				cmd_set_sphere(t_rt *rt, t_parser *parser, t_obj *dest)
+{
+	if (rt == NULL || parser == NULL)
+		return(msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
+	if (cmd_set_prepare_obj(parser, dest))
+		return (msg_err("cmd_set_cone(): critical malloc error"));
+	return (cmd_set_sphere_read(rt, parser, dest));
+}

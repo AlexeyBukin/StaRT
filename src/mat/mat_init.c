@@ -31,11 +31,11 @@ int				mat_init_pbr(t_mat_pbr *pbr)
 	return(0);
 }
 
-int				mat_init_default(t_mat **mat_container, t_scn *scn)
+int				mat_init_default(t_mat **mat_container)
 {
 	t_mat		*mat;
 	
-	if (mat_init(&mat, scn, ft_strdup(DEFAULT_MATERIAL_NAME)))
+	if (mat_init(&mat, ft_strdup(DEFAULT_MATERIAL_NAME)))
 		return (rt_err("can't init material"));
 	mat->type = MAT_PBR;
 	mat_init_pbr(&(mat->content.pbr));
@@ -45,11 +45,11 @@ int				mat_init_default(t_mat **mat_container, t_scn *scn)
 	return (0);
 }
 
-int             mat_init(t_mat **mat_container, t_scn *scn, char *mat_name)
+int             mat_init(t_mat **mat_container, char *mat_name)
 {
 	t_mat		*mat;
 	
-	if (mat_container == NULL || mat_name == NULL || scn == NULL)
+	if (mat_container == NULL || mat_name == NULL)
 		return (rt_err("mat_init(): mat_container is NULL pointer"));
 //	if (scn_name_check(scn, mat_name))
 //		return (rt_err("mat name is already used, try another"));

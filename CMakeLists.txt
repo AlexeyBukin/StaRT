@@ -9,7 +9,7 @@ project(RT)
 add_definitions(-DPLATFORM_MACOS)
 
 #  find src -type f -name '*.c' | sort | column -c 100
-set(${PROJECT_NAME}_SOURCES
+set(${PROJECT_NAME}_SOURCE
         src/cam/cam_init.c                      src/err/msg_err.c                       src/scn/get/scn_get_obj_by_name.c
         src/err/msg_ok.c                        src/scn/scn_get_mat.c
         src/err/msg_warn.c                      src/scn/scn_id.c
@@ -29,11 +29,21 @@ set(${PROJECT_NAME}_SOURCES
         src/rt.c                                src/vlk/vlk_init.c
         src/scn/add/scn_add_obj.c
         src/scn/get/scn_get_obj_by_id.c
-        )
+)
 
 add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC
+<<<<<<< HEAD
+        ${PROJECT_SOURCE_DIR}/src              ${PROJECT_SOURCE_DIR}/src/err
+        ${PROJECT_SOURCE_DIR}/src/gui          ${PROJECT_SOURCE_DIR}/src/srv
+        ${PROJECT_SOURCE_DIR}/src/cmd          ${PROJECT_SOURCE_DIR}/src/gpu
+        ${PROJECT_SOURCE_DIR}/src/mtl          ${PROJECT_SOURCE_DIR}/src/scn
+        ${PROJECT_SOURCE_DIR}/src/mat          ${PROJECT_SOURCE_DIR}/src/txr
+        ${PROJECT_SOURCE_DIR}/src/tfm          ${PROJECT_SOURCE_DIR}/src/obj
+        ${PROJECT_SOURCE_DIR}/src/shp          ${PROJECT_SOURCE_DIR}/src/cam
+        ${PROJECT_SOURCE_DIR}/src/vlk
+=======
         ${PROJECT_SOURCE_DIR}/src       ${PROJECT_SOURCE_DIR}/src/err
         ${PROJECT_SOURCE_DIR}/src/gui   ${PROJECT_SOURCE_DIR}/src/srv
         ${PROJECT_SOURCE_DIR}/src/cmd   ${PROJECT_SOURCE_DIR}/src/gpu
@@ -42,6 +52,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
         ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
+>>>>>>> 04b620ed443469cd16a4ff6214ee6675bbc7b680
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

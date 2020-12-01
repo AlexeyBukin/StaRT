@@ -17,11 +17,13 @@ int			obj_init(t_obj **dest, char *name, t_obj_type type)
 	if (dest == NULL || name == NULL)
 		return (rt_err("Given pointer is NULL"));
 	if (type == OBJ_GROUP)
-		return (obj_grp_init(dest, name));
+		return (grp_init(dest, name));
 	if (type == OBJ_CONTAINER)
 		return (obj_container_init(dest, name));
 	if (type == OBJ_COPY)
 		return (obj_copy_init(dest, name));
+	if (type == OBJ_LIGHT)
+		return (lgt_init(dest, name));
 	return (rt_err("Unknown object type"));
 }
 
@@ -30,10 +32,12 @@ int			obj_deinit(t_obj *obj)
 	if (obj == NULL)
 		return (rt_err("Given pointer is NULL"));
 	if (obj->type == OBJ_GROUP)
-		return (obj_grp_deinit(obj));
+		return (grp_deinit(obj));
 	if (obj->type == OBJ_CONTAINER)
 		return (obj_container_deinit(obj));
 	if (obj->type == OBJ_COPY)
 		return (obj_copy_deinit(obj));
+	if (obj->type == OBJ_LIGHT)
+		return (lgt_deinit(obj));
 	return (rt_err("Unknown object type"));
 }

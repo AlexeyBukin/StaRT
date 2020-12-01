@@ -12,6 +12,10 @@
 
 #include "rt.h"
 
+//вместо цикла в scn_deinit?
+//void			deinit_components_array(t_component_base **array,
+//								size_t array_size, void (*deinit)(void *))
+
 int				scn_deinit(t_scn *scn)
 {
 	size_t		i;
@@ -42,7 +46,7 @@ int				scn_init_cam(t_scn *scn)
 	if (scn == NULL)
 		return (rt_err("Given pointer is NULL"));
 	scn->cameras = ft_memalloc(sizeof(t_cam *));
-	if (cam_init_default(scn->cameras, scn))
+	if (cam_init_default(scn->cameras))
 	{
 		scn_deinit(scn);
 		return (rt_err("scn_init(): cannot init camera"));
@@ -58,7 +62,7 @@ int				scn_init_mat(t_scn *scn)
 	if (scn == NULL)
 		return (rt_err("Given pointer is NULL"));
 	scn->materials = ft_memalloc(sizeof(t_mat *));
-	if (mat_init_default(scn->materials, scn))
+	if (mat_init_default(scn->materials))
 	{
 		scn_deinit(scn);
 		return (rt_err("scn_init(): cannot init material"));
@@ -76,7 +80,7 @@ int				scn_init(t_scn **dest)
 	if ((scn = ft_memalloc(sizeof(t_scn))) == NULL)
 		return (rt_err("scn_init(): malloc returned NULL pointer"));
 	scn->filename = ft_strdup(DEFAULT_GROUP_NAME);
-	if (obj_grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
+	if (grp_init(&(scn->main_group), ft_strdup(DEFAULT_GROUP_NAME)))
 	{
 		scn_deinit(scn);
 		return (rt_err("scn_init(): cannot init main group"));
@@ -85,8 +89,13 @@ int				scn_init(t_scn **dest)
 		return (rt_err("scn_init(): cannot init default material"));
 	if (scn_init_cam(scn))
 		return (rt_err("scn_init(): cannot init default camera"));
+
 	scn->textures = NULL;
 	scn->textures_num = 0;
+
+//	scn_remove_by_name_txr(scn, txr->name);
+//	scn_remove_by_name_txr(scn, txr->name);
+
 //	if (scn_init_txr(scn))
 //		return (rt_err("scn_init(): cannot init camera"));
 	*dest = scn;
