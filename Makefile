@@ -88,10 +88,11 @@ src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp_types.h \
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
 SRC_SHARED	:= \
-src/cam/cam_init.c                              src/obj/obj_container_init.c \
-src/cmd/add/cmd_add.c                           src/obj/obj_copy_init.c \
-src/cmd/add/cmd_add_camera.c                    src/obj/obj_init.c \
-src/cmd/add/cmd_add_cone.c                      src/rt.c \
+src/cam/cam_init.c                              src/mat/mat_init.c \
+src/cmd/add/cmd_add.c                           src/obj/obj_container_init.c \
+src/cmd/add/cmd_add_camera.c                    src/obj/obj_copy_init.c \
+src/cmd/add/cmd_add_cone.c                      src/obj/obj_init.c \
+src/cmd/add/cmd_add_copy.c                      src/rt.c \
 src/cmd/add/cmd_add_cylinder.c                  src/scn/add/scn_add_cam.c \
 src/cmd/add/cmd_add_group.c                     src/scn/add/scn_add_ligth.c \
 src/cmd/add/cmd_add_light.c                     src/scn/add/scn_add_mat.c \
@@ -109,34 +110,34 @@ src/cmd/rm/cmd_rm_material.c                    src/scn/get/scn_get_txr_by_name.
 src/cmd/set/cmd_set.c                           src/scn/move/scn_move_obj.c \
 src/cmd/set/cmd_set_camera.c                    src/scn/print/scn_print.c \
 src/cmd/set/cmd_set_cone.c                      src/scn/print/scn_print_cam.c \
-src/cmd/set/cmd_set_cylinder.c                  src/scn/print/scn_print_grp.c \
-src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print_mat.c \
-src/cmd/set/cmd_set_light.c                     src/scn/print/scn_print_txr.c \
-src/cmd/set/cmd_set_material.c                  src/scn/remove/scn_remove_by_name_cam.c \
-src/cmd/set/cmd_set_obj_to_scn.c                src/scn/remove/scn_remove_by_name_copy.c \
-src/cmd/set/cmd_set_object.c                    src/scn/remove/scn_remove_by_name_grp.c \
-src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_lgt.c \
-src/cmd/set/cmd_set_prepare_obj.c               src/scn/remove/scn_remove_by_name_mat.c \
-src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_obj.c \
-src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_name_txr.c \
-src/cmd/utils/cmd_read_light.c                  src/scn/scn_get_mat.c \
-src/cmd/utils/cmd_read_material.c               src/scn/scn_id.c \
-src/cmd/utils/cmd_read_num.c                    src/scn/scn_init.c \
-src/cmd/utils/cmd_set_read_attributes.c         src/scn/scn_name.c \
-src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_del_copies_of.c \
-src/err/msg_err.c                               src/scn/utils/scn_group_mem.c \
-src/err/msg_ok.c                                src/srv/srv_deinit.c \
-src/err/msg_warn.c                              src/srv/srv_ext.c \
-src/err/rt_err.c                                src/srv/srv_ext_data.c \
-src/err/rt_warn.c                               src/srv/srv_init.c \
-src/gpu/gpu_buffer_load.c                       src/srv/srv_loop.c \
-src/gpu/gpu_init.c                              src/srv/srv_parse.c \
-src/gpu/gpu_kernel_run.c                        src/srv/srv_utils.c \
-src/grp/grp_init.c                              src/tfm/tfm_init.c \
-src/grp/grp_remove_by_name.c                    src/tfm/tfm_move.c \
-src/gui/gui_init.c                              src/txr/txr_init.c \
-src/lgt/lgt_init.c                              src/vlk/vlk_init.c \
-src/mat/mat_init.c \
+src/cmd/set/cmd_set_copy.c                      src/scn/print/scn_print_grp.c \
+src/cmd/set/cmd_set_cylinder.c                  src/scn/print/scn_print_mat.c \
+src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print_txr.c \
+src/cmd/set/cmd_set_light.c                     src/scn/remove/scn_remove_by_name_cam.c \
+src/cmd/set/cmd_set_material.c                  src/scn/remove/scn_remove_by_name_copy.c \
+src/cmd/set/cmd_set_obj_to_scn.c                src/scn/remove/scn_remove_by_name_grp.c \
+src/cmd/set/cmd_set_object.c                    src/scn/remove/scn_remove_by_name_lgt.c \
+src/cmd/set/cmd_set_plane.c                     src/scn/remove/scn_remove_by_name_mat.c \
+src/cmd/set/cmd_set_prepare_obj.c               src/scn/remove/scn_remove_by_name_obj.c \
+src/cmd/set/cmd_set_sphere.c                    src/scn/remove/scn_remove_by_name_txr.c \
+src/cmd/utils/cmd_read.c                        src/scn/scn_get_mat.c \
+src/cmd/utils/cmd_read_light.c                  src/scn/scn_id.c \
+src/cmd/utils/cmd_read_material.c               src/scn/scn_init.c \
+src/cmd/utils/cmd_read_num.c                    src/scn/scn_name.c \
+src/cmd/utils/cmd_set_read_attributes.c         src/scn/utils/scn_del_copies_of.c \
+src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_group_mem.c \
+src/err/msg_err.c                               src/srv/srv_deinit.c \
+src/err/msg_ok.c                                src/srv/srv_ext.c \
+src/err/msg_warn.c                              src/srv/srv_ext_data.c \
+src/err/rt_err.c                                src/srv/srv_init.c \
+src/err/rt_warn.c                               src/srv/srv_loop.c \
+src/gpu/gpu_buffer_load.c                       src/srv/srv_parse.c \
+src/gpu/gpu_init.c                              src/srv/srv_utils.c \
+src/gpu/gpu_kernel_run.c                        src/tfm/tfm_init.c \
+src/grp/grp_init.c                              src/tfm/tfm_move.c \
+src/grp/grp_remove_by_name.c                    src/txr/txr_init.c \
+src/gui/gui_init.c                              src/vlk/vlk_init.c \
+src/lgt/lgt_init.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
