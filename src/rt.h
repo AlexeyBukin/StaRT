@@ -29,6 +29,7 @@
 # include "txr.h"
 # include "shp.h"
 # include "grp.h"
+# include "lgt.h"
 
 //# define PLATFORM_MACOS
 

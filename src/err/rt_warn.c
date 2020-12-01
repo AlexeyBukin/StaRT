@@ -20,6 +20,6 @@ int			rt_warn(char *msg)
 
 int			rt_warning(char *msg, int ecode)
 {
-	ft_printf("Warning: ($i) %s\n", ecode, msg);
+	ft_printf("Warning: ($%i) %s\n", ecode, msg);
 	return (ecode);
 }

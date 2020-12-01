@@ -24,8 +24,10 @@ int				scn_add_obj(t_scn *scn, t_obj *obj);
 **			scn_add_to_group_xxx
 */
 
+int 			scn_add_to_group(t_scn *scn, t_obj *dest, t_obj *obj);
 int 			scn_add_to_group_copy(t_scn *scn, t_obj *dest, t_obj *copy);
 int 			scn_add_to_group_obj(t_scn *scn, t_obj *dest, t_obj *obj);
 int 			scn_add_to_group_grp(t_scn *scn, t_obj *dest, t_obj *grp);
+int 			scn_add_to_group_lgt(t_scn *scn, t_obj *dest, t_obj *lgt);
 
 #endif //START_SCN_ADD_H

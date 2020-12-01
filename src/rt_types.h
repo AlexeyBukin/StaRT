@@ -18,6 +18,7 @@
 # include "gpu_types.h"
 # include "srv_types.h"
 # include "scn_types.h"
+# include "cmd_types.h"
 # include "gui_types.h"
 # include "txr_types.h"
 # include "mat_types.h"
@@ -35,8 +36,8 @@ typedef struct		s_rt
 {
 	GtkApplication		*app;
 	GMainContext		*context;
-	GMutex				mutex_true;
-	GMutex				*mutex;
+//	GMutex				mutex_true;
+//	GMutex				*mutex;
 	GThread				*server_thread;
 	t_gpu				gpu;
 	t_scn				*scene;

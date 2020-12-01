@@ -25,37 +25,22 @@ LIB_NUM = $(LIB)/num/libnum.a
 LIB_FLAGS = -L $(LIB)/ft -lft -L $(LIB)/num -lnum $(GTK_LIB_FLAGS)
 LIB_DEPENDENCY = $(LIB_FT) $(LIB_NUM)
 
+# on Linux system gtk3 should be installed (for example with `apt-get install libgtk-3-dev`)
+# on MacOS system gtk3 should be installed (for example with `brew install gtk+3`)
+GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
+GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
+
 UNAME_SYSTEM := $(shell uname -s)
 ifeq ($(UNAME_SYSTEM),Linux)
-# on Linux system gtk3 should be installed (if not install with `apt-get install libgtk-3-dev`)
-	GTK_INCLUDE   = $(shell pkg-config gtk+-3.0 --cflags)
-	GTK_LIB_FLAGS = $(shell pkg-config gtk+-3.0 --libs)
 	CFLAGS := $(CFLAGS) -no-pie -D PLATFORM_LINUX
 	LIB_FLAGS := $(LIB_FLAGS) $(VLK_FLAGS)
 	LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(VLK_DYLIB)
 endif
 ifeq ($(UNAME_SYSTEM),Darwin)
-GTK_BUNDLE   := gtk_bundle_42
-GTK_INC_DIR   = $(GTK_BUNDLE)/include
-GTK_LIB_DIR   = $(GTK_BUNDLE)/lib
-
-GTK_INCLUDE   = -I$(GTK_INC_DIR) -I$(GTK_INC_DIR)/gtk-3.0 \
-                    -I$(GTK_INC_DIR)/glib-2.0 -I$(GTK_INC_DIR)/harfbuzz \
-                    -I$(GTK_INC_DIR)/cairo
-
-GTK_LIB_FLAGS = -L$(GTK_LIB_DIR) -lgtk-3.0 -lgdk-3.0 -Wl,-framework,Cocoa \
-                    -Wl,-framework,Carbon -Wl,-framework,CoreGraphics \
-                    -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 \
-                    -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 \
-                    -lgobject-2.0 -lglib-2.0 -lintl
-
-MTL_DYLIB := build/mtl/libmtl.dylib
-
-CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
-LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
-
-LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
-
+    CFLAGS := $(CFLAGS) -D PLATFORM_MACOS
+    MTL_DYLIB := build/mtl/libmtl.dylib
+    LIB_FLAGS := $(LIB_FLAGS) -L build/mtl -lmtl
+    LIB_DEPENDENCY := $(LIB_DEPENDENCY) $(MTL_DYLIB)
 endif
 
 ### C Flags settings
@@ -64,7 +49,7 @@ INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
 -I src/gui -I src/mat -I src/mtl \
 -I src/obj -I src/scn -I src/shp \
 -I src/srv -I src/tfm -I src/txr -I src/vlk \
--I src/grp \
+-I src/grp -I src/lgt \
 $(GTK_INCLUDE)
 
 CFLAGS := -Wall -Wextra -Werror -g $(CFLAGS)
@@ -75,13 +60,15 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 
 # find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
 HEADERS	:= \
-src/cmd/cmd.h           src/gui/gui_types.h     src/rt_types.h          src/srv/srv_types.h \
-src/cmd/cmd_types.h     src/mat/mat.h           src/scn/scn.h           src/tfm/tfm.h \
-src/err/err.h           src/mat/mat_types.h     src/scn/scn_id.h        src/tfm/tfm_types.h \
-src/gpu/gpu.h           src/mtl/mtl.h           src/scn/scn_types.h     src/txr/txr.h \
-src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp.h           src/txr/txr_types.h \
-src/gpu/gpu_types.h     src/obj/obj_types.h     src/shp/shp_types.h     src/vlk/vlk.h \
-src/gui/gui.h           src/rt.h                src/srv/srv.h           src/grp/grp.h
+src/cam/cam.h           src/gpu/gpu_types.h     src/obj/obj_types.h     src/srv/srv.h \
+src/cam/cam_types.h     src/grp/grp.h           src/rt.h                src/srv/srv_types.h \
+src/cmd/cmd.h           src/gui/gui.h           src/rt_types.h          src/tfm/tfm.h \
+src/cmd/cmd_add.h       src/gui/gui_types.h     src/scn/scn.h           src/tfm/tfm_types.h \
+src/cmd/cmd_set.h       src/lgt/lgt_types.h     src/scn/scn_add.h       src/txr/txr.h \
+src/cmd/cmd_types.h     src/mat/mat.h           src/scn/scn_id.h        src/txr/txr_types.h \
+src/err/err.h           src/mat/mat_types.h     src/scn/scn_types.h     src/vlk/vlk.h \
+src/gpu/gpu.h           src/mtl/mtl.h           src/shp/shp.h \
+src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp_types.h \
 
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'

@@ -29,7 +29,7 @@ int		cam_del(t_scn *scn, t_cam *cam)
 	if (!(cameras = (t_cam **)ft_memalloc(sizeof(t_cam *) * (scn->cameras_num - 1))))
 		return (rt_err("cam_remove_by_name(): malloc crashed"));
 	cameras_memmove(scn, cameras, cam);
-//	cam_deinit(cam);///TODO do we need this?
+	cam_deinit(cam);///TODO do we need this?
 	free(scn->cameras);
 	scn->cameras = cameras;
 	scn->cameras_num--;

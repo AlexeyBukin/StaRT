@@ -42,6 +42,9 @@ int				srv_init(t_rt *rt)
 		return (rt_err("could not bind socket"));
 	if (listen(server->socket_listen_fd, 1) == -1)
 		return (rt_err("could not set socket to listen"));
+
+	int can_do = 1;
+	setsockopt(server->socket_listen_fd,SOL_SOCKET,SO_REUSEADDR,&can_do,sizeof(int));
 //
 
 
@@ -54,6 +57,7 @@ int				srv_init(t_rt *rt)
 	server->rt = rt;
 	rt->server = server;
 
-	rt->server_thread = g_thread_new(NULL, srv_loop, (gpointer)rt);
+	// more failsafe version
+	rt->server_thread = g_thread_try_new("StaRT_server", srv_loop, (gpointer)rt, NULL);
 	return (0);
 }

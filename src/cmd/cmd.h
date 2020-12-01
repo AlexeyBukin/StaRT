@@ -1,123 +1,105 @@
-///* ************************************************************************** */
-///*                                                                            */
-///*                                                        :::      ::::::::   */
-///*   cmd.h                                              :+:      :+:    :+:   */
-///*                                                    +:+ +:+         +:+     */
-///*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
-///*                                                +#+#+#+#+#+   +#+           */
-///*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
-///*   Updated: 2020/11/13 11:06:22 by jvoor            ###   ########.fr       */
-///*                                                                            */
-///* ************************************************************************** */
-//
-//#ifndef CMD_H
-//# define CMD_H
-//
-//#define KW_PARAM_LEN 2
-//#define KW_PARAM_CAP "-c"
-//#define KW_PARAM_POS "-p"
-//#define KW_PARAM_RAD "-r"
-//#define KW_PARAM_NORM "-n"
-//#define KW_PARAM_DIST "-d"
-//
-//#define KW_PARAM_NAME "-N"
-//#define KW_PARAM_MAT "-M"
-//
-//
-//
-//
-//# include "srv_types.h"
-//# include "rt_types.h"
-//# include "cmd_types.h"
-//
-//# define KW_SCENE "scene"
-//
-///*
-//**				cmd_add
-//*/
-////TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
-//# define KW_OBJECT_NUM 4
-//# define KW_SPHERE "sphere"
-//# define KW_PLANE "plane"
-//# define KW_CYLINDER "cylinder"
-//# define KW_CONE "cone"
-//
-//# define KW_MATERIAL "material"
-//
-//t_msg					cmd_parse_add(t_rt *rt, char *source);
-//
-//#define CMD_LS_NUM 2
-//t_msg					cmd_parse_rm(t_rt *rt, char *source);
-//t_msg					cmd_parse_set(t_rt *rt, char *source);
-//t_msg					cmd_parse_ls(t_rt *rt, char *source);
-//
-///*
-//**				cmd_ls
-//*/
-//
-//t_msg					cmd_ls_scene(t_rt *rt, char *source);
-//t_msg					cmd_ls_sphere(t_rt *rt, char *source);
-//
-///*
-//**				cmd_parse
-//*/
-//
-//#define KW_CMD_NUM 2
-//#define KW_CMD_ADD "add"
-//#define KW_CMD_LS "ls"
-//#define KW_CMD_RM "rm"
-//#define KW_CMD_SET "set"
-//
-//
-//t_msg					cmd_parse_line(t_rt *rt, char *source);
-//
-///*
-//**				cmd_parse_tree
-//*/
-//
-//t_msg					cmd_parse_tree(t_rt *rt, char *str, t_parse_fw *arr, int len);
-//
-///*
-//**				cmd_parse
-//*/
-//
-////t_msg				cmd_parse_type_name(char **source, t_parse_help *helper);
-//
-///*
-//**				cmd_add
-//*/
-//
-//t_msg					cmd_add_sphere(t_rt *rt, char *source);
-//t_msg					cmd_add_plane(t_rt *rt, char *source);
-//
-//
-///*
-//**				cmd_set
-//*/
-//
-//# define KW_CMD_SET_NUM 4
-//
-//t_msg					cmd_set(t_rt *rt, char *source);
-//
-//t_msg					cmd_set_sphere(t_scn *scn, t_obj *sphere, char **source);
-//t_msg					cmd_set_plane(t_scn *scn, t_obj *plane, char **source);
-//t_msg					cmd_set_cylinder(t_scn *scn, t_obj *cylinder, char **source);
-//t_msg					cmd_set_cone(t_scn *scn, t_obj *cone, char **source);
-//
-//t_msg		        	cmd_set_object_param(t_scn *scn, t_obj *obj, char **source);
-//
-///*
-//**				cmd_read
-//*/
-//
-//int						cmd_read_comma(char **str);
-//int						cmd_read_space(char **source);
-//int						cmd_read_space_req(char **source);
-//int						cmd_read_string(char **source, char **dest);
-//int						cmd_read_id_name(t_scn *scn, char **source, uint *id);
-//
-//int						cmd_read_num(char **source, t_num *num);
-//int						cmd_read_vec(char **source, t_vec3 *vec);
-//int						cmd_read_uint(char **source, uint *num);
-//
-//#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:59:37 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:06:14 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CMD_H
+# define CMD_H
+
+
+# include "srv_types.h"
+# include "rt_types.h" 
+# include "cmd_types.h"
+# include "cmd_add.h"
+# include "cmd_set.h"
+//TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
+
+/*
+**				cmd_render
+*/
+
+t_msg					cmd_render(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd_parse
+*/
+
+t_msg               cmd_parse_line(t_rt *rt, char *source);
+
+/*
+**				cmd_parse_command TODO replace t_rt with t_parse_help
+*/
+
+t_msg				cmd_parse_command(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/ls
+*/
+
+t_msg				cmd_ls(t_rt *rt, t_parser *parser);
+t_msg				cmd_ls_scene(t_rt *rt, char *source);
+t_msg				cmd_ls_sphere(t_rt *rt, char *source);
+
+/*
+**				cmd/rm
+*/
+
+t_msg				cmd_rm(t_rt *rt, t_parser *parser);
+t_msg				cmd_rm_by_name(t_rt *rt, t_parser *parser, int rm_force);
+int					cmd_rm_material(t_rt *rt, t_parser *parser);
+t_msg				cmd_rm_error(t_parser *parser, char *message);
+
+/*
+**				cmd/utils/cmd_read
+*/
+
+int					cmd_read_comma(char **str);
+int					cmd_read_space(char **source);
+int					cmd_read_space_req(char **source);
+int					cmd_read_string(char **source, char **dest);
+int					cmd_read_id_name(t_scn *scn, char **source, uint *id);
+
+/*
+**				cmd/utils/cmd_read_num
+*/
+
+int					cmd_read_vec2(char **source, t_vec2 *vec);
+int					cmd_read_num(char **source, t_num *num);
+int					cmd_read_vec(char **source, t_vec3 *vec);
+int					cmd_read_uint(char **source, uint *num);
+int 				cmd_read_matrix(char **source, t_mat3x3 *mtx);
+
+/*
+**				cmd/utils/cmd_read_material
+*/
+
+int						cmd_read_material(t_parser *parser);
+
+/*
+**				cmd/utils/cmd_read_light
+*/
+
+int						cmd_light_set_color(t_parser *parser);
+int						cmd_light_set_type(t_parser *parser);
+int						cmd_light_set_intensity(t_parser *parser);
+
+/*
+**				cmd/utils/cmd_add_obj_to_scn
+*/
+
+t_msg					cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
+
+/*
+**				cmd/utils/cmd_set_obj
+*/
+
+t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest);
+
+#endif
