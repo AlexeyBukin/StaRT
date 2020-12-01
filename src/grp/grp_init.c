@@ -53,6 +53,8 @@ int				grp_deinit(t_obj *group)
 			return (rt_err("Cannot deinit object"));
 		i++;
 	}
+	if (group->content.group.child_num > 0)
+		ft_free(group->content.group.children);
 	ft_free(group->name);
 	ft_free(group);
 	return (0);

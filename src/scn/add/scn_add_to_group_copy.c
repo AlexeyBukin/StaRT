@@ -1,7 +1,7 @@
 
 #include "rt.h"
 
-int 			scn_add_to_group_copy(t_scn *scn, t_obj *dest, t_obj *copy)//TODO make like in scn_add_to_group_obj
+int 			scn_add_to_group_copy(t_scn *scn, t_obj *dest, t_obj *copy)
 {
 	if (scn == NULL || dest == NULL || copy == NULL)
 		return (rt_err("scn_add_to_group_copy(): Given pointer is NULL"));

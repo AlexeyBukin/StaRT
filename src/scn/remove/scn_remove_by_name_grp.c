@@ -10,7 +10,6 @@ int				scn_del_copies_rec(t_obj *main_group, t_obj *target)
 	size_t			i;
 	int				error_flag;
 
-
 	error_flag = 0;
 	if (main_group == NULL || target == NULL)
 		return (rt_err("Given pointer is NULL"));
@@ -48,6 +47,8 @@ int				scn_remove_by_name_grp(t_scn *scn, char *name)
 	if (scn_del_copies_rec(scn->main_group, grp))
 		return (rt_err("cannot delete all copies"));
 	//2) deinit group
+	if (grp_remove_by_name(grp->parent, grp->name))
+		return (rt_err("Cannot remove group"));
 	if (grp_deinit(grp))
 		return (rt_err("Cannot deinit group"));
 	return (0);
