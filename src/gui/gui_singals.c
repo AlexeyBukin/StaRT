@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/28 20:07:25 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/01 22:45:28 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@ static void		create_img(guchar **img)
 	}
 }
 
-void		on_render_rt(t_rt *user_data, GtkBuilder *builder)
+void		on_render_rt(GObject *obj, gpointer p)
 {
-	(void)user_data;
+	(void)obj;
 	GdkPixbuf *pix_buf;
 	GtkImage *image;
+	t_param	*builder = (t_param*)p;
+	// GtkBuilder	*builder = (GtkBuilder	*)p;
 
-	image = (GtkImage *)gtk_builder_get_object(builder, "image");
+	image = (GtkImage *)gtk_builder_get_object(builder->builder, "image");
 	guchar *img = NULL;
 	create_img(&img);
 	pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB, 0, 8, 700, 50, 700 * 3, NULL, NULL);
@@ -51,18 +53,20 @@ void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
 															t_rt *user_data)
 {
 	GObject *signal;
-	(void)user_data;
+	t_param	*data;
 
-	
-	(void)window;
 	g_signal_connect(G_OBJECT(window), "destroy",
 									G_CALLBACK(gtk_main_quit), NULL);
-	signal = gtk_builder_get_object(builder, "quit");
+	data = malloc(sizeof(t_param));
+	data->builder = builder;
+	data->user_data = user_data;
+	signal = gtk_builder_get_object(data->builder, "quit");
 	g_signal_connect(signal, "activate",
 					G_CALLBACK(gtk_main_quit), NULL);
-	signal = gtk_builder_get_object(builder, "render");
+	signal = gtk_builder_get_object(data->builder, "render");
 	g_signal_connect(signal, "activate",
-					G_CALLBACK(on_render_rt), (GtkBuilder *)builder);
+					G_CALLBACK(on_render_rt), data);
 	g_signal_connect(G_OBJECT(window), "destroy",
 									G_CALLBACK(gtk_main_quit), NULL);
+	// free(data);
 }
