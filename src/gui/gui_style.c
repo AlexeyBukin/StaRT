@@ -12,7 +12,7 @@
 
 # include "rt.h"
 
-void			gui_style(GtkWidget *widget)
+void				gui_style(GtkWidget *widget)
 {
 	GtkStyleContext	*context;
 	GtkCssProvider	*provider;
@@ -26,10 +26,10 @@ void			gui_style(GtkWidget *widget)
 									GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
-GObject			*gui_get_info_and_style(GtkBuilder *builder,
+GObject				*gui_get_info_and_style(GtkBuilder *builder,
 								const gchar *name_id, int style, gchar *name)
 {
-	GObject	*obj;
+	GObject			*obj;
 
 	obj = gtk_builder_get_object(builder, name_id);
 	if (style == PERSONAL)
@@ -38,8 +38,13 @@ GObject			*gui_get_info_and_style(GtkBuilder *builder,
 	return (obj);
 }
 
-void			gui_style_for_menu_bar(GtkBuilder *builder)
+void				gui_style_for_menu_bar(GtkBuilder *builder)
 {
+	GtkHeaderBar	*header;
+
+	header = GTK_HEADER_BAR(
+		gui_get_info_and_style(builder, "header_bar", GENERAL, NULL));
+	gtk_header_bar_set_show_close_button(header, TRUE);
 	gui_get_info_and_style(builder, "menu_bar", GENERAL, NULL);
 	gui_get_info_and_style(builder, "menu_file", GENERAL, NULL);
 	gui_get_info_and_style(builder, "menu_edit", GENERAL, NULL);

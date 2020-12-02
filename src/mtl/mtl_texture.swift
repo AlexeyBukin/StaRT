@@ -39,9 +39,9 @@ extension StartMTL {
 
 	public func getTexturePointer(index i:Int) -> UnsafeMutablePointer<UInt32>? {
 		if (i < 0 || i >= textures.count) {
-			return (nil);
+			return (UnsafeMutablePointer<UInt32>?(nil));
 		}
-		guard let tmpptr = textures[i].buffer?.contents() else {return (nil)}
+		guard let tmpptr = textures[i].buffer?.contents() else {return UnsafeMutablePointer<UInt32>?(nil)}
 		return (tmpptr.assumingMemoryBound(to:UInt32.self))
 	}
 

@@ -20,6 +20,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	GtkTreeViewColumn		*col;
 	GtkWidget				*label;
 	(void)app;
+	
 
 	if (!(builder = gui_create_builder()))
 		return ;
@@ -32,6 +33,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 	gtk_tree_view_set_model(tree_view, GTK_TREE_MODEL(store));
 	gui_add_widgets_to_tree(store, user_data, OBJECT);
 	GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+	
 	// gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tree_view),
     //                                             COLUMN_TITLE,
     //                                             "Title", renderer,
@@ -55,6 +57,7 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 
   label = gtk_widget_get_parent (label); /* the button */
 	gui_style(label);
+
 	gui_get_info_and_style(builder, "item_File", GENERAL, NULL);
 	gui_get_info_and_style(builder, "item_Edit", GENERAL, NULL);
 	gui_get_info_and_style(builder, "item_View", GENERAL, NULL);

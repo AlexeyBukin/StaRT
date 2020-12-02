@@ -50,3 +50,10 @@ button {
     background: rgb(141, 104, 74);
     color: rgb(0, 0, 0);
 }
+
+headerbar {
+	background: #2d2d30;
+    min-height: 0px;
+    padding-left: 5px;
+    padding-right: 4px;
+}
