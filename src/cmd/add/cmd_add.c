@@ -18,7 +18,6 @@ t_msg		cmd_add_obj_to_scn(t_rt *rt, t_parser *parser)
 			parser->object->type == OBJ_COPY)
 	{
 		parser->object->content.container.material = parser->material;
-//		parser->object->content.container.texture = parser->texture;//?? where to put?
 	}
 	parser->object->transform.rot_local.x = vec3_normalize(parser->object->transform.rot_local.x);
 	parser->object->transform.rot_local.y = vec3_normalize(parser->object->transform.rot_local.y);
@@ -59,5 +58,7 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 		return (cmd_add_light(rt, parser));
 	if (ft_str_next_is(str, "copy"))
 		return (cmd_add_copy(rt, parser));
+	if (ft_str_next_is(str, "texture"))
+		return (cmd_add_txr(rt, parser));
 	return (msg_warn("Syntax error: Unknown object type"));
 }

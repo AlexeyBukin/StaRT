@@ -47,6 +47,8 @@ t_msg				cmd_rm_obj(t_rt *rt, t_parser *parser, int rm_force)
 		return safe_rm(parser, scn_remove_by_name_lgt(rt->scene, tmp->name));
 	if (tmp->type == OBJ_COPY)
 		return (safe_rm(parser, scn_remove_by_name_copy(rt->scene, tmp->name)));
+	if (tmp->type == OBJ_CAMERA)
+		return (safe_rm(parser, scn_remove_by_name_cam(rt->scene, tmp->name)));
 	ft_free(parser->name);
 	return (msg_warn("cmd_rm_name(): couldn\'t remove an object"));
 }
@@ -55,8 +57,8 @@ t_msg				cmd_rm_by_name(t_rt *rt, t_parser *parser, int rm_force)
 {
 	if (rt == NULL || parser == NULL)
 		return (msg_warn("NULL ptr in cmd_rm_name"));
-	if (scn_get_cam_by_name(rt->scene, parser->name))
-		return (safe_rm(parser, scn_remove_by_name_cam(rt->scene, parser->name)));
+	if (scn_get_txr_by_name(rt->scene, parser->name))
+		return (safe_rm(parser, scn_remove_by_name_txr(rt->scene, parser->name)));
 	if (scn_get_mat_by_name(rt->scene, parser->name))
 	{
 		if (cmd_rm_material(rt, parser))

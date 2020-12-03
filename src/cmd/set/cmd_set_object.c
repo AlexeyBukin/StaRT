@@ -12,6 +12,8 @@ static t_msg			cmd_set_object_type(t_rt *rt, t_parser *parser, t_obj *obj)
 		return (cmd_set_light(rt, parser, obj));
 	if (obj->type == OBJ_COPY)
 		return (cmd_set_copy(rt, parser, obj));
+	if (obj->type == OBJ_CAMERA)
+		return (cmd_set_camera(rt, parser, obj));
 	if (obj->type != OBJ_CONTAINER)
 		return (msg_warn("cmd_set_object(): unknown object type"));
 	if (obj->content.container.shape_type == SHP_CONE)
@@ -33,8 +35,8 @@ t_msg			cmd_set_object(t_rt *rt, t_parser *parser)
 		return(msg_err("cmd_set_obj(): given NULL pointer in cmd_add()"));
 	if ((scn_get_mat_by_name(rt->scene, parser->name)))
 		return (cmd_set_material(rt, parser));
-	if ((scn_get_cam_by_name(rt->scene, parser->name)))
-		return (cmd_set_camera(rt, parser));
+//	if ((scn_get_cam_by_name(rt->scene, parser->name)))
+//		return (cmd_set_camera(rt, parser));
 	if ((tmp_obj = scn_get_obj_by_name(rt->scene, parser->name)))
 		return (cmd_set_object_type(rt, parser, tmp_obj));
 	ft_free(parser->name);

@@ -22,5 +22,9 @@ int			scn_add_obj(t_scn *scn, t_obj *obj)
 		return (scn_add_to_group_obj(scn, scn->main_group, obj));
 	if (obj->type == OBJ_GROUP)
 		return (scn_add_to_group_grp(scn, scn->main_group, obj));
+	if (obj->type == OBJ_LIGHT)
+		return (scn_add_to_group_lgt(scn, scn->main_group, obj));
+	if (obj->type == OBJ_CAMERA)
+		return (scn_add_to_group_cam(scn, scn->main_group, obj));
 	return (rt_err("scn_add_obj(): can\'t recognise object type"));
 }

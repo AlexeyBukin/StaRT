@@ -30,9 +30,10 @@ int				scn_deinit(t_scn *scn)
 		mat_deinit(scn->materials[i++]);
 	ft_free(scn->materials);
 	i = 0;
-	while (i < scn->cameras_num)
-		cam_deinit(scn->cameras[i++]);
-	ft_free(scn->cameras);
+	grp_deinit(scn->main_group);
+//	while (i < scn->cameras_num)
+//		cam_deinit(scn->cameras[i++]);
+//	ft_free(scn->cameras);
 	i = 0;
 	while (i < scn->textures_num)
 		txr_deinit(scn->textures[i++]);
@@ -43,17 +44,30 @@ int				scn_deinit(t_scn *scn)
 
 int				scn_init_cam(t_scn *scn)
 {
+	t_obj		*default_cam;
+
 	if (scn == NULL)
 		return (rt_err("Given pointer is NULL"));
-	scn->cameras = ft_memalloc(sizeof(t_cam *));
-	if (cam_init_default(scn->cameras))
+	if (cam_init_default(&default_cam))
 	{
 		scn_deinit(scn);
-		return (rt_err("scn_init(): cannot init camera"));
+		return (rt_err("scn_init_cam(): malloc error"));
 	}
-	scn->cameras_num = 1;
-	scn->cameras[0]->id = DEFAULT_CAMERA_ID;
-	scn->camera_active = scn->cameras[0];
+	if (scn_add_obj(scn, default_cam))
+	{
+//		if ()deinit cam
+		return (rt_err("scn_init_cam(): can\'t add obj to scn"));
+	}
+//	scn->cameras = NULL;
+
+	//init_cam();
+//	if (cam_init_default(scn->cameras))
+//	{
+//		return (rt_err("scn_init(): cannot init camera"));
+//	}
+//	scn->cameras_num = 0;
+//	scn->cameras[0]->id = DEFAULT_CAMERA_ID;
+//	scn->camera_active = scn->cameras[0];
 	return (0);
 }
 
