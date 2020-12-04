@@ -77,18 +77,19 @@ src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp_types.h \
 # no main.c!
 # find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
 SRC_SHARED	:= \
-src/cam/cam_init.c                              src/gui/gui_style.c \
-src/cmd/add/cmd_add.c                           src/lgt/lgt_init.c \
-src/cmd/add/cmd_add_camera.c                    src/mat/mat_init.c \
-src/cmd/add/cmd_add_cone.c                      src/mtl/fio_png_write.c \
-src/cmd/add/cmd_add_copy.c                      src/obj/obj_container_init.c \
-src/cmd/add/cmd_add_cylinder.c                  src/obj/obj_copy_init.c \
-src/cmd/add/cmd_add_group.c                     src/obj/obj_init.c \
-src/cmd/add/cmd_add_light.c                     src/rt.c \
-src/cmd/add/cmd_add_material.c                  src/scn/add/scn_add_cam.c \
-src/cmd/add/cmd_add_plane.c                     src/scn/add/scn_add_ligth.c \
-src/cmd/add/cmd_add_sphere.c                    src/scn/add/scn_add_mat.c \
-src/cmd/add/cmd_add_txr.c                       src/scn/add/scn_add_obj.c \
+src/cam/cam_init.c                              src/gui/gui_singals.c \
+src/cmd/add/cmd_add.c                           src/gui/gui_style.c \
+src/cmd/add/cmd_add_camera.c                    src/lgt/lgt_init.c \
+src/cmd/add/cmd_add_cone.c                      src/mat/mat_init.c \
+src/cmd/add/cmd_add_copy.c                      src/mtl/fio_png_write.c \
+src/cmd/add/cmd_add_cylinder.c                  src/obj/obj_container_init.c \
+src/cmd/add/cmd_add_group.c                     src/obj/obj_copy_init.c \
+src/cmd/add/cmd_add_light.c                     src/obj/obj_init.c \
+src/cmd/add/cmd_add_material.c                  src/rt.c \
+src/cmd/add/cmd_add_plane.c                     src/scn/add/scn_add_cam.c \
+src/cmd/add/cmd_add_sphere.c                    src/scn/add/scn_add_ligth.c \
+src/cmd/add/cmd_add_txr.c                       src/scn/add/scn_add_mat.c \
+src/cmd/add/cmd_add_txr_to_scn.c                src/scn/add/scn_add_obj.c \
 src/cmd/cmd_error.c                             src/scn/add/scn_add_to_group.c \
 src/cmd/cmd_parce_command.c                     src/scn/add/scn_add_to_group_copy.c \
 src/cmd/cmd_parse.c                             src/scn/add/scn_add_to_group_grp.c \
@@ -131,7 +132,6 @@ src/grp/grp_remove_by_name.c                    src/tfm/tfm_init.c \
 src/gui/gui_builder.c                           src/tfm/tfm_move.c \
 src/gui/gui_init.c                              src/txr/txr_init.c \
 src/gui/gui_list_widgets.c                      src/vlk/vlk_init.c \
-src/gui/gui_singals.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 

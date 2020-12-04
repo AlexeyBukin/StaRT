@@ -18,6 +18,7 @@ t_msg				cmd_add_material(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_light(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_copy(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_txr(t_rt *rt, t_parser *parser);
+int					cmd_add_txr_to_scn(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd_add
