@@ -102,4 +102,10 @@ t_msg					cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
 
 t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest);
 
+/*
+**				cmd/utils/cmd_read_png
+*/
+
+int						cmd_read_png(t_parser *parser);
+
 #endif

@@ -35,8 +35,8 @@ t_msg			cmd_set_object(t_rt *rt, t_parser *parser)
 		return(msg_err("cmd_set_obj(): given NULL pointer in cmd_add()"));
 	if ((scn_get_mat_by_name(rt->scene, parser->name)))
 		return (cmd_set_material(rt, parser));
-//	if ((scn_get_cam_by_name(rt->scene, parser->name)))
-//		return (cmd_set_camera(rt, parser));
+	if ((scn_get_txr_by_name(rt->scene, parser->name)))
+		return (cmd_set_txr(rt, parser));
 	if ((tmp_obj = scn_get_obj_by_name(rt->scene, parser->name)))
 		return (cmd_set_object_type(rt, parser, tmp_obj));
 	ft_free(parser->name);

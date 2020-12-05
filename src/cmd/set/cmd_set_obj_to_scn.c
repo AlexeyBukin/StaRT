@@ -1,15 +1,27 @@
 
 #include "rt.h"
 
-//t_msg			cmd_set_cam_to_scn(t_parser *parser, t_cam *dest)
-//{
-//	ft_free(dest->name);
-//	ft_memcpy(dest, parser->object, sizeof(t_obj));
-//	dest->name = ft_strdup(parser->name);
-//	cam_deinit(parser->camera);
-//	ft_free(parser->name);
-//	return (msg_oks("set camera successfully"));
-//}
+t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
+{
+	if (dest->filename &&
+		!(ft_strequ(parser->texture->filename,
+			dest->filename)))
+	{
+		if (cmd_read_png(parser))
+		{
+			//TODO leaks!!!
+			return (msg_warn("png read error"));
+		}
+		ft_free(dest->content);
+		ft_free(dest->filename);
+	}
+	ft_free(dest->name);
+	ft_memcpy(dest, parser->texture, sizeof(t_txr));
+	dest->name = ft_strdup(parser->name);
+	ft_free(parser->name);
+	ft_free(parser->texture);
+	return (msg_oks("set txr success"));
+}
 
 t_msg			cmd_set_mat_to_scn(t_parser *parser, t_mat *dest)
 {

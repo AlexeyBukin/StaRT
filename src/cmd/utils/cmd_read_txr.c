@@ -41,7 +41,7 @@ int			cmd_read_txr_type(t_parser *parser)
 int			cmd_read_txr_filename(t_parser *parser)
 {
 	char	*name;
-	(void)parser;
+
 	if (ft_str_next_is(parser->cur, "-f"))
 	{
 		parser->cur += ft_strlen("-f");

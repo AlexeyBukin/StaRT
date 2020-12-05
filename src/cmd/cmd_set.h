@@ -87,6 +87,12 @@ int				cmd_set_obj_grp(t_rt *rt, t_parser *parser);
 int				cmd_set_obj_mat(t_rt *rt, t_parser *parser);
 
 /*
+**              cmd/set/cmd_set_txr
+*/
+
+t_msg				cmd_set_txr(t_rt *rt, t_parser *parser);
+
+/*
 **				cmd/utils/cmd_set_obj TODO move to set
 */
 
@@ -100,5 +106,6 @@ t_msg					cmd_set_light(t_rt *rt, t_parser *parser, t_obj *dest);
 t_msg					cmd_set_copy(t_rt *rt, t_parser *parser, t_obj *obj);
 int						cmd_read_txr_type(t_parser *parser);
 int						cmd_read_txr_filename(t_parser *parser);
+t_msg					cmd_set_txr_to_scn(t_parser *parser, t_txr *dest);
 
 #endif
