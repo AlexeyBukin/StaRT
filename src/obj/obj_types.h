@@ -17,14 +17,15 @@
 # include "shp_types.h"
 # include "mat_types.h"
 # include "lgt_types.h"
+# include "libft.h"
 
 typedef enum				s_obj_type
 {
 	OBJ_NONE,
 	OBJ_CONTAINER,
+	OBJ_LIGHT,
 	OBJ_COPY,
-	OBJ_GROUP,
-	OBJ_LIGHT
+	OBJ_GROUP
 }							t_obj_type;
 
 typedef struct				s_obj_light
