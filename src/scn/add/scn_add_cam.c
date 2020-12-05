@@ -4,24 +4,20 @@
 
 #include "rt.h"
 
-int		scn_add_cam(t_scn *scn, t_cam *cam)
+int		scn_add_to_group_cam(t_scn *scn, t_obj *dest, t_obj *cam)
 {
-	t_cam		**new_array;
-	t_cam		*cam_copy;
-
-	if (!scn || !cam)
-		return (rt_err("cam_add(): was given a NULL pointer"));
-	if ((cam_copy = scn_get_cam_by_name(scn, cam->name)) || scn_name_check(scn, cam->name))
-	{
-//		if (cam_copy == cam)
-//			return (rt_err("cam_add(): object is inside the scene already"));
-		return (rt_err("cam_add(): name collision"));
-	}
-	if (!(new_array = (t_cam **)ft_realloc(scn->cameras, sizeof(t_cam *) * scn->cameras_num,
-										sizeof(t_cam *) * (scn->cameras_num + 1))))
-		return (rt_err("cam_add(): malloc returned NULL pointer"));
-	scn->cameras = new_array;
-	scn->cameras_num++;
-	scn->cameras[scn->cameras_num - 1] = cam;
+	if (scn == NULL || dest == NULL || cam == NULL)
+		return (rt_err("scn_add_to_group_cam(): Given pointer is NULL"));
+	if (cam->type != OBJ_CAMERA)
+		return (rt_err("scn_add_to_group_cam(): given obj is not a cam"));
+	if (dest->type != OBJ_GROUP)
+		return (rt_err("scn_add_to_group_cam(): dest is not a group"));
+	if ((scn_name_check(scn, cam->name)))
+		return (rt_err("scn_add_to_group_cam(): id collision"));
+	if (scn_group_inc(&dest->content.group))
+		return (rt_err(""));
+	dest->content.group.children[dest->content.group.child_num - 1] = cam;
+	cam->parent = dest;
+	cam->transform.parent = &(dest->transform);
 	return (0);
 }

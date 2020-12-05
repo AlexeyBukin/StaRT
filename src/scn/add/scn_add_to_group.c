@@ -18,5 +18,7 @@ int 			scn_add_to_group(t_scn *scn, t_obj *dest, t_obj *obj)
 		return (scn_add_to_group_obj(scn, dest, obj));
 	if (obj->type == OBJ_LIGHT)
 		return (scn_add_to_group_lgt(scn, dest, obj));
+	if (obj->type == OBJ_CAMERA)
+		return (scn_add_to_group_cam(scn, dest, obj));
 	return (0);
 }

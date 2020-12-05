@@ -63,7 +63,7 @@ t_msg				cmd_set_material(t_rt *rt, t_parser *parser);
 **				cmd/set/cmd_set_camera
 */
 
-t_msg				cmd_set_camera(t_rt *rt, t_parser *parser);
+t_msg				cmd_set_camera(t_rt *rt, t_parser *parser, t_obj *dest);
 
 /*
 **				cmd/set/cmd_set_tools
@@ -94,9 +94,11 @@ int 					cmd_set_prepare_obj(t_parser *parser, t_obj *src);
 t_msg					cmd_set_type(t_rt *rt, t_parser *parser);
 t_msg					cmd_set_error(t_parser *parser, char *message);
 t_msg					cmd_set_object(t_rt *rt, t_parser *parser);
-t_msg					cmd_set_cam_to_scn(t_parser *parser, t_cam *dest);
+//t_msg					cmd_set_cam_to_scn(t_parser *parser, t_cam *dest);
 t_msg					cmd_set_mat_to_scn(t_parser *parser, t_mat *dest);
 t_msg					cmd_set_light(t_rt *rt, t_parser *parser, t_obj *dest);
 t_msg					cmd_set_copy(t_rt *rt, t_parser *parser, t_obj *obj);
+int						cmd_read_txr_type(t_parser *parser);
+int						cmd_read_txr_filename(t_parser *parser);
 
 #endif

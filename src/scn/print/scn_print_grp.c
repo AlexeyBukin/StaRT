@@ -54,6 +54,11 @@ void		scn_print_obj_params(t_obj *obj, int tab_num)
 				obj->content.light.light.color.x,obj->content.light.light.color.y,
 				  obj->content.light.light.color.z);
 	}
+	if (obj->type == OBJ_CAMERA)
+	{
+		ft_printf("CAMERA fov <%.3f %.3f> ", obj->content.camera.fov.x,
+				  obj->content.camera.fov.y);
+	}
 	scn_print_obj_common_params(&obj->transform);
 }
 
@@ -94,6 +99,16 @@ int		scn_print_grp_rec(t_obj *obj, int tab_num)
 	while (i < grp.child_num)
 	{
 		if (grp.children[i]->type == OBJ_LIGHT)
+		{
+			if (scn_print_grp_rec(grp.children[i], tab_num + 1))
+				return (rt_err("scn_print_grp_rec(): couldn\'t get info about obj"));
+		}
+		i++;
+	}
+	i = 0;
+	while (i < grp.child_num)
+	{
+		if (grp.children[i]->type == OBJ_CAMERA)
 		{
 			if (scn_print_grp_rec(grp.children[i], tab_num + 1))
 				return (rt_err("scn_print_grp_rec(): couldn\'t get info about obj"));

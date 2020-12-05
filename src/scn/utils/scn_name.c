@@ -38,7 +38,5 @@ int				scn_name_check(t_scn *scn, char *name)
 		return (rt_err("scn_name_check(): name has an incorrect symbol"));
 	if (scn_get_obj_by_name(scn, name) || scn_get_txr_by_name(scn, name))
 		return (rt_err("scn_name_check(): not a unique name"));
-	if (scn_get_cam_by_name(scn, name) || scn_get_mat_by_name(scn, name))
-		return (rt_err("scn_name_check(): not a unique name"));
 	return (0);
 }
