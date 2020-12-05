@@ -24,11 +24,11 @@ typedef struct		s_scn
 {
 	char			*filename;
 	t_obj			*main_group;
-	t_cam			*camera_active;
+	t_cam			*camera_active;//TODO obj
 	t_mat			**materials;
 	size_t			materials_num;
-	t_cam			**cameras;
-	size_t			cameras_num;
+//	t_cam			**cameras;
+//	size_t			cameras_num;
 	t_txr			**textures;
 	size_t			textures_num;
 //	t_mdl			**models;

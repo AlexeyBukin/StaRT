@@ -1,15 +1,15 @@
 
 #include "rt.h"
 
-t_msg			cmd_set_cam_to_scn(t_parser *parser, t_cam *dest)
-{
-	ft_free(dest->name);
-	ft_memcpy(dest, parser->camera, sizeof(t_cam));
-	dest->name = ft_strdup(parser->name);
-	cam_deinit(parser->camera);
-	ft_free(parser->name);
-	return (msg_oks("set camera successfully"));
-}
+//t_msg			cmd_set_cam_to_scn(t_parser *parser, t_cam *dest)
+//{
+//	ft_free(dest->name);
+//	ft_memcpy(dest, parser->object, sizeof(t_obj));
+//	dest->name = ft_strdup(parser->name);
+//	cam_deinit(parser->camera);
+//	ft_free(parser->name);
+//	return (msg_oks("set camera successfully"));
+//}
 
 t_msg			cmd_set_mat_to_scn(t_parser *parser, t_mat *dest)
 {

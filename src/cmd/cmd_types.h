@@ -24,7 +24,7 @@ typedef struct		s_parser
 //	t_vec3			rot_euler_xyz;
 //TODO added group in parser
 	t_obj			*group;
-	t_cam			*camera;
+//	t_cam			*camera;
 	t_mat			*material;
 	t_txr			*texture;
 	char			*name;

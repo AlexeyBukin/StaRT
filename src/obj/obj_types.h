@@ -25,7 +25,8 @@ typedef enum				s_obj_type
 	OBJ_CONTAINER,
 	OBJ_LIGHT,
 	OBJ_COPY,
-	OBJ_GROUP
+	OBJ_GROUP,
+	OBJ_CAMERA
 }							t_obj_type;
 
 typedef struct				s_obj_light
@@ -33,6 +34,11 @@ typedef struct				s_obj_light
 	t_lgt_type				lgt_type;
 	t_lgt					light;
 }							t_obj_light;
+
+typedef struct				s_obj_camera
+{
+	t_vec2					fov;
+}							t_obj_camera;
 
 typedef struct				s_obj_container
 {
@@ -53,6 +59,7 @@ typedef union				s_obj_content
 	t_obj_container			container;
 	t_obj_group				group;
 	t_obj_light				light;
+	t_obj_camera			camera;
 }							t_obj_content;
 
 typedef struct				s_scn_object
