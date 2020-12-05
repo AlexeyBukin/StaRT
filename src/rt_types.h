@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/20 18:46:42 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/03 18:08:48 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "gui_types.h"
 # include "txr_types.h"
 # include "mat_types.h"
+# include "gui_types.h"
 
 //typedef struct		s_texture
 //{
@@ -34,8 +35,6 @@
 
 typedef struct		s_rt
 {
-	GtkApplication		*app;
-	GMainContext		*context;
 //	GMutex				mutex_true;
 //	GMutex				*mutex;
 	GThread				*server_thread;
@@ -43,6 +42,7 @@ typedef struct		s_rt
 	t_scn				*scene;
 	t_txr				*render_result;
 	t_srv				*server;
+	t_gui				*gui;
 }					t_rt;
 
 #endif

@@ -1,6 +1,11 @@
 {
 	"C_Cpp.errorSquiggles": "Disabled",
 	"files.associations": {
-		"locale": "c"
+		"locale": "c",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }
