@@ -51,6 +51,7 @@ typedef struct		s_gpu
 	t_gpu_mat		*mat_buf;
 	t_gpu_info		info;
 	size_t			obj_current;
+	t_txr			*render_result;
 }					t_gpu;
 
 #endif

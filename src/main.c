@@ -94,7 +94,7 @@ int				main(int ac, char **av)
 		return (rt_error("Cannot init t_rt struct", 0));
 	{
 
-//		test(rt->scene);
+		test(rt->scene);
 		if (srv_init(rt))
 			return (rt_error("Cannot init server", 0));
 		{

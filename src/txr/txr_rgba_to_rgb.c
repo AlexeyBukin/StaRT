@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   txr.h                                              :+:      :+:    :+:   */
+/*   txr_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TXR_H
-# define TXR_H
+#include "rt.h"
+#include "txr.h"
 
-# include "scn_types.h"
-# include "txr_types.h"
+int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
+{
+	size_t			i;
+	size_t			j;
+	size_t			j_a;
+	t_txr			*rgb;
 
-int		txr_init(t_txr **dest, char *name, t_size2 size);
-int		txr_init_default(t_txr **dest, char *name);
-int		txr_deinit(t_txr *txr);
-
-int		txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest);
-
-#endif
+	if (rgba == NULL || rgb_dest == NULL)
+		return (rt_err("Null pointer"));
+	if (txr_init(&rgb, ft_strdup(rgba->name), {rgba->width, rgba->height}))
+		return (rt_err("Cannot malloc rgb texture"));
+	i = 0;
+	while (i < rgb->height)
+	{
+		j = 0;
+		j_a = 0;
+		while (j < rgb->stride)
+		{
+			rgb->content[i * rgb->stride + j] = rgba->content[i * rgba->stride + j_a];
+			j_a += j_a % 4 == 3 ? 1 : 0;
+			j_a++;
+			j++;
+		}
+		i++;
+	}
+	*rgb_dest = rgb;
+	return (0);
+}

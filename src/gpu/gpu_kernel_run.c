@@ -16,16 +16,16 @@
 
 # define MTL_MAIN_KERNEL "scene_test"
 
-// int				gpu_kernel_run(t_rt *rt)
-// {
-// 	if (rt == NULL)
-// 		return (rt_err("rt is NULL pointer"));
-// 	if (rt->render_result == NULL)
-// 		return (rt_err("render_result is NULL pointer"));
-// 	if (mtl_kernel_run(rt->gpu.mtl, MTL_MAIN_KERNEL, rt->render_result->index))
-// 		return (rt_err("kernel_run() fail"));
-// 	return (0);
-// }
+ int				gpu_kernel_run(t_gpu *gpu, t_txr *render_result)
+ {
+ 	if (gpu == NULL)
+ 		return (rt_err("gpu is NULL pointer"));
+ 	if (render_result == NULL)
+ 		return (rt_err("render_result is NULL pointer"));
+ 	if (mtl_kernel_run(rt->gpu.mtl, MTL_MAIN_KERNEL, rt->render_result->index))
+ 		return (rt_err("kernel_run() fail"));
+ 	return (0);
+ }
 
 #elif defined(PLATFORM_LINUX) || defined(PPLATFORM_WINDOWS)
 

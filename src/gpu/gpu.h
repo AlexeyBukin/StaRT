@@ -27,4 +27,6 @@ int 	gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn);
 int		gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global);
 int 	gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global);
 
+int		gpu_render(t_rt *rt);
+
 #endif
