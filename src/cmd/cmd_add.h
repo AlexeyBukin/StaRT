@@ -16,7 +16,6 @@ t_msg           	cmd_add_group(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_camera(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_material(t_rt *rt, t_parser *parser);
 t_msg				cmd_add_light(t_rt *rt, t_parser *parser);
-t_msg				cmd_add_copy(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd_add

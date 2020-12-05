@@ -57,7 +57,5 @@ t_msg				cmd_add(t_rt *rt, t_parser *parser)
 		return (cmd_add_material(rt, parser));
 	if (ft_str_next_is(str, "light"))
 		return (cmd_add_light(rt, parser));
-	if (ft_str_next_is(str, "copy"))
-		return (cmd_add_copy(rt, parser));
 	return (msg_warn("Syntax error: Unknown object type"));
 }

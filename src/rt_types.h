@@ -38,7 +38,7 @@ typedef struct		s_rt
 //	GMutex				mutex_true;
 //	GMutex				*mutex;
 	GThread				*server_thread;
-	t_gpu				*gpu;
+	t_gpu				gpu;
 	t_scn				*scene;
 	t_txr				*render_result;
 	t_srv				*server;
