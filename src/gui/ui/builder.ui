@@ -49,7 +49,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="menuitem_submenu_4">
+                      <object class="GtkMenuItem" id="server_up">
                         <property name="label">Server Up</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>

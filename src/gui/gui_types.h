@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gui_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 08:54:19 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 08:55:03 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/12/03 20:30:15 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,29 @@
 
 # include "rt_types.h"
 
+enum e_type_box {
+	OBJECT,
+	LIGHT
+};
+
+enum e_styles {
+	GENERAL,
+	PERSONAL
+};
+
+enum {
+    COLUMN_TITLE,
+    COLUMN_ARTIST,
+    COLUMN_CATALOGUE,
+    N_COLUMNS
+};
+
 typedef struct		s_gui
 {
+	struct	s_rt 		*rt_link;
 	GtkApplication		*app;
-//	GApplication		*gapp;
+	GMainContext		*context;
+	GtkBuilder			*builder;
 }					t_gui;
 
 #endif
