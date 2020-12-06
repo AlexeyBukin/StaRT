@@ -28,6 +28,7 @@ typedef union		u_gpu_device
 
 typedef struct		s_gpu_cam
 {
+	size_t			id;
 	t_vec3			pos;
 	t_mat3x3		rot_axis;
 	t_vec2			fov;
@@ -38,10 +39,14 @@ typedef struct		s_gpu_info
 	size_t			obj_num;
 	size_t			mat_num;
 	size_t			txr_num;
+	size_t			cam_num;
+	size_t			light_num;
+	size_t			sampling_num;
 	size_t			render_size;
 	size_t			render_square_num;
 	size_t			render_square_current;
 	t_gpu_cam		camera;
+	size_t			camera_active;
 }					t_gpu_info;
 
 typedef struct		s_gpu
@@ -49,6 +54,7 @@ typedef struct		s_gpu
 	t_gpu_dev		dev;
 	t_gpu_obj		*obj_buf;
 	t_gpu_mat		*mat_buf;
+	t_gpu_light		*lig_buf;
 	t_gpu_info		info;
 	size_t			obj_current;
 	t_txr			*render_result;

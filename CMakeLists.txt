@@ -10,28 +10,9 @@ add_definitions(-DPLATFORM_MACOS)
 
 #  find src -type f -name '*.c' | sort | column -c 100
 set(${PROJECT_NAME}_SOURCE
-        src/cam/cam_init.c                      src/err/msg_err.c                       src/scn/get/scn_get_obj_by_name.c
-        src/err/msg_ok.c                        src/scn/scn_get_mat.c
-        src/err/msg_warn.c                      src/scn/scn_id.c
-        src/err/rt_err.c                        src/scn/scn_init.c
-        src/err/rt_warn.c                       src/scn/scn_name.c
-        src/gpu/gpu_buffer_load.c               src/srv/srv_deinit.c
-        src/gpu/gpu_buffer_objects.c
-        src/gpu/gpu_init.c                      src/srv/srv_ext.c
-        src/gpu/gpu_kernel_run.c                src/srv/srv_ext_data.c
-        src/gui/gui_init.c                      src/srv/srv_init.c
-        src/main.c                              src/srv/srv_loop.c
-        src/mat/mat_init.c                      src/srv/srv_parse.c
-        src/obj/obj_container_init.c            src/srv/srv_utils.c
-        src/obj/obj_copy_init.c                 src/tfm/tfm_init.c
-        src/obj/obj_grp_init.c                  src/tfm/tfm_move.c
-        src/obj/obj_init.c                      src/txr/txr_init.c
-        src/rt.c                                src/vlk/vlk_init.c
-        src/scn/add/scn_add_obj.c
-        src/scn/get/scn_get_obj_by_id.c
 )
 
-add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES})
+add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES} lib/ft/src/file/ft_read_files.c lib/ft/src/file/ft_read_files.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
 <<<<<<< HEAD

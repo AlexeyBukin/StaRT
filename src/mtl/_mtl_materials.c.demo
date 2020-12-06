@@ -16,13 +16,18 @@
 #include <stdlib.h>
 #include "libft.h"
 
-#define METAL_SHADER_FILENAME "shaders/rt_mtl___kernel.metal"
+#define METAL_SHADER_FILENAME "shaders/metal_struct.metal shaders/metal_shader.metal shaders/rt_trace_mod_ggx.metal"
+//#define METAL_SHADER_FILENAME "shaders/rt_mtl___kernel.metal"
+
+#define size_x 64
+#define size_y 64
 
 unsigned char 	*get_texture_rgba_fine_64();
 unsigned char	*get_texture_rgba_empty_64();
 void 			fill_mat_pbr(t_gpu_mat *mat);
 int				gpu_init(t_gpu **gpu_dest);
 void 			fill_obj_sphere(t_gpu_obj *obj);
+void			fill_light(t_gpu_light *lig);
 int				fio_png_write(char *data, int width, int height, char *filename);
 
 int		main()
@@ -44,10 +49,16 @@ int		main()
 	fill_obj_sphere(gpu->obj_buf);
 	gpu->info.obj_num = 1;
 
+	gpu->lig_buf = ft_memalloc(sizeof(t_gpu_light));
+	fill_light(gpu->lig_buf);
+	gpu->info.light_num = 1;
+
 	unsigned char *texture_rbga_first = get_texture_rgba_fine_64();
 	unsigned char *texture_rbga_second = get_texture_rgba_fine_64();
 
 	printf("mtl: %p\n", gpu->dev.mtl);
+
+	gpu->info.txr_num = 2;
 	// first added resource texture must have id = 0, second id = 1 ...
 	int index0 = mtl_texture_resource_rgba8_load(gpu->dev.mtl, texture_rbga_first, 64, 64);
 	int index1 = mtl_texture_resource_rgba8_load(gpu->dev.mtl, texture_rbga_second, 64, 64);
@@ -57,26 +68,24 @@ int		main()
 	// first added target texture must have id = 0, second id = 1 ...
 //	int target_index0 = mtl_texture_target_rgba8_load(gpu->dev.mtl, texture_rbga_target, 64, 64);
 
-
-
-
 	mtl_buffer_load_info(gpu->dev.mtl, &(gpu->info), sizeof(t_gpu_info));
 	mtl_buffer_load_objects(gpu->dev.mtl, gpu->obj_buf, gpu->info.obj_num * sizeof(t_gpu_obj));
 	mtl_buffer_load_materials(gpu->dev.mtl, gpu->mat_buf, gpu->info.mat_num * sizeof(t_gpu_mat));
+	mtl_buffer_load_lights(gpu->dev.mtl, gpu->lig_buf, gpu->info.light_num * sizeof(t_gpu_light));
 
 	// MUST create texture, metal cannot add memory with no copy that was created by malloc()
 	// https://developer.apple.com/documentation/metal/mtldevice/1433382-makebuffer
-	int target_index0 = mtl_texture_create_target(gpu->dev.mtl, 64, 64);
+	int target_index0 = mtl_texture_create_target(gpu->dev.mtl, size_x, size_y);
 	printf("mtl_texture_create(): %d\n", res);
 
-	res = mtl_kernel_run(gpu->dev.mtl, "scene_test", target_index0);
+	res = mtl_kernel_run(gpu->dev.mtl, "trace_mod_ggx", target_index0);
 	printf("mtl_lib_kernel_run(): %d\n", res);
 	if (res != 0)
 		return (0);
 
 	unsigned char  *texture_rbga_target = mtl_texture_get_ptr_target(gpu->dev.mtl, target_index0);
 
-	res = fio_png_write((char *)texture_rbga_target, 64, 64, "scene_test.png");
+	res = fio_png_write((char *)texture_rbga_target, size_x, size_y, "trace_mod_ggx.png");
 	printf("fio_png_write(): %d\n", res);
 
 	// TODO add mtl_clear_resources() call
@@ -90,12 +99,12 @@ void 			fill_mat_pbr(t_gpu_mat *mat)
 	mat->id = 0;
 	mat->type = MAT_PBR;
 
-	mat->content.pbr.albedo = vec3(0.5, 0.5, 0.5);
-	mat->content.pbr.f0 = vec3(0.02, 0.02, 0.02);
+	mat->content.pbr.albedo = vec3(1.0, 1.0, 1.0);
+	mat->content.pbr.f0 = vec3(0.0, 0.0, 0.0);
 	mat->content.pbr.metalness = 0.0;
-	mat->content.pbr.roughness = 0.2;
+	mat->content.pbr.roughness = 1.0;
 	mat->content.pbr.transparency = 0.0;
-	mat->content.pbr.ior = 1.2;
+	mat->content.pbr.ior = 1.6;
 
 	mat->content.pbr.albedo_txr_index = 0;
 	mat->content.pbr.f0_txr_index = -1;
@@ -111,8 +120,16 @@ void 			fill_obj_sphere(t_gpu_obj *obj)
 	obj->mat_index = 0;
 	obj->map_axis = mat3x3_identity();
 	obj->type = SHP_SPHERE;
-	obj->shape.sphere.pos = vec3(10, 0, 0);
+	obj->shape.sphere.pos = vec3(0, 0, 10);
 	obj->shape.sphere.r = 2;
+}
+
+void			fill_light(t_gpu_light *lig)
+{
+	lig->id = 0;
+	lig->col = vec3(1, 1, 1);
+	lig->pos = vec3(0, 0, 0);
+	lig->power = 10000;
 }
 
 unsigned char *get_texture_rgba_fine_64()
@@ -158,6 +175,7 @@ unsigned char *get_texture_rgba_empty_64()
 int		gpu_init(t_gpu **gpu_dest)
 {
 	t_gpu		*gpu;
+	char 		*libstr;
 
 	gpu = ft_malloc(sizeof(t_gpu));
 	if (gpu == NULL || gpu_dest == NULL)
@@ -166,7 +184,7 @@ int		gpu_init(t_gpu **gpu_dest)
 	if (gpu->dev.mtl == NULL)
 		return (-1);
 	printf("mtl: %p\n", gpu->dev.mtl);
-	char *libstr = ft_read_file(METAL_SHADER_FILENAME);
+	ft_read_files(&libstr ,METAL_SHADER_FILENAME);
 	int res = mtl_lib_load_source(gpu->dev.mtl, libstr);
 	free(libstr);
 	if (res != 0)

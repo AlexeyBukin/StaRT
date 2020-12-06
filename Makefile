@@ -62,7 +62,7 @@ LINK = gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS)
 
 ### Sources
 
-# find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \\/'
+# find src -type f -name '*.h' | sort | column -c 100 | sed 's/$/ \/'
 HEADERS	:= \
 src/cam/cam.h           src/gpu/gpu_types.h     src/obj/obj_types.h     src/srv/srv.h \
 src/cam/cam_types.h     src/grp/grp.h           src/rt.h                src/srv/srv_types.h \
@@ -75,7 +75,7 @@ src/gpu/gpu.h           src/mtl/mtl.h           src/shp/shp.h \
 src/gpu/gpu_objects.h   src/obj/obj.h           src/shp/shp_types.h \
 
 # no main.c!
-# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \\/'
+# find src -type f -name '*.c' ! -name "main.c" | sort | column -c 120 | sed 's/$/ \/'
 SRC_SHARED	:= \
 src/cam/cam_init.c                              src/gui/gui_singals.c \
 src/cmd/add/cmd_add.c                           src/gui/gui_style.c \

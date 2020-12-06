@@ -55,6 +55,7 @@ int						mtl_texture_target_save(t_mtl *mtl, int index, char *filepath);
 int						mtl_buffer_load_info(t_mtl *mtl, void *ptr, int len);
 int						mtl_buffer_load_objects(t_mtl *mtl, void *ptr, int len);
 int						mtl_buffer_load_materials(t_mtl *mtl, void *ptr, int len);
+int						mtl_buffer_load_lights(t_mtl *mtl, void *ptr, int len);
 
 int						mtl_kernel_run(t_mtl *mtl, char *kernel_name, int target_index);
 
