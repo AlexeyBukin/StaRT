@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/12/07 16:31:19 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 20:10:24 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 GtkBuilder		*gui_create_builder(void)
 {
-	GtkBuilder *builder;
-	GError *error;
+	GtkBuilder	*builder;
+	GError		*error;
 
 	error = NULL;
 	builder = gtk_builder_new();

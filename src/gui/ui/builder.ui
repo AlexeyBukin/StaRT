@@ -24,44 +24,44 @@
                   <object class="GtkMenu" id="menu_file">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <child>
+                    <!-- <child>
                       <object class="GtkMenuItem" id="menuitem_submenu_1">
                         <property name="label">New</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                       </object>
-                    </child>
-                    <child>
+                    </child> -->
+                    <!-- <child>
                       <object class="GtkMenuItem" id="menuitem_submenu_2">
                         <property name="label">Open</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                       </object>
-                    </child>
-                    <child>
+                    </child> -->
+                    <!-- <child>
                       <object class="GtkMenuItem" id="menuitem_submenu_3">
                         <property name="label">Save</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                       </object>
-                    </child>
-                    <child>
+                    </child> -->
+                    <!-- <child>
                       <object class="GtkMenuItem" id="server_up">
                         <property name="label">Server Up</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="use-underline">True</property>
                       </object>
-                    </child>
-                    <child>
+                    </child> -->
+                    <!-- <child>
                       <object class="GtkSeparatorMenuItem">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                       </object>
-                    </child>
+                    </child> -->
                     <child>
                       <object class="GtkMenuItem" id="quit">
                         <property name="label">Quit</property>
@@ -74,7 +74,7 @@
                 </child>
               </object>
             </child>
-            <child>
+            <!-- <child>
               <object class="GtkMenuItem" id="item_Edit">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -118,13 +118,13 @@
                   </object>
                 </child>
               </object>
-            </child>
+            </child> -->
             <child>
-              <object class="GtkMenuItem" id="item_View">
+              <object class="GtkMenuItem" id="render">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">View</property>
-                <child type="submenu">
+                <property name="label" translatable="yes">Render</property>
+                <!-- <child type="submenu">
                   <object class="GtkMenu" id="menu_view">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -137,10 +137,10 @@
                       </object>
                     </child>
                   </object>
-                </child>
+                </child> -->
               </object>
             </child>
-            <child>
+            <!-- <child>
               <object class="GtkMenuItem" id="item_Help">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -160,7 +160,7 @@
                   </object>
                 </child>
               </object>
-            </child>
+            </child> -->
           </object>
           <packing>
             <property name="expand">False</property>
@@ -172,8 +172,8 @@
           <object class="GtkPaned" id="paned">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="position">500</property>
-            <child>
+            <property name="position">0</property>
+            <!-- <child>
               <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
@@ -192,7 +192,7 @@
                 <property name="resize">False</property>
                 <property name="shrink">True</property>
               </packing>
-            </child>
+            </child> -->
             <child>
               <object class="GtkScrolledWindow">
                 <property name="visible">True</property>

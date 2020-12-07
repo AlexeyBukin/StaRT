@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/07 16:39:42 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 20:33:48 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,10 @@ static void		activate(GtkApplication* app, t_rt *user_data)
 								builder, "AppWindow", GENERAL, NULL);
 	gui_style_for_menu_bar(builder);
 	gui_get_info_and_style(builder, "paned", GENERAL, NULL);
-	gui_create_gtk_tree(builder, user_data);
-	gui_get_info_and_style(builder, "item_File", GENERAL, NULL);
-	gui_get_info_and_style(builder, "item_Edit", GENERAL, NULL);
-	gui_get_info_and_style(builder, "item_View", GENERAL, NULL);
-	gui_get_info_and_style(builder, "item_Help", GENERAL, NULL);
+	// gui_create_gtk_tree(builder, user_data);
+	// gui_get_info_and_style(builder, "item_Edit", GENERAL, NULL);
+	// gui_get_info_and_style(builder, "item_View", GENERAL, NULL);
+	// gui_get_info_and_style(builder, "item_Help", GENERAL, NULL);
 	gui_signals(window, builder, user_data);
 	gtk_window_set_decorated(GTK_WINDOW(window), FALSE);
 	gtk_widget_show_all(GTK_WIDGET(window));
