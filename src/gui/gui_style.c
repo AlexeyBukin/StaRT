@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/12/03 20:37:05 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:30:49 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void			gui_style(GtkWidget *widget)
 	gtk_css_provider_load_from_path(provider,
 									 RT_GTK_THEME, NULL);
 	gtk_style_context_add_provider(context,
-									GTK_STYLE_PROVIDER(provider),
-									GTK_STYLE_PROVIDER_PRIORITY_USER);
+								GTK_STYLE_PROVIDER(provider),
+								GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
 GObject			*gui_get_info_and_style(GtkBuilder *builder,
-								const gchar *name_id, int style, gchar *name)
+							const gchar *name_id, int style, gchar *name)
 {
 	GObject	*obj;
 

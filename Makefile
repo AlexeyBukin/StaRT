@@ -6,7 +6,7 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/23 23:15:49 by kcharla           #+#    #+#              #
-#    Updated: 2020/12/01 21:25:44 by rtacos           ###   ########.fr        #
+#    Updated: 2020/12/07 16:38:10 by rtacos           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ src/cmd/add/cmd_add_plane.c                     src/gpu/gpu_init.c              
 src/cmd/add/cmd_add_sphere.c                    src/gpu/gpu_kernel_run.c                        src/scn/print/scn_print_txr.c \
 src/cmd/cmd_error.c                             src/grp/grp_init.c                              src/scn/remove/scn_remove_by_name_cam.c \
 src/cmd/cmd_parce_command.c                     src/grp/grp_remove_by_name.c                    src/scn/remove/scn_remove_by_name_copy.c \
-src/cmd/cmd_parse.c                             			                                    src/scn/remove/scn_remove_by_name_grp.c \
+src/cmd/cmd_parse.c                            	src/gui/gui_gtk_tree_view.c                     src/scn/remove/scn_remove_by_name_grp.c \
 src/cmd/ls/cmd_ls.c                             src/gui/gui_builder.c                           src/scn/remove/scn_remove_by_name_lgt.c \
 src/cmd/render/cmd_render.c                     src/gui/gui_init.c                              src/scn/remove/scn_remove_by_name_mat.c \
 src/cmd/rm/cmd_rm.c                             src/gui/gui_list_widgets.c                      src/scn/remove/scn_remove_by_name_obj.c \

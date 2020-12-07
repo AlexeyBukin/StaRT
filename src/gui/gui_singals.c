@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/03 20:44:27 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:29:19 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,40 @@ void		on_render_rt(GObject *obj, t_rt *user_data)
 	(void)obj;
 	GdkPixbuf *pix_buf;
 	GtkImage *image;
-	// GtkBuilder	*builder = (GtkBuilder	*)p;
 
-	image = (GtkImage *)gtk_builder_get_object(user_data->gui->builder, "image");
+	image = (GtkImage *)gtk_builder_get_object(user_data->gui->builder,
+											"image");
 	guchar *img = NULL;
 	create_img(&img);
-	pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB, 0, 8, 700, 50, 700 * 3, NULL, NULL);
-	// put_pixel(pix_buf, )
+	pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB,
+							0, 8, 700, 50, 700 * 3, NULL, NULL);
 	gtk_image_set_from_pixbuf(image, pix_buf);
 	// gtk_image_set_from_file(image, "/Users/rtacos/Desktop/rt_git/res/missing-image-icon-24.png");
 }
 
-void			gui_on_server_up(GObject *signal, GtkWindow *parent)
+void			gui_on_server_up(GObject *signal, t_rt *user_data)
 {
-	GtkWidget *dialog, *label, *content_area;
-	GtkDialogFlags flags;
+	GtkWidget		*dialog;
+	GtkWidget		*label;
+	GtkWidget		*content_area;
+	GtkDialogFlags	flags;
 	(void)signal;
 
 	flags = GTK_DIALOG_DESTROY_WITH_PARENT;
-	dialog = gtk_dialog_new_with_buttons("Message", parent, flags,
-						"Shutdown server", GTK_RESPONSE_NONE, NULL);
+	dialog = gtk_dialog_new_with_buttons("Message", user_data->gui->window,
+						flags, "Shutdown server", GTK_RESPONSE_NONE, NULL);
 	gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	label = gtk_label_new("Server is running...");
 	g_signal_connect_swapped(dialog, "response",
 						G_CALLBACK(gtk_widget_destroy), dialog);
 	gtk_container_add(GTK_CONTAINER(content_area), label);
-	gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+	gtk_window_set_transient_for(GTK_WINDOW(dialog), user_data->gui->window);
 	gtk_widget_show_all(dialog);
 }
 
-void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder, t_rt *user_data)
+void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,
+															t_rt *user_data)
 {
 	GObject		*signal;
 
@@ -83,7 +86,8 @@ void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder, t_rt *user
 	g_signal_connect(G_OBJECT(window), "destroy",
 					G_CALLBACK(gtk_main_quit), NULL);
 	signal = gtk_builder_get_object(builder, "server_up");
+	user_data->gui->window = GTK_WINDOW(window);
 	g_signal_connect(signal, "activate",
-					G_CALLBACK(gui_on_server_up), GTK_WINDOW(window));
+					G_CALLBACK(gui_on_server_up), user_data);
 	// free(data);
 }

@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 08:54:19 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/03 20:30:15 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:25:33 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct		s_gui
 	GtkApplication		*app;
 	GMainContext		*context;
 	GtkBuilder			*builder;
+	GtkWindow			*window;
 }					t_gui;
 
 #endif

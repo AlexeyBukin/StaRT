@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:57 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/03 20:37:12 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:39:05 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void			gui_add_widgets_to_tree(GtkTreeStore *list_box, t_rt *user_data, int type
 void			gui_add_widgets_to_list(GtkListBox *list_box, t_rt *user_data,
 																int type_box);
 void			gui_style_for_menu_bar(GtkBuilder *builder);
+void			gui_create_gtk_tree(GtkBuilder *builder, t_rt *user_data);
 
 
 #endif

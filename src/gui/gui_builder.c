@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/11/28 20:17:36 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:31:19 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ GtkBuilder		*gui_create_builder(void)
 
 	error = NULL;
 	builder = gtk_builder_new();
-	//"src/gui/ui/builder.ui"
-	//"src/gui/layout_editor.glade"
 	if (!gtk_builder_add_from_file(builder, "src/gui/ui/builder.ui", &error))
 	{
 		g_printerr("Error loading file: %s\n", error->message);
