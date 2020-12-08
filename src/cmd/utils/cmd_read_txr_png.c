@@ -44,9 +44,33 @@ static int		prepare_pnglib_structs(png_structp *png_ptr, png_infop *info_ptr, pn
 	return (0);
 }
 
-static int		png_read_buf(png_structp png_ptr, png_infop info_ptr, png_infop end_info, t_parser *parser)
+static int		txr_png_read_rows(png_structp png_ptr, t_parser *parser, png_byte *image_data)
 {
 	png_bytepp		row_pointers;
+	size_t			i;
+
+	i = 0;
+	row_pointers = (png_bytepp) malloc( parser->texture->height * sizeof(png_bytep) );
+	if ( !row_pointers )
+	{
+		free(image_data);
+		return (rt_err("malloc error"));
+	}
+	while (i < parser->texture->height)
+	{
+		row_pointers[i] = image_data + i * parser->texture->stride;
+		i++;
+	}
+	png_read_image(png_ptr, row_pointers);
+	if (parser->texture->content)
+		ft_memdel((void **)&parser->texture->content);
+	parser->texture->content = (char *)image_data;
+	ft_free(row_pointers);
+	return (0);
+}
+
+static int		png_read_buf(png_structp png_ptr, png_infop info_ptr, png_infop end_info, t_parser *parser)
+{
 	png_byte		*image_data;
 
 	image_data = (png_bytep) malloc(parser->texture->stride * parser->texture->height * sizeof(png_byte));
@@ -55,22 +79,11 @@ static int		png_read_buf(png_structp png_ptr, png_infop info_ptr, png_infop end_
 		png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
 		return (rt_err("malloc error"));
 	}
-	row_pointers = (png_bytepp) malloc( parser->texture->height * sizeof(png_bytep) );
-	if ( !row_pointers )
+	if (txr_png_read_rows(png_ptr, parser, image_data))
 	{
 		png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
-		free(image_data);
-		return (rt_err("malloc error"));
+		return (rt_err("png_read_buf(): error"));
 	}
-	for (unsigned int i = 0; i < parser->texture->height; ++i )
-	{
-		row_pointers[i] = image_data + i * parser->texture->stride;
-	}
-	png_read_image(png_ptr, row_pointers);
-	if (parser->texture->content)
-		ft_memdel((void **)&parser->texture->content);
-	parser->texture->content = (char *)image_data;
-	ft_free(row_pointers);
 	return (0);
 }
 
@@ -109,10 +122,9 @@ static int		png_get_size(png_structp png_ptr, png_infop info_ptr, t_parser *pars
 
 	png_set_sig_bytes(png_ptr, 8);
 	png_read_info(png_ptr, info_ptr);
-	(png_get_IHDR(png_ptr, info_ptr,
+	png_get_IHDR(png_ptr, info_ptr,
 				&t_width, &t_height,
-				&bit_depth, &color_type, NULL, NULL, NULL));
-//		return (-1);
+				&bit_depth, &color_type, NULL, NULL, NULL);
 	parser->texture->width = t_width;
 	parser->texture->height = t_height;
 	png_read_update_info(png_ptr, info_ptr);
