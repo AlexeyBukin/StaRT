@@ -109,6 +109,7 @@ public class StartMTL {
 		for i in 0..<textures.count {
 			computeEncoder.useResource(textures[i], usage: MTLResourceUsage.read)
 		}
+		computeEncoder.useResource(lightsBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(infoBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(objectsBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)

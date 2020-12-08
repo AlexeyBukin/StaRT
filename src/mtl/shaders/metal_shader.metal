@@ -156,7 +156,7 @@ float4		col_from_vec_norm(float3 vector)
 	res.x = num_clamp(vector.x, 0, 1);
 	res.y = num_clamp(vector.y, 0, 1);
 	res.z = num_clamp(vector.z, 0, 1);
-	res.w = 0;
+	res.w = 1;
 	return (res);
 }
 
@@ -553,7 +553,7 @@ int			rt_trace_nearest_dist(device t_scn *scene, Ray ray, thread float &dist, th
 	return (nearest_num);
 }
 
-float		brdf_get_d(float3 n, float3 v, float3 l, device struct s_mat *mat)
+float		brdf_get_d(float3 n, float3 v, float3 l, device struct s_mat_pbr *mat)
 {
 	float	d;
 	float	roug_sqr;
@@ -567,7 +567,7 @@ float		brdf_get_d(float3 n, float3 v, float3 l, device struct s_mat *mat)
 	return (d);
 }
 
-float		brdf_get_g(float3 n, float3 v, float3 l, device struct s_mat *mat)
+float		brdf_get_g(float3 n, float3 v, float3 l, device struct s_mat_pbr *mat)
 {
 	float	g;
 	float	roug_sqr;

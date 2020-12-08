@@ -36,17 +36,15 @@ typedef struct		s_gpu_cam
 
 typedef struct		s_gpu_info
 {
-	size_t			obj_num;
-	size_t			mat_num;
-	size_t			txr_num;
-	size_t			cam_num;
-	size_t			light_num;
-	size_t			sampling_num;
-	size_t			render_size;
-	size_t			render_square_num;
-	size_t			render_square_current;
+	int				obj_num;
+	int				mat_num;
+	int				txr_num;
+	int				light_num;
+	int				sampling_num;
+	int				render_size;
+	int				render_square_num;
+	int				render_square_current;
 	t_gpu_cam		camera;
-	size_t			camera_active;
 }					t_gpu_info;
 
 typedef struct		s_gpu

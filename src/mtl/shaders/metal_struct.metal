@@ -50,16 +50,53 @@ typedef struct			s_mat3x3
 	packed_float3		z;
 }						t_mat3x3;
 
+//typedef struct			s_mat
+//{
+//	int					id;
+//	packed_float3		albedo;
+//	packed_float3		f0;
+//	float				transparency;
+//	float				ior;
+//	float 				roughness;
+//	float 				metalness;
+//}						t_m;
+
+typedef enum			s_mat_type
+{
+	MAT_NONE,
+	MAT_PBR,
+	MAT_EMISSION,
+	//RT_MAT_TOON
+}						t_mat_type;
+
+typedef struct			s_mat_pbr
+{
+	packed_float3		albedo;
+	packed_float3		f0;
+	float				metalness;
+	float				roughness;
+	float				transparency;
+	float				ior;
+	int 				albedo_txr_index;
+	int 				f0_txr_index;
+	int 				metalness_txr_index;
+	int 				roughness_txr_index;
+	int 				transparency_txr_index;
+	int 				normal_txr_index;
+}						t_mat_pbr;
+
+typedef union			u_mat_content
+{
+	t_mat_pbr			pbr;
+}						t_mat_content;
+
 typedef struct			s_mat
 {
 	int					id;
-	packed_float3		albedo;
-	packed_float3		f0;
-	float				transparency;
-	float				ior;
-	float 				roughness;
-	float 				metalness;
+	t_mat_type			type;
+	t_mat_content		content;
 }						t_m;
+
 
 typedef struct			s_sphere
 {
@@ -137,14 +174,12 @@ typedef struct			s_info
 	int					obj_num;
 	int					mat_num;
 	int					txr_num;
-	int					cam_num;
 	int 				light_num;
 	int					sampling_num;
 	int					render_size;
 	int					render_square_num;
 	int					render_square_current;
-	struct s_cam		cameras[RT_MAX_CAMERAS];
-	int					camera_active;
+	struct s_cam		camera;
 }						t_info;
 
 typedef struct			s_gpu_scene

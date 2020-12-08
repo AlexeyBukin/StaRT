@@ -55,7 +55,7 @@ int fio_png_write(char *data, int width, int height, char *filename) {
 	for(y = 0; y < height; y++)
 	{
 //		row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
-		row_pointers[y] = (png_byte*)&(data[0]);
+		row_pointers[y] = (png_byte*)&(data[y * width * 4]);
 	}
 
 	png_write_image(png, row_pointers);

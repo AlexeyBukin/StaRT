@@ -13,7 +13,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-float3			cook_torrance_ggx(float3 n, float3 l, float3 v, device t_m *m)
+float3			cook_torrance_ggx(float3 n, float3 l, float3 v, device t_mat_pbr *m)
 {
 	float		g;
 	float3		f_diffk;
@@ -63,8 +63,7 @@ float3	rt_trace_mode_ggx_loop(t_ggx_loop info, device t_scn *scene, thread t_obj
 	}
 	to_view = float3(info.cam_ray.dir) * -1;
 	light_amount = scene->lights[info.light_id].power / (dist_to_light * dist_to_light + 1);
-//	return(float3(1));
-	return (cook_torrance_ggx(info.normal.dir, to_light, to_view, &scene->materials[find_material_by_id(info.mat_id, scene->materials ,scene->info->mat_num)]) * light_amount);
+	return (cook_torrance_ggx(info.normal.dir, to_light, to_view, &scene->materials[nearest.material_id].content.pbr) * light_amount);
 }
 
 static t_color			rt_trace_mode_ggx(device t_scn *scene, thread struct s_obj &nearest,thread Ray &cam_ray)
@@ -102,9 +101,9 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 	float4				color = {0};
 	float4				res_color;
 	float				k;
-	int					id;
+//	int					id;
 	thread struct s_obj	nearest;
-	device struct s_cam	*cam = &scene->info->cameras[0];
+	device struct s_cam	*cam = &scene->info->camera;
 
 	k = 0.0;
 	uint2 size = uint2(out.get_width(), out.get_height());
@@ -114,15 +113,15 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 		(float)size.y / 2)));
 	ray = Ray(cam->pos, normalize(float3(ls.x, ls.y, 1000.0)));
 	nearest.id = -1;
-	while (k < 1.0 && length(res_color) > 0.0)
-	{
-		res_color = rt_trace_mode_ggx(scene, nearest, ray);
-		id = find_material_by_id(nearest.material_id, scene->materials, scene->info->mat_num);
-		color = colors_mix(color, k, res_color, scene->materials[id].roughness);
-		k += scene->materials[id].roughness;
-	}
+//	while (k < 1.0 && length(res_color) > 0.0)
+//	{
+//		res_color = rt_trace_mode_ggx(scene, nearest, ray);
+//		id = find_material_by_id(nearest.material_id, scene->materials, scene->info->mat_num);
+//		color = colors_mix(color, k, res_color, scene->materials[id].roughness);
+//		k += scene->materials[id].roughness;
+//	}
+	color = rt_trace_mode_ggx(scene, nearest, ray);
 	color.w = 1;
-//	out.write(color, gid);
-	out.write(float4(gid.x / 64.0, gid.y / 64.0, 1, 1), gid);
+	out.write(color, gid);
 }
 
