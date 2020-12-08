@@ -13,26 +13,24 @@
 #ifndef CMD_H
 # define CMD_H
 
-
 # include "srv_types.h"
-# include "rt_types.h" 
+# include "rt_types.h"
 # include "cmd_types.h"
 # include "cmd_add.h"
 # include "cmd_set.h"
-//TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
 # include "png.h"
 
 /*
 **				cmd_render
 */
 
-t_msg					cmd_render(t_rt *rt, t_parser *parser);
+t_msg				cmd_render(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd_parse
 */
 
-t_msg               cmd_parse_line(t_rt *rt, char *source);
+t_msg				cmd_parse_line(t_rt *rt, char *source);
 
 /*
 **				cmd_parse_command TODO replace t_rt with t_parse_help
@@ -75,41 +73,42 @@ int					cmd_read_vec2(char **source, t_vec2 *vec);
 int					cmd_read_num(char **source, t_num *num);
 int					cmd_read_vec(char **source, t_vec3 *vec);
 int					cmd_read_uint(char **source, uint *num);
-int 				cmd_read_matrix(char **source, t_mat3x3 *mtx);
+int					cmd_read_matrix(char **source, t_mat3x3 *mtx);
 
 /*
 **				cmd/utils/cmd_read_material
 */
 
-int						cmd_read_material(t_parser *parser);
+int					cmd_read_material(t_parser *parser);
 
 /*
 **				cmd/utils/cmd_read_light
 */
 
-int						cmd_light_set_color(t_parser *parser);
-int						cmd_light_set_type(t_parser *parser);
-int						cmd_light_set_intensity(t_parser *parser);
+int					cmd_light_set_color(t_parser *parser);
+int					cmd_light_set_type(t_parser *parser);
+int					cmd_light_set_intensity(t_parser *parser);
 
 /*
 **				cmd/utils/cmd_add_obj_to_scn
 */
 
-t_msg					cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
+t_msg				cmd_add_obj_to_scn(t_rt *rt, t_parser *parser);
 
 /*
 **				cmd/utils/cmd_set_obj
 */
 
-t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest);
+t_msg				cmd_set_obj_to_scn(t_rt *rt,
+					t_parser *parser, t_obj *dest);
 
 /*
 **				cmd/utils/cmd_read_png
 */
 
-int						cmd_read_png(t_parser *parser);
-int						png_read_buf(png_structp png_ptr, t_parser *parser);
-int						check_type(png_structp png_ptr,
-							  png_infop info_ptr, t_parser *parser);
+int					cmd_read_png(t_parser *parser);
+int					png_read_buf(png_structp png_ptr, t_parser *parser);
+int					check_type(png_structp png_ptr,
+					png_infop info_ptr, t_parser *parser);
 
 #endif

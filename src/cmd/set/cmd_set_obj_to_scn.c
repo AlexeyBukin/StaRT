@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_obj_to_scn.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -34,7 +45,7 @@ t_msg			cmd_set_mat_to_scn(t_parser *parser, t_mat *dest)
 	return (msg_oks("material set success"));
 }
 
-int			cmd_move_obj(t_rt *rt, t_parser *parser, t_obj *dest)
+int				cmd_move_obj(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	if (parser->group != dest->parent && parser->group != NULL)
 	{

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_add_copy.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-static int				cmd_read_obj_copy(t_rt *rt, t_parser *parser)
+static int		cmd_read_obj_copy(t_rt *rt, t_parser *parser)
 {
 	char		*tmp_name;
 	t_obj		*tmp_obj;
@@ -32,20 +43,24 @@ t_msg			cmd_read_copy(t_rt *rt, t_parser *parser)
 		if (cmd_read_space_req(&parser->cur))
 			return (cmd_add_error(parser, "cmd_add_copy(): bad syntax"));
 		if (cmd_read_transform_part(parser))
-			return (cmd_add_error(parser, "cmd_add_copy(): bad syntax in transform"));
+			return (cmd_add_error(parser, ""
+			"cmd_add_copy(): bad syntax in transform"));
 		if (cmd_set_obj_visibility(parser))
-			return (cmd_add_error(parser, "cmd_add_copy(): bad syntax visibility"));
+			return (cmd_add_error(parser, ""
+			"cmd_add_copy(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser))
-			return (cmd_add_error(parser, "cmd_add_copy(): bad syntax group"));
+			return (cmd_add_error(parser, ""
+			"cmd_add_copy(): bad syntax group"));
 		if (cmd_read_obj_copy(rt, parser))
 			return (cmd_add_error(parser, "cmd_add_copy(): bad syntax group"));
 	}
 	if (parser->object->content.copy == NULL)
-		return (cmd_add_error(parser, "cmd_add_copy(): copy was not linked to any object"));
+		return (cmd_add_error(parser, ""
+		"cmd_add_copy(): copy was not linked to any object"));
 	return (cmd_add_obj_to_scn(rt, parser));
 }
 
-int 			cmd_init_copy_parser(t_rt *rt, t_parser *parser)
+int				cmd_init_copy_parser(t_rt *rt, t_parser *parser)
 {
 	if (rt == NULL || parser == NULL)
 		return (rt_err("cmd_init_copy_parser(): given NULL pointer"));
@@ -67,6 +82,5 @@ t_msg			cmd_add_copy(t_rt *rt, t_parser *parser)
 		return (msg_warn("cmd_add_copy(): bad name"));
 	if (cmd_init_copy_parser(rt, parser))
 		return (msg_err("Criticall err malloc"));
-//	free(parser->name);
 	return (cmd_read_copy(rt, parser));
 }

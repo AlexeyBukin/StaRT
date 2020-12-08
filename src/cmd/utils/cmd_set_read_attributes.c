@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/23/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_read_attributes.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -62,7 +70,7 @@ int				cmd_set_obj_name(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)//find material please!
+int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)
 {
 	char		*material_name;
 	t_mat		*material;
@@ -78,7 +86,7 @@ int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)//find material please!
 		{
 			ft_free(material_name);
 			return (rt_err("cmd_set_obj_mat(): material with given "
-						   "name does not exist"));
+			"name does not exist"));
 		}
 		ft_free(material_name);
 		parser->material = material;
@@ -86,7 +94,7 @@ int				cmd_set_obj_mat(t_rt *rt, t_parser *parser)//find material please!
 	return (0);
 }
 
-int				cmd_set_obj_grp(t_rt *rt, t_parser *parser)//find group please!
+int				cmd_set_obj_grp(t_rt *rt, t_parser *parser)
 {
 	char		*group_name;
 	t_obj		*group;
@@ -107,7 +115,7 @@ int				cmd_set_obj_grp(t_rt *rt, t_parser *parser)//find group please!
 		{
 			ft_free(group_name);
 			return (rt_err("cmd_add_sphere(): object with given"
-								  " name is not a group"));
+			" name is not a group"));
 		}
 		parser->group = group;
 		ft_free(group_name);

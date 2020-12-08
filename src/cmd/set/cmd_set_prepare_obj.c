@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_prepare_obj.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
-int 		cmd_set_prepare_obj(t_parser *parser, t_obj *src)
+int			cmd_set_prepare_obj(t_parser *parser, t_obj *src)
 {
 	if (obj_init(&parser->object, parser->name, src->type))
 		return (rt_err("cmd_set_cone(): malloc error"));

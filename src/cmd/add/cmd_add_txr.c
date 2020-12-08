@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_add_txr.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -16,12 +27,15 @@ t_msg		cmd_read_txr(t_rt *rt, t_parser *parser)
 		if (cmd_read_space_req(&parser->cur))
 			return (cmd_add_txr_error(parser, "cmd_read_txr(): bad syntax"));
 		if (cmd_read_txr_type(parser))
-			return (cmd_add_txr_error(parser, "cmd_read_txr(): bad syntax type"));
+			return (cmd_add_txr_error(parser, ""
+			"cmd_read_txr(): bad syntax type"));
 		if (cmd_read_txr_filename(parser))
-			return (cmd_add_txr_error(parser, "cmd_read_txr(): bad syntax filename"));
+			return (cmd_add_txr_error(parser, ""
+			"cmd_read_txr(): bad syntax filename"));
 	}
 	if (cmd_add_txr_to_scn(rt, parser))
-		return (cmd_add_txr_error(parser, "cmd_read_txr(): can\'t add texture to scene"));
+		return (cmd_add_txr_error(parser, ""
+		"cmd_read_txr(): can\'t add texture to scene"));
 	return (msg_oks("cmd_add_txr(): success"));
 }
 

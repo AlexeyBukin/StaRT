@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 12/5/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_read_txr_png.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "png.h"
 #include "rt.h"
@@ -31,7 +39,8 @@ static int		is_png(FILE **fp, t_parser *parser)
 	return (0);
 }
 
-static int		prepare_pnglib_structs(png_structp *png_ptr, png_infop *info_ptr, png_infop *end_info)
+static int		prepare_pnglib_structs(png_structp *png_ptr,
+				png_infop *info_ptr, png_infop *end_info)
 {
 	*png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!*png_ptr)
@@ -78,7 +87,7 @@ static int		png_get_size(png_structp png_ptr,
 	return (0);
 }
 
-int		cmd_read_png(t_parser *parser)
+int				cmd_read_png(t_parser *parser)
 {
 	FILE			*fp;
 	png_structp		png_ptr;

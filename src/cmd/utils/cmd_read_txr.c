@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_read_txr.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -24,7 +35,7 @@ static int		recognise_txr_type(t_parser *parser)
 	return (-1);
 }
 
-int			cmd_read_txr_type(t_parser *parser)
+int				cmd_read_txr_type(t_parser *parser)
 {
 	if (parser == NULL || parser->name == NULL)
 		return (rt_err("cmd_read_txr_type(): given NULL pointer"));
@@ -38,7 +49,7 @@ int			cmd_read_txr_type(t_parser *parser)
 	return (0);
 }
 
-int			cmd_read_txr_filename(t_parser *parser)
+int				cmd_read_txr_filename(t_parser *parser)
 {
 	char	*name;
 

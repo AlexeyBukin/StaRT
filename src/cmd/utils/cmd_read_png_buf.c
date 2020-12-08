@@ -1,16 +1,25 @@
-//
-// Created by Hugor Chau on 12/8/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_read_png_buf.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "png.h"
 #include "rt.h"
 
 int				check_type(png_structp png_ptr,
-							 png_infop info_ptr, t_parser *parser)
+						png_infop info_ptr, t_parser *parser)
 {
 	int				color_type;
 
 	png_get_IHDR(png_ptr, info_ptr, NULL, NULL,
-				 NULL, &color_type, NULL, NULL, NULL);
+			NULL, &color_type, NULL, NULL, NULL);
 	if (color_type == PNG_COLOR_TYPE_RGBA)
 	{
 		if (parser->texture->type != TXR_RGBA_8)
@@ -60,11 +69,11 @@ static int		txr_png_read_rows(png_structp png_ptr,
 	return (0);
 }
 
-int		png_read_buf(png_structp png_ptr, t_parser *parser)
+int				png_read_buf(png_structp png_ptr, t_parser *parser)
 {
 	png_byte		*image_data;
 
-	image_data = (png_bytep) malloc(parser->texture->stride
+	image_data = (png_bytep)malloc(parser->texture->stride
 			* parser->texture->height * sizeof(png_byte));
 	if (!image_data)
 		return (rt_err("malloc error"));

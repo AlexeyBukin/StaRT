@@ -1,10 +1,19 @@
-//
-// Created by Hugor Chau on 11/30/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_object.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-static t_msg			cmd_set_object_type(t_rt *rt, t_parser *parser, t_obj *obj)
+static t_msg	cmd_set_object_type(t_rt *rt,
+				t_parser *parser, t_obj *obj)
 {
 	if (obj->type == OBJ_GROUP)
 		return (cmd_set_group(rt, parser, obj));
@@ -32,7 +41,7 @@ t_msg			cmd_set_object(t_rt *rt, t_parser *parser)
 	t_obj		*tmp_obj;
 
 	if (parser == NULL || rt == NULL)
-		return(msg_err("cmd_set_obj(): given NULL pointer in cmd_add()"));
+		return (msg_err("cmd_set_obj(): given NULL pointer in cmd_add()"));
 	if ((scn_get_mat_by_name(rt->scene, parser->name)))
 		return (cmd_set_material(rt, parser));
 	if ((scn_get_txr_by_name(rt->scene, parser->name)))

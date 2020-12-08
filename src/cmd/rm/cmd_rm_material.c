@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/27/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_rm_material.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -39,5 +47,6 @@ int		cmd_rm_material(t_rt *rt, t_parser *parser)
 		return (rt_err("Cannot delete material"));
 	if (!(default_mat = scn_get_mat_by_name(rt->scene, DEFAULT_MATERIAL_NAME)))
 		return (rt_err("Cannot delete material"));
-	return (remove_material_rec(rt->scene->main_group, default_mat, mat_to_del));
+	return (remove_material_rec(rt->scene->main_group,
+			default_mat, mat_to_del));
 }
