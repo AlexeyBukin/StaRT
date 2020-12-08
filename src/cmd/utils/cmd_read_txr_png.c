@@ -70,6 +70,7 @@ static int		png_read_buf(png_structp png_ptr, png_infop info_ptr, png_infop end_
 	if (parser->texture->content)
 		ft_memdel((void **)&parser->texture->content);
 	parser->texture->content = (char *)image_data;
+	ft_free(row_pointers);
 	return (0);
 }
 
@@ -108,7 +109,10 @@ static int		png_get_size(png_structp png_ptr, png_infop info_ptr, t_parser *pars
 
 	png_set_sig_bytes(png_ptr, 8);
 	png_read_info(png_ptr, info_ptr);
-	png_get_IHDR(png_ptr, info_ptr, &t_width, &t_height, &bit_depth, &color_type, NULL, NULL, NULL);
+	(png_get_IHDR(png_ptr, info_ptr,
+				&t_width, &t_height,
+				&bit_depth, &color_type, NULL, NULL, NULL));
+//		return (-1);
 	parser->texture->width = t_width;
 	parser->texture->height = t_height;
 	png_read_update_info(png_ptr, info_ptr);
@@ -133,15 +137,23 @@ int		cmd_read_png(t_parser *parser)
 	png_init_io(png_ptr, fp);
 	if (png_get_size(png_ptr, info_ptr, parser))
 	{
-		return (rt_err(""));
+		fclose(fp);
+		png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
+		return (rt_err("png size error"));
 	}
 	if (check_type(png_ptr, info_ptr, parser))
 	{
+		fclose(fp);
+		png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
 		return (rt_err("check_type(): type error"));
 	}
 	if (png_read_buf(png_ptr, info_ptr, end_info, parser))
 	{
-		return (rt_err(""));
+		fclose(fp);
+		png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
+		return (rt_err("check_type(): png_read_buf error"));
 	}
+	fclose(fp);
+	png_destroy_read_struct( &png_ptr, &info_ptr, &end_info );
 	return (0);
 }

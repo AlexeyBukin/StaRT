@@ -3,13 +3,14 @@
 
 t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
 {
-	if (dest->filename &&
-		!(ft_strequ(parser->texture->filename,
+	if (parser->texture->filename
+			&& !(ft_strequ(parser->texture->filename,
 			dest->filename)))
 	{
 		if (cmd_read_png(parser))
 		{
-			//TODO leaks!!!
+			ft_free(parser->name);
+			ft_free(parser->texture);
 			return (msg_warn("png read error"));
 		}
 		ft_free(dest->content);

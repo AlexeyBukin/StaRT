@@ -34,7 +34,6 @@ static int			init_txr_parser(t_parser *parser, t_txr *src)
 	if ((parser->texture = ft_memalloc(sizeof(t_txr))) == NULL)
 		return (rt_err("malloc error"));
 	ft_memcpy(parser->texture, src, sizeof(t_txr));
-	parser->texture->name = ft_strdup(parser->name);
 	return (0);
 }
 
