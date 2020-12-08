@@ -51,14 +51,11 @@ using namespace metal;
 //	return r;
 //}
 
-int	find_material_by_id( int id, device struct s_mat *array, int len)
+float rand(int x, int y, int z)
 {
-	for (int i = 0; i < len; i++)
-	{
-		if (array[i].id == id)
-			return (i);
-	}
-	return (-1);
+	int seed = x + y * 57 + z * 241;
+	seed= (seed<< 13) ^ seed;
+	return (( 1.0 - ( (seed * (seed * seed * 15731 + 789221) + 1376312589) & 2147483647) / 1073741824.0f) + 1.0f) / 2.0f;
 }
 
 bool		vec_point_is_behind(float3 vec_from_zero, float3 point)

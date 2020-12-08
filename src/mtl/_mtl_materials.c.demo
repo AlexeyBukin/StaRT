@@ -25,8 +25,10 @@
 unsigned char 	*get_texture_rgba_fine_64();
 unsigned char	*get_texture_rgba_empty_64();
 void 			fill_mat_pbr(t_gpu_mat *mat);
+void 			fill_mat_pbr2(t_gpu_mat *mat);
 int				gpu_init(t_gpu **gpu_dest);
 void 			fill_obj_sphere(t_gpu_obj *obj);
+void 			fill_obj_cone(t_gpu_obj *obj);
 void			fill_light(t_gpu_light *lig);
 int				fio_png_write(char *data, int width, int height, char *filename);
 
@@ -41,13 +43,16 @@ int		main()
 		return (0);
 	}
 
-	gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat));
-	fill_mat_pbr(gpu->mat_buf);
-	gpu->info.mat_num = 1;
+	gpu->info.mat_num = 2;
+	gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * gpu->info.mat_num);
+	fill_mat_pbr(&(gpu->mat_buf[0]));
+	fill_mat_pbr2(&(gpu->mat_buf[1]));
 
-	gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj));
-	fill_obj_sphere(gpu->obj_buf);
-	gpu->info.obj_num = 1;
+	gpu->info.obj_num = 2;
+	gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * gpu->info.obj_num);
+	fill_obj_sphere(&(gpu->obj_buf[0]));
+	fill_obj_cone(&(gpu->obj_buf[1]));
+
 
 	gpu->lig_buf = ft_memalloc(sizeof(t_gpu_light));
 	fill_light(gpu->lig_buf);
@@ -102,6 +107,26 @@ void 			fill_mat_pbr(t_gpu_mat *mat)
 	mat->content.pbr.albedo = vec3(0.73, 0.93, 0.0);
 	mat->content.pbr.f0 = vec3(0.0, 0.0, 0.0);
 	mat->content.pbr.metalness = 0.0;
+	mat->content.pbr.roughness = 0.7;
+	mat->content.pbr.transparency = 0.0;
+	mat->content.pbr.ior = 1.6;
+
+	mat->content.pbr.albedo_txr_index = 0;
+	mat->content.pbr.f0_txr_index = -1;
+	mat->content.pbr.metalness_txr_index = -1;
+	mat->content.pbr.roughness_txr_index = -1;
+	mat->content.pbr.transparency_txr_index = -1;
+	mat->content.pbr.normal_txr_index = 1;
+}
+
+void 			fill_mat_pbr2(t_gpu_mat *mat)
+{
+	mat->id = 1;
+	mat->type = MAT_PBR;
+
+	mat->content.pbr.albedo = vec3(0.6, 0.6, 0.6);
+	mat->content.pbr.f0 = vec3(0.0, 0.0, 0.0);
+	mat->content.pbr.metalness = 0.0;
 	mat->content.pbr.roughness = 1.0;
 	mat->content.pbr.transparency = 0.0;
 	mat->content.pbr.ior = 1.6;
@@ -120,16 +145,26 @@ void 			fill_obj_sphere(t_gpu_obj *obj)
 	obj->mat_index = 0;
 	obj->map_axis = mat3x3_identity();
 	obj->type = SHP_SPHERE;
-	obj->shape.sphere.pos = vec3(0, 0, 10);
+	obj->shape.sphere.pos = vec3(5, -5, 20);
 	obj->shape.sphere.r = 2;
+}
+
+void 			fill_obj_cone(t_gpu_obj *obj)
+{
+	obj->id = 1;
+	obj->mat_index = 1;
+	obj->type = SHP_CONE;
+	obj->shape.cone.pos = vec3(0, 5, 15);
+	obj->shape.cone.cap = vec3(0, -5, 15);
+	obj->shape.cone.r = 3;
 }
 
 void			fill_light(t_gpu_light *lig)
 {
 	lig->id = 0;
 	lig->col = vec3(1.0, 1.0, 1.0);
-	lig->pos = vec3(0, 0, 0);
-	lig->power = 10000;
+	lig->pos = vec3(0, 0, 30);
+	lig->power = 500;
 }
 
 unsigned char *get_texture_rgba_fine_64()

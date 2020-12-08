@@ -15,13 +15,14 @@
 
 # include "tfm_types.h"
 
-typedef enum				s_shp_type
+typedef enum				e_shp_type
 {
 	SHP_NONE,
 	SHP_PLANE,
 	SHP_SPHERE,
 	SHP_CYLINDER,
-	SHP_CONE
+	SHP_CONE,
+	SHP_TORUS
 //	SHP_MODEL
 }							t_shp_type;
 

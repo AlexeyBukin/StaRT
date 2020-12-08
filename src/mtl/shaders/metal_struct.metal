@@ -18,10 +18,10 @@ typedef packed_float4	t_color;
 typedef enum			e_shape_type
 {
 	NONE = 0,
-	CONE,
-	SPHERE,
 	PLANE,
+	SPHERE,
 	CYLINDER,
+	CONE,
 	TORUS
 }						t_shape_type;
 
