@@ -20,6 +20,7 @@
 # include "cmd_add.h"
 # include "cmd_set.h"
 //TODO add cmd_parse_add more funcs, set CMD_ADD_NUM to 5
+# include "png.h"
 
 /*
 **				cmd_render
@@ -107,5 +108,8 @@ t_msg					cmd_set_obj_to_scn(t_rt *rt, t_parser *parser, t_obj *dest);
 */
 
 int						cmd_read_png(t_parser *parser);
+int						png_read_buf(png_structp png_ptr, t_parser *parser);
+int						check_type(png_structp png_ptr,
+							  png_infop info_ptr, t_parser *parser);
 
 #endif

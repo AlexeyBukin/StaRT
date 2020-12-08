@@ -116,23 +116,24 @@ src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_nam
 src/cmd/utils/cmd_read_light.c                  src/scn/remove/scn_remove_by_name_obj.c \
 src/cmd/utils/cmd_read_material.c               src/scn/remove/scn_remove_by_name_txr.c \
 src/cmd/utils/cmd_read_num.c                    src/scn/scn_get_mat.c \
-src/cmd/utils/cmd_read_txr.c                    src/scn/scn_id.c \
-src/cmd/utils/cmd_read_txr_png.c                src/scn/scn_init.c \
-src/cmd/utils/cmd_set_read_attributes.c         src/scn/utils/scn_del_copies_of.c \
-src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_group_mem.c \
-src/err/msg_err.c                               src/scn/utils/scn_name.c \
-src/err/msg_ok.c                                src/srv/srv_deinit.c \
-src/err/msg_warn.c                              src/srv/srv_ext.c \
-src/err/rt_err.c                                src/srv/srv_ext_data.c \
-src/err/rt_warn.c                               src/srv/srv_init.c \
-src/gpu/gpu_buffer_load.c                       src/srv/srv_loop.c \
-src/gpu/gpu_buffer_objects.c                    src/srv/srv_parse.c \
-src/gpu/gpu_init.c                              src/srv/srv_utils.c \
-src/gpu/gpu_kernel_run.c                        src/tfm/tfm_apply.c \
-src/grp/grp_init.c                              src/tfm/tfm_init.c \
-src/grp/grp_remove_by_name.c                    src/tfm/tfm_move.c \
-src/gui/gui_builder.c                           src/txr/txr_init.c \
-src/gui/gui_init.c                              src/vlk/vlk_init.c \
+src/cmd/utils/cmd_read_png_buf.c                src/scn/scn_id.c \
+src/cmd/utils/cmd_read_txr.c                    src/scn/scn_init.c \
+src/cmd/utils/cmd_read_txr_png.c                src/scn/utils/scn_del_copies_of.c \
+src/cmd/utils/cmd_set_read_attributes.c         src/scn/utils/scn_group_mem.c \
+src/cmd/utils/cmd_set_read_part.c               src/scn/utils/scn_name.c \
+src/err/msg_err.c                               src/srv/srv_deinit.c \
+src/err/msg_ok.c                                src/srv/srv_ext.c \
+src/err/msg_warn.c                              src/srv/srv_ext_data.c \
+src/err/rt_err.c                                src/srv/srv_init.c \
+src/err/rt_warn.c                               src/srv/srv_loop.c \
+src/gpu/gpu_buffer_load.c                       src/srv/srv_parse.c \
+src/gpu/gpu_buffer_objects.c                    src/srv/srv_utils.c \
+src/gpu/gpu_init.c                              src/tfm/tfm_apply.c \
+src/gpu/gpu_kernel_run.c                        src/tfm/tfm_init.c \
+src/grp/grp_init.c                              src/tfm/tfm_move.c \
+src/grp/grp_remove_by_name.c                    src/txr/txr_init.c \
+src/gui/gui_builder.c                           src/vlk/vlk_init.c \
+src/gui/gui_init.c \
 
 SRC 		= $(SRC_SHARED) src/main.c
 
