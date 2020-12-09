@@ -14,22 +14,25 @@
 
 t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
 {
-	if (parser->texture->filename
-			&& !(ft_strequ(parser->texture->filename,
-			dest->filename)))
+	if ((parser->texture->filename))
 	{
 		if (cmd_read_png(parser))
 		{
 			ft_free(parser->name);
 			ft_free(parser->texture);
+			ft_free(parser->texture->filename);
 			return (msg_warn("png read error"));
 		}
-		ft_free(dest->content);
-		ft_free(dest->filename);
+		if (dest->filename)
+		{
+//			ft_free(dest->content);
+			ft_free(dest->filename);
+		}
 	}
 	ft_free(dest->name);
 	ft_memcpy(dest, parser->texture, sizeof(t_txr));
 	dest->name = ft_strdup(parser->name);
+//	dest->filename = ft_strdup(parser->texture->filename);
 	ft_free(parser->name);
 	ft_free(parser->texture);
 	return (msg_oks("set txr success"));
