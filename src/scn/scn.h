@@ -91,7 +91,9 @@ void				scn_print_cam(t_scn *scn);
 void				scn_print_txr(t_scn *scn);
 void				scn_print_mat(t_scn *scn);
 int					scn_print_grps(t_scn *scn);
-
+int					scn_print_obj(t_obj *obj, int tab_num);
+void				write_tabs(int tab_num);
+int					scn_print_grp_rec(t_obj *obj, int tab_num);
 /*
 **			scn/remove/
 */
