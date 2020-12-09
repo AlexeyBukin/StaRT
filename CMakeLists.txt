@@ -11,7 +11,7 @@ add_definitions(-DPLATFORM_MACOS)
 #  find src -type f -name '*.c' | sort | column -c 100
 set(${PROJECT_NAME}_SOURCE
         src/cam/cam_init.c                      src/err/msg_err.c                       src/scn/get/scn_get_obj_by_name.c
-        src/err/msg_ok.c                        src/scn/scn_get_mat.c
+        src/err/msg_ok.c
         src/err/msg_warn.c                      src/scn/scn_id.c
         src/err/rt_err.c                        src/scn/scn_init.c
         src/err/rt_warn.c                       src/scn/scn_name.c

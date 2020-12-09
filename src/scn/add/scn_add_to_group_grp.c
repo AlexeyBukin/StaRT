@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_add_to_group_grp.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-int 			scn_add_to_group_grp(t_scn *scn, t_obj *dest, t_obj *grp)//TODO make like in scn_add_to_group_obj
+int				scn_add_to_group_grp(t_scn *scn, t_obj *dest, t_obj *grp)
 {
 	if (scn == NULL || dest == NULL || grp == NULL)
 		return (rt_err("scn_add_to_group_grp(): Given pointer is NULL"));

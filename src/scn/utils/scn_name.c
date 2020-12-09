@@ -18,7 +18,7 @@ static int		scn_name_check_symbols(char *name)
 		return (rt_err("Given pointer is NULL"));
 	if (name[0] == '\0')
 		return (rt_err("check_name_symbols(): name is "
-					"an empty string"));
+		"an empty string"));
 	while (*name)
 	{
 		if (!(ft_isalpha(*name) || ft_isdigit(*name) || *name == '_'))

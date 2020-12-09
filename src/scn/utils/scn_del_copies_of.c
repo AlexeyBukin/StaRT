@@ -1,8 +1,16 @@
-//
-// Created by Hugor Chau on 11/18/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_del_copies_of.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "rt.h"
+#include "rt.h"
 
 int			scn_del_copies_of(t_obj *from, t_obj *original)
 {
@@ -18,7 +26,8 @@ int			scn_del_copies_of(t_obj *from, t_obj *original)
 		if (grp->children[i]->type == OBJ_COPY
 			&& grp->children[i]->content.copy == original)
 		{
-			if ((grp_remove_by_name(grp->children[i]->parent, grp->children[i]->name) == -1))//TODO make remove_by_id_obj
+			if ((grp_remove_by_name(grp->children[i]->parent,
+			grp->children[i]->name) == -1))
 				return (rt_err("scn_del_copies_of(): couldn' delete copy"));
 		}
 		else if (grp->children[i]->type == OBJ_GROUP)

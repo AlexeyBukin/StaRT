@@ -96,7 +96,7 @@ src/cmd/cmd_parse.c                             src/scn/add/scn_add_to_group_cop
 src/cmd/ls/cmd_ls.c                             src/scn/add/scn_add_to_group_grp.c \
 src/cmd/render/cmd_render.c                     src/scn/add/scn_add_to_group_obj.c \
 src/cmd/rm/cmd_rm.c                             src/scn/add/scn_add_txr.c \
-src/cmd/rm/cmd_rm_by_name.c                     src/scn/get/scn_get_cam_by_name.c \
+src/cmd/rm/cmd_rm_by_name.c \
 src/cmd/rm/cmd_rm_material.c                    src/scn/get/scn_get_mat_by_name.c \
 src/cmd/set/cmd_set.c                           src/scn/get/scn_get_obj_by_id.c \
 src/cmd/set/cmd_set_camera.c                    src/scn/get/scn_get_obj_by_name.c \
@@ -104,7 +104,7 @@ src/cmd/set/cmd_set_cone.c                      src/scn/get/scn_get_obj_num.c \
 src/cmd/set/cmd_set_copy.c                      src/scn/get/scn_get_txr_by_name.c \
 src/cmd/set/cmd_set_cylinder.c                  src/scn/move/scn_move_obj.c \
 src/cmd/set/cmd_set_group.c                     src/scn/print/scn_print.c \
-src/cmd/set/cmd_set_light.c                     src/scn/print/scn_print_cam.c \
+src/cmd/set/cmd_set_light.c \
 src/cmd/set/cmd_set_material.c                  src/scn/print/scn_print_grp.c \
 src/cmd/set/cmd_set_obj_to_scn.c                src/scn/print/scn_print_mat.c \
 src/cmd/set/cmd_set_object.c                    src/scn/print/scn_print_txr.c \
@@ -115,7 +115,7 @@ src/cmd/set/cmd_set_txr.c                       src/scn/remove/scn_remove_by_nam
 src/cmd/utils/cmd_read.c                        src/scn/remove/scn_remove_by_name_mat.c \
 src/cmd/utils/cmd_read_light.c                  src/scn/remove/scn_remove_by_name_obj.c \
 src/cmd/utils/cmd_read_material.c               src/scn/remove/scn_remove_by_name_txr.c \
-src/cmd/utils/cmd_read_num.c                    src/scn/scn_get_mat.c \
+src/cmd/utils/cmd_read_num.c \
 src/cmd/utils/cmd_read_png_buf.c                src/scn/scn_id.c \
 src/cmd/utils/cmd_read_txr.c                    src/scn/scn_init.c \
 src/cmd/utils/cmd_read_txr_png.c                src/scn/utils/scn_del_copies_of.c \
