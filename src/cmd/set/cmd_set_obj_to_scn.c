@@ -1,15 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_obj_to_scn.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-//t_msg			cmd_set_cam_to_scn(t_parser *parser, t_cam *dest)
-//{
-//	ft_free(dest->name);
-//	ft_memcpy(dest, parser->object, sizeof(t_obj));
-//	dest->name = ft_strdup(parser->name);
-//	cam_deinit(parser->camera);
-//	ft_free(parser->name);
-//	return (msg_oks("set camera successfully"));
-//}
+t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
+{
+	if ((parser->texture->filename))
+	{
+		if (cmd_read_png(parser))
+		{
+			ft_free(parser->name);
+			ft_free(parser->texture);
+			ft_free(parser->texture->filename);
+			return (msg_warn("png read error"));
+		}
+		if (dest->filename)
+		{
+//			ft_free(dest->content);
+			ft_free(dest->filename);
+		}
+	}
+	ft_free(dest->name);
+	ft_memcpy(dest, parser->texture, sizeof(t_txr));
+	dest->name = ft_strdup(parser->name);
+//	dest->filename = ft_strdup(parser->texture->filename);
+	ft_free(parser->name);
+	ft_free(parser->texture);
+	return (msg_oks("set txr success"));
+}
 
 t_msg			cmd_set_mat_to_scn(t_parser *parser, t_mat *dest)
 {
@@ -21,7 +48,7 @@ t_msg			cmd_set_mat_to_scn(t_parser *parser, t_mat *dest)
 	return (msg_oks("material set success"));
 }
 
-int			cmd_move_obj(t_rt *rt, t_parser *parser, t_obj *dest)
+int				cmd_move_obj(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	if (parser->group != dest->parent && parser->group != NULL)
 	{

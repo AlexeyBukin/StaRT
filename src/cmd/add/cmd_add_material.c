@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/25/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_add_material.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -35,9 +43,11 @@ t_msg				cmd_parse_material_flags(t_rt *rt, t_parser *parser)
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (add_material_error(parser, "cmd_parse_material_flags(): bad syntax1"));
+			return (add_material_error(parser, ""
+			"cmd_parse_material_flags(): bad syntax1"));
 		if (cmd_read_material(parser))
-			return (add_material_error(parser, "cmd_parse_material_flags(): bad syntax1"));
+			return (add_material_error(parser, ""
+			"cmd_parse_material_flags(): bad syntax1"));
 	}
 	if (scn_add_mat(rt->scene, parser->material))
 		return (add_material_error(parser, "couldn\'t add material to scene"));
@@ -47,7 +57,7 @@ t_msg				cmd_parse_material_flags(t_rt *rt, t_parser *parser)
 t_msg				cmd_add_material(t_rt *rt, t_parser *parser)
 {
 	if (rt == NULL || parser == NULL)
-		return(msg_err("cmd_add_material(): given NULL pointer in cmd_add()"));
+		return (msg_err("cmd_add_material(): given NULL pointer in cmd_add()"));
 	parser->cur += ft_strlen("material");
 	if (cmd_read_space_req(&parser->cur))
 		return (msg_warn("cmd_add_material(): bad syntax"));

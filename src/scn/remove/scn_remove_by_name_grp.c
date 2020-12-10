@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/18/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_remove_by_name_grp.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -40,13 +48,13 @@ int				scn_remove_by_name_grp(t_scn *scn, char *name)
 	if (scn == NULL || name == NULL)
 		return (rt_err("scn_remove_by_name_grp(): was given a NULL pointer"));
 	if ((grp = scn_get_obj_by_name(scn, name)) == NULL)
-		return (rt_err("scn_remove_by_name_grp(): obj with given name does not exist"));
+		return (rt_err("scn_remove_by_name_grp(): "
+		"obj with given name does not exist"));
 	if (grp->type != OBJ_GROUP)
-		return (rt_err("scn_remove_by_name_grp(): obj with given name is not a group"));
-	//1) remove all copies
+		return (rt_err("scn_remove_by_name_grp(): "
+		"obj with given name is not a group"));
 	if (scn_del_copies_rec(scn->main_group, grp))
 		return (rt_err("cannot delete all copies"));
-	//2) deinit group
 	if (grp_remove_by_name(grp->parent, grp->name))
 		return (rt_err("Cannot remove group"));
 	if (grp_deinit(grp))

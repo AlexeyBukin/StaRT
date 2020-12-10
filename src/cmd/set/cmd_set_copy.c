@@ -1,10 +1,18 @@
-//
-// Created by Hugor Chau on 12/1/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_copy.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-static int				cmd_read_obj_copy(t_rt *rt, t_parser *parser)
+static int		cmd_read_obj_copy(t_rt *rt, t_parser *parser)
 {
 	char		*tmp_name;
 	t_obj		*tmp_obj;
@@ -28,27 +36,33 @@ static int				cmd_read_obj_copy(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-t_msg					cmd_set_copy_params(t_rt *rt, t_parser *parser, t_obj *dest)
+t_msg			cmd_set_copy_params(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	while (*parser->cur != '\0' && *parser->cur != '\n')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax"));
 		if (cmd_read_transform_part(parser) < 0)
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax transform"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser) < 0)
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax visibility"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser) < 0)
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax group"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax group"));
 		if (cmd_set_obj_name(rt, parser) < 0)
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax name"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax name"));
 		if (cmd_read_obj_copy(rt, parser))
-			return (cmd_set_error(parser, "cmd_set_copy(): bad syntax object link"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_copy(): bad syntax object link"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }
 
-t_msg		cmd_set_copy(t_rt *rt, t_parser *parser, t_obj *dest)
+t_msg			cmd_set_copy(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	if (rt == NULL || parser == NULL || dest == NULL)
 		return (msg_err("cmd_set_copy(): given NULL pointer"));
@@ -57,5 +71,4 @@ t_msg		cmd_set_copy(t_rt *rt, t_parser *parser, t_obj *dest)
 	if (dest->parent == NULL)
 		return (msg_warn("cmd_set_copy(): can\'t modify main copy. Stop."));
 	return (cmd_set_copy_params(rt, parser, dest));
-//	return (msg_oks("oks"));
 }

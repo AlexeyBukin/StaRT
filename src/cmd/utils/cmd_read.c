@@ -38,7 +38,6 @@ int			cmd_read_space(char **source)
 	return (i);
 }
 
-
 /*
 ** cmd_parse_space_req() moves source to end of space sequence
 ** returns  0 on success
@@ -103,7 +102,7 @@ int			check_name(char *name, char **dest)
 	return (0);
 }
 
-int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
+int			cmd_read_string(char **source, char **dest)
 {
 	char		*str;
 	int			i;
@@ -115,13 +114,18 @@ int			cmd_read_string(char **source, char **dest) //TODO use it for parse name
 	i = 1;
 	str = *source;
 	if (*str != '\"')
-		return (rt_warning("Syntax error: Expected '\"' at the start of string", 1));
+	{
+		return (rt_warning("Syntax error: Expected '\"' "
+		"at the start of string", 1));
+	}
 	while (str[i] != '\"' && str[i] != '\0' && str[i] != '\n')
 		i++;
 	if (str[i] != '\"')
-		return (rt_warning("Syntax error: Expected '\"' at the end of string", 1));
+	{
+		return (rt_warning("Syntax error: Expected '\"' "
+		"at the end of string", 1));
+	}
 	*source += i + 1;
 	str = ft_strndup(str + 1, i - 1);
 	return (check_name(str, dest));
 }
-

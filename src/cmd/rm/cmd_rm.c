@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_rm.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 static int		check_default_names(t_parser *parser)
@@ -29,7 +41,7 @@ static void		cmd_rm_read_force_flag(t_parser *parser, int *rm_force)
 	}
 }
 
-int			cmd_read_rm(t_parser *parser, int *rm_force)
+int				cmd_read_rm(t_parser *parser, int *rm_force)
 {
 	*rm_force = 0;
 	parser->cur += ft_strlen("rm");
@@ -48,7 +60,7 @@ int			cmd_read_rm(t_parser *parser, int *rm_force)
 	return (0);
 }
 
-t_msg           cmd_rm(t_rt *rt, t_parser *parser)
+t_msg			cmd_rm(t_rt *rt, t_parser *parser)
 {
 	int		rm_force;
 

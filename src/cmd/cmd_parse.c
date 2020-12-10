@@ -32,11 +32,11 @@ t_msg					cmd_parse_line(t_rt *rt, char *source)
 {
 	t_msg				res;
 	t_parser			*parser;
-	
+
 	if ((parser = ft_malloc(sizeof(t_parser))) == NULL)
 		return (msg_err("Memory allocation error on cmd_parse_line"));
 	parser->container = &parser->object->content.container;
-    parser->transform = &parser->object->transform;
+	parser->transform = &parser->object->transform;
 	parser->source = source;
 	parser->cur = source;
 	if (rt == NULL || source == NULL)

@@ -12,24 +12,24 @@
 
 #include "rt.h"
 
-t_msg           cmd_parse_command(t_rt *rt, t_parser *parser)
+t_msg			cmd_parse_command(t_rt *rt, t_parser *parser)
 {
-    char        *str;
+	char		*str;
 
-	(void )rt;
-    if (parser == NULL || parser->source == NULL || parser->cur == NULL)
-        return (msg_err("Given NULL pointer in cmd_parce_commands"));
+	(void)rt;
+	if (parser == NULL || parser->source == NULL || parser->cur == NULL)
+		return (msg_err("Given NULL pointer in cmd_parce_commands"));
 	cmd_read_space(&parser->cur);
-    str = parser->cur;
+	str = parser->cur;
 	if (ft_str_next_is(str, "add"))
 		return (cmd_add(rt, parser));
-    if (ft_str_next_is(str, "set"))
-         return (cmd_set(rt, parser));
+	if (ft_str_next_is(str, "set"))
+		return (cmd_set(rt, parser));
 	if (ft_str_next_is(str, "render"))
 		return (cmd_render(rt, parser));
-    if (ft_str_next_is(str, "rm"))
-        return (cmd_rm(rt, parser));
+	if (ft_str_next_is(str, "rm"))
+		return (cmd_rm(rt, parser));
 	if (ft_str_next_is(str, "ls"))
 		return (cmd_ls(rt, parser));
-    return (msg_warn("Syntax error: Unknown keyword"));
+	return (msg_warn("Syntax error: Unknown keyword"));
 }

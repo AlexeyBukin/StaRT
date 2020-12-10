@@ -1,19 +1,27 @@
-//
-// Created by Hugor Chau on 11/19/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_print_mat.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "rt.h"
+#include "rt.h"
 
 void			print_vec3(t_vec3 vec)
 {
 	ft_printf("<%.3f, %.3f, %.3f> ",
-			  vec.x, vec.y, vec.z);
+			vec.x, vec.y, vec.z);
 }
 
 void			print_vec2(t_vec2 vec)
 {
 	ft_printf("<%.3f, %.3f> ",
-			  vec.x, vec.y);
+			vec.x, vec.y);
 }
 
 void			scn_print_mat(t_scn *scn)

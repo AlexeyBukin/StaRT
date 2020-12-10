@@ -32,17 +32,17 @@ int			cmd_read_transform_part(t_parser *parser)
 {
 	if (parser == NULL)
 		return (-1);
-    if (ft_str_next_is(parser->cur, "-p"))
-    {
-        parser->cur += ft_strlen("-p");
-        if (cmd_pos(parser))
+	if (ft_str_next_is(parser->cur, "-p"))
+	{
+		parser->cur += ft_strlen("-p");
+		if (cmd_pos(parser))
 			return (-1);
-    }
+	}
 	if (ft_str_next_is(parser->cur, "-a"))
 	{
-        parser->cur += ft_strlen("-a");
-        if (cmd_rot(parser))
+		parser->cur += ft_strlen("-a");
+		if (cmd_rot(parser))
 			return (-1);
-    }
+	}
 	return (0);
 }
