@@ -14,7 +14,7 @@
 
 #if defined(PLATFORM_MACOS)
 
-# define MTL_MAIN_KERNEL "scene_test"
+# define MTL_MAIN_KERNEL "trace_mod_ggx"
 
  int				gpu_kernel_run(t_gpu *gpu, t_txr *render_result)
  {

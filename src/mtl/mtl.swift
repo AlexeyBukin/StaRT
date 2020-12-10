@@ -124,6 +124,13 @@ public func mtl_buffer_load_materials_swift(_ smptr: UnsafeRawPointer, _ ptr:Uns
 	return (sm.loadMaterialsBuffer(ptr: ptr, len: len))
 }
 
+@_cdecl("mtl_buffer_load_lights")
+public func mtl_buffer_load_lights_swift(_ smptr: UnsafeRawPointer, _ ptr:UnsafeRawPointer, _ len:Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.loadLightsBuffer(ptr: ptr, len: len))
+}
+
 /* KERNEL PART */
 
 @_cdecl("mtl_kernel_run")

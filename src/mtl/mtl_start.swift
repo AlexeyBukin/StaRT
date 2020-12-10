@@ -14,6 +14,8 @@ public class StartMTL {
 	public var infoBuffer : MTLBuffer?
 	public var objectsBuffer : MTLBuffer?
 	public var materialsBuffer : MTLBuffer?
+	public var lightsBuffer : MTLBuffer?
+
 	public var texturesBuffer : MTLBuffer?
 
 	public var textures = [MTLTexture]()
@@ -41,7 +43,8 @@ public class StartMTL {
 			print("mtl: metal shader library is not loaded"); return Int32(1)
 		}
 
-		guard infoBuffer != nil  && objectsBuffer != nil && materialsBuffer != nil else {
+		guard infoBuffer != nil  && objectsBuffer != nil
+		    && materialsBuffer != nil && lightsBuffer != nil else {
 			print("mtl: metal buffers are not loaded"); return Int32(1)
 		}
 
@@ -77,6 +80,7 @@ public class StartMTL {
 		sceneArgumentEncoder.setBuffer(infoBuffer, offset: 0, index: 0)
 		sceneArgumentEncoder.setBuffer(objectsBuffer, offset: 0, index: 1)
 		sceneArgumentEncoder.setBuffer(materialsBuffer, offset: 0, index: 2)
+		sceneArgumentEncoder.setBuffer(lightsBuffer, offset: 0, index: 3)
 
 		// encoding textures argument
 		let texturesArgumentEncoder = kernel.makeArgumentEncoder(bufferIndex: 1)
@@ -105,6 +109,7 @@ public class StartMTL {
 		for i in 0..<textures.count {
 			computeEncoder.useResource(textures[i], usage: MTLResourceUsage.read)
 		}
+		computeEncoder.useResource(lightsBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(infoBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(objectsBuffer!, usage: MTLResourceUsage.read)
 		computeEncoder.useResource(materialsBuffer!, usage: MTLResourceUsage.read)

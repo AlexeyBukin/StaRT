@@ -31,19 +31,9 @@ set(${PROJECT_NAME}_SOURCE
         src/scn/get/scn_get_obj_by_id.c
 )
 
-add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES})
+add_executable(${PROJECT_NAME}  ${${PROJECT_NAME}_SOURCES} lib/ft/src/file/ft_read_files.c lib/ft/src/file/ft_read_files.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-<<<<<<< HEAD
-        ${PROJECT_SOURCE_DIR}/src              ${PROJECT_SOURCE_DIR}/src/err
-        ${PROJECT_SOURCE_DIR}/src/gui          ${PROJECT_SOURCE_DIR}/src/srv
-        ${PROJECT_SOURCE_DIR}/src/cmd          ${PROJECT_SOURCE_DIR}/src/gpu
-        ${PROJECT_SOURCE_DIR}/src/mtl          ${PROJECT_SOURCE_DIR}/src/scn
-        ${PROJECT_SOURCE_DIR}/src/mat          ${PROJECT_SOURCE_DIR}/src/txr
-        ${PROJECT_SOURCE_DIR}/src/tfm          ${PROJECT_SOURCE_DIR}/src/obj
-        ${PROJECT_SOURCE_DIR}/src/shp          ${PROJECT_SOURCE_DIR}/src/cam
-        ${PROJECT_SOURCE_DIR}/src/vlk
-=======
         ${PROJECT_SOURCE_DIR}/src       ${PROJECT_SOURCE_DIR}/src/err
         ${PROJECT_SOURCE_DIR}/src/gui   ${PROJECT_SOURCE_DIR}/src/srv
         ${PROJECT_SOURCE_DIR}/src/cmd   ${PROJECT_SOURCE_DIR}/src/gpu
@@ -52,7 +42,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
         ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
->>>>>>> 04b620ed443469cd16a4ff6214ee6675bbc7b680
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

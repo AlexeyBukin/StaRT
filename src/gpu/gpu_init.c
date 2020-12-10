@@ -14,7 +14,8 @@
 
 #if defined(PLATFORM_MACOS)
 
-#define MTL_LIB_SRC "src/mtl/shaders/rt_mtl___kernel.metal"
+//#define MTL_LIB_SRC "src/mtl/shaders/rt_mtl___kernel.metal"
+#define MTL_LIB_SRC "src/mtl/shaders/metal_struct.metal src/mtl/shaders/metal_shader.metal src/mtl/shaders/rt_trace_mod_ggx.metal"
 #define MTL_WIDTH	1280
 #define MTL_HEIGHT	720
 
@@ -31,7 +32,7 @@ int				gpu_init(t_gpu **gpu_dest)
 		return (rt_err("gpu_init(): malloc fail"));
 	if ((gpu->dev.mtl = mtl_init()) == NULL)
 		return (rt_err("gpu_init(): metal_init() fail"));
-	if ((lib_source_str = ft_read_file(MTL_LIB_SRC)) == NULL)
+	if (ft_read_files(&lib_source_str, MTL_LIB_SRC))
 		return (rt_err("gpu_init(): cannot read shader files"));
 	if (mtl_lib_load_source(gpu->dev.mtl, lib_source_str))
 		return (rt_err("gpu_init(): load_lib() fail"));

@@ -44,6 +44,7 @@ typedef struct					s_gpu_scene
 	device t_gpu_info			*info		[[id(0)]];
 	device t_gpu_obj			*objects	[[id(1)]];
 	device t_gpu_mat			*materials	[[id(2)]];
+	device t_gpu_light			*light		[[id(3)]];
 }								t_scene;
 
 kernel void scene_test	(

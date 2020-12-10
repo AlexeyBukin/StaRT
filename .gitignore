@@ -4,6 +4,8 @@ build
 demo
 gtk_bundle_42
 
+src/**/*.png
+
 # Mac trash
 .DS_Store
 

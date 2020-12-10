@@ -25,4 +25,10 @@ extension StartMTL {
 		return Int32(0)
 	}
 
+	public func loadLightsBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+    	lightsBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: [])
+    	if (lightsBuffer == nil) { return (Int32(1)) }
+    	return Int32(0)
+    }
+
 }

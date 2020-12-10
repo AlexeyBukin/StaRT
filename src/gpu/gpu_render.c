@@ -33,7 +33,7 @@ int				gpu_render_simple(t_gpu *gpu)
 	if (gpu_buffer_load(gpu))
 		return (rt_err("Cannot load buffers"));
 	int target_index0 = mtl_texture_create_target(gpu->dev.mtl, render_size.x, render_size.y);
-	res = mtl_kernel_run(gpu->dev.mtl, "scene_test", target_index0);
+	res = mtl_kernel_run(gpu->dev.mtl, "trace_mod_ggx", target_index0);
 	if (res != 0)
 		return (rt_err("Cannot run kernel"));
 
