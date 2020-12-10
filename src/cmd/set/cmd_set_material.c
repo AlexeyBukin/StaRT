@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/25/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_material.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -19,7 +27,7 @@ static t_msg		set_material_error(t_parser *parser, char *message)
 	return (msg_warn(message));
 }
 
-int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
+int					cmd_set_material_default(t_rt *rt, t_parser *parser)
 {
 	(void)rt;
 	if (parser == NULL)
@@ -33,18 +41,22 @@ int 				cmd_set_material_default(t_rt *rt, t_parser *parser)
 	return (0);
 }
 
-t_msg				cmd_set_material_flags(t_rt *rt, t_mat *dest, t_parser *parser)
+t_msg				cmd_set_material_flags(t_rt *rt,
+					t_mat *dest, t_parser *parser)
 {
 	if (dest == NULL || parser == NULL)
 		return (msg_err("NULL pointer in cmd_set_material_flags"));
 	while (*parser->cur != '\n' && *parser->cur != '\0')
 	{
 		if (cmd_read_space_req(&parser->cur))
-			return (set_material_error(parser, "cmd_set_material_flags: bad spaces"));
+			return (set_material_error(parser, ""
+			"cmd_set_material_flags: bad spaces"));
 		if (cmd_read_material(parser))
-			return (set_material_error(parser, "cmd_set_material_flags: bad syntax"));
+			return (set_material_error(parser, ""
+			"cmd_set_material_flags: bad syntax"));
 		if (cmd_set_obj_name(rt, parser))
-			return (set_material_error(parser, "cmd_set_material_flags: bad name"));
+			return (set_material_error(parser, ""
+			"cmd_set_material_flags: bad name"));
 	}
 	return (cmd_set_mat_to_scn(parser, dest));
 }

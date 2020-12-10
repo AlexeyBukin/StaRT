@@ -1,9 +1,18 @@
-//
-// Created by Hugor Chau on 11/17/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_remove_by_name_mat.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
-void		mat_memmove(t_scn *scn, t_mat **materials, t_mat *mat)
+void	mat_memmove(t_scn *scn, t_mat **materials, t_mat *mat)
 {
 	size_t		i;
 
@@ -25,10 +34,11 @@ int		mat_del(t_scn *scn, t_mat *mat)
 {
 	t_mat		**materials;
 
-	if (!(materials = (t_mat **)ft_memalloc(sizeof(t_mat *) * (scn->materials_num - 1))))
+	if (!(materials = (t_mat **)ft_memalloc(sizeof(t_mat *)
+	* (scn->materials_num - 1))))
 		return (rt_err("mat_remove_by_name(): malloc crashed"));
 	mat_memmove(scn, materials, mat);
-	mat_deinit(mat);///TODO do we need to deinit this?
+	mat_deinit(mat);
 	free(scn->materials);
 	scn->materials = materials;
 	scn->materials_num--;
@@ -44,6 +54,6 @@ int		scn_remove_by_name_mat(t_scn *scn, char *name)
 	mat_to_del = scn_get_mat_by_name(scn, name);
 	if (!mat_to_del)
 		return (rt_err("mat_remove_by_name(): there is no"
-					   " camera with given name"));
+		" camera with given name"));
 	return (mat_del(scn, mat_to_del));
 }

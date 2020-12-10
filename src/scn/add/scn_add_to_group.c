@@ -1,10 +1,18 @@
-//
-// Created by Hugor Chau on 11/25/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scn_add_to_group.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 22:55:50 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/16 22:03:32 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
-int 			scn_add_to_group(t_scn *scn, t_obj *dest, t_obj *obj)
+int				scn_add_to_group(t_scn *scn, t_obj *dest, t_obj *obj)
 {
 	if (scn == NULL || dest == NULL || obj == NULL)
 		return (rt_err("scn_add_to_group(): Given pointer is NULL"));
