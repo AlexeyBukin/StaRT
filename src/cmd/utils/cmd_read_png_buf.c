@@ -79,5 +79,12 @@ int				png_read_buf(png_structp png_ptr, t_parser *parser)
 		return (rt_err("malloc error"));
 	if (txr_png_read_rows(png_ptr, parser, image_data))
 		return (rt_err("png_read_buf(): error"));
+//	if (parser->texture->type == TXR_RGBA_8)
+//	{
+//		if (txr_rgba_to_bw(parser->texture))
+//			return (rt_err("WTF"));
+//		if (txr_bw_to_rgb(parser->texture))
+//			return (rt_err("WTF2"));
+//	}
 	return (0);
 }

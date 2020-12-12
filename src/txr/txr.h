@@ -20,4 +20,25 @@ int		txr_init(t_txr **dest, char *name, t_size2 size);
 int		txr_init_default(t_txr **dest, char *name);
 int		txr_deinit(t_txr *txr);
 
+/*
+**		txr_bw_to_type
+*/
+
+int		txr_bw_to_rgb(t_txr *txr);
+int		txr_bw_to_rgba(t_txr *texture);
+
+/*
+**		txr_rgb_to_bw
+*/
+
+int		txr_rgb_to_bw(t_txr *texture);
+int		txr_rgb_to_rgba(t_txr *texture);
+
+/*
+**		txr_rgba_to_bw
+*/
+
+int		txr_rgba_to_rgb(t_txr *txr);
+int		txr_rgba_to_bw(t_txr *txr);
+
 #endif

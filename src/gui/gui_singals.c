@@ -38,12 +38,23 @@ void		on_render_rt(GObject *obj, gpointer p)
 	GdkPixbuf *pix_buf;
 	GtkImage *image;
 	t_param	*builder = (t_param*)p;
+	guchar *img;
 	// GtkBuilder	*builder = (GtkBuilder	*)p;
 
 	image = (GtkImage *)gtk_builder_get_object(builder->builder, "image");
-	guchar *img = NULL;
-	create_img(&img);
-	pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB, 0, 8, 700, 50, 700 * 3, NULL, NULL);
+	//TODO all new comments i needed for debug im sorry
+//	if (builder->user_data->scene->textures_num > 0)
+//	{
+//		img = (guchar *)builder->user_data->scene->textures[0]->content;
+//		pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB, 0, 8, builder->user_data->scene->textures[0]->width,
+//		builder->user_data->scene->textures[0]->height, builder->user_data->scene->textures[0]->stride, NULL, NULL);
+//	}
+//	else
+//	{
+		img = NULL;
+		create_img(&img);
+		pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB, 0, 8, 700, 50, 700 * 3, NULL, NULL);
+//	}
 	// put_pixel(pix_buf, )
 	gtk_image_set_from_pixbuf(image, pix_buf);
 	// gtk_image_set_from_file(image, "/Users/rtacos/Desktop/rt_git/res/missing-image-icon-24.png");

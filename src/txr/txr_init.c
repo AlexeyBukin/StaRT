@@ -13,19 +13,20 @@
 #include "rt.h"
 #include "txr.h"
 
-//scn_check_name checks if name is unique and strlen() > 0
-//if not returns error
+/*
+**		scn_check_name checks if name is unique and strlen() > 0
+**		if not returns error
+*/
 
 int		txr_init(t_txr **dest, char *name, t_size2 size)
 {
-	t_txr 	*txr;
+	t_txr		*txr;
 
 	if (size.x == 0 || size.y == 0)
 		return (rt_err("Invalid texture size"));
 	if (txr_init_default(&txr, name))
 		return (rt_err("Cannot init texture base"));
 	txr->type = TXR_RGB_8;
-//	txr->gpu_type = TXR_GPU_UNSYNCED;
 	txr->width = size.x;
 	txr->height = size.y;
 	txr->stride = size.x * 3;
@@ -52,7 +53,6 @@ int		txr_init_default(t_txr **dest, char *name)
 	txr->name = name;
 	txr->filename = NULL;
 	txr->type = TXR_RGB_8;
-//	txr->gpu_type = TXR_GPU_NONE;
 	txr->width = 0;
 	txr->height = 0;
 	txr->stride = 0;
@@ -72,28 +72,3 @@ int		txr_deinit(t_txr *txr)
 	ft_free(txr);
 	return (0);
 }
-
-//txr_init_gpu_dynamic?
-//txr_init_gpu_const?
-//int		txr_init_gpu_synced(t_txr **dest, t_rt *rt, char *name, t_size2 size)
-//{
-//	t_txr 	*txr;
-//
-//	if (size.x == 0 || size.y == 0)
-//		return (rt_err("Invalid texture size"));
-//	if (txr_init_default(&txr, scn, name))
-//		return (rt_err("Cannot init texture base"));
-//	txr->type = TXR_RGB_8;
-//	txr->gpu_type = TXR_GPU_UNSYNCED;
-//	txr->width = size.x;
-//	txr->height = size.y;
-//	txr->stride = size.x * 3;
-//	txr->content = ft_memalloc(sizeof(char) * txr->stride * txr->height);
-//	if (txr->content == NULL)
-//	{
-//		txr_deinit(&txr);
-//		return (rt_err("Cannot init texture"));
-//	}
-//	*dest = txr;
-//	return (0);
-//}
