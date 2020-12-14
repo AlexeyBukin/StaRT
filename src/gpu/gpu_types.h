@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:28:52 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GPU_TYPES_H
 # define GPU_TYPES_H
 
-//# include "rt_types.h"
+# include "mtl.h"
+# include "vlk.h"
+# include "libnum.h"
 # include "gpu_objects.h"
 # include "gpu_mat.h"
-# include "obj_types.h"
-# include "vlk.h"
-# include "mtl.h"
 
-typedef union		u_gpu_device
+typedef union		u_gpu
 {
 	t_mtl			*mtl;
 	t_vlk			*vlk;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   txr_init.c                                         :+:      :+:    :+:   */
+/*   txr_rgba_to_rgb.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 18:11:25 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
 
 	if (rgba == NULL || rgb_dest == NULL)
 		return (rt_err("Null pointer"));
-	if (txr_init(&rgb, ft_strdup(rgba->name), {rgba->width, rgba->height}))
+	if (txr_init(&rgb, ft_strdup(rgba->name), (t_size2){rgba->width, rgba->height}))
 		return (rt_err("Cannot malloc rgb texture"));
 	i = 0;
 	while (i < rgb->height)

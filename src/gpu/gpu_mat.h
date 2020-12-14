@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_mat.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:44:29 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/10 00:23:32 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:27:49 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GPU_MAT_H
 # define GPU_MAT_H
 
-//# include "rt_types.h"
 # include "gpu_objects.h"
 # include "obj_types.h"
 # include "vlk.h"

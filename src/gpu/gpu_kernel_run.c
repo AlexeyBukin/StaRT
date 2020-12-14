@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_kernel_run.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:17:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 20:29:34 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 18:04:58 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 
 # define MTL_MAIN_KERNEL "trace_mod_ggx"
 
- int				gpu_kernel_run(t_gpu *gpu, t_txr *render_result)
+ int				gpu_kernel_run(t_gpu *gpu)
  {
  	if (gpu == NULL)
  		return (rt_err("gpu is NULL pointer"));
- 	if (render_result == NULL)
- 		return (rt_err("render_result is NULL pointer"));
- 	if (mtl_kernel_run(rt->gpu.mtl, MTL_MAIN_KERNEL, rt->render_result->index))
+ 	// if (render_result == NULL)
+ 	// 	return (rt_err("render_result is NULL pointer"));
+	 // gpu->render_result->index was 0
+ 	if (mtl_kernel_run(gpu->dev.mtl, MTL_MAIN_KERNEL, 0))
  		return (rt_err("kernel_run() fail"));
  	return (0);
  }
@@ -37,10 +38,10 @@ int				gpu_kernel_run(t_rt *rt)
 
 #else
 
-int				gpu_init(t_rt *rt)
+int				gpu_kernel_run(t_rt *rt)
 {
 	(void)rt;
-	return (rt_err("gpu_init() fail"));
+	return (rt_err("gpu_kernel_run fail"));
 }
 
 #endif

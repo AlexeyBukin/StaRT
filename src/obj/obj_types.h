@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 18:09:21 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@
 # include "shp_types.h"
 # include "mat_types.h"
 # include "lgt_types.h"
+# include "scn_types.h"
 # include "libft.h"
 
 typedef enum				s_obj_type
 {
 	OBJ_NONE,
 	OBJ_CONTAINER,
-	OBJ_LIGHT,
 	OBJ_COPY,
-	OBJ_CAMERA,
-	OBJ_GROUP
+	OBJ_GROUP,
+	OBJ_LIGHT,
+	OBJ_CAMERA
 }							t_obj_type;
 
 typedef struct				s_obj_light

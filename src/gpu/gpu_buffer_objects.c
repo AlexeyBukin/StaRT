@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_buffer_objects.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:17:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/05 18:45:04 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 17:40:27 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 	if (gpu == NULL || obj == NULL)
 		return (rt_err("Given pointer is NULL"));
     (void)global;
-	if (tfm_apply_from_to(global, &tfm))
-		return (rt_err("Cannot apply transform"));
+	// if (tfm_apply_from_to(global, &tfm))
+	// 	return (rt_err("Cannot apply transform"));
 	if (obj->type == OBJ_CONTAINER)
 		return (gpu_buffer_object_container(gpu, obj, &tfm));
 	if (obj->type == OBJ_COPY)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   srv_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 16:09:40 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/02 16:10:42 by kcharla          ###   ########.fr       */
+/*   Updated: 2020/12/03 20:30:43 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ void		srv_quit_gtk_app(t_rt *rt)
 	if (rt == NULL)
 		return ;
 	source = g_idle_source_new();
-	g_source_set_callback(source, srv_g_application_quit, rt->app, NULL);
-	g_source_attach(source, rt->context);
+	g_source_set_callback(source, srv_g_application_quit, rt->gui->app, NULL);
+	g_source_attach(source, rt->gui->context);
 }

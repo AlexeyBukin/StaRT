@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_objects.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:41:44 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 04:49:31 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 17:31:25 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define GPU_OBJECTS_H
 
 # include "scn_types.h"
+// enum e_obj_type
+// {
+// 	OBJ_NONE = 0,
+// 	OBJ_PLANE,
+// 	OBJ_SPHERE,
+// 	OBJ_CYLINDER,
+// 	OBJ_CONE,
+// 	OBJ_GEOMETRY
+// };
 
 typedef struct				s_gpu_sphere
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gpu_buffer_load.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 14:17:31 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/16 20:28:13 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 17:38:04 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  	if (mtl_buffer_load_info(gpu->dev.mtl, &(gpu->info), sizeof(t_scn)))
  		return (rt_err("cannot load info buffer"));
  	if (mtl_buffer_load_objects(gpu->dev.mtl, gpu->obj_buf,
-							  (int)(sizeof(t_gpu_obj) * gpu->info.obj_num)))
+						   	  (int)(sizeof(t_gpu_obj) * gpu->info.obj_num)))
  		return (rt_err("cannot load objects buffer"));
  	if (mtl_buffer_load_materials(gpu->dev.mtl, gpu->mat_buf,
 								(int)(sizeof(t_mat) * gpu->info.mat_num)))
