@@ -6,11 +6,11 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:44:01 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/07 20:30:00 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/08 17:23:41 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
+#include "rt.h"
 
 static void		gui_creating_and_rendering_columns(GtkTreeView *tree_view)
 {
@@ -20,7 +20,7 @@ static void		gui_creating_and_rendering_columns(GtkTreeView *tree_view)
 
 	renderer = gtk_cell_renderer_text_new();
 	col = gtk_tree_view_column_new();
-	label = gtk_label_new("");/* То, что будет написано над группами с объектами*/
+	label = gtk_label_new("What will be written above the group with objects");
 	gtk_tree_view_column_set_widget(col, label);
 	gtk_tree_view_column_pack_start(col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute(col, renderer, "text", COLUMN_TITLE);
@@ -28,9 +28,9 @@ static void		gui_creating_and_rendering_columns(GtkTreeView *tree_view)
 	col = gtk_tree_view_get_column(GTK_TREE_VIEW(tree_view), 0);
 	label = gtk_tree_view_column_get_widget(col);
 	gtk_widget_show(label);
-	label = gtk_widget_get_parent(label); /* the alignment */
-	label = gtk_widget_get_parent(label); /* the hbox */
-	label = gtk_widget_get_parent(label); /* the button */
+	label = gtk_widget_get_parent(label);
+	label = gtk_widget_get_parent(label);
+	label = gtk_widget_get_parent(label);
 	gui_style(label);
 }
 

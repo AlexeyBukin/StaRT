@@ -6,11 +6,11 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 20:05:02 by rtacos            #+#    #+#             */
-/*   Updated: 2020/12/07 20:29:30 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/08 17:16:50 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "rt.h"
+#include "rt.h"
 
 void			gui_style(GtkWidget *widget)
 {
@@ -20,7 +20,7 @@ void			gui_style(GtkWidget *widget)
 	context = gtk_widget_get_style_context(widget);
 	provider = gtk_css_provider_new();
 	gtk_css_provider_load_from_path(provider,
-									 RT_GTK_THEME, NULL);
+									RT_GTK_THEME, NULL);
 	gtk_style_context_add_provider(context,
 								GTK_STYLE_PROVIDER(provider),
 								GTK_STYLE_PROVIDER_PRIORITY_USER);
@@ -43,22 +43,6 @@ void			gui_style_for_menu_bar(GtkBuilder *builder)
 	gui_get_info_and_style(builder, "menu_bar", GENERAL, NULL);
 	gui_get_info_and_style(builder, "item_File", GENERAL, NULL);
 	gui_get_info_and_style(builder, "menu_file", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "menu_edit", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "menu_view", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "menu_help", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "item_File", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "item_Edit", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "item_View", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "item_Help", GENERAL, NULL);
-	// gui_get_info_and_style(builder, "menuitem_submenu_1", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_2", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_3", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "server_up", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_5", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_6", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_7", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_8", PERSONAL, "submenu");
-	// gui_get_info_and_style(builder, "menuitem_submenu_9", PERSONAL, "submenu");
 	gui_get_info_and_style(builder, "render", PERSONAL, NULL);
 	gui_get_info_and_style(builder, "quit", PERSONAL, "submenu");
 }
