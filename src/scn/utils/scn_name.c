@@ -18,7 +18,7 @@ static int		scn_name_check_symbols(char *name)
 		return (rt_err("Given pointer is NULL"));
 	if (name[0] == '\0')
 		return (rt_err("check_name_symbols(): name is "
-					"an empty string"));
+		"an empty string"));
 	while (*name)
 	{
 		if (!(ft_isalpha(*name) || ft_isdigit(*name) || *name == '_'))
@@ -37,8 +37,6 @@ int				scn_name_check(t_scn *scn, char *name)
 	if (scn_name_check_symbols(name))
 		return (rt_err("scn_name_check(): name has an incorrect symbol"));
 	if (scn_get_obj_by_name(scn, name) || scn_get_txr_by_name(scn, name))
-		return (rt_err("scn_name_check(): not a unique name"));
-	if (scn_get_cam_by_name(scn, name) || scn_get_mat_by_name(scn, name))
 		return (rt_err("scn_name_check(): not a unique name"));
 	return (0);
 }

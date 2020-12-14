@@ -7,9 +7,9 @@ import mtl_start
 
 extension StartMTL {
 
-	public func loadSceneBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
-		sceneBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: [])
-		if (sceneBuffer == nil) { return (Int32(1)) }
+	public func loadInfoBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+		infoBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: [])
+		if (infoBuffer == nil) { return (Int32(1)) }
 		return Int32(0)
 	}
 
@@ -24,5 +24,11 @@ extension StartMTL {
 		if (materialsBuffer == nil) { return (Int32(1)) }
 		return Int32(0)
 	}
+
+	public func loadLightsBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
+    	lightsBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: [])
+    	if (lightsBuffer == nil) { return (Int32(1)) }
+    	return Int32(0)
+    }
 
 }

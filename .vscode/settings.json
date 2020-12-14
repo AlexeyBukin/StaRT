@@ -7,5 +7,6 @@
 		"string": "c",
 		"string_view": "c",
 		"vector": "c"
-	}
+	},
+	"C_Cpp.dimInactiveRegions": false
 }

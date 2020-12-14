@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rt_mtl___kernel.metal                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 13:59:41 by kcharla           #+#    #+#             */
-/*   Updated: 2020/10/26 13:59:41 by kcharla          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    rt_mtl___kernel.metal                              :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/10/26 13:59:41 by kcharla           #+#    #+#              #
+#    Updated: 2020/12/14 17:17:39 by rtacos           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include <metal_stdlib>
 using namespace metal;
@@ -71,13 +71,11 @@ struct				s_mat
 
 typedef struct		s_scn
 {
-	int						id;
-	device struct s_obj		*objects;
-	int						objects_num;
-	device struct s_mat		*materials;
-	int						materials_num;
-	struct s_cam			camera;
-}					t_scn;
+	device t_gpu_info			*info		[[id(0)]];
+	device t_gpu_obj			*objects	[[id(1)]];
+	device t_gpu_mat			*materials	[[id(2)]];
+	device t_gpu_light			*light		[[id(3)]];
+}								t_scene;
 
 kernel void scene_test(		device struct		s_scn		*scene		[[buffer(0)]],
 							device struct		s_obj		*objects	[[buffer(1)]],

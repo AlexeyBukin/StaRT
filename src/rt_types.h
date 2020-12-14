@@ -6,7 +6,7 @@
 /*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 23:46:25 by kcharla           #+#    #+#             */
-/*   Updated: 2020/12/03 18:08:48 by rtacos           ###   ########.fr       */
+/*   Updated: 2020/12/14 18:07:40 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_rt
 //	GMutex				mutex_true;
 //	GMutex				*mutex;
 	GThread				*server_thread;
-	t_gpu				gpu;
+	t_gpu				*gpu;
 	t_scn				*scene;
 	t_txr				*render_result;
 	t_srv				*server;

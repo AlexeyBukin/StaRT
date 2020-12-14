@@ -21,10 +21,7 @@ typedef struct		s_parser
 	t_obj			*object;
 	t_obj_container *container;
 	t_tfm			*transform;
-//	t_vec3			rot_euler_xyz;
-//TODO added group in parser
 	t_obj			*group;
-	t_cam			*camera;
 	t_mat			*material;
 	t_txr			*texture;
 	char			*name;

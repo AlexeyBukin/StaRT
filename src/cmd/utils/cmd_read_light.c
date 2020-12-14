@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_read_light.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 int		cmd_light_set_intensity(t_parser *parser)
@@ -6,7 +18,8 @@ int		cmd_light_set_intensity(t_parser *parser)
 	{
 		parser->cur += ft_strlen("-i");
 		cmd_read_space(&parser->cur);
-		if (cmd_read_num(&parser->cur, &parser->object->content.light.light.intensity))
+		if (cmd_read_num(&parser->cur,
+			&parser->object->content.light.light.intensity))
 			return (-1);
 		return (0);
 	}
@@ -36,13 +49,14 @@ int		cmd_light_set_type(t_parser *parser)
 	return (0);
 }
 
-int			cmd_light_set_color(t_parser *parser)
+int		cmd_light_set_color(t_parser *parser)
 {
 	if (ft_str_next_is(parser->cur, "-c"))
 	{
 		parser->cur += ft_strlen("-c");
 		cmd_read_space(&parser->cur);
-		if (cmd_read_vec(&parser->cur, &parser->object->content.light.light.color))
+		if (cmd_read_vec(&parser->cur,
+			&parser->object->content.light.light.color))
 			return (-1);
 	}
 	return (0);

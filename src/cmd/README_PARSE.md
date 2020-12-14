@@ -41,6 +41,7 @@ No special arguments can be specified.
 #### `add camera`
 Cannot specify material, `-m` will give an error.
 1) `-f` - field-of-view, FOV. Should be valid vector
+//change this to object instead of array
 
 #### `add light`
 Cannot specify material, `-m` will give an error.
@@ -63,6 +64,14 @@ Material is not an object, so non of previous object flags can be used.
 3) `-t` - transparency. Should be valid scalar
 3) `-a` - albedo. Should be valid vector (values clamped 0..1)
 3) `-f` - f0. Should be valid vector (values clamped 0..1)
+   //TODO add maps as textures
+3) `-N` - mormal map. Should be valid texture name
+
+#### `add texture`
+// File can be only png image
+1) `-t` - type. Should be one of strings "RGB8", "RGBA8" or "BW8"
+2) `-f` - filename. Should be valid string.
+
 
 ### Command `rm`
 Removes component from scene.
@@ -78,6 +87,8 @@ Uses flags from `add` to specify parameters.
 Example 1: `set "my_sphere" -r 2.0 `
 
 Example 2: `set "my_light" -i 10.0 `
+
+// ```set texture -f "myfile.png"``` saves png file instead of loading it unlike ```add texture -f```
 
 ### `ls`
 Lists chosen component info

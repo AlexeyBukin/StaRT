@@ -1,6 +1,14 @@
-//
-// Created by Hugor Chau on 11/25/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_set_cone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/10 02:49:57 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/20 20:10:05 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "rt.h"
 
@@ -28,7 +36,7 @@ static int			cone_set_radius(t_parser *parser)
 	return (0);
 }
 
-int 				cmd_set_cone_default(t_rt *rt, t_parser *parser)
+int					cmd_set_cone_default(t_rt *rt, t_parser *parser)
 {
 	if (parser == NULL || parser->container == NULL || parser->object == NULL ||
 		parser->transform == NULL)
@@ -50,19 +58,24 @@ t_msg				cmd_set_cone_read(t_rt *rt, t_parser *parser, t_obj *dest)
 		if (cmd_read_space_req(&parser->cur))
 			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax"));
 		if (cone_set_radius(parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in rad"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax rad"));
 		if (cone_set_length(parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in length"));
+			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax length"));
 		if (cmd_read_transform_part(parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax in transform"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_cone(): bad syntax transform"));
 		if (cmd_set_obj_visibility(parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax visibility"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_cone(): bad syntax visibility"));
 		if (cmd_set_obj_grp(rt, parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax group"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_cone(): bad syntax group"));
 		if (cmd_set_obj_mat(rt, parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax material"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_cone(): bad syntax material"));
 		if (cmd_set_obj_name(rt, parser))
-			return (cmd_set_error(parser, "cmd_set_cone(): bad syntax name"));
+			return (cmd_set_error(parser, ""
+			"cmd_set_cone(): bad syntax name"));
 	}
 	return (cmd_set_obj_to_scn(rt, parser, dest));
 }
@@ -70,7 +83,7 @@ t_msg				cmd_set_cone_read(t_rt *rt, t_parser *parser, t_obj *dest)
 t_msg				cmd_set_cone(t_rt *rt, t_parser *parser, t_obj *dest)
 {
 	if (parser == NULL || rt == NULL)
-		return(msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
+		return (msg_err("cmd_add_camera(): given NULL pointer in cmd_add()"));
 	if (cmd_set_prepare_obj(parser, dest))
 		return (msg_err("cmd_set_cone(): critical malloc error"));
 	return (cmd_set_cone_read(rt, parser, dest));

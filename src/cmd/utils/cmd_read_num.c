@@ -34,7 +34,7 @@ int			cmd_read_num(char **source, t_num *num)
 	return (0);
 }
 
-int				cmd_read_vec2(char **source, t_vec2 *vec)
+int			cmd_read_vec2(char **source, t_vec2 *vec)
 {
 	int			err;
 	char		*str;
@@ -66,7 +66,7 @@ int				cmd_read_vec2(char **source, t_vec2 *vec)
 ** returns 0 on success
 */
 
-int				cmd_read_vec(char **source, t_vec3 *vec)
+int			cmd_read_vec(char **source, t_vec3 *vec)
 {
 	int			err;
 	char		*str;
@@ -97,7 +97,7 @@ int				cmd_read_vec(char **source, t_vec3 *vec)
 	return (0);
 }
 
-int 		cmd_read_matrix(char **source, t_mat3x3 *mtx)
+int			cmd_read_matrix(char **source, t_mat3x3 *mtx)
 {
 	char		*str;
 
