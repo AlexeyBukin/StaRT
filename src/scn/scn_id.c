@@ -17,7 +17,7 @@
 ** Lower values reserved for default components
 */
 
-t_id				scn_id()
+t_id				scn_id(void)
 {
 	static uint		id = 101;
 

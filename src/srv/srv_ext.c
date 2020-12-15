@@ -60,6 +60,7 @@ int				srv_ext_client_check(t_srv *srv)
 	{
 		refuse_fd = accept(srv->socket_listen_fd, NULL, NULL);
 		send(refuse_fd, SRV_BUSY, ft_strlen(SRV_BUSY), 0);
+		shutdown (refuse_fd, SHUT_RDWR);
 		close (refuse_fd);
 	}
 	return (0);
@@ -71,6 +72,7 @@ int				srv_ext_client_disconnect(t_srv *srv)
 		return (rt_err("srv is NULL pointer"));
 
 	srv->has_client = 0;
+	shutdown (srv->socket_client_fd, SHUT_RDWR);
 	close(srv->socket_client_fd);
 
 	ft_free(srv->client_str);

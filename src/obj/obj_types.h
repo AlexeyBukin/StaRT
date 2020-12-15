@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj_types.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
-/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*   Updated: 2020/12/14 18:09:21 by rtacos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,30 @@
 # include "tfm_types.h"
 # include "shp_types.h"
 # include "mat_types.h"
+# include "lgt_types.h"
+# include "scn_types.h"
+# include "libft.h"
 
 typedef enum				s_obj_type
 {
 	OBJ_NONE,
 	OBJ_CONTAINER,
 	OBJ_COPY,
-	OBJ_GROUP
+	OBJ_GROUP,
+	OBJ_LIGHT,
+	OBJ_CAMERA
 }							t_obj_type;
+
+typedef struct				s_obj_light
+{
+	t_lgt_type				lgt_type;
+	t_lgt					light;
+}							t_obj_light;
+
+typedef struct				s_obj_camera
+{
+	t_vec2					fov;
+}							t_obj_camera;
 
 typedef struct				s_obj_container
 {
@@ -40,9 +56,11 @@ typedef struct				s_obj_group
 
 typedef union				s_obj_content
 {
-	t_obj_container			container;
 	struct s_scn_object		*copy;
+	t_obj_container			container;
 	t_obj_group				group;
+	t_obj_light				light;
+	t_obj_camera			camera;
 }							t_obj_content;
 
 typedef struct				s_scn_object
