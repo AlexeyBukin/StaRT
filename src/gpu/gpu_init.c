@@ -14,45 +14,35 @@
 
 #if defined(PLATFORM_MACOS)
 
-//#define MTL_LIB_SRC "src/mtl/shaders/rt_mtl___kernel.metal"
-#define MTL_LIB_SRC "src/mtl/shaders/metal_struct.metal src/mtl/shaders/metal_shader.metal src/mtl/shaders/rt_trace_mod_ggx.metal"
-#define MTL_WIDTH	1280
-#define MTL_HEIGHT	720
+# define MTL_SHADER_LIST "src/mtl/mtl_shader_list.txt"
 
 int				gpu_init(t_gpu **gpu_dest)
 {
-	t_gpu *gpu;
-	// char		*lib_source_str;
-	// t_txr		*render_result;
+	t_gpu		*gpu;
+	char		*shader_list;
+	char		*lib_source_str;
 
 	if ((gpu = ft_malloc(sizeof(t_gpu))) == NULL)
 		return (rt_err("gpu_init(): malloc fail"));
+	if ((gpu->dev.mtl = mtl_init()) == NULL)
+		return (rt_err("gpu_init(): metal_init() fail"));
+	if ((shader_list = ft_read_file(MTL_SHADER_LIST)) == NULL)
+		return (rt_err("gpu_init(): cannot read shader list file"));
+	if (ft_read_files(&lib_source_str, shader_list))
+	{
+		ft_free(shader_list);
+		return (rt_err("gpu_init(): cannot read shader files"));
+	}
+	if (mtl_lib_load_source(gpu->dev.mtl, lib_source_str))
+	{
+		ft_free(shader_list);
+		ft_free(lib_source_str);
+		return (rt_err("gpu_init(): load_lib() fail"));
+	}
+	ft_free(shader_list);
+	ft_free(lib_source_str);
 	*gpu_dest = gpu;
 	return (0);
-	// TODO add down funcs
-	// if ((gpu->dev.mtl = mtl_init()) == NULL)
-	// 	return (rt_err("gpu_init(): metal_init() fail"));
-	// if (ft_read_files(&lib_source_str, MTL_LIB_SRC))
-	// 	return (rt_err("gpu_init(): cannot read shader files"));
-	// if (mtl_lib_load_source(gpu->dev.mtl, lib_source_str))
-	// 	return (rt_err("gpu_init(): load_lib() fail"));
-	// free(lib_source_str);
-//	if ((render_result = (t_texture*)ft_memalloc(sizeof(t_texture))) == NULL)
-//		return (rt_err("gpu_init(): ft_memalloc() fail"));
-//	if ((render_result->index = mtl_texture_create(rt->gpu.mtl, MTL_WIDTH, MTL_HEIGHT)) < 0)
-//		return (rt_err("gpu_init(): texture_create() fail"));
-//	render_result->width = MTL_WIDTH;
-//	render_result->height = MTL_HEIGHT;
-//	if ((render_result->stride = mtl_texture_get_stride(rt->gpu.mtl, render_result->index)) <= 0)
-//		return (rt_err("gpu_init(): get_stride() fail"));
-
-// 	//TODO delete debug
-// 	ft_printf("index is %d\nstride is %d\n", render_result->index, render_result->stride);
-
-// 	if ((render_result->data = mtl_texture_get_ptr(rt->gpu.mtl, render_result->index)) == NULL)
-// 		return (rt_err("gpu_init(): get_ptr() fail"));
-// 	rt->render_result = render_result;
-	// return (0);
 }
 
 #elif defined(PLATFORM_LINUX) || defined(PPLATFORM_WINDOWS)

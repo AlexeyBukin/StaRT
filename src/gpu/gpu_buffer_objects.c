@@ -12,7 +12,9 @@
 
 #include "rt.h"
 
-// must load materials first!
+/*
+** before loading objects you must load materials!
+*/
 
 int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn)
 {
@@ -30,8 +32,8 @@ int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn)
 	if (gpu_buffer_objects_fill_rec(gpu, scn->main_group, NULL))
 	{
 		ft_free(gpu->obj_buf);
+		gpu->obj_buf = NULL;
 		gpu->info.obj_num = 0;
-//		gpu->obj_buf = NULL; // kcharla: maybe we won't quit??
 		return (rt_err("Cannot init object buffer"));
 	}
 	return (0);
@@ -105,6 +107,6 @@ int				gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global)
 		gpu_obj->shape.cone.r = obj->content.container.shape.cone.radius;
 	}
 	else
-		return (rt_err("Unknown object type"));
+		return (rt_err("Unknown object shape type"));
 	return (0);
 }

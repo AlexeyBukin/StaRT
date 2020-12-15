@@ -31,10 +31,10 @@ typedef struct		s_scn
 	size_t			textures_num;
 }					t_scn;
 
-typedef struct		s_component_base
-{
-	t_id			id;
-	char			*name;
-}					t_component_base;
+//typedef struct		s_component_base
+//{
+//	t_id			id;
+//	char			*name;
+//}					t_component_base;
 
 #endif

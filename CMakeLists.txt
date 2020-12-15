@@ -51,7 +51,7 @@ set(${PROJECT_NAME}_SOURCES
         src/cmd/set/cmd_set_txr.c                       src/scn/add/scn_add_obj.c                       src/txr/txr_init.c
         src/cmd/utils/cmd_read.c                        src/scn/add/scn_add_to_group.c                  src/txr/txr_rgba_to_rgb.c
         src/cmd/utils/cmd_read_light.c                  src/scn/add/scn_add_to_group_copy.c             src/vlk/vlk_init.c
-        src/cmd/utils/cmd_read_material.c               src/scn/add/scn_add_to_group_grp.c
+        src/cmd/utils/cmd_read_material.c               src/scn/add/scn_add_to_group_grp.c              src/gpu/gpu_buffer_materials.c
         src/cmd/utils/cmd_read_num.c                    src/scn/add/scn_add_to_group_obj.c
 )
 
@@ -69,7 +69,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/lgt
         )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/lib/ft/inc )
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/lib/ft/include )
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/lib/num/include )
 target_include_directories(${PROJECT_NAME} PUBLIC ${GTK_INCLUDE_DIRS} )
 target_include_directories(${PROJECT_NAME} PUBLIC ${LIBPNG_INCLUDE_DIRS} )

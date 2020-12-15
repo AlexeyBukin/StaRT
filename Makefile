@@ -48,7 +48,7 @@ ifeq ($(UNAME_SYSTEM),Darwin)
 endif
 
 ### C Flags settings
-INCLUDE := -I src -I lib/ft/inc -I lib/num/include \
+INCLUDE := -I src -I lib/ft/include -I lib/num/include \
 -I src/cmd -I src/cam -I src/err -I src/gpu \
 -I src/gui -I src/mat -I src/mtl \
 -I src/obj -I src/scn -I src/shp \
