@@ -38,7 +38,7 @@ typedef struct		s_gpu_info
 	int				obj_num;
 	int				mat_num;
 	int				txr_num;
-	int				light_num;
+	int				lgt_num;
 	int				sampling_num;
 	int				render_size;
 	int				render_square_num;
@@ -51,7 +51,7 @@ typedef struct		s_gpu
 	t_gpu_dev		dev;
 	t_gpu_obj		*obj_buf;
 	t_gpu_mat		*mat_buf;
-	t_gpu_light		*lig_buf;
+	t_gpu_light		*lgt_buf;
 	t_gpu_info		info;
 	size_t			obj_current;
 	t_txr			*render_result;
