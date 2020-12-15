@@ -16,7 +16,7 @@ t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
 {
 	if ((parser->texture->filename))
 	{
-		if (cmd_read_png(parser))
+		if (fio_read_png(parser->texture))
 		{
 			ft_free(parser->name);
 			ft_free(parser->texture);

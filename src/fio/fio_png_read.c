@@ -21,12 +21,12 @@ static int		png_read_error(png_structp png_ptr, png_infop info_ptr,
 	return (-1);
 }
 
-static int		is_png(FILE **fp, t_parser *parser)
+static int		is_png(FILE **fp, t_txr *texture)
 {
 	png_byte	header[8];
 	int			is_png;
 
-	*fp = fopen(parser->texture->filename, "rb");
+	*fp = fopen(texture->filename, "rb");
 	if (!*fp)
 		return (rt_err("can\'t open file"));
 	fread(header, sizeof(png_byte), 8, *fp);
@@ -67,7 +67,7 @@ static int		prepare_pnglib_structs(png_structp *png_ptr,
 }
 
 static int		png_get_size(png_structp png_ptr,
-						png_infop info_ptr, t_parser *parser)
+						png_infop info_ptr, t_txr *texture)
 {
 	png_uint_32		t_width;
 	png_uint_32		t_height;
@@ -79,22 +79,22 @@ static int		png_get_size(png_structp png_ptr,
 	png_get_IHDR(png_ptr, info_ptr,
 				&t_width, &t_height,
 				&bit_depth, &color_type, NULL, NULL, NULL);
-	parser->texture->width = t_width;
-	parser->texture->height = t_height;
+	texture->width = t_width;
+	texture->height = t_height;
 	png_read_update_info(png_ptr, info_ptr);
-	parser->texture->stride =
+	texture->stride =
 			png_get_rowbytes(png_ptr, info_ptr);
 	return (0);
 }
 
-int				cmd_read_png(t_parser *parser)
+int				fio_read_png(t_txr *texture)
 {
 	FILE			*fp;
 	png_structp		png_ptr;
 	png_infop		info_ptr;
 	png_infop		end_info;
 
-	if (is_png(&fp, parser))
+	if (is_png(&fp, texture))
 		return (rt_err("cmd_read_png(): given file is not png"));
 	if (prepare_pnglib_structs(&png_ptr, &info_ptr, &end_info))
 	{
@@ -102,11 +102,11 @@ int				cmd_read_png(t_parser *parser)
 		return (rt_err("cmd_read_png(): can\'t prepare png structs"));
 	}
 	png_init_io(png_ptr, fp);
-	if (png_get_size(png_ptr, info_ptr, parser))
+	if (png_get_size(png_ptr, info_ptr, texture))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
-	if (check_type(png_ptr, info_ptr, parser))
+	if (png_check_type(png_ptr, info_ptr, texture))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
-	if (png_read_buf(png_ptr, parser))
+	if (png_read_buf(png_ptr, texture))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
 	fclose(fp);
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);

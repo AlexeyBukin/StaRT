@@ -14,9 +14,9 @@ pkg_check_modules(LIBPNG REQUIRED libpng16)
 
 #  find src -type f -name '*.c' | sort | column -c 100
 set(${PROJECT_NAME}_SOURCES
-        src/cam/cam_init.c                              src/cmd/utils/cmd_read_png_buf.c                src/scn/add/scn_add_txr.c
+        src/cam/cam_init.c src/fio/fio_read_png_buf.c src/scn/add/scn_add_txr.c
         src/cmd/add/cmd_add.c                           src/cmd/utils/cmd_read_txr.c                    src/scn/get/scn_get_mat_by_name.c
-        src/cmd/add/cmd_add_camera.c                    src/cmd/utils/cmd_read_txr_png.c                src/scn/get/scn_get_obj_by_id.c
+        src/cmd/add/cmd_add_camera.c src/fio/fio_png_read.c src/scn/get/scn_get_obj_by_id.c
         src/cmd/add/cmd_add_cone.c                      src/cmd/utils/cmd_set_read_attributes.c         src/scn/get/scn_get_obj_by_name.c
         src/cmd/add/cmd_add_copy.c                      src/cmd/utils/cmd_set_read_part.c               src/scn/get/scn_get_obj_num.c
         src/cmd/add/cmd_add_cylinder.c                  src/err/msg_err.c                               src/scn/get/scn_get_txr_by_name.c
@@ -40,7 +40,7 @@ set(${PROJECT_NAME}_SOURCES
         src/cmd/set/cmd_set_cone.c                      src/lgt/lgt_init.c                              src/scn/utils/scn_name.c
         src/cmd/set/cmd_set_copy.c                      src/main.c                                      src/srv/srv_deinit.c
         src/cmd/set/cmd_set_cylinder.c                  src/mat/mat_init.c                              src/srv/srv_ext.c
-        src/cmd/set/cmd_set_group.c                     src/mtl/fio_png_write.c                         src/srv/srv_ext_data.c
+        src/cmd/set/cmd_set_group.c src/mtl/fio_png_write.c.old src/srv/srv_ext_data.c
         src/cmd/set/cmd_set_light.c                     src/obj/obj_container_init.c                    src/srv/srv_init.c
         src/cmd/set/cmd_set_material.c                  src/obj/obj_copy_init.c                         src/srv/srv_loop.c
         src/cmd/set/cmd_set_obj_to_scn.c                src/obj/obj_init.c                              src/srv/srv_parse.c
@@ -66,7 +66,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
         ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
-        ${PROJECT_SOURCE_DIR}/src/lgt
+        ${PROJECT_SOURCE_DIR}/src/lgt   ${PROJECT_SOURCE_DIR}/src/fio
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/lib/ft/include )
