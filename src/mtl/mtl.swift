@@ -52,6 +52,20 @@ public func mtl_texture_get_ptr_swift(_ smptr: UnsafeRawPointer, _ index: Int32)
 	return (sm.getTexturePointer(index: Int(index)))
 }
 
+@_cdecl("mtl_target_get_width")
+public func mtl_target_get_width_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.getTargetWidth(index: index))
+}
+
+@_cdecl("mtl_target_get_height")
+public func mtl_target_get_height_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> Int32
+{
+	let sm:StartMTL = _mtl_bridge(ptr:smptr)
+	return (sm.getTargetHeight(index: index))
+}
+
 @_cdecl("mtl_texture_get_width")
 public func mtl_texture_get_width_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> Int32
 {
@@ -64,13 +78,6 @@ public func mtl_texture_get_height_swift(_ smptr: UnsafeRawPointer, _ index: Int
 {
 	let sm:StartMTL = _mtl_bridge(ptr:smptr)
 	return (sm.getTextureWidth(index: index))
-}
-
-@_cdecl("mtl_texture_get_stride")
-public func mtl_texture_get_stride_swift(_ smptr: UnsafeRawPointer, _ index: Int32) -> Int32
-{
-	let sm:StartMTL = _mtl_bridge(ptr:smptr)
-	return (sm.getTextureStride(index: index))
 }
 
 @_cdecl("mtl_texture_target_save")
@@ -90,16 +97,6 @@ public func mtl_texture_resource_rgba8_load_swift(_ smptr: UnsafeRawPointer?, _ 
 	let sm:StartMTL = _mtl_bridge(ptr:smptr!)
 	return (sm.loadTextureResourceRGBA8(data: ptr!, width: Int(width), height: Int(height)))
 }
-
-@_cdecl("mtl_texture_target_rgba8_load")
-public func mtl_texture_target_rgba8_load_swift(_ smptr: UnsafeRawPointer?, _ ptr:UnsafeRawPointer?, _ width:Int32, _ height:Int32 ) -> Int32
-{
-	if (smptr == nil || ptr == nil) { print ("mtl: NULL pointer"); return (Int32(-1)) }
-	if (width <= 0 || height <= 0) { print ("mtl: incorrect arguments"); return (Int32(-1)) }
-	let sm:StartMTL = _mtl_bridge(ptr:smptr!)
-	return (sm.loadTextureTargetRGBA8(data: ptr!, width: Int(width), height: Int(height)))
-}
-
 
 /* BUFFER PART */
 

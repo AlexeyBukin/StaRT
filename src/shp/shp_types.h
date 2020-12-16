@@ -22,7 +22,7 @@ typedef enum				e_shp_type
 	SHP_SPHERE,
 	SHP_CYLINDER,
 	SHP_CONE,
-	SHP_TORUS
+//	SHP_TORUS
 //	SHP_MODEL
 }							t_shp_type;
 

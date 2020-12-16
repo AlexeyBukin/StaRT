@@ -63,5 +63,18 @@ int				gpu_render_simple(t_gpu *gpu, t_scn *scn)
 
 int				gpu_render(t_rt *rt)
 {
-	return (gpu_render_simple(rt->gpu, rt->scene));
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init materials buffer"));
+	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init objects buffer"));
+//	// Load lights
+//	// Load textures
+	if (gpu_buffer_load(rt->gpu))
+		return (rt_err("Cannot load buffers to GPU"));
+	if (gpu_kernel_run(rt->gpu))
+		return (rt_err("Cannot run kernel"));
+//	return (gpu_render_simple(rt->gpu, rt->scene));
+	return (0);
 }

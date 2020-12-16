@@ -66,9 +66,8 @@ int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 				return (rt_err("Cannot fill objects"));
 			i++;
 		}
-		return (0);
 	}
-	return (rt_err("Unknown object type"));
+	return (0);
 }
 
 int				gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global)
