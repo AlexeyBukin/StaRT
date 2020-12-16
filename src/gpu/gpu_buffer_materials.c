@@ -26,7 +26,7 @@ int 			gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn)
 	if ((gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * gpu->info.mat_num)) == NULL)
 		return (rt_err("Cannot create materials buffer"));
 	i = 0;
-	while (i < gpu->info.mat_num)
+	while (i < (size_t)gpu->info.mat_num)
 	{
 		if (gpu_buffer_material_pbr(&(gpu->mat_buf[i]), scn->materials[i]))
 		{

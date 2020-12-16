@@ -18,6 +18,7 @@
 # include "cmd_types.h"
 # include "cmd_add.h"
 # include "cmd_set.h"
+# include "cmd_render.h"
 # include "png.h"
 
 /*
