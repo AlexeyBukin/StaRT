@@ -69,7 +69,8 @@ int				gpu_render(t_rt *rt)
 		return (rt_err("Cannot init materials buffer"));
 	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
 		return (rt_err("Cannot init objects buffer"));
-//	// Load lights
+	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init objects buffer"));
 //	// Load textures
 	if (gpu_buffer_load(rt->gpu))
 		return (rt_err("Cannot load buffers to GPU"));

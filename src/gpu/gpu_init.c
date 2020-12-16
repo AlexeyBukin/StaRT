@@ -51,7 +51,7 @@ int				gpu_init(t_gpu **gpu_dest)
 	return (0);
 }
 
-#elif defined(PLATFORM_LINUX) || defined(PPLATFORM_WINDOWS)
+#elif defined(PLATFORM_LINUX) || defined(PLATFORM_WINDOWS)
 
 int				gpu_init(t_rt *rt)
 {

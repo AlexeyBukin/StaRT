@@ -30,6 +30,10 @@ int 	gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global);
 int		gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn);
 int		gpu_buffer_material_pbr(t_gpu_mat *gmat, t_mat *smat);
 
+int 	gpu_buffer_lights_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global);
+int		gpu_buffer_light_object(t_gpu *gpu, t_obj *obj, t_tfm *global);
+int 	gpu_buffer_lights_init(t_gpu *gpu, t_scn *scn);
+
 int		gpu_render(t_rt *rt);
 
 #endif
