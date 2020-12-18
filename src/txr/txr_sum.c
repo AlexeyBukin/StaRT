@@ -31,7 +31,7 @@ void	check_if_target_default(t_txr *lhs, t_txr *target)
 		target->height = lhs->height;
 		target->stride = lhs->stride;
 		target->type = lhs->type;
-		target->content = (char *)ft_memalloc(sizeof(char) *
+		target->content = (unsigned char *)ft_memalloc(sizeof(char) *
 						target->stride * target->height);
 	}
 }

@@ -1,0 +1,2 @@
+add sphere "sp1" -p <0, 0, 0>
+add light "l1" -c <1, 1, 1> -i 2.0

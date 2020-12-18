@@ -22,7 +22,7 @@ int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn)
 
 	if (gpu == NULL || scn == NULL)
 		return (rt_err("Given pointer is NULL"));
-	if ((obj_num = scn_get_obj_num(scn)) < 0)
+	if ((obj_num = scn_get_num_of(scn, OBJ_CONTAINER)) < 0)
 		return (rt_err("Cannot get object num"));
 	if ((gpu->info.obj_num = obj_num) == 0)
 		return (rt_warn("Scene is empty"));
@@ -38,6 +38,10 @@ int 			gpu_buffer_objects_init(t_gpu *gpu, t_scn *scn)
 	}
 	return (0);
 }
+
+/*
+** TODO transform apply
+*/
 
 int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 {
@@ -62,9 +66,8 @@ int 			gpu_buffer_objects_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 				return (rt_err("Cannot fill objects"));
 			i++;
 		}
-		return (0);
 	}
-	return (rt_err("Unknown object type"));
+	return (0);
 }
 
 int				gpu_buffer_object_container(t_gpu *gpu, t_obj *obj, t_tfm *global)
