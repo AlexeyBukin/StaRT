@@ -39,6 +39,21 @@ extension StartMTL {
 		return (addTextureResource(texture))
 	}
 
+	public func	loadTextureTargetRGBA8(data ptr: UnsafeRawPointer, width:Int, height:Int) -> Int32 {
+		let textureDesc = MTLTextureDescriptor()
+		textureDesc.width = width
+		textureDesc.height = height
+		textureDesc.usage = .shaderWrite
+		textureDesc.pixelFormat = MTLPixelFormat.rgba8Unorm
+
+		let stride = 4 * width;
+		let texture_buff = device.makeBuffer(bytes: ptr, length: stride * height, options: [])
+		let texture = texture_buff?.makeTexture(descriptor:textureDesc, offset:0, bytesPerRow:stride)
+
+		print ("mtl: adding texture target...")
+		return (addTextureTarget(texture))
+	}
+
 	public func createTexture(d device:MTLDevice, w width:Int, h height:Int) -> Int32 {
 
 		let texture_width = width
@@ -58,6 +73,13 @@ extension StartMTL {
 		return (addTextureTarget(texture))
 	}
 
+	public func getStride(width : Int) -> Int {
+//		texture_sizeline = width * 4
+//		texture_sizeline = 256 * (texture_sizeline / 256 + (texture_sizeline%256 >= 1 ? 1 : 0) )
+		let stride = width * 4;
+		return (256 * (stride / 256 + (stride%256 >= 1 ? 1 : 0)))
+	}
+
 	public func getTexturePointer(index i:Int) -> UnsafeMutablePointer<UInt32>? {
 		if (i < 0 || i >= targetTextures.count) {
 			return (nil);
@@ -66,15 +88,13 @@ extension StartMTL {
 		return (tmpptr.assumingMemoryBound(to:UInt32.self))
 	}
 
-    public func getTargetWidth(index i : Int32) -> Int32 {
-		guard (i < 0 || i >= targetTextures.count) else { return Int32(0) }
-		return (Int32(targetTextures[Int(i)].width))
-	}
+	public func getTextureStride(index: Int32) -> Int32 {
+		let i = Int(index)
+		guard (i >= 0 && i < textures.count) else { return Int32(0) }
 
-	public func getTargetHeight(index i : Int32) -> Int32 {
-    	guard (i < 0 || i >= targetTextures.count) else { return Int32(0) }
-    	return (Int32(targetTextures[Int(i)].height))
-    }
+		print("swift stride is \(getStride(width: (textures[i]).width))")
+		return (Int32(getStride(width: (textures[i]).width)))
+	}
 
 	public func getTextureWidth(index i : Int32) -> Int32 {
 		guard (i < 0 || i >= textures.count) else { return Int32(0) }

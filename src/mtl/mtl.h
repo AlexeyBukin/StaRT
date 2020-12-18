@@ -48,9 +48,6 @@ int						mtl_texture_resource_rgba8_load(t_mtl *mtl, void *image_data, int width
 int						mtl_texture_target_rgba8_load(t_mtl *mtl, void *image_data, int width, int height);
 int						mtl_texture_target_save(t_mtl *mtl, int index, char *filepath);
 
-int						mtl_target_get_width(t_mtl *mtl, int index);
-int						mtl_target_get_height(t_mtl *mtl, int index);
-
 /*
 ** return 0 on success
 */

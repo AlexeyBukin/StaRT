@@ -6,7 +6,7 @@
 #    By: rtacos <rtacos@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 16:52:07 by kcharla           #+#    #+#              #
-#    Updated: 2020/12/14 17:17:10 by rtacos           ###   ########.fr        #
+#    Updated: 2020/12/18 19:37:09 by kcharla          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,14 @@ $(MTL_BUILD_EXT)/%.swiftmodule: $(MTL_DIR_EXT)/%.swift
 
 ### DEMO PART ###
 
+LIBPNG_FLAGS = $(shell pkg-config libpng --cflags --libs)
+
 demo_mat.exe: all
+	echo $(LIBPNG_FLAGS)
 	gcc -x c _mtl_materials.c.demo fio_png_write.c -L ../../build/mtl -lmtl \
 	-I . -I ../gpu -I ../ -I ../scn -I ../../lib/num/include \
 	-I ../txr -I ../mat -I ../obj -I ../tfm -I ../shp -I ../cam -I ../lgt \
-	-I ~/.brew/Cellar/libpng/1.6.37/include -lz -L/Users/wpoudre/.brew/Cellar/libpng/1.6.37/lib -lpng \
-	-I ../vlk -I ../../lib/ft/inc -L ../../lib/num -lnum -L ../../lib/ft -lft -o demo_mat.exe
+	$(LIBPNG_FLAGS) \
+	-I ../vlk -I ../../lib/ft/include -L ../../lib/num -lnum -L ../../lib/ft -lft -o demo_mat.exe
 	install_name_tool -change libmtl.dylib "@rpath/libmtl.dylib" demo_mat.exe
 	install_name_tool -add_rpath "@executable_path/../../build/mtl/" demo_mat.exe

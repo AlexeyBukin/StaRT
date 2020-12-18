@@ -21,7 +21,7 @@ extension StartMTL {
 
 	public func loadMaterialsBuffer(ptr: UnsafeRawPointer, len: Int32) -> Int32 {
 		materialsBuffer = device.makeBuffer(bytes: ptr, length: Int(len), options: [])
-		if (materialsBuffer == nil) { print("mtl: materialsBuffer is nil"); return (Int32(1)) }
+		if (materialsBuffer == nil) { return (Int32(1)) }
 		return Int32(0)
 	}
 

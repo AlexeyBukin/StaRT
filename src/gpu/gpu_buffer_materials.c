@@ -18,7 +18,7 @@
 
 int 			gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn)
 {
-	size_t		i;
+	int		i;
 
 	if (gpu == NULL || scn == NULL)
 		return (rt_err("Given pointer is NULL"));

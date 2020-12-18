@@ -54,9 +54,9 @@ int		main()
 	fill_obj_cone(&(gpu->obj_buf[1]));
 
 
-	gpu->lig_buf = ft_memalloc(sizeof(t_gpu_light));
-	fill_light(gpu->lig_buf);
-	gpu->info.light_num = 1;
+	gpu->lgt_buf = ft_memalloc(sizeof(t_gpu_light));
+	fill_light(gpu->lgt_buf);
+	gpu->info.lgt_num = 1;
 
 	unsigned char *texture_rbga_first = get_texture_rgba_fine_64();
 	unsigned char *texture_rbga_second = get_texture_rgba_fine_64();
@@ -76,7 +76,7 @@ int		main()
 	mtl_buffer_load_info(gpu->dev.mtl, &(gpu->info), sizeof(t_gpu_info));
 	mtl_buffer_load_objects(gpu->dev.mtl, gpu->obj_buf, gpu->info.obj_num * sizeof(t_gpu_obj));
 	mtl_buffer_load_materials(gpu->dev.mtl, gpu->mat_buf, gpu->info.mat_num * sizeof(t_gpu_mat));
-	mtl_buffer_load_lights(gpu->dev.mtl, gpu->lig_buf, gpu->info.light_num * sizeof(t_gpu_light));
+	mtl_buffer_load_lights(gpu->dev.mtl, gpu->lgt_buf, gpu->info.lgt_num * sizeof(t_gpu_light));
 
 	// MUST create texture, metal cannot add memory with no copy that was created by malloc()
 	// https://developer.apple.com/documentation/metal/mtldevice/1433382-makebuffer

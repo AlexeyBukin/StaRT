@@ -7,6 +7,7 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 project(RT)
 
 add_definitions(-DPLATFORM_MACOS)
+add_compile_options(-Wall -Wextra -Werror)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK REQUIRED gtk+-3.0)
@@ -67,7 +68,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         ${PROJECT_SOURCE_DIR}/src/mat   ${PROJECT_SOURCE_DIR}/src/cam
         ${PROJECT_SOURCE_DIR}/src/obj   ${PROJECT_SOURCE_DIR}/src/tfm
         ${PROJECT_SOURCE_DIR}/src/shp   ${PROJECT_SOURCE_DIR}/src/txr
-        ${PROJECT_SOURCE_DIR}/src/lgt
+        ${PROJECT_SOURCE_DIR}/src/lgt   ${PROJECT_SOURCE_DIR}/src/grp
         )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/lib/ft/include )
