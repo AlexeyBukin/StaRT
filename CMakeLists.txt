@@ -40,7 +40,7 @@ set(${PROJECT_NAME}_SOURCES
         src/cmd/set/cmd_set_cone.c                      src/lgt/lgt_init.c                              src/scn/utils/scn_name.c
         src/cmd/set/cmd_set_copy.c                      src/main.c                                      src/srv/srv_deinit.c
         src/cmd/set/cmd_set_cylinder.c                  src/mat/mat_init.c                              src/srv/srv_ext.c
-        src/cmd/set/cmd_set_group.c src/mtl/fio_png_write.c.old src/srv/srv_ext_data.c
+        src/cmd/set/cmd_set_group.c src/mtl/fio_png_write.c src/srv/srv_ext_data.c
         src/cmd/set/cmd_set_light.c                     src/obj/obj_container_init.c                    src/srv/srv_init.c
         src/cmd/set/cmd_set_material.c                  src/obj/obj_copy_init.c                         src/srv/srv_loop.c
         src/cmd/set/cmd_set_obj_to_scn.c                src/obj/obj_init.c                              src/srv/srv_parse.c
