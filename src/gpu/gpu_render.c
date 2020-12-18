@@ -76,5 +76,6 @@ int				gpu_render(t_rt *rt)
 		return (rt_err("Cannot load buffers to GPU"));
 	if (gpu_kernel_run(rt->gpu))
 		return (rt_err("Cannot run kernel"));
+//	return (gpu_render_simple(rt->gpu, rt->scene));
 	return (0);
 }

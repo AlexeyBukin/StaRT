@@ -20,7 +20,7 @@ int 			gpu_buffer_lights_init(t_gpu *gpu, t_scn *scn)
 		return (rt_err("Given pointer is NULL"));
 	if ((lgt_num = scn_get_num_of(scn, OBJ_LIGHT)) < 0)
 		return (rt_err("Cannot get light num"));
-	if ((gpu->info.lgt_num = lgt_num) == 0)
+	if ((gpu->info.obj_num = lgt_num) == 0)
 		return (rt_warn("Scene is empty"));
 	if ((gpu->lgt_buf = ft_malloc(sizeof(t_gpu_light) * gpu->info.lgt_num)) == NULL)
 		return (rt_err("Cannot init lights buffer"));
