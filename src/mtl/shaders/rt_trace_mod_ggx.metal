@@ -13,17 +13,21 @@
 #include <metal_stdlib>
 using namespace metal;
 
-float3			cook_torrance_ggx(float3 n, float3 l, float3 v, device t_mat_pbr *m)
+float3			cook_torrance_ggx(float3x3 tmp, device t_gpu_texture *textures, device t_mat_pbr *m, thread t_obj &near, float3 pos)
 {
 	float		g;
 	float3		f_diffk;
 	float		n_dot_v;
 	float		n_dot_l;
 	float3		speck;
+	float3		n;
+	float3		l;
+	float3		v;
+	float3		color;
 
-	n = normalize(n);
-	l = normalize(l);
-	v = normalize(v);
+	n = normalize(tmp[0]);
+	l = normalize(tmp[1]);
+	v = normalize(tmp[2]);
 	n_dot_v = dot(n, v);
 	n_dot_l = dot(n, l);
 	if (n_dot_l <= 0 || n_dot_v <= 0)
@@ -33,12 +37,15 @@ float3			cook_torrance_ggx(float3 n, float3 l, float3 v, device t_mat_pbr *m)
 	f_diffk = fresnel_schlick(m->f0, dot(normalize(v + l), v));
 	speck = f_diffk * (g * ggx_distribution(dot(n, normalize(v + l)), pow(m->roughness, 2)) * 0.25 / (n_dot_v + 0.001));
 	f_diffk = vec_clamp((float3(1.0) - f_diffk), 0.0, 1.0);
-	f_diffk = m->albedo * f_diffk;
+	if (m->albedo_txr_index < 0)
+		f_diffk = m->albedo * f_diffk;
+	else
+		f_diffk = get_color_from_texture(pos, obj, &textures[m->albedo_txr_index]) * f_diffk;
 	f_diffk = f_diffk * (n_dot_l / pi);
 	return (speck + f_diffk);
 }
 
-float3	rt_trace_mode_ggx_loop(t_ggx_loop info, device t_scn *scene, thread t_obj &near)
+float3	rt_trace_mode_ggx_loop(t_ggx_loop info, device t_gpu_texture *textures, device t_scn *scene, thread t_obj &near)
 {
 	float3					to_light;
 	float3					to_view;
@@ -63,10 +70,10 @@ float3	rt_trace_mode_ggx_loop(t_ggx_loop info, device t_scn *scene, thread t_obj
 	}
 	to_view = float3(info.cam_ray.dir) * -1;
 	light_amount = scene->lights[info.light_id].power / (dist_to_light * dist_to_light + 1);
-	return (cook_torrance_ggx(info.normal.dir, to_light, to_view, &scene->materials[nearest.material_id].content.pbr) * light_amount);
+	return (cook_torrance_ggx(float3x3(info.normal.dir, to_light, to_view), &scene->materials[nearest.material_id].content.pbr, near, info.normal.pos) * light_amount);
 }
 
-static t_color			rt_trace_mode_ggx(device t_scn *scene, thread struct s_obj &nearest,thread Ray &cam_ray)
+static t_color			rt_trace_mode_ggx(device t_scn *scene, device t_gpu_texture *textures, thread struct s_obj &nearest,thread Ray &cam_ray)
 {
 	thread float 		dist;
 	Ray					normal;
@@ -91,38 +98,6 @@ static t_color			rt_trace_mode_ggx(device t_scn *scene, thread struct s_obj &nea
 	cam_ray.dir = normalize(-2 * dot(cam_ray.dir, normal.dir) * normal.dir + cam_ray.dir);
 	return (col_from_vec_norm(vec_to_srgb(res)));
 }
-
-//kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
-//							device t_gpu_texture			*textures	[[buffer(1)]],
-//							texture2d<float,access::write> 	out			[[texture(2)]],
-//							uint2                  			gid			[[thread_position_in_grid]])
-//{
-//	thread Ray			ray;
-//	float4				color = {0};
-//	float4				res_color;
-//	float				k;
-//	thread struct s_obj	nearest;
-//	device struct s_cam	*cam = &scene->info->camera;
-//
-//	k = 0.0;
-//	uint2 size = uint2(out.get_width(), out.get_height());
-//	float2 ls = map2(float2(gid.x, gid.y), float4(float2(0.0f,
-//		(float)size.x), float2(0.0f, (float)size.y)), float4(float2(-1 *
-//		(float)size.x / 2, (float)size.x / 2), float2(-1 * (float)size.y / 2,
-//		(float)size.y / 2)));
-//	ray = Ray(cam->pos, normalize(float3(ls.x, ls.y, 1000.0)));
-//	nearest.id = -1;
-//	while (k < 1.0 && length(res_color) > 0.0)
-//	{
-//		res_color = rt_trace_mode_ggx(scene, nearest, ray);
-//		color = colors_mix(color, k, res_color, scene->materials[nearest.material_id].content.pbr.roughness);
-//		k += scene->materials[nearest.material_id].content.pbr.roughness;
-//	}
-////	color = rt_trace_mode_ggx(scene, nearest, ray);
-//	out.write(float4(scene->materials[nearest.material_id].content.pbr.roughness), gid);
-//	color.w = 1;
-//	out.write(color, gid);
-//}
 
 kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 							device t_gpu_texture			*textures	[[buffer(1)]],

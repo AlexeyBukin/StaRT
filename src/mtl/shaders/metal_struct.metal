@@ -15,6 +15,13 @@ constant const float pi = 3.14159265358979323846f;
 
 typedef packed_float4	t_color;
 
+//typedef enum			e_obj_type
+//{
+//	LIGHT,
+//	FIGURE,
+//	NEGATIVE_FIGURE
+//}						t_obj_type;
+
 typedef enum			e_shape_type
 {
 	NONE = 0,
@@ -49,17 +56,6 @@ typedef struct			s_mat3x3
 	packed_float3		y;
 	packed_float3		z;
 }						t_mat3x3;
-
-//typedef struct			s_mat
-//{
-//	int					id;
-//	packed_float3		albedo;
-//	packed_float3		f0;
-//	float				transparency;
-//	float				ior;
-//	float 				roughness;
-//	float 				metalness;
-//}						t_m;
 
 typedef enum			s_mat_type
 {
@@ -113,11 +109,9 @@ typedef struct			s_cone
 
 typedef struct			s_plane
 {
-	float 				d;
 	packed_float3		normal;
+	float 				d;
 }						t_plane;
-
-
 
 typedef struct			s_cylinder
 {
@@ -149,6 +143,7 @@ typedef struct			s_obj
 	int 				id;
 	int					material_id;
 	t_mat3x3			map_axis;
+//	t_obj_type			obj_type;
 	t_shape_type		type;
 	t_shape				obj;
 }						t_obj;
