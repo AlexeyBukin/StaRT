@@ -64,7 +64,7 @@ static int		txr_png_read_rows(png_structp png_ptr,
 	png_read_image(png_ptr, row_pointers);
 	if (parser->texture->content)
 		ft_memdel((void **)&parser->texture->content);
-	parser->texture->content = (char *)image_data;
+	parser->texture->content = (unsigned char *)image_data;
 	ft_free(row_pointers);
 	return (0);
 }

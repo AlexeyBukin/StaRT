@@ -43,10 +43,21 @@ public class StartMTL {
 			print("mtl: metal shader library is not loaded"); return Int32(1)
 		}
 
-		guard infoBuffer != nil  && objectsBuffer != nil
-		    && materialsBuffer != nil && lightsBuffer != nil else {
-			print("mtl: metal buffers are not loaded"); return Int32(1)
-		}
+		guard infoBuffer != nil else {
+        	print("mtl: metal buffer are not loaded: info"); return Int32(1)
+        }
+
+        guard objectsBuffer != nil else {
+        	print("mtl: metal buffer are not loaded: objects"); return Int32(1)
+        }
+
+        guard materialsBuffer != nil else {
+        	print("mtl: metal buffer are not loaded: materials"); return Int32(1)
+        }
+
+        guard lightsBuffer != nil else {
+        	print("mtl: metal buffer are not loaded: lights"); return Int32(1)
+        }
 
 		guard (textureID >= 0 && textureID < targetTextures.count) else {
 			print("mtl: invalid target texture index"); return Int32(1)

@@ -42,6 +42,8 @@ t_obj				*scn_get_obj_by_id(t_scn *scn, t_id id);
 t_txr				*scn_get_txr_by_name(t_scn *scn, char *name);
 t_cam				*scn_get_cam_by_name(t_scn *scn, char *name);
 t_mat				*scn_get_mat_by_name(t_scn *scn, char *name);
+t_obj				*scn_get_obj_by_name(t_scn *scn, char *obj_name);
+int					scn_get_num_of(t_scn *scn, t_obj_type type);
 
 /*
 **		scn_check_arguments
@@ -52,12 +54,8 @@ t_obj				*scn_obj_by_id(t_scn *scn, uint id);
 int					scn_check_mid(t_scn *scn, uint mid);
 int					set_obj_mid(t_scn *scn, uint obj_id, uint mid);
 
-/*
-**		scn/get
-*/
 
-int					scn_get_obj_num(t_scn *scn);
-t_obj				*scn_get_obj_by_name(t_scn *scn, char *obj_name);
+
 
 /*
 **		scn_get_shape

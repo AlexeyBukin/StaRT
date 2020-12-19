@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-int				gpu_render_simple(t_gpu *gpu)
+int				gpu_render_simple(t_gpu *gpu, t_scn *scn)
 {
 	t_txr		*rgba_res;
 	t_txr		*rgb;
@@ -20,14 +20,13 @@ int				gpu_render_simple(t_gpu *gpu)
 
 	if (gpu == NULL)
 		return (rt_err("Given pointer is NULL"));
-	render_size.x = 160;
-	render_size.y = 90;
-//	if (txr_init(&(gpu->render_result), ft_strdup("render_texture"), render_size))
-//		return (rt_err("Cannot init render texture"));
-	if (gpu_buffer_objects_init(gpu, NULL)) // here NULL is scn
+	render_size = (t_size2){160, 90};
+	if (txr_init(&(gpu->render_result), ft_strdup("render_texture"), render_size))
+		return (rt_err("Cannot init render texture"));
+	if (gpu_buffer_objects_init(gpu, scn))
 		return (rt_err("Cannot init objects buffer"));
-//	if (gpu_buffer_materials_init(gpu))
-//		return (rt_err("Cannot init materials buffer"));
+	if (gpu_buffer_materials_init(gpu, scn))
+		return (rt_err("Cannot init materials buffer"));
 //	if (gpu_buffer_textures_init(gpu))
 //		return (rt_err("Cannot init textures buffer"));
 	if (gpu_buffer_load(gpu))
@@ -64,5 +63,19 @@ int				gpu_render_simple(t_gpu *gpu)
 
 int				gpu_render(t_rt *rt)
 {
-	return (gpu_render_simple(rt->gpu));
+	if (rt == NULL)
+		return (rt_err("rt is NULL pointer"));
+	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init materials buffer"));
+	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init objects buffer"));
+	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init objects buffer"));
+//	// Load textures
+	if (gpu_buffer_load(rt->gpu))
+		return (rt_err("Cannot load buffers to GPU"));
+	if (gpu_kernel_run(rt->gpu))
+		return (rt_err("Cannot run kernel"));
+//	return (gpu_render_simple(rt->gpu, rt->scene));
+	return (0);
 }

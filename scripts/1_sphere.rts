@@ -1,0 +1,5 @@
+add sphere "sp1" -p <0, 0, 2> -r 0.2
+add sphere "sp2" -p <0, 0, -2> -r 0.2
+add sphere "sp3" -p <-2, 0, 0> -r 0.2
+add sphere "sp4" -p <2, 0, 0> -r 0.2
+add light "l1" -p <0, 0, 0> -c <1, 1, 1> -i 500.0

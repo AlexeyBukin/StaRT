@@ -16,17 +16,26 @@
 
 # define MTL_MAIN_KERNEL "trace_mod_ggx"
 
- int				gpu_kernel_run(t_gpu *gpu)
- {
- 	if (gpu == NULL)
- 		return (rt_err("gpu is NULL pointer"));
- 	// if (render_result == NULL)
- 	// 	return (rt_err("render_result is NULL pointer"));
-	 // gpu->render_result->index was 0
- 	if (mtl_kernel_run(gpu->dev.mtl, MTL_MAIN_KERNEL, 0))
- 		return (rt_err("kernel_run() fail"));
- 	return (0);
- }
+int				gpu_kernel_run(t_gpu *gpu)
+{
+	size_t				tmp_len;
+	unsigned char		*tmp_prt;
+	int					target_index;
+
+	if (gpu == NULL)
+		return (rt_err("gpu is NULL pointer"));
+	target_index = mtl_texture_create_target(gpu->dev.mtl, gpu->render_result->width, gpu->render_result->height);
+	if (target_index != 0)
+		return (rt_err("kernel_run(): gpu config error"));
+	if (mtl_kernel_run(gpu->dev.mtl, MTL_MAIN_KERNEL, target_index))
+		return (rt_err("kernel_run() fail"));
+	ft_free(gpu->render_result->content);
+	tmp_prt = mtl_texture_get_ptr_target(gpu->dev.mtl, target_index);
+	tmp_len = gpu->render_result->width * gpu->render_result->height * 4;
+	if ((gpu->render_result->content = ft_memdup(tmp_prt, tmp_len)) == NULL)
+		return (rt_err("kernel_run(): cannot init texture"));
+	return (0);
+}
 
 #elif defined(PLATFORM_LINUX) || defined(PPLATFORM_WINDOWS)
 
