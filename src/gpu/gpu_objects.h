@@ -14,15 +14,6 @@
 # define GPU_OBJECTS_H
 
 # include "scn_types.h"
-// enum e_obj_type
-// {
-// 	OBJ_NONE = 0,
-// 	OBJ_PLANE,
-// 	OBJ_SPHERE,
-// 	OBJ_CYLINDER,
-// 	OBJ_CONE,
-// 	OBJ_GEOMETRY
-// };
 
 typedef struct				s_gpu_sphere
 {
