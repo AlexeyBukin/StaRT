@@ -31,5 +31,7 @@ t_msg			cmd_parse_command(t_rt *rt, t_parser *parser)
 		return (cmd_rm(rt, parser));
 	if (ft_str_next_is(str, "ls"))
 		return (cmd_ls(rt, parser));
+	if (ft_str_next_is(str, "vfx"))
+		return (cmd_vfx(rt, parser));
 	return (msg_warn("Syntax error: Unknown keyword"));
 }

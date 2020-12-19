@@ -34,7 +34,7 @@ static void		create_img(guchar **img)
 
 void			on_render_rt(GObject *obj, t_rt *rt)
 {
-	t_txr		*res;
+//	t_txr		*res;
 	GdkPixbuf	*pix_buf;
 	GtkImage	*image;
 	guchar		*img;
