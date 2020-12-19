@@ -21,5 +21,7 @@ int		txr_init_default(t_txr **dest, char *name);
 int		txr_deinit(t_txr *txr);
 
 int		txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest);
+int		txr_sum(t_txr *first, t_txr *second, t_txr *target);
+int		txr_sum_lst(t_list *src, t_txr *target);
 
 #endif

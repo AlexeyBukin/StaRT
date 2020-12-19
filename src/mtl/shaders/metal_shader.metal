@@ -13,44 +13,6 @@
 #include <metal_stdlib>
 using namespace metal;
 
-//float mabs(float x){ return (x < 0)? -x : x; }
-//
-//float roott(float num, int rootDegree) {
-//	float eps = 0.01;
-//	float root = num / rootDegree;
-//	float rn = num;
-//	while(mabs(root - rn) >= eps)
-//	{
-//		rn = num;
-//		for (int i = 1; i < rootDegree; i++)
-//		{
-//			rn = rn / root;
-//		}
-//		root = 0.5 * (rn + root);
-//	}
-//	return (root);
-//}
-
-//float 		root(float num)
-//{
-//	float	r;
-//	float	q;
-//	int		i;
-//
-//	q = 0;
-//	r = 1;
-//	i = 0;
-//	if (num == 0.0)
-//		return 0;
-//	for (int i = 0; i < 15; i++)
-//	{
-//		q = 1 / pow(10.0, i);
-//		while (((r+q) * (r+q) * (r+q)) < num)
-//			r += q;
-//	}
-//	return r;
-//}
-
 float rand(int x, int y, int z)
 {
 	int seed = x + y * 57 + z * 241;
@@ -135,17 +97,6 @@ float4		col_from_normal(float3 vector)
 
 }
 
-//float4		col_from_vec_norm(float3 vector)
-//{
-//	float4	res;
-//
-//	res.x = (float)(num_clamp(vector.x, 0, 1));
-//	res.y = (float)(num_clamp(vector.y, 0, 1));
-//	res.z = (float)(num_clamp(vector.z, 0, 1));
-//	res.w = 0;
-//	return (res);
-//}
-
 float4		col_from_vec_norm(float3 vector)
 {
 	float4	res;
@@ -156,6 +107,111 @@ float4		col_from_vec_norm(float3 vector)
 	res.w = 1;
 	return (res);
 }
+
+////texturs_maping_type1----------------------------------------------
+
+float2	spherical_map(float3 p)
+{
+	float2 res;
+
+	float teta = atan2((float)p.x, (float)p.z);
+	float rad = (float)length(p);
+	float phi = acos((float)p.y / rad);
+	float raw_u = teta / (2.0f * pi);
+	res.x = 1.0f - (raw_u + 0.5f);
+	res.y = 1.0f - (phi / pi);
+	return (res);
+}
+
+float2	planlar_map(float3 p, float3 normal)
+{
+	float2	res;
+	float3	a, b, c, max_ab, vec_u, vec_v;
+
+	a = cross(normal, float3(1, 0, 0));
+	b = cross(normal, float3(0, 1, 0));
+
+	max_ab = dot(a, a) < dot(b, b) ? b : a;
+	c = cross(normal, float3(0, 0, 1));
+	vec_u = normalize(dot(max_ab, max_ab) < dot(c, c) ? c : max_ab);
+	vec_v = cross(normal, vec_u);
+	res.x = dot(vec_u, p);
+	res.y = dot(vec_v, p);
+	return (res);
+}
+static float3             	projection(float3 point_a, float3 point_b, float3 direction_bc)
+{
+	float			cosine;
+	float3			projection;
+	float 			hypotenuse;
+	float3			cathet_bc;
+	float3			ba;
+
+	ba = point_a - point_b;
+	hypotenuse = length(ba);
+	cosine = dot(direction_bc, normalize(ba));
+	cathet_bc = float3(hypotenuse) * cosine;
+	projection = point_b + (direction_bc * cathet_bc);
+	return(projection);
+}
+
+float2						cylindrical_map(float3 p, float3 tail, float3 head, float radius)
+{
+	float2			res;
+	float3			normal;
+	float3			top;
+	float3			t_h;
+	float3			direction;
+
+	direction = normalize(float3(head) - float3(tail));
+	head = float3(tail) - float3(head);
+	p = float3(tail) - p;
+	tail = float3(tail) - float3(tail);
+	top = projection(p, tail, direction);
+	normal = normalize(p - top);
+	t_h = top - tail;
+	if (t_h.y == 0.0)
+		res.y = 0.5 + atan2(normal.y, normal.z) / (2 * pi);
+	else
+		res.y = 0.5 + atan2(normal.z, normal.x) / (2 * pi);
+	if (dot(normalize(tail - p), direction) >= -0.00001 && dot(normalize(tail - p), direction) <= 0.00001)
+		res.y = length(p - tail) / length(head - tail);
+	else if (dot(normalize(head - p), direction) >= -0.00001 && dot(normalize(head - p), direction) <= 0.00001)
+		res.x = 1 - length(p - head) / length(head - tail);
+	else
+		res.x = 1 - (radius + length(top - tail)) / length(head - tail);
+	return (res);
+}
+
+////texturs_maping_type2----------------------------------------------
+
+
+float4	get_texture_color_by_uv_cord(float2 uv, device t_gpu_texture *texture)
+{
+	uint2	id;
+
+	id = uint2(uv.x * texture.get_wigth(), uv.y * texture.get_heigth());
+	return (texture.read(id));
+}
+
+//////------------------------------------------------------------------
+
+float4	get_color_from_texture(float3 point, thread t_obj &obj, device t_gpu_texture *texture)
+{
+	if (obj.type == NONE)
+		return (col_from_vec(float3(0)));
+	else if (obj.type == PLANE)
+		return (get_texture_color_by_uv_cord(planlar_map(point, obj.obj.plane.normal), texture));
+	else if (obj.type == SPHERE)
+		return (get_texture_color_by_uv_cord(spherical_map(point - obj.obj.sphere.center), texture));
+	else if (obj.type == CYLINDER)
+		return (get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cylinder.tail, obj.obj.cylinder.head, obj.obj.cylinder.r), texture));
+	else if (obj.type == CONE)
+		return (get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cone.tail, obj.obj.cone.head, obj.obj.cone.r), texture));
+	//	else if (obj.type == TORUS)
+	//		return ();
+}
+
 
 float		ggx_distribution(float cos_theta_nh, float alpha)
 {
@@ -189,23 +245,17 @@ float3	fresnel_schlick(float3 f0, float cos_theta)
 
 float					trace_dot_plane(Ray ray, device t_obj *fig)
 {
-	struct	s_plane		pl[1];
 	float				d_dot_v;
 
-	if (!fig)
-		return (INFINITY);
-	pl[0] = fig->obj.plane;
-//	ray.dir = normalize(ray.dir);
-	d_dot_v = dot(ray.dir, float3(pl->normal));
-	return (-1 * dot((ray.pos - (float3(pl->normal) * (-1.0 * pl->d))),
-				  float3(pl->normal)) / d_dot_v);
+	d_dot_v = dot(ray.dir, float3(fig->obj.plane.normal));
+	return (-1 * dot((ray.pos - (float3(fig->obj.plane.normal) * (-1.0 * fig->obj.plane.d))),
+				  float3(fig->obj.plane.normal)) / d_dot_v);
 }
 
 float					trace_dot_pl(Ray ray, t_plane pl)
 {
 	float				d_dot_v;
 
-//	ray.dir = normalize(ray.dir);
 	d_dot_v = dot(ray.dir, float3(pl.normal));
 	return (-1 * dot((ray.pos - (float3(pl.normal) * (-1.0 * pl.d))),
 				  float3(pl.normal)) / d_dot_v);
@@ -219,7 +269,6 @@ float					trace_dot_cap(Ray ray, Ray plane_ray)
 	fig.type = PLANE;
 	fig.obj.plane.normal = plane_ray.dir;
 	fig.obj.plane.d = (dot(plane_ray.dir, plane_ray.pos));
-//	fig.obj.plane.d = -1 * (dot(plane_ray.dir, plane_ray.pos));
 	return (trace_dot_pl(ray, fig.obj.plane));
 }
 
@@ -528,8 +577,6 @@ int			rt_trace_nearest_dist(device t_scn *scene, Ray ray, thread float &dist, th
 	t_obj 				near;
 
 	near = nearest;
-//	if (!scene)
-//		return (0);
 	res_dist = INFINITY;
 	i = 0;
 	while (i < scene->info->obj_num)
@@ -556,8 +603,6 @@ float		brdf_get_d(float3 n, float3 v, float3 l, device struct s_mat_pbr *mat)
 	float	roug_sqr;
 	float3	h;
 
-//	if (!mat)
-//		return (INFINITY);
 	h = normalize(v + l);
 	roug_sqr = pow(mat->roughness, 2);
 	d = ggx_distribution(dot(n, h), roug_sqr);
@@ -569,8 +614,6 @@ float		brdf_get_g(float3 n, float3 v, float3 l, device struct s_mat_pbr *mat)
 	float	g;
 	float	roug_sqr;
 
-//	if (!mat)
-//		return (INFINITY);
 	roug_sqr = pow(mat->roughness, 2);
 	g = ggx_partial_geometry(dot(n, v), roug_sqr);
 	g = g * ggx_partial_geometry(dot(n, l), roug_sqr);
@@ -736,44 +779,3 @@ float4 colors_mix(float4 c1, float cof1, float4 c2, float cof2)
 {
 	return (color_clamp(c1 * cof1 + c2 * cof2, 0, 1));
 }
-
-//TODO reflections
-
-//void reflections()
-//
-
-
-//float3 get_obj_center(device t_obj *fig)
-//{
-//	else if (fig->type == SPHERE)
-//		return (fig->obj.sphere.center);
-//	else if (fig->type == CONE)
-//		return (float3(fig->obj.cone.head) - float3(fig->obj.cone.tail));
-//	else if (fig->type == CYLINDER)
-//		return (float3(fig->obj.cylinder.head) - float3(fig->obj.cylinder.tail));
-//	else if (fig->type == TORUS)
-//		return (fig->obj.torus.center);
-//}
-//
-//float4 get_map_point(/*(pixel_map)*/,device t_scn *scene, float3 point, device t_obj *obj)
-//{
-//
-//}
-
-//Ray rt_camera_get_ray(device struct s_cam *cam, uint2 viewport, uint2 pixel)
-//{
-//	float2 v = static_cast<float2>(viewport);
-//	float2 p = static_cast<float2>(pixel);
-////	fov-range x and y
-//	float4 fr;
-//	fr.xy = float2(-1 * cam->fov[0] / 2, cam->fov[0] / 2);
-//	fr.zw = float2(-1 * cam->fov[1] / 2, cam->fov[1] / 2);
-////	fr.zw = float2(cam->fov[1] / 2, -1 * cam->fov[1] / 2);
-////	map to radians m
-//	p = map2(p, float4(0, v.x - 1, 0, v.y - 1), fr);
-//	p = angle2_to_radians(p);
-////	float3 dest = rerp2(p, float3(cam->forward), float3(cam->right), float3(cam->up));
-//	float3 dest = rerp2(p, float3(cam->forward), float3(cam->up), float3(cam->right));
-//	Ray ray = Ray(float3(cam->pos), dest);
-//	return ray;
-//}

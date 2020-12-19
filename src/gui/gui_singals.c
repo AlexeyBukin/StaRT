@@ -32,20 +32,31 @@ static void		create_img(guchar **img)
 	}
 }
 
-void			on_render_rt(GObject *obj, t_rt *user_data)
+void			on_render_rt(GObject *obj, t_rt *rt)
 {
+//	t_txr		*res;
 	GdkPixbuf	*pix_buf;
 	GtkImage	*image;
 	guchar		*img;
 
 	(void)obj;
-	image = (GtkImage *)gtk_builder_get_object(user_data->gui->builder,
+	image = (GtkImage *)gtk_builder_get_object(rt->gui->builder,
 											"image");
 	img = NULL;
 	create_img(&img);
 	pix_buf = gdk_pixbuf_new_from_data(img, GDK_COLORSPACE_RGB,
 							0, 8, 700, 50, 700 * 3, NULL, NULL);
 	gtk_image_set_from_pixbuf(image, pix_buf);
+
+	rt_warn("on_render_rt(): rendering...");
+	// TODO complete render
+	if (gpu_render(rt))
+		rt_err("on_render_rt(): render fail");
+
+//	res = rt->gpu->render_result;
+//	pix_buf = gdk_pixbuf_new_from_data(res->content, GDK_COLORSPACE_RGB,
+//									   TRUE, 8, res->width, res->height, res->stride, NULL, NULL);
+//	gtk_image_set_from_pixbuf(image, pix_buf);
 }
 
 void			gui_signals(GtkApplicationWindow *window, GtkBuilder *builder,

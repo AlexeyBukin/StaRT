@@ -36,7 +36,7 @@ typedef struct				s_texture
 	size_t					width;
 	size_t					height;
 	size_t					stride;
-	char					*content;
+	unsigned char			*content;
 }							t_txr;
 
 #endif
