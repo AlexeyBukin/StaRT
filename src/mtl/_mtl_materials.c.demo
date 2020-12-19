@@ -17,10 +17,13 @@
 #include "libft.h"
 
 #define METAL_SHADER_FILENAME "shaders/metal_struct.metal shaders/metal_shader.metal shaders/rt_trace_mod_ggx.metal"
+//#define DEMO_SPHERE_TEXTUR "any.png"
 //#define METAL_SHADER_FILENAME "shaders/rt_mtl___kernel.metal"
 
 #define size_x 1920
 #define size_y 1080
+
+#include "txr.h"
 
 unsigned char 	*get_texture_rgba_fine_64();
 unsigned char	*get_texture_rgba_empty_64();
@@ -31,12 +34,21 @@ void 			fill_obj_sphere(t_gpu_obj *obj);
 void 			fill_obj_cone(t_gpu_obj *obj);
 void			fill_light(t_gpu_light *lig);
 int				fio_png_write(char *data, int width, int height, char *filename);
+int				fio_read_png_tmp(t_txr *texture);
 
 int		main()
 {
-	int			res;
-	t_gpu		*gpu;
+	int				res;
+	t_gpu			*gpu;
+	t_txr			*txr;
 
+	//txr->filename should be valid .png name
+	txr_init(&txr, "txr_name", (t_size2){1, 1});
+	txr->filename = ft_strdup(DEMO_SPHERE_TEXTUR);
+	if (fio_read_png_tmp(txr))
+	{
+		printf("Poshel nahuy");
+	}
 	if (gpu_init(&gpu))
 	{
 		printf("gpu_init() fail\n");
