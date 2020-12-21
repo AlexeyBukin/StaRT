@@ -29,6 +29,7 @@ int		txr_init(t_txr **dest, char *name, t_size2 size)
 	txr->width = size.x;
 	txr->height = size.y;
 	txr->stride = size.x * 3;
+	txr->stride = 256 * (txr->stride / 256 + (txr->stride % 256 >= 1 ? 1 : 0));
 	txr->content = ft_memalloc(sizeof(char) * txr->stride * txr->height);
 	if (txr->content == NULL)
 	{
