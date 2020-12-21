@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl_lib_load.c.gpu_demo                                :+:      :+:    :+:   */
+/*   mtl_lib_load.c.gpu_demo                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcharla <kcharla@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,57 +17,80 @@
 #include "libft.h"
 #include "png.h"
 
-int fio_png_write(char *data, int width, int height, char *filename) {
-	FILE *fp = fopen(filename, "wb");
-	if(!fp) abort();
+int			fio_png_write_init(FILE **fp, png_structp *png, png_infop *info)
+{
+	if (fp == NULL || png == NULL || info == NULL)
+		return (rt_err("fio_png_write_init(): given NULL pointer"));
+	*fp = fopen(txr->filename, "wb");
+	if (!*fp)
+		return (rt_err("fio_png_write_init(): can\'t open file"));
+	*png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	if (!*png)
+	{
+		fclose(*fp);
+		return (rt_err("fio_png_write_init(): png_create_write_struct error"));
+	}
+	*info = png_create_info_struct(*png);
+	if (!*info)
+	{
+		png_destroy_write_struct(png, NULL);
+		fclose(*fp);
+		return (rt_err("fio_png_write_init(): png_create_info_struct() error"));
+	}
+	if (setjmp(png_jmpbuf(*png)))
+	{
+		png_destroy_write_struct(png, info);
+		fclose(*fp);
+		return (rt_err("fio_png_write(): setjmp() error"));
+	}
+	png_init_io(*png, *fp);
+}
 
-	png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-	if (!png) return (-1);
+int			fio_png_write_buf(t_txr *txr, png_structp png)
+{
+	size_t			y;
+	png_bytep		*row_pointers;
 
-	png_infop info = png_create_info_struct(png);
-	if (!info) return (-1);
+	y = 0;
+	row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * txr->height);
+	if (!row_pointers)
+		return (rt_err("fio_png_write_buf(): fatal: malloc error"));
+	y = 0;
+	while (y < txr->height)
+	{
+		row_pointers[y] = (png_byte*)&(txr->content[y * txr->width * 4]);
+		y++;
+	}
+	png_write_image(png, row_pointers);
+	png_write_end(png, NULL);
+	free(row_pointers);
+}
 
-	if (setjmp(png_jmpbuf(png))) abort();
+int			fio_png_write(t_txr *txr)//что тут сделать? Принять текстуру?
+{
+	FILE			*fp;
+	png_structp		png;
+	png_infop		info;
+	size_t			y;
 
-	png_init_io(png, fp);
-
-	// Output is 8bit depth, RGBA format.
+	if (txr == NULL)
+		return (rt_err("fio_png_write(): given NULL pointer"));
+	if (fio_png_write_init(&fp, &png, &info))
+		return (rt_err("fio_png_write(): init fail"));
 	png_set_IHDR(
-			png,
-			info,
-			width, height,
-			8,
+			png, info, txr->width, txr->height, 8,
 			PNG_COLOR_TYPE_RGBA,
 			PNG_INTERLACE_NONE,
 			PNG_COMPRESSION_TYPE_DEFAULT,
-			PNG_FILTER_TYPE_DEFAULT
-	);
+			PNG_FILTER_TYPE_DEFAULT);
 	png_write_info(png, info);
-
-	// To remove the alpha channel for PNG_COLOR_TYPE_RGB format,
-	// Use png_set_filler().
-	//png_set_filler(png, 0, PNG_FILLER_AFTER);
-
-	png_bytep *row_pointers = NULL;
-	row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
-	if (!row_pointers) return (-1);
-	int y;
-	for(y = 0; y < height; y++)
+	if (fio_png_write_buf(txr, png))
 	{
-//		row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
-		row_pointers[y] = (png_byte*)&(data[y * width * 4]);
+		png_destroy_write_struct(&png, &info);
+		fclose(fp);
+		return (rt_err("fio_png_write(): fio_png_write_buf error"));
 	}
-
-	png_write_image(png, row_pointers);
-	png_write_end(png, NULL);
-
-//	for(y = 0; y < height; y++) {
-//		free(row_pointers[y]);
-//	}
-	free(row_pointers);
-
 	fclose(fp);
-
 	png_destroy_write_struct(&png, &info);
 	return (0);
 }
