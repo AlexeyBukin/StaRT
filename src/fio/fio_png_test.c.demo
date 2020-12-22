@@ -1,0 +1,18 @@
+#include "png.h"
+#include "rt.h"
+
+int     main()
+{
+	t_txr       *txr_read;
+	t_txr       *txr_write;
+
+	txr_init(&txr_read, "aaa", (t_size2){1, 1});
+	txr_init(&txr_write, "bbb", (t_size2){1, 1});
+	txr_read->filename = ft_strdup("/Users/hchau/Desktop/untitled/22.png");
+	txr_write->filename = ft_strdup("/Users/hchau/Desktop/untitled/1.png");
+	if (fio_read_png(txr_write))
+	    ;
+	if (fio_png_write(txr_write))
+		;
+	return (0);
+}

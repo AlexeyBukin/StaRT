@@ -84,8 +84,7 @@ static int		png_get_size(png_structp png_ptr,
 	png_read_update_info(png_ptr, info_ptr);
 	texture->stride =
 			png_get_rowbytes(png_ptr, info_ptr);
-	texture->stride = 256 * (texture->stride / 256 +
-			(texture->stride % 256 >= 1 ? 1 : 0));
+	texture->stride = fio_png_stride(texture->stride);
 	return (0);
 }
 
