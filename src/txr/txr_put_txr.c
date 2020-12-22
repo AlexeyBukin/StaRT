@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   txr.h                                              :+:      :+:    :+:   */
+/*   txr_put_txr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TXR_H
-# define TXR_H
+#include "rt.h"
 
-# include "scn_types.h"
-# include "txr_types.h"
+int		txr_put_txr(t_txr *main, t_txr *putme, t_size2 origin)
+{
+	size_t	i;
+	size_t	j;
 
-int		txr_init(t_txr **dest, char *name, t_size2 size);
-int		txr_init_default(t_txr **dest, char *name);
-int		txr_deinit(t_txr *txr);
-
-int		txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest);
-int		txr_sum(t_txr *first, t_txr *second, t_txr *target);
-int		txr_sum_lst(t_list *src, t_txr *target);
-
-int		txr_put_txr(t_txr *main, t_txr *putme, t_size2 origin);
-
-#endif
+	if (main == NULL || putme == NULL)
+		return (rt_err("Null pointer"));
+	if (main->type != putme.type)
+		return (rt_err("Textures have different types"));
+	i = 0;
+	while (i < putme->height && (i + origin.y) < main->height)
+	{
+		j = 0;
+		while (j < putme->width && (j + origin.x) < main->width)
+		{
+			main->content
+			[(i + origin.y) * main->stride + (j + origin.x)] =
+					putme->content[i * putme->stride + j];
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
