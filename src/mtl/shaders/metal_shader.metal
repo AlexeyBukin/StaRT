@@ -118,8 +118,8 @@ float2	spherical_map(float3 p)
 	float rad = (float)length(p);
 	float phi = acos((float)p.y / rad);
 	float raw_u = teta / (2.0f * pi);
-	res.x = 1.0f - (raw_u + 0.5f);
-	res.y = 1.0f - (phi / pi);
+	res.y = 1.0f - (raw_u + 0.5f);
+	res.x = 1.0f - (phi / pi);
 	return (res);
 }
 
@@ -171,45 +171,52 @@ float2						cylindrical_map(float3 p, float3 tail, float3 head, float radius)
 	normal = normalize(p - top);
 	t_h = top - tail;
 	if (t_h.y == 0.0)
-		res.y = 0.5 + atan2(normal.y, normal.z) / (2 * pi);
+		res.x = 0.5 + atan2(normal.y, normal.z) / (2 * pi);
 	else
-		res.y = 0.5 + atan2(normal.z, normal.x) / (2 * pi);
+		res.x = 0.5 + atan2(normal.z, normal.x) / (2 * pi);
 	if (dot(normalize(tail - p), direction) >= -0.00001 && dot(normalize(tail - p), direction) <= 0.00001)
 		res.y = length(p - tail) / length(head - tail);
 	else if (dot(normalize(head - p), direction) >= -0.00001 && dot(normalize(head - p), direction) <= 0.00001)
-		res.x = 1 - length(p - head) / length(head - tail);
+		res.y = 1 - length(p - head) / length(head - tail);
 	else
-		res.x = 1 - (radius + length(top - tail)) / length(head - tail);
+		res.y = 1 - (radius + length(top - tail)) / length(head - tail);
 	return (res);
 }
+
+
 
 ////texturs_maping_type2----------------------------------------------
 
 
-float4	get_texture_color_by_uv_cord(float2 uv, device t_gpu_texture *texture)
+float4	get_texture_color_by_uv_cord(float2 uv, texture2d<float,access::read> texture)
 {
 	uint2	id;
 
-	id = uint2(uv.x * texture.get_wigth(), uv.y * texture.get_heigth());
+	id = uint2(uv.x * texture.get_width(), uv.y * texture.get_height());
 	return (texture.read(id));
 }
 
 //////------------------------------------------------------------------
 
-float4	get_color_from_texture(float3 point, thread t_obj &obj, device t_gpu_texture *texture)
+float3 float4_to_float3(float4 color)
+{
+	return (float3(color.x, color.y, color.z));
+}
+
+float3	get_color_from_texture(float3 point, thread t_obj &obj, texture2d<float,access::read> texture)
 {
 	if (obj.type == NONE)
-		return (col_from_vec(float3(0)));
+		return float4_to_float3((col_from_vec(float3(0))));
 	else if (obj.type == PLANE)
-		return (get_texture_color_by_uv_cord(planlar_map(point, obj.obj.plane.normal), texture));
+		return float4_to_float3((get_texture_color_by_uv_cord(planlar_map(point, obj.obj.plane.normal), texture)));
 	else if (obj.type == SPHERE)
-		return (get_texture_color_by_uv_cord(spherical_map(point - obj.obj.sphere.center), texture));
+		return float4_to_float3((get_texture_color_by_uv_cord(spherical_map(point - obj.obj.sphere.center), texture)));
 	else if (obj.type == CYLINDER)
-		return (get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cylinder.tail, obj.obj.cylinder.head, obj.obj.cylinder.r), texture));
+		return float4_to_float3((get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cylinder.tail, obj.obj.cylinder.head, obj.obj.cylinder.r), texture)));
 	else if (obj.type == CONE)
-		return (get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cone.tail, obj.obj.cone.head, obj.obj.cone.r), texture));
+		return float4_to_float3((get_texture_color_by_uv_cord(cylindrical_map(point, obj.obj.cone.tail, obj.obj.cone.head, obj.obj.cone.r), texture)));
 	//	else if (obj.type == TORUS)
-	//		return ();
+	return (float3(0));
 }
 
 

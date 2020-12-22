@@ -51,15 +51,11 @@ $(MTL_BUILD_EXT)/%.swiftmodule: $(MTL_DIR_EXT)/%.swift
 LIBPNG_FLAGS = $(shell pkg-config libpng --cflags --libs)
 
 demo_mat.exe: all
-	gcc -x c _mtl_materials.c.demo ../fio/fio_png_write.c -L ../../build/mtl -lmtl \
-	-I . -I ../gpu -I ../ -I ../scn -I ../../lib/num/include \
+	gcc -x c _mtl_materials.c.demo ../fio/fio_png_write.c txr_reading_tmp.c \
+	../err/rt_err.c ../txr/txr_init.c ../scn/scn_id.c ../txr/txr_rgba_to_rgb.c -L ../../build/mtl -lmtl \
+	-I . -I ../gpu -I ../ -I ../scn -I ../../lib/num/include -I ../err \
 	-I ../txr -I ../mat -I ../obj -I ../tfm -I ../shp -I ../cam -I ../lgt \
-<<<<<<< HEAD
-	-I ~/.brew/Cellar/libpng/1.6.37/include -lz -L/Users/hchau/.brew/Cellar/libpng/1.6.37/lib -lpng \
-	-I ../vlk -I ../../lib/ft/inc -L ../../lib/num -lnum -L ../../lib/ft -lft -o demo_mat.exe
-=======
-	$(LIBPNG_FLAGS) \
+	-I ~/.brew/Cellar/libpng/1.6.37/include -lz -L/Users/wpoudre/.brew/Cellar/libpng/1.6.37/lib -lpng \
 	-I ../vlk -I ../../lib/ft/include -L ../../lib/num -lnum -L ../../lib/ft -lft -o demo_mat.exe
->>>>>>> d109a5a665bb43ac2d2d75427d5b5b7ea2340a53
 	install_name_tool -change libmtl.dylib "@rpath/libmtl.dylib" demo_mat.exe
 	install_name_tool -add_rpath "@executable_path/../../build/mtl/" demo_mat.exe

@@ -2,10 +2,10 @@
 **		i'm sorry it's tmp from fio directory, afraid to merge
 */
 
-#include "rt.h"
-
 #include "png.h"
-#include "rt.h"
+#include "txr_types.h"
+#include "err.h"
+#include "libft.h"
 
 int				png_check_type_tmp(png_structp png_ptr,
 								  png_infop info_ptr, t_txr *texture)
@@ -16,20 +16,23 @@ int				png_check_type_tmp(png_structp png_ptr,
 				 NULL, &color_type, NULL, NULL, NULL);
 	if (color_type == PNG_COLOR_TYPE_RGBA)
 	{
-		if (texture->type != TXR_RGBA_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_RGBA_8;
+//		if (texture->type != TXR_RGBA_8)
+//			return (rt_err("expected another color type"));
 		return (0);
 	}
 	if (color_type == PNG_COLOR_TYPE_RGB)
 	{
-		if (texture->type != TXR_RGB_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_RGB_8;
+//		if (texture->type != TXR_RGB_8)
+//			return (rt_err("expected another color type"));
 		return (0);
 	}
 	if (color_type == PNG_COLOR_TYPE_GRAY)
 	{
-		if (texture->type != TXR_BW_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_BW_8;
+//		if (texture->type != TXR_BW_8)
+//			return (rt_err("expected another color type"));
 		return (0);
 	}
 	return (rt_err("unknown texture type"));
@@ -58,7 +61,7 @@ static int		txr_png_read_rows(png_structp png_ptr,
 	png_read_image(png_ptr, row_pointers);
 	if (texture->content)
 		ft_memdel((void **)&texture->content);
-	texture->content = (char *)image_data;
+	texture->content = (unsigned char *)image_data;
 	ft_free(row_pointers);
 	return (0);
 }

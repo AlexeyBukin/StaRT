@@ -40,7 +40,7 @@ float3			cook_torrance_ggx(float3x3 tmp, device t_gpu_texture *textures, device 
 	if (m->albedo_txr_index < 0)
 		f_diffk = m->albedo * f_diffk;
 	else
-		f_diffk = get_color_from_texture(pos, obj, &textures[m->albedo_txr_index]) * f_diffk;
+		f_diffk = get_color_from_texture(pos, near, textures[m->albedo_txr_index].texture) * f_diffk;
 	f_diffk = f_diffk * (n_dot_l / pi);
 	return (speck + f_diffk);
 }
@@ -70,10 +70,10 @@ float3	rt_trace_mode_ggx_loop(t_ggx_loop info, device t_gpu_texture *textures, d
 	}
 	to_view = float3(info.cam_ray.dir) * -1;
 	light_amount = scene->lights[info.light_id].power / (dist_to_light * dist_to_light + 1);
-	return (cook_torrance_ggx(float3x3(info.normal.dir, to_light, to_view), &scene->materials[nearest.material_id].content.pbr, near, info.normal.pos) * light_amount);
+	return (cook_torrance_ggx(float3x3(info.normal.dir, to_light, to_view), textures, &scene->materials[nearest.material_id].content.pbr, near, info.normal.pos) * light_amount);
 }
 
-static t_color			rt_trace_mode_ggx(device t_scn *scene, device t_gpu_texture *textures, thread struct s_obj &nearest,thread Ray &cam_ray)
+static t_color			rt_trace_mode_ggx(device t_scn *scene, device t_gpu_texture *textures, thread struct s_obj &nearest, thread Ray &cam_ray)
 {
 	thread float 		dist;
 	Ray					normal;
@@ -90,7 +90,7 @@ static t_color			rt_trace_mode_ggx(device t_scn *scene, device t_gpu_texture *te
 	i = 0;
 	while (i < scene->info->light_num)
 	{
-		res = res + rt_trace_mode_ggx_loop((t_ggx_loop){normal, cam_ray, i, nearest.material_id}, scene, nearest);
+		res = res + rt_trace_mode_ggx_loop((t_ggx_loop){normal, cam_ray, i, nearest.material_id}, textures, scene, nearest);
 		i++;
 	}
 	res = vec_clamp(res, 0, 1);
@@ -106,7 +106,7 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 {
 	thread Ray			ray;
 	float4				color = {0};
-	float				r;
+//	float				r;
 	float4				res_color;
 	thread struct s_obj	nearest;
 	float 				k = 0.0;
@@ -115,7 +115,7 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 	float2				tmp = map2(float2(gid.x, gid.y), float4(float2(0.0f, (float)size.x), float2(0.0f, (float)size.y)), float4(float2(-1 * (float)size.x / 2, (float)size.x / 2), float2(-1 * (float)size.y / 2, (float)size.y / 2)));
 	float2				ls;
 	float4				cl = {0};
-	int					i;
+//	int					i;
 
 	nearest.id = -1;
 	for (int s = 0; s < 100; ++s)
@@ -128,7 +128,7 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 		res_color = float4(0.5);
 		while (k < 1.0 && length(res_color) > 0.0)
 		{
-			res_color = rt_trace_mode_ggx(scene, nearest, ray);
+			res_color = rt_trace_mode_ggx(scene, textures, nearest, ray);
 			if (nearest.material_id < 0)
 				break;
 			cl = colors_mix(cl, k, res_color, scene->materials[nearest.material_id].content.pbr.roughness - k);
@@ -138,6 +138,7 @@ kernel void trace_mod_ggx(	device t_scn					*scene		[[buffer(0)]],
 	}
 	color *= (1.0 / 100.0);
 	color.w = 1;
+//	color = textures[0].texture.read(gid);
 	out.write(color, gid);
 }
 
