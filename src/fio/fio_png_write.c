@@ -16,10 +16,11 @@
 #include <stdlib.h>
 #include "libft.h"
 #include "png.h"
+#include "rt.h"
 
-int			fio_png_write_init(FILE **fp, png_structp *png, png_infop *info)
+int			fio_png_write_init(FILE **fp, png_structp *png, png_infop *info, t_txr *txr)
 {
-	if (fp == NULL || png == NULL || info == NULL)
+	if (fp == NULL || png == NULL || info == NULL || txr == NULL)
 		return (rt_err("fio_png_write_init(): given NULL pointer"));
 	*fp = fopen(txr->filename, "wb");
 	if (!*fp)
@@ -44,6 +45,7 @@ int			fio_png_write_init(FILE **fp, png_structp *png, png_infop *info)
 		return (rt_err("fio_png_write(): setjmp() error"));
 	}
 	png_init_io(*png, *fp);
+	return (0);
 }
 
 int			fio_png_write_buf(t_txr *txr, png_structp png)
@@ -64,6 +66,7 @@ int			fio_png_write_buf(t_txr *txr, png_structp png)
 	png_write_image(png, row_pointers);
 	png_write_end(png, NULL);
 	free(row_pointers);
+	return (0);
 }
 
 int			fio_png_write(t_txr *txr)//что тут сделать? Принять текстуру?
@@ -71,11 +74,10 @@ int			fio_png_write(t_txr *txr)//что тут сделать? Принять т
 	FILE			*fp;
 	png_structp		png;
 	png_infop		info;
-	size_t			y;
 
 	if (txr == NULL)
 		return (rt_err("fio_png_write(): given NULL pointer"));
-	if (fio_png_write_init(&fp, &png, &info))
+	if (fio_png_write_init(&fp, &png, &info, txr))
 		return (rt_err("fio_png_write(): init fail"));
 	png_set_IHDR(
 			png, info, txr->width, txr->height, 8,
