@@ -18,11 +18,12 @@
 #include "png.h"
 #include "rt.h"
 
-int			fio_png_write_init(FILE **fp, png_structp *png, png_infop *info, t_txr *txr)
+int			fio_png_write_init(FILE **fp, png_structp *png,
+								png_infop *info, char *filename)
 {
-	if (fp == NULL || png == NULL || info == NULL || txr == NULL)
+	if (fp == NULL || png == NULL || info == NULL || filename == NULL)
 		return (rt_err("fio_png_write_init(): given NULL pointer"));
-	*fp = fopen(txr->filename, "wb");
+	*fp = fopen(filename, "wb");
 	if (!*fp)
 		return (rt_err("fio_png_write_init(): can\'t open file"));
 	*png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
@@ -57,10 +58,9 @@ int			fio_png_write_buf(t_txr *txr, png_structp png)
 	row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * txr->height);
 	if (!row_pointers)
 		return (rt_err("fio_png_write_buf(): fatal: malloc error"));
-	y = 0;
 	while (y < txr->height)
 	{
-		row_pointers[y] = (png_byte*)&(txr->content[y * txr->width * 4]);
+		row_pointers[y] = (png_byte*)&(txr->content[y * txr->stride]);
 		y++;
 	}
 	png_write_image(png, row_pointers);
@@ -69,19 +69,33 @@ int			fio_png_write_buf(t_txr *txr, png_structp png)
 	return (0);
 }
 
-int			fio_png_write(t_txr *txr)//что тут сделать? Принять текстуру?
+static int			get_type(t_txr *txr, int *type)
+{
+	if (txr->type == TXR_RGBA_8)
+		*type = PNG_COLOR_TYPE_RGBA;
+	else if (txr->type == TXR_RGB_8)
+		*type = PNG_COLOR_TYPE_RGB;
+	else if (txr->type == TXR_BW_8)
+		*type = PNG_COLOR_TYPE_GRAY;
+	else
+		return (rt_err("get_type(): unknown texture type"));
+	return (0);
+}
+
+int			fio_png_write(t_txr *txr, char *filename)
 {
 	FILE			*fp;
 	png_structp		png;
 	png_infop		info;
+	int				type;
 
-	if (txr == NULL)
+	if (txr == NULL || filename == NULL)
 		return (rt_err("fio_png_write(): given NULL pointer"));
-	if (fio_png_write_init(&fp, &png, &info, txr))
+	if (fio_png_write_init(&fp, &png, &info, filename))
 		return (rt_err("fio_png_write(): init fail"));
-	png_set_IHDR(
-			png, info, txr->width, txr->height, 8,
-			PNG_COLOR_TYPE_RGBA,
+	if (get_type(txr, &type))
+		return (rt_err("fio_png_write(): unknown texture type"));
+	png_set_IHDR(png, info, txr->width, txr->height, 8, type,
 			PNG_INTERLACE_NONE,
 			PNG_COMPRESSION_TYPE_DEFAULT,
 			PNG_FILTER_TYPE_DEFAULT);

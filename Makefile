@@ -89,7 +89,7 @@ src/cmd/add/cmd_add_light.c                     src/err/rt_warn.c               
 src/cmd/add/cmd_add_material.c                  src/fio/fio_png_read.c                          src/scn/print/scn_print.c \
 src/cmd/add/cmd_add_plane.c                     src/fio/fio_png_stride.c                        src/scn/print/scn_print_grp.c \
 src/cmd/add/cmd_add_sphere.c                    src/fio/fio_png_write.c                         src/scn/print/scn_print_mat.c \
-src/cmd/add/cmd_add_txr.c                       src/fio/fio_read_png_buf.c                      src/scn/print/scn_print_obj.c \
+src/cmd/add/cmd_add_txr.c                       src/fio/fio_png_read_buf.c                      src/scn/print/scn_print_obj.c \
 src/cmd/add/cmd_add_txr_to_scn.c                src/gpu/gpu_buffer_load.c                       src/scn/print/scn_print_txr.c \
 src/cmd/cmd_error.c                             src/gpu/gpu_buffer_materials.c                  src/scn/remove/scn_remove_by_name_cam.c \
 src/cmd/cmd_parce_command.c                     src/gpu/gpu_buffer_objects.c                    src/scn/remove/scn_remove_by_name_copy.c \
@@ -229,8 +229,8 @@ $(DEMO_DIR)/scn/scn: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
    
    
 ### png demo
-$(DEMO_DIR)/fio/fio: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB)
+$(DEMO_DIR)/fio/fio: $(DEMO_DIRS) $(OBJ_SHARED) $(MTL_DYLIB) Makefile
 	 gcc $(CFLAGS) $(INCLUDE) $(LIB_FLAGS) $(MTL_FLAGS) $(INCLUDE) -L build/mtl -lmtl $(OBJ_SHARED) -x c src/fio/fio_png_test.c.demo -o $@
-	 zsh rt_school21_linking.sh $(DEMO_DIR)/fio/fio
-	 install_name_tool -change "../../build/mtl/libmtl.dylib" "build/mtl/libmtl.dylib" $@
+	 zsh rt_school21_linking.sh $@
+	 install_name_tool -add_rpath "./build/mtl" $@
 

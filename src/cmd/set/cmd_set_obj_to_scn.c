@@ -12,28 +12,42 @@
 
 #include "rt.h"
 
+t_msg			cmd_set_txr_read(t_parser *parser, t_txr *dest)
+{
+	t_txr		*txr;
+
+	if (fio_png_read_name(&txr,
+				ft_strdup(parser->texture->filename), ft_strdup(parser->name)))
+	{
+		ft_free(parser->name);
+		ft_free(parser->texture);
+		return (msg_warn("png read error"));
+	}
+	if (parser->texture->type != txr->type)
+	{
+		txr_deinit(txr);
+		txr_deinit(parser->texture);
+		return (msg_warn("png type error"));
+	}
+	ft_free(parser->name);
+	ft_free(parser->texture);
+	ft_free(dest->name);
+	ft_free(dest->filename);
+	if (dest->content)
+		ft_free(dest->content);
+	ft_memcpy(dest, txr, sizeof(t_txr));
+	return (msg_oks("set txr success"));
+}
+
 t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
 {
-	if ((parser->texture->filename))
+	if (parser->texture->filename)
 	{
-		if (fio_read_png(parser->texture))
-		{
-			ft_free(parser->name);
-			ft_free(parser->texture);
-			ft_free(parser->texture->filename);
-			return (msg_warn("png read error"));
-		}
-		if (dest->filename)
-		{
-//			ft_free(dest->content);
-			ft_free(dest->filename);
-		}
+		return (cmd_set_txr_read(parser, dest));
 	}
 	ft_free(dest->name);
-	ft_memcpy(dest, parser->texture, sizeof(t_txr));
-	dest->name = ft_strdup(parser->name);
-//	dest->filename = ft_strdup(parser->texture->filename);
-	ft_free(parser->name);
+	dest->name = parser->name;
+	dest->type = parser->texture->type;
 	ft_free(parser->texture);
 	return (msg_oks("set txr success"));
 }

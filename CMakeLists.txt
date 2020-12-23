@@ -14,7 +14,7 @@ pkg_check_modules(LIBPNG REQUIRED libpng16)
 
 #  find src -type f -name '*.c' | sort | column -c 100
 set(${PROJECT_NAME}_SOURCES
-        src/cam/cam_init.c src/fio/fio_read_png_buf.c src/scn/add/scn_add_txr.c
+        src/cam/cam_init.c src/fio/fio_png_read_buf.c src/scn/add/scn_add_txr.c
         src/cmd/add/cmd_add.c                           src/cmd/utils/cmd_read_txr.c                    src/scn/get/scn_get_mat_by_name.c
         src/cmd/add/cmd_add_camera.c src/fio/fio_png_read.c src/scn/get/scn_get_obj_by_id.c
         src/cmd/add/cmd_add_cone.c                      src/cmd/utils/cmd_set_read_attributes.c         src/scn/get/scn_get_obj_by_name.c

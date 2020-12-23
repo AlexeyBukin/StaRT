@@ -22,20 +22,17 @@ int				png_check_type(png_structp png_ptr,
 			NULL, &color_type, NULL, NULL, NULL);
 	if (color_type == PNG_COLOR_TYPE_RGBA)
 	{
-		if (texture->type != TXR_RGBA_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_RGBA_8;
 		return (0);
 	}
 	if (color_type == PNG_COLOR_TYPE_RGB)
 	{
-		if (texture->type != TXR_RGB_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_RGB_8;
 		return (0);
 	}
 	if (color_type == PNG_COLOR_TYPE_GRAY)
 	{
-		if (texture->type != TXR_BW_8)
-			return (rt_err("expected another color type"));
+		texture->type = TXR_BW_8;
 		return (0);
 	}
 	return (rt_err("unknown texture type"));

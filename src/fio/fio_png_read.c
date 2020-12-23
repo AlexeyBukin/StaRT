@@ -79,6 +79,8 @@ static int		png_get_size(png_structp png_ptr,
 	png_get_IHDR(png_ptr, info_ptr,
 				&t_width, &t_height,
 				&bit_depth, &color_type, NULL, NULL, NULL);
+	if (bit_depth != 8)
+		return (rt_err("bit_depth is not 8"));
 	texture->width = t_width;
 	texture->height = t_height;
 	png_read_update_info(png_ptr, info_ptr);
@@ -88,14 +90,16 @@ static int		png_get_size(png_structp png_ptr,
 	return (0);
 }
 
-int				fio_read_png(t_txr *texture)
+int				png_read(t_txr *tmp)
 {
 	FILE			*fp;
 	png_structp		png_ptr;
 	png_infop		info_ptr;
 	png_infop		end_info;
 
-	if (is_png(&fp, texture))
+	if (tmp == NULL)
+		return (rt_err("png_read(): given NULL pointer"));
+	if (is_png(&fp, tmp))
 		return (rt_err("cmd_read_png(): given file is not png"));
 	if (prepare_pnglib_structs(&png_ptr, &info_ptr, &end_info))
 	{
@@ -103,13 +107,50 @@ int				fio_read_png(t_txr *texture)
 		return (rt_err("cmd_read_png(): can\'t prepare png structs"));
 	}
 	png_init_io(png_ptr, fp);
-	if (png_get_size(png_ptr, info_ptr, texture))
+	if (png_get_size(png_ptr, info_ptr, tmp))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
-	if (png_check_type(png_ptr, info_ptr, texture))
+	if (png_check_type(png_ptr, info_ptr, tmp))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
-	if (png_read_buf(png_ptr, texture))
+	if (png_read_buf(png_ptr, tmp))
 		return (png_read_error(png_ptr, info_ptr, end_info, fp));
 	fclose(fp);
 	png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+	return (0);
+}
+
+int				fio_png_read_name(t_txr **texture, char *filename, char *name)
+{
+	t_txr			*tmp;
+
+	if (texture == NULL || filename == NULL || name == NULL)
+		return (rt_err("fio_png_read_name(): fatal: given NULL pointer"));
+	if (txr_init_default(&tmp, name))
+		return (rt_err("fio_png_read_name(): fatal: malloc error"));
+	tmp->filename = filename;
+	if (png_read(tmp))
+	{
+		txr_deinit(tmp);
+		return (rt_err("fio_png_read_name() error"));
+	}
+	*texture = tmp;
+	return (0);
+}
+
+int				fio_png_read(t_txr **texture, char *filename)
+{
+	t_txr			*tmp;
+
+
+	if (texture == NULL || filename == NULL)
+		return (rt_err("fio_png_read_name(): fatal: given NULL pointer"));
+	if (txr_init_default(&tmp, ft_strdup(filename)))
+		return (rt_err("fio_png_read_name(): fatal: malloc error"));
+	tmp->filename = filename;
+	if (png_read(tmp))
+	{
+		txr_deinit(tmp);
+		return (rt_err("fio_png_read() error"));
+	}
+	*texture = tmp;
 	return (0);
 }

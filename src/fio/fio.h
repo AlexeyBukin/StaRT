@@ -7,7 +7,9 @@
 **				fio/fio_read_png
 */
 
-int				fio_read_png(t_txr *texture);
+int				fio_read_png(t_txr **texture);
+int				fio_png_read(t_txr **texture, char *filename);
+int				fio_png_read_name(t_txr **texture, char *filename, char *name);
 
 /*
 **				fio/fio_read_png_buf
@@ -27,6 +29,6 @@ int				fio_png_stride(int width);
 **				fio/fio_png_write
 */
 
-int			fio_png_write(t_txr *txr);//что тут сделать? Принять текстуру?
+int			fio_png_write(t_txr *txr, char *filename);//что тут сделать? Принять текстуру?
 
 #endif

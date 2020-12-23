@@ -43,8 +43,9 @@ int			init_txr_parser(t_rt *rt, t_parser *parser)
 {
 	(void)rt;
 	(void)parser;
-	txr_init(&parser->texture, parser->name, (t_size2){1, 1});
+	txr_init_default(&parser->texture, parser->name);
 	parser->texture->filename = NULL;
+	parser->texture->type = TXR_NONE;
 	return (0);
 }
 
