@@ -4,10 +4,9 @@
 #include "txr_types.h"
 
 /*
-**				fio/fio_read_png
+**				fio/fio_png_read
 */
 
-int				fio_read_png(t_txr **texture);
 int				fio_png_read(t_txr **texture, char *filename);
 int				fio_png_read_name(t_txr **texture, char *filename, char *name);
 
