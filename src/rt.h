@@ -30,6 +30,7 @@
 # include "shp.h"
 # include "grp.h"
 # include "lgt.h"
+# include "fio.h"
 
 //# define PLATFORM_MACOS
 

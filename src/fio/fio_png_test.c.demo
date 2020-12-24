@@ -1,0 +1,20 @@
+#include "png.h"
+#include "rt.h"
+
+int     main()
+{
+	t_txr       *txr_write;
+	int         i = 0;
+
+    txr_write = NULL;
+	while(i < 1000)
+	{
+	    if (fio_png_read_name(&txr_write, ft_strdup("/Users/hchau/Desktop/untitled/1123.png"), ft_strdup("aaa")))
+		    return (0);
+	    if (fio_png_write(txr_write, "/Users/hchau/Desktop/untitled/1.png"))
+		    ;
+		txr_deinit(txr_write);
+		i++;
+	}
+	return (0);
+}
