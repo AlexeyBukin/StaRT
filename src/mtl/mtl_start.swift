@@ -98,9 +98,14 @@ public class StartMTL {
 		let oneTextureArgumentLength = texturesArgumentEncoder.encodedLength
 		// texturesArgumentEncoder encodes an array so we multiply by textures count
 		let textureBufferLength = oneTextureArgumentLength * (textures.count)
-		guard let textureResBuffer = device.makeBuffer(length: textureBufferLength, options: []) else {
-			print("mtl: cannot create texture buffer"); return Int32(1)
+		var textureResBuffer : MTLBuffer? = nil
+		if (textureBufferLength != 0) {
+		    textureResBuffer = device.makeBuffer(length: textureBufferLength, options: [])
+		    guard textureResBuffer != nil else {
+                print("mtl: cannot create texture buffer"); return Int32(1)
+            }
 		}
+
 
 		// also works insteda of (setArgumentBuffer(_, startOffset:, arrayElement:)
 		// texturesArgumentEncoder.setArgumentBuffer(textureResBuffer, offset: oneTextureArgumentLength * i)

@@ -44,7 +44,8 @@ extension StartMTL {
 		let texture_width = width
 		let texture_height = height
 		//.TODO split to createTextureRGBA8 and other
-		let texture_stride = 4 * width
+		var texture_stride = 4 * width
+		texture_stride = 256 * (texture_stride / 256 + (texture_stride % 256 >= 1 ? 1 : 0))
 		//getStride(width: width)
 		let textureDesc = MTLTextureDescriptor()
 		textureDesc.width = texture_width

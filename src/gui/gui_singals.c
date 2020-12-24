@@ -19,8 +19,6 @@ void			on_render_rt(GObject *obj, t_rt *rt)
 	GtkImage	*image;
 
 	(void)obj;
-	rt_warn("on_render_rt(): rendering...");
-	// TODO complete render
 	if (gpu_render(rt))
 	{
 		rt_err("on_render_rt(): render fail");

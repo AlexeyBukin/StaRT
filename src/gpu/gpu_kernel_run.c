@@ -25,13 +25,16 @@ int				gpu_kernel_run(t_gpu *gpu)
 	if (gpu == NULL)
 		return (rt_err("gpu is NULL pointer"));
 	target_index = mtl_texture_create_target(gpu->dev.mtl, gpu->render_result->width, gpu->render_result->height);
-	if (target_index != 0)
-		return (rt_err("kernel_run(): gpu config error"));
+	if (target_index < 0)
+		return (rt_err("kernel_run(): mtl cannot allocate texture"));
+//	if (target_index != 0)
+//		return (rt_err("kernel_run(): gpu config error"));
 	if (mtl_kernel_run(gpu->dev.mtl, MTL_MAIN_KERNEL, target_index))
 		return (rt_err("kernel_run() fail"));
-	ft_free(gpu->render_result->content);
+//	ft_free(gpu->render_result->content);
 	tmp_prt = mtl_texture_get_ptr_target(gpu->dev.mtl, target_index);
-	tmp_len = gpu->render_result->width * gpu->render_result->height * 4;
+	tmp_len = gpu->render_result->stride * gpu->render_result->height;
+//	gpu->render_result->content = mtl_texture_get_ptr_target(gpu->dev.mtl, target_index);
 	if ((gpu->render_result->content = ft_memdup(tmp_prt, tmp_len)) == NULL)
 		return (rt_err("kernel_run(): cannot init texture"));
 	return (0);
