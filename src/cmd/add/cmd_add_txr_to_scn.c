@@ -37,7 +37,6 @@ static int		cmd_read_txr_error(t_rt *rt, t_parser *parser)
 
 int		cmd_add_txr_to_scn(t_rt *rt, t_parser *parser)
 {
-
 	if (parser->texture->filename)
 	{
 		if (cmd_read_txr_error(rt, parser))
