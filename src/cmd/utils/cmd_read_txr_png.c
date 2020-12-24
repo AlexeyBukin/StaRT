@@ -84,6 +84,8 @@ static int		png_get_size(png_structp png_ptr,
 	png_read_update_info(png_ptr, info_ptr);
 	parser->texture->stride =
 			png_get_rowbytes(png_ptr, info_ptr);
+	parser->texture->stride = 256 * (parser->texture->stride / 256
+			+ (parser->texture->stride % 256 >= 1 ? 1 : 0));
 	return (0);
 }
 
