@@ -44,14 +44,8 @@ t_msg			cmd_set_txr_to_scn(t_parser *parser, t_txr *dest)
 	if (parser->texture->filename)
 		return (cmd_set_txr_read(parser, dest));
 	ft_free(dest->name);
-<<<<<<< HEAD
-	ft_memcpy(dest, parser->texture, sizeof(t_txr));
-	dest->name = ft_strdup(parser->name);
-	ft_free(parser->name);
-=======
 	dest->name = parser->name;
 	dest->type = parser->texture->type;
->>>>>>> fio
 	ft_free(parser->texture);
 	return (msg_oks("set txr success"));
 }

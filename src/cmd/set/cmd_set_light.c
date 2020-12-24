@@ -28,6 +28,8 @@ t_msg		cmd_set_light_read(t_rt *rt, t_parser *parser, t_obj *dest)
 			return (cmd_set_error(parser, "add_light(): bad syntax group"));
 		if (cmd_light_set_intensity(parser))
 			return (cmd_set_error(parser, "add_light(): bad syntax intensity"));
+		if (cmd_set_obj_name(rt, parser))
+			return (cmd_set_error(parser, "add_light(): bad syntax name"));
 		if (cmd_light_set_type(parser))
 			return (cmd_set_error(parser, "add_light(): bad syntax type"));
 		if (cmd_light_set_color(parser))

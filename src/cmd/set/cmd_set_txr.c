@@ -14,10 +14,10 @@
 
 static t_msg		cmd_set_txr_error(t_parser *parser, char *message)
 {
-	ft_free(parser->texture);
 	ft_free(parser->name);
 	if (parser->texture->filename)
 		ft_free(parser->texture->filename);
+	ft_free(parser->texture);
 	return (msg_warn(message));
 }
 
@@ -48,6 +48,7 @@ static int			init_txr_parser(t_parser *parser, t_txr *src)
 	if ((parser->texture = ft_memalloc(sizeof(t_txr))) == NULL)
 		return (rt_err("malloc error"));
 	parser->texture->content = NULL;
+	parser->texture->filename = NULL;
 	parser->texture->type = src->type;
 	if (src->filename)
 	{

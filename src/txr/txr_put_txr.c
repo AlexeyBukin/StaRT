@@ -19,7 +19,7 @@ int		txr_put_txr(t_txr *main, t_txr *putme, t_size2 origin)
 
 	if (main == NULL || putme == NULL)
 		return (rt_err("Null pointer"));
-	if (main->type != putme.type)
+	if (main->type != putme->type)
 		return (rt_err("Textures have different types"));
 	i = 0;
 	while (i < putme->height && (i + origin.y) < main->height)

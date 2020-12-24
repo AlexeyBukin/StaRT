@@ -20,7 +20,7 @@ int				gpu_init(t_gpu **gpu_dest);
 void 			fill_obj_sphere(t_gpu_obj *obj);
 void 			fill_obj_cone(t_gpu_obj *obj);
 void			fill_light(t_gpu_light *lig);
-int				fio_png_write(char *data, int width, int height, char *filename);
+//int				fio_png_write(char *data, int width, int height, char *filename);
 
 int				gpu_render(t_rt *rt)
 {
