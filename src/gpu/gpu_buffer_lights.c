@@ -25,7 +25,9 @@ int 			gpu_buffer_lights_init(t_gpu *gpu, t_scn *scn)
 	if ((gpu->lgt_buf = ft_malloc(sizeof(t_gpu_light) * gpu->info.lgt_num)) == NULL)
 		return (rt_err("Cannot init lights buffer"));
 	gpu->obj_current = 0;
-	if (gpu_buffer_lights_fill_rec(gpu, scn->main_group, NULL))
+	t_tfm		tfm;
+	tfm_init(&tfm);
+	if (gpu_buffer_lights_fill_rec(gpu, scn->main_group, &tfm))
 	{
 		ft_free(gpu->lgt_buf);
 		gpu->lgt_buf = NULL;
@@ -42,24 +44,24 @@ int 			gpu_buffer_lights_init(t_gpu *gpu, t_scn *scn)
 
 int 			gpu_buffer_lights_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 {
-	t_tfm		tfm;
+//	t_tfm		tfm;
 	size_t		i;
 
 	if (gpu == NULL || obj == NULL)
 		return (rt_err("Given pointer is NULL"));
-    (void)global;
-	// if (tfm_apply_from_to(global, &tfm))
-	// 	return (rt_err("Cannot apply transform"));
+//    (void)global;
+	if (tfm_apply_from_to(global, &(obj->transform)))
+	 	return (rt_err("Cannot apply transform"));
 	if (obj->type == OBJ_LIGHT)
-		return (gpu_buffer_light_object(gpu, obj, &tfm));
+		return (gpu_buffer_light_object(gpu, obj));
 	if (obj->type == OBJ_COPY)
-		return (gpu_buffer_lights_fill_rec(gpu, obj->content.copy, &tfm));
+		return (gpu_buffer_lights_fill_rec(gpu, obj->content.copy, &obj->transform));
 	if (obj->type == OBJ_GROUP)
 	{
 		i = 0;
 		while (i < obj->content.group.child_num)
 		{
-			if (gpu_buffer_lights_fill_rec(gpu, obj->content.group.children[i], &tfm))
+			if (gpu_buffer_lights_fill_rec(gpu, obj->content.group.children[i], &obj->transform))
 				return (rt_err("Cannot fill objects"));
 			i++;
 		}
@@ -67,17 +69,17 @@ int 			gpu_buffer_lights_fill_rec(t_gpu *gpu, t_obj *obj, t_tfm *global)
 	return (0);
 }
 
-int				gpu_buffer_light_object(t_gpu *gpu, t_obj *obj, t_tfm *global)
+int				gpu_buffer_light_object(t_gpu *gpu, t_obj *obj)
 {
 	t_gpu_light		*gpu_lgt;
 
-	if (gpu == NULL || obj == NULL || global == NULL)
+	if (gpu == NULL || obj == NULL)
 		return (rt_err("Given pointer is NULL"));
 	if (obj->type != OBJ_LIGHT)
 		return (rt_err("Object is not light"));
 	gpu_lgt = &(gpu->lgt_buf[gpu->obj_current]);
 	gpu_lgt->id = obj->id;
-	gpu_lgt->pos = global->pos_global;
+	gpu_lgt->pos = obj->transform.pos_global;
 	gpu_lgt->col = obj->content.light.light.color;
 	gpu_lgt->power = obj->content.light.light.intensity;
 	return (0);

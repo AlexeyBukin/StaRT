@@ -15,6 +15,7 @@
 
 # include "tfm_types.h"
 
-int		tfm_init(t_tfm *tfm);
+int			tfm_init(t_tfm *tfm);
+int			tfm_apply_from_to(t_tfm *from, t_tfm *to);
 
 #endif

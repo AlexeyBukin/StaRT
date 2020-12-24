@@ -43,9 +43,9 @@ int				gpu_init(t_gpu **gpu_dest)
 	ft_free(lib_source_str);
 	if (txr_init_default(&(gpu->render_result), ft_strdup("render_result")))
 		return (rt_err("gpu_init(): cannot malloc render_result texture"));
-	gpu->render_result->height = 256;
-	gpu->render_result->width = 256;
-	gpu->render_result->stride = gpu->render_result->width * 4;
+	gpu->render_result->height = 720;
+	gpu->render_result->width = 1280;
+	gpu->render_result->stride = fio_png_stride((int)gpu->render_result->width * 4);
 	gpu->render_result->type = TXR_RGBA_8;
 	*gpu_dest = gpu;
 	return (0);

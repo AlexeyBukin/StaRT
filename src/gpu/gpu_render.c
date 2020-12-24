@@ -20,7 +20,6 @@ int				gpu_init(t_gpu **gpu_dest);
 void 			fill_obj_sphere(t_gpu_obj *obj);
 void 			fill_obj_cone(t_gpu_obj *obj);
 void			fill_light(t_gpu_light *lig);
-//int				fio_png_write(char *data, int width, int height, char *filename);
 
 int				gpu_render(t_rt *rt)
 {
@@ -52,8 +51,8 @@ int				gpu_render(t_rt *rt)
 //		return (rt_err("Cannot init materials buffer"));
 //	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
 //		return (rt_err("Cannot init objects buffer"));
-//	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
-//		return (rt_err("Cannot init lights buffer"));
+	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init lights buffer"));
 //	// Load textures
 	if (gpu_buffer_load(rt->gpu))
 		return (rt_err("Cannot load buffers to GPU"));

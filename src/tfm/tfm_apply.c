@@ -19,7 +19,7 @@ int			tfm_apply_from_to(t_tfm *from, t_tfm *to)
 	
 	if (from == NULL || to == NULL)
 		return (rt_err("Given pointer is NULL"));
-	// to->pos_global = vec3_plus(from->pos_global, to->pos_local);
+	to->pos_global = vec3_plus(from->pos_global, to->pos_local);
 	// q_rotf = matrix_to_qtn(from->rot_global);
 	// q_rott = matrix_to_qtn(to->rot_local);
 	// to->rot_global = qtn_to_matrix(qtn_mult_qtn(q_rotf, q_rott));
