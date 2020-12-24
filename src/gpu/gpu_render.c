@@ -12,54 +12,15 @@
 
 #include "rt.h"
 
-int				gpu_render_simple(t_gpu *gpu, t_scn *scn)
-{
-	t_txr		*rgba_res;
-	t_txr		*rgb;
-	t_size2		render_size;
-
-	if (gpu == NULL)
-		return (rt_err("Given pointer is NULL"));
-	render_size = (t_size2){160, 90};
-	if (txr_init(&(gpu->render_result), ft_strdup("render_texture"), render_size))
-		return (rt_err("Cannot init render texture"));
-	if (gpu_buffer_objects_init(gpu, scn))
-		return (rt_err("Cannot init objects buffer"));
-	if (gpu_buffer_materials_init(gpu, scn))
-		return (rt_err("Cannot init materials buffer"));
-//	if (gpu_buffer_textures_init(gpu))
-//		return (rt_err("Cannot init textures buffer"));
-	if (gpu_buffer_load(gpu))
-		return (rt_err("Cannot load buffers"));
-	int target_index0 = mtl_texture_create_target(gpu->dev.mtl, render_size.x, render_size.y);
-	int res = mtl_kernel_run(gpu->dev.mtl, "trace_mod_ggx", target_index0);
-	if (res != 0)
-		return (rt_err("Cannot run kernel"));
-
-//	unsigned char  *texture_rbga_target =
-//	unsigned char  *texture_rbg_target = mtl_texture_get_ptr_target(gpu->dev.mtl, target_index0);
-
-//  returned texture is rgba
-//  returned texture made with mmap(), not malloc() : we have to copy it
-
-	if (txr_init_default(&rgba_res, ft_strdup("rgba_res")))
-		return (rt_err("Cannot init texture"));
-	rgba_res->width = render_size.x;
-	rgba_res->height = render_size.y;
-	rgba_res->stride = rgba_res->width * 4;
-	rgba_res->content =  mtl_texture_get_ptr_target(gpu->dev.mtl, target_index0);
-
-	if (txr_rgba_to_rgb(rgba_res, &rgb))
-		return (rt_err("Cannot convert rgba to rgb"));
-
-	rgba_res->content = NULL;
-	txr_deinit(rgba_res);
-
-	gpu->render_result = rgb;
-
-//	mtl_buffer_free(); // TODO add to mtl
- 	return (0);
-}
+unsigned char 	*get_texture_rgba_fine_64();
+unsigned char	*get_texture_rgba_empty_64();
+void 			fill_mat_pbr(t_gpu_mat *mat);
+void 			fill_mat_pbr2(t_gpu_mat *mat);
+int				gpu_init(t_gpu **gpu_dest);
+void 			fill_obj_sphere(t_gpu_obj *obj);
+void 			fill_obj_cone(t_gpu_obj *obj);
+void			fill_light(t_gpu_light *lig);
+int				fio_png_write(char *data, int width, int height, char *filename);
 
 int				gpu_render(t_rt *rt)
 {
@@ -67,15 +28,148 @@ int				gpu_render(t_rt *rt)
 		return (rt_err("rt is NULL pointer"));
 	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
 		return (rt_err("Cannot init materials buffer"));
-	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
-		return (rt_err("Cannot init objects buffer"));
-	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
-		return (rt_err("Cannot init objects buffer"));
+
+	rt->gpu->info.camera.pos = vec3_zero();
+	rt->gpu->info.camera.rot_axis = mat3x3_identity();
+	rt->gpu->info.camera.fov = (t_vec2){90, 50};
+	rt->gpu->info.camera.id = 0;
+
+	rt->gpu->info.mat_num = 2;
+	rt->gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * rt->gpu->info.mat_num);
+	fill_mat_pbr(&(rt->gpu->mat_buf[0]));
+	fill_mat_pbr2(&(rt->gpu->mat_buf[1]));
+
+	rt->gpu->info.obj_num = 2;
+	rt->gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * rt->gpu->info.obj_num);
+	fill_obj_sphere(&(rt->gpu->obj_buf[0]));
+	fill_obj_cone(&(rt->gpu->obj_buf[1]));
+
+//	rt->gpu->lgt_buf = ft_memalloc(sizeof(t_gpu_light));
+//	fill_light(rt->gpu->lgt_buf);
+//	rt->gpu->info.lgt_num = 1;
+
+//	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
+//		return (rt_err("Cannot init materials buffer"));
+//	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
+//		return (rt_err("Cannot init objects buffer"));
+//	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
+//		return (rt_err("Cannot init lights buffer"));
 //	// Load textures
 	if (gpu_buffer_load(rt->gpu))
 		return (rt_err("Cannot load buffers to GPU"));
 	if (gpu_kernel_run(rt->gpu))
 		return (rt_err("Cannot run kernel"));
-//	return (gpu_render_simple(rt->gpu, rt->scene));
 	return (0);
 }
+
+
+void 			fill_mat_pbr(t_gpu_mat *mat)
+{
+	mat->id = 0;
+	mat->type = MAT_PBR;
+
+	mat->content.pbr.albedo = vec3(0.73, 0.93, 0.0);
+	mat->content.pbr.f0 = vec3(0.0, 0.0, 0.0);
+	mat->content.pbr.metalness = 0.0;
+	mat->content.pbr.roughness = 0.7;
+	mat->content.pbr.transparency = 0.0;
+	mat->content.pbr.ior = 1.6;
+
+	mat->content.pbr.albedo_txr_index = 0;
+	mat->content.pbr.f0_txr_index = -1;
+	mat->content.pbr.metalness_txr_index = -1;
+	mat->content.pbr.roughness_txr_index = -1;
+	mat->content.pbr.transparency_txr_index = -1;
+	mat->content.pbr.normal_txr_index = 1;
+}
+
+void 			fill_mat_pbr2(t_gpu_mat *mat)
+{
+	mat->id = 1;
+	mat->type = MAT_PBR;
+
+	mat->content.pbr.albedo = vec3(0.6, 0.6, 0.6);
+	mat->content.pbr.f0 = vec3(0.0, 0.0, 0.0);
+	mat->content.pbr.metalness = 0.0;
+	mat->content.pbr.roughness = 1.0;
+	mat->content.pbr.transparency = 0.0;
+	mat->content.pbr.ior = 1.6;
+
+	mat->content.pbr.albedo_txr_index = 0;
+	mat->content.pbr.f0_txr_index = -1;
+	mat->content.pbr.metalness_txr_index = -1;
+	mat->content.pbr.roughness_txr_index = -1;
+	mat->content.pbr.transparency_txr_index = -1;
+	mat->content.pbr.normal_txr_index = 1;
+}
+
+void 			fill_obj_sphere(t_gpu_obj *obj)
+{
+	obj->id = 0;
+	obj->mat_index = 0;
+	obj->map_axis = mat3x3_identity();
+	obj->type = SHP_SPHERE;
+	obj->shape.sphere.pos = vec3(5, -5, 20);
+	obj->shape.sphere.r = 2;
+}
+
+void 			fill_obj_cone(t_gpu_obj *obj)
+{
+	obj->id = 1;
+	obj->mat_index = 1;
+	obj->type = SHP_CONE;
+	obj->shape.cone.pos = vec3(0, 5, 15);
+	obj->shape.cone.cap = vec3(0, -5, 15);
+	obj->shape.cone.r = 3;
+}
+
+//add light "l1" -p <0, 0, 30> -c <1, 1, 1> -i 500.0
+
+void			fill_light(t_gpu_light *lig)
+{
+	lig->id = 0;
+	lig->col = vec3(1.0, 1.0, 1.0);
+	lig->pos = vec3(0, 0, 30);
+	lig->power = 500;
+}
+
+unsigned char *get_texture_rgba_fine_64()
+{
+	int i;
+	int j;
+	int w = 64;
+	int h = 64;
+	int stride = w * 4;
+	unsigned char *texture_rbga = ft_malloc(sizeof(unsigned char) * stride * h);
+	for (i = 0; i < h; i++)
+		for (j = 0; j < w; j++)
+		{
+			int pixnum = i * stride + j * 4;
+			texture_rbga[pixnum + 0] = (pixnum % 2 == 0 ? 127 : 0) + (pixnum % 4 == 0 ? 127 : 0);
+			texture_rbga[pixnum + 1] = (pixnum % 2 == 1 ? 127 : 0) + (pixnum % 8 == 0 ? 127 : 0);
+			texture_rbga[pixnum + 2] = (pixnum % 2 == 0 ? 127 : 0) + (pixnum % 16 == 0 ? 127 : 0);
+			texture_rbga[pixnum + 3] = 255;
+		}
+	return (texture_rbga);
+}
+
+unsigned char *get_texture_rgba_empty_64()
+{
+	int i;
+	int j;
+	int w = 64;
+	int h = 64;
+	int stride = w * 4;
+	unsigned char *texture_rbga = ft_malloc(sizeof(unsigned char) * stride * h);
+	for (i = 0; i < h; i++)
+		for (j = 0; j < w; j++)
+		{
+			int pixnum = i * stride + j * 4;
+			texture_rbga[pixnum + 0] = 0;
+			texture_rbga[pixnum + 1] = (0);
+			texture_rbga[pixnum + 2] = (0);
+			texture_rbga[pixnum + 3] = 255;
+		}
+	return (texture_rbga);
+}
+

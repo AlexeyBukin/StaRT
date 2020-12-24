@@ -45,20 +45,22 @@ int				mat_init_default(t_mat **mat_container)
 	return (0);
 }
 
+/*
+** TODO initialization to pbr?
+*/
+
 int             mat_init(t_mat **mat_container, char *mat_name)
 {
 	t_mat		*mat;
 	
 	if (mat_container == NULL || mat_name == NULL)
 		return (rt_err("mat_init(): mat_container is NULL pointer"));
-//	if (scn_name_check(scn, mat_name))
-//		return (rt_err("mat name is already used, try another"));
 	if ((mat = ft_memalloc(sizeof(t_mat))) == NULL)
 		return (rt_err("mat_init(): malloc returned NULL pointer"));
     mat->id = scn_id();
 	mat->name = mat_name;
-	mat->type = MAT_NONE;
-	// mat->content = NULL;
+	mat->type = MAT_PBR;
+	mat_init_pbr(&(mat->content.pbr));
 	mat->maps_pos = vec2_zero();
 	mat->maps_rot = (t_num)0;
 	mat->maps_scale = vec2(1, 1);
@@ -69,7 +71,7 @@ int             mat_init(t_mat **mat_container, char *mat_name)
 int				mat_deinit(t_mat *mat)
 {
 	if (mat == NULL)
-		return (rt_err("NULL pointer at mat deinint"));
+		return (rt_err("NULL pointer at mat deinit"));
 	ft_free(mat->name);
 	ft_free(mat);
 	return (0);
