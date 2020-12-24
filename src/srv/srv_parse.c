@@ -12,9 +12,10 @@
 
 #include "rt.h"
 
-t_msg		srv_parse_str(t_srv *srv, const char* request)
+t_msg		srv_parse_str(t_srv *srv, const char *request)
 {
 	t_msg	msg;
+
 	msg.status = MSG_NONE;
 	if (request == NULL)
 		return ((t_msg){MSG_ERROR, "request is NULL pointer"});

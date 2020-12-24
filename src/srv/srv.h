@@ -29,7 +29,7 @@
 # define SRV_EXIT  "Closing connection. Have a nice day :)"
 # define SRV_SHUT  "Shutting down..."
 
-#define SRV_PORT 8080
+# define SRV_PORT 8080
 
 /*
 ** srv_process.c
@@ -53,7 +53,7 @@ int					srv_deinit(t_rt *rt);
 ** srv_loop.c
 */
 
-void*				srv_loop(void* rt_pointer);
+void				*srv_loop(void *rt_pointer);
 
 /*
 ** srv_ext.c
@@ -70,14 +70,16 @@ int					srv_ext_client_disconnect(t_srv *srv);
 int					srv_ext_client_get_data(t_srv *srv);
 int					srv_ext_client_update_str(t_srv *srv);
 int					srv_ext_client_parse(t_srv *srv);
-int					srv_ext_client_str_parse(t_srv *srv, unsigned long *line_begin);
-int					srv_ext_client_parse_helper(t_srv *srv, unsigned long line_begin);
+int					srv_ext_client_str_parse(t_srv *srv,
+								unsigned long *line_begin);
+int					srv_ext_client_parse_helper(t_srv *srv,
+								unsigned long line_begin);
 
 /*
 ** srv_parse.c
 */
 
-t_msg				srv_parse_str(t_srv *srv, const char* request);
+t_msg				srv_parse_str(t_srv *srv, const char *request);
 
 /*
 ** srv_utils.c

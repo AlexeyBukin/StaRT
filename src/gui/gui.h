@@ -14,7 +14,7 @@
 # define GUI_H
 
 # include "gui_types.h"
-#include <glib.h>
+# include <glib.h>
 
 # define RT_GTK_THEME "src/gui/theme.css"
 

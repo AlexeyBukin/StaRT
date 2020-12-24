@@ -49,7 +49,7 @@ typedef struct				s_mat_emission
 	t_num					value;
 }							t_mat_emission;
 
-typedef enum				s_mat_type
+typedef enum				e_mat_type
 {
 	MAT_NONE,
 	MAT_PBR,
@@ -57,7 +57,7 @@ typedef enum				s_mat_type
 	//RT_MAT_TOON
 }							t_mat_type;
 
-typedef union				s_mat_content
+typedef union				u_mat_content
 {
 	t_mat_pbr				pbr;
 	t_mat_emission			emission;
@@ -67,7 +67,7 @@ typedef union				s_mat_content
 typedef struct				s_mat
 {
 	t_id					id;
-	char 					*name;
+	char					*name;
 	t_mat_type				type;
 	t_mat_content			content;
 	t_vec2					maps_pos;

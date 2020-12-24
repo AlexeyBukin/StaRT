@@ -12,11 +12,11 @@
 
 #include "rt.h"
 
-t_msg       msg_ok(char *str)
+t_msg		msg_ok(char *str)
 {
 	//TODO add debug verbose func
 	//rt_debug(str);
-    return((t_msg){MSG_OK, str});
+	return ((t_msg){MSG_OK, str});
 }
 
 /*
@@ -24,9 +24,9 @@ t_msg       msg_ok(char *str)
 ** Because of server will free() every MSG_OK string
 */
 
-t_msg       msg_oks(char *str)
+t_msg		msg_oks(char *str)
 {
 	//TODO add debug verbose func
 	//rt_debug(str);
-	return((t_msg){MSG_OK, ft_strdup(str)});
+	return ((t_msg){MSG_OK, ft_strdup(str)});
 }

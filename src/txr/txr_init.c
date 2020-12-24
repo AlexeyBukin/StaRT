@@ -18,7 +18,7 @@
 
 int		txr_init(t_txr **dest, char *name, t_size2 size)
 {
-	t_txr 	*txr;
+	t_txr	*txr;
 
 	if (size.x == 0 || size.y == 0)
 		return (rt_err("Invalid texture size"));

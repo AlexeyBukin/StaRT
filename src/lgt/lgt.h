@@ -1,11 +1,19 @@
-//
-// Created by Hugor Chau on 11/30/20.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lgt.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef START_LGT_H
-#define START_LGT_H
+# define START_LGT_H
 
 int				lgt_deinit(t_obj *cont);
 int				lgt_init(t_obj **dest, char *name);
 
-#endif //START_LGT_H
+#endif

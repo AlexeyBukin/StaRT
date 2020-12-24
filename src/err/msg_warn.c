@@ -12,9 +12,9 @@
 
 #include "rt.h"
 
-t_msg       msg_warn(char *str)
+t_msg		msg_warn(char *str)
 {
 	//TODO add debug verbose func
 	//rt_debug(str);
-    return((t_msg){MSG_WARN, str});
+	return ((t_msg){MSG_WARN, str});
 }

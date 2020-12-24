@@ -19,7 +19,7 @@ typedef struct				s_size2
 	size_t					y;
 }							t_size2;
 
-typedef enum				s_txr_type
+typedef enum				e_txr_type
 {
 	TXR_NONE,
 	TXR_BW_8,

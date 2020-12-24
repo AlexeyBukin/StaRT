@@ -35,11 +35,11 @@ typedef struct		s_srv
 	struct s_rt			*rt;
 	int					should_exit;
 	t_msg				response;
-	int 				socket_listen_fd;
+	int					socket_listen_fd;
 	int					socket_flags;
 	struct sockaddr_in	sock_addr;
-	int 				has_client;
-	int 				socket_client_fd;
+	int					has_client;
+	int					socket_client_fd;
 	struct pollfd		pfd;
 	int					client_recv;
 	char				client_buff[256];

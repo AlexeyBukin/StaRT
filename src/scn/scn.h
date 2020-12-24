@@ -54,9 +54,6 @@ t_obj				*scn_obj_by_id(t_scn *scn, uint id);
 int					scn_check_mid(t_scn *scn, uint mid);
 int					set_obj_mid(t_scn *scn, uint obj_id, uint mid);
 
-
-
-
 /*
 **		scn_get_shape
 */
@@ -71,12 +68,6 @@ struct s_cylinder	*scn_get_cylinder(t_scn *scn, char *name);
 */
 
 int					scn_name_check(t_scn *scn, char *name);
-
-//TODO implement funcs
-//int				scn_component_get_id(t_scn *scn, t_component_type type, char *name, uint *id);
-//int				scn_component_get_name(t_scn *scn, uint comp_id);
-//int				scn_component_get_type(t_scn *scn, uint comp_id, enum e_component_type *type);
-
 int					scn_component_set_name(t_scn *scn,
 							uint comp_id, char *name);
 
@@ -104,7 +95,6 @@ int					scn_remove_by_name_grp(t_scn *scn, char *name);
 int					scn_remove_by_name_obj(t_scn *scn, char *name);
 int					scn_remove_by_name_copy(t_scn *scn, char *name);
 int					scn_remove_by_name_lgt(t_scn *scn, char *name);
-
 int					delete_copy(t_obj *obj);
 int					del_obj_copies(t_obj *from, t_obj *original);
 void				grp_memmove(t_obj_group *grp, t_obj **dst, t_obj *del);

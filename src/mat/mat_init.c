@@ -15,7 +15,7 @@
 int				mat_init_pbr(t_mat_pbr *pbr)
 {
 	if (pbr == NULL)
-		return(rt_err("NULL pointer at mat pbr"));
+		return (rt_err("NULL pointer at mat pbr"));
 	pbr->albedo = vec3(0.5, 0.5, 0.5);
 	pbr->f0 = vec3(0.05, 0.05, 0.05);
 	pbr->metalness = 0;
@@ -28,18 +28,18 @@ int				mat_init_pbr(t_mat_pbr *pbr)
 	pbr->map_normal = NULL;
 	pbr->map_roughness = NULL;
 	pbr->map_transparency = NULL;
-	return(0);
+	return (0);
 }
 
 int				mat_init_default(t_mat **mat_container)
 {
 	t_mat		*mat;
-	
+
 	if (mat_init(&mat, ft_strdup(DEFAULT_MATERIAL_NAME)))
 		return (rt_err("can't init material"));
 	mat->type = MAT_PBR;
 	mat_init_pbr(&(mat->content.pbr));
-	mat->maps_rot = (t_num)0.5;
+	mat->maps_rot = (t_num)(0.5);
 	mat->id = DEFAULT_MATERIAL_ID;
 	*mat_container = mat;
 	return (0);
@@ -49,23 +49,23 @@ int				mat_init_default(t_mat **mat_container)
 ** TODO initialization to pbr?
 */
 
-int             mat_init(t_mat **mat_container, char *mat_name)
+int				mat_init(t_mat **mat_container, char *mat_name)
 {
 	t_mat		*mat;
-	
+
 	if (mat_container == NULL || mat_name == NULL)
 		return (rt_err("mat_init(): mat_container is NULL pointer"));
 	if ((mat = ft_memalloc(sizeof(t_mat))) == NULL)
 		return (rt_err("mat_init(): malloc returned NULL pointer"));
-    mat->id = scn_id();
+	mat->id = scn_id();
 	mat->name = mat_name;
 	mat->type = MAT_PBR;
 	mat_init_pbr(&(mat->content.pbr));
 	mat->maps_pos = vec2_zero();
-	mat->maps_rot = (t_num)0;
+	mat->maps_rot = (t_num)(0);
 	mat->maps_scale = vec2(1, 1);
 	*mat_container = mat;
-	return(0);
+	return (0);
 }
 
 int				mat_deinit(t_mat *mat)

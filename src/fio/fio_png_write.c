@@ -18,13 +18,12 @@
 #include "png.h"
 #include "rt.h"
 
-int			fio_png_write_init(FILE **fp, png_structp *png,
+int					fio_png_write_init(FILE **fp, png_structp *png,
 								png_infop *info, char *filename)
 {
 	if (fp == NULL || png == NULL || info == NULL || filename == NULL)
 		return (rt_err("fio_png_write_init(): given NULL pointer"));
-	*fp = fopen(filename, "wb");
-	if (!*fp)
+	if ((*fp = fopen(filename, "wb")) == NULL)
 		return (rt_err("fio_png_write_init(): can\'t open file"));
 	*png = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!*png)
@@ -49,7 +48,7 @@ int			fio_png_write_init(FILE **fp, png_structp *png,
 	return (0);
 }
 
-int			fio_png_write_buf(t_txr *txr, png_structp png)
+int					fio_png_write_buf(t_txr *txr, png_structp png)
 {
 	size_t			y;
 	png_bytep		*row_pointers;
@@ -82,7 +81,7 @@ static int			get_type(t_txr *txr, int *type)
 	return (0);
 }
 
-int			fio_png_write(t_txr *txr, char *filename)
+int					fio_png_write(t_txr *txr, char *filename)
 {
 	FILE			*fp;
 	png_structp		png;

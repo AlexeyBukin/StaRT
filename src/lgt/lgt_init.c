@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lgt_init.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvoor <jvoor@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/03 23:15:17 by kcharla           #+#    #+#             */
+/*   Updated: 2020/11/13 10:14:39 by jvoor            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 int				lgt_init(t_obj **dest, char *name)
@@ -9,20 +21,16 @@ int				lgt_init(t_obj **dest, char *name)
 	cont = ft_memalloc(sizeof(t_obj));
 	if (cont == NULL)
 		return (rt_err("Cannot malloc container object"));
-
 	cont->id = scn_id();
 	cont->name = name;
 	cont->parent = NULL;
 	cont->visible = TRUE;
-
 	cont->type = OBJ_LIGHT;
 	cont->content.light.lgt_type = LGT_POINT;
 	cont->content.light.light.intensity = 1;
 	cont->content.light.light.color = vec3(1, 1, 1);
-
 	tfm_init(&(cont->transform));
 	cont->transform.parent = NULL;
-
 	*dest = cont;
 	return (0);
 }

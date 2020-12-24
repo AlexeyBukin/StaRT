@@ -21,19 +21,15 @@ int				grp_init(t_obj **dest, char *name)
 	grp = ft_memalloc(sizeof(t_obj));
 	if (grp == NULL)
 		return (rt_err("Cannot malloc group"));
-
 	grp->id = scn_id();
 	grp->name = name;
 	grp->parent = NULL;
 	grp->visible = TRUE;
-
 	grp->type = OBJ_GROUP;
 	grp->content.group.children = NULL;
 	grp->content.group.child_num = 0;
-
 	tfm_init(&(grp->transform));
 	grp->transform.parent = NULL;
-
 	*dest = grp;
 	return (0);
 }

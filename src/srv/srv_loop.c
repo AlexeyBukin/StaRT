@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-void*				srv_loop(void* rt_pointer)
+void				*srv_loop(void *rt_pointer)
 {
 	char			error;
 	t_srv			*server;

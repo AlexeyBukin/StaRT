@@ -51,7 +51,7 @@ typedef struct				s_shp_cone
 	t_num					radius;
 }							t_shp_cone;
 
-typedef union				s_obj_shape
+typedef union				u_obj_shape
 {
 	t_shp_plane				plane;
 	t_shp_sphere			sphere;

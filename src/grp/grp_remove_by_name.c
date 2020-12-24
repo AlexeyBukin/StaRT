@@ -14,9 +14,9 @@
 
 int				grp_swap_with_last_by_name(t_obj *from, char *name)
 {
-	size_t i;
-	t_obj_group *grp;
-	t_obj *tmp;
+	size_t			i;
+	t_obj_group		*grp;
+	t_obj			*tmp;
 
 	if (from == NULL || name == NULL)
 		return (rt_err("Given pointer is NULL"));
@@ -25,11 +25,12 @@ int				grp_swap_with_last_by_name(t_obj *from, char *name)
 	while (i < grp->child_num)
 	{
 		if (ft_strequ(grp->children[i]->name, name))
-			break;
+			break ;
 		i++;
 	}
 	if (i >= grp->child_num)
-		return (rt_err("scn_remove_by_name_copy(): obj with given name does not exist"));
+		return (rt_err("scn_remove_by_name_copy(): "
+		"obj with given name does not exist"));
 	tmp = grp->children[i];
 	grp->children[i] = grp->children[grp->child_num - 1];
 	grp->children[grp->child_num - 1] = tmp;
@@ -54,8 +55,8 @@ int				grp_remove_by_name(t_obj *from, char *name)
 	else
 	{
 		tmp = ft_realloc(grp->children,
-						 sizeof(t_obj*) * grp->child_num,
-						 sizeof(t_obj*) * (grp->child_num - 1));
+						sizeof(t_obj*) * grp->child_num,
+						sizeof(t_obj*) * (grp->child_num - 1));
 		if (tmp == NULL)
 			return (rt_err("malloc error"));
 		grp->children = tmp;

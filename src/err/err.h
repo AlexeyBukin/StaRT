@@ -15,10 +15,10 @@
 
 # include "srv.h"
 
-t_msg       msg_err(char *msg);
-t_msg       msg_ok(char *str);
-t_msg       msg_oks(char *str);
-t_msg       msg_warn(char *str);
+t_msg		msg_err(char *msg);
+t_msg		msg_ok(char *str);
+t_msg		msg_oks(char *str);
+t_msg		msg_warn(char *str);
 
 int			rt_err(char *msg);
 int			rt_error(char *msg, int ecode);

@@ -21,18 +21,14 @@ int				obj_copy_init(t_obj **dest, char *name)
 	copy = ft_memalloc(sizeof(t_obj));
 	if (copy == NULL)
 		return (rt_err("Cannot malloc object copy"));
-
 	copy->id = scn_id();
 	copy->name = name;
 	copy->parent = NULL;
 	copy->visible = TRUE;
-
 	copy->type = OBJ_COPY;
 	copy->content.copy = NULL;
-
 	tfm_init(&(copy->transform));
 	copy->transform.parent = NULL;
-
 	*dest = copy;
 	return (0);
 }

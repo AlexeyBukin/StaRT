@@ -12,7 +12,9 @@
 
 #include "rt.h"
 
-//TODO unbind/close all sockets, fds and stuff
+/*
+**	 TODO unbind/close all sockets, fds and stuff
+*/
 
 int				srv_deinit(t_rt *rt)
 {
@@ -21,17 +23,12 @@ int				srv_deinit(t_rt *rt)
 	if (rt->server == NULL)
 		return (rt_err("rt->server is NULL pointer"));
 	rt->server->should_exit = 1;
-
 	rt_warn("srv_deinit(): joining server thread");
 	g_thread_join(rt->server_thread);
-
-
 //	shutdown (rt->server->socket_listen_fd, SHUT_RDWR);
 //	close(rt->server->socket_listen_fd);
-
 	ft_free(rt->server);
 	rt->server = NULL;
-
 	rt_warn("srv_deinit(): join success");
 	return (0);
 }

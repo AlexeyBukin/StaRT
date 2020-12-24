@@ -21,19 +21,15 @@ int				obj_container_init(t_obj **dest, char *name)
 	cont = ft_memalloc(sizeof(t_obj));
 	if (cont == NULL)
 		return (rt_err("Cannot malloc container object"));
-
 	cont->id = scn_id();
 	cont->name = name;
 	cont->parent = NULL;
 	cont->visible = TRUE;
-
 	cont->type = OBJ_CONTAINER;
 	cont->content.container.shape_type = SHP_NONE;
 	cont->content.container.material = NULL;
-
 	tfm_init(&(cont->transform));
 	cont->transform.parent = NULL;
-
 	*dest = cont;
 	return (0);
 }

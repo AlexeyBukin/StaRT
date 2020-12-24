@@ -12,25 +12,22 @@
 
 #include "rt.h"
 
-int				msleep(long msec)
+int					msleep(long msec)
 {
-	struct timespec ts;
-	int res;
+	struct timespec		ts;
+	int					res;
 
 	if (msec < 0)
 	{
 		errno = EINVAL;
-		return -1;
+		return (-1);
 	}
-
 	ts.tv_sec = msec / 1000;
 	ts.tv_nsec = (msec % 1000) * 1000000;
-
-	do {
+	res = nanosleep(&ts, &ts);
+	while (res && errno == EINTR)
 		res = nanosleep(&ts, &ts);
-	} while (res && errno == EINTR);
-
-	return res;
+	return (res);
 }
 
 void				*null(int a)
@@ -39,16 +36,15 @@ void				*null(int a)
 	return (NULL);
 }
 
-static gboolean
-srv_g_application_quit(gpointer void_app)
+static gboolean		srv_g_application_quit(gpointer void_app)
 {
 	g_application_quit(G_APPLICATION(void_app));
-	return G_SOURCE_REMOVE;
+	return (G_SOURCE_REMOVE);
 }
 
-void		srv_quit_gtk_app(t_rt *rt)
+void				srv_quit_gtk_app(t_rt *rt)
 {
-	GSource *source;
+	GSource		*source;
 
 	if (rt == NULL)
 		return ;

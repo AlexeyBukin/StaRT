@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTS_H
-# define RTS_H
+#ifndef RT_TYPES_H
+# define RT_TYPES_H
 
 # include <gtk/gtk.h>
 # include "libft.h"
@@ -23,15 +23,6 @@
 # include "txr_types.h"
 # include "mat_types.h"
 # include "gui_types.h"
-
-//typedef struct		s_texture
-//{
-//	int					index;
-//	int					width;
-//	int					height;
-//	int					stride;
-//	t_texture_rgba		*data;
-//}					t_texture;
 
 typedef struct		s_rt
 {

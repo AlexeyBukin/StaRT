@@ -12,8 +12,8 @@
 
 #include "rt.h"
 
-t_msg       msg_err(char *str)
+t_msg		msg_err(char *str)
 {
 	rt_err(str);
-    return((t_msg){MSG_ERROR, str});
+	return ((t_msg){MSG_ERROR, str});
 }

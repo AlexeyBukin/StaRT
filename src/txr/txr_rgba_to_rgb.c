@@ -22,7 +22,8 @@ int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
 
 	if (rgba == NULL || rgb_dest == NULL)
 		return (rt_err("Null pointer"));
-	if (txr_init(&rgb, ft_strdup(rgba->name), (t_size2){rgba->width, rgba->height}))
+	if (txr_init(&rgb, ft_strdup(rgba->name),
+		(t_size2){rgba->width, rgba->height}))
 		return (rt_err("Cannot malloc rgb texture"));
 	i = 0;
 	while (i < rgb->height)
@@ -31,7 +32,8 @@ int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
 		j_a = 0;
 		while (j < rgb->stride)
 		{
-			rgb->content[i * rgb->stride + j] = rgba->content[i * rgba->stride + j_a];
+			rgb->content[i * rgb->stride + j] =
+				rgba->content[i * rgba->stride + j_a];
 			j_a += j_a % 4 == 3 ? 1 : 0;
 			j_a++;
 			j++;

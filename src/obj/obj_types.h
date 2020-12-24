@@ -20,7 +20,7 @@
 # include "scn_types.h"
 # include "libft.h"
 
-typedef enum				s_obj_type
+typedef enum				e_obj_type
 {
 	OBJ_NONE,
 	OBJ_CONTAINER,
@@ -54,7 +54,7 @@ typedef struct				s_obj_group
 	size_t					child_num;
 }							t_obj_group;
 
-typedef union				s_obj_content
+typedef union				u_obj_content
 {
 	struct s_scn_object		*copy;
 	t_obj_container			container;

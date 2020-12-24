@@ -15,7 +15,7 @@
 
 # include "libnum.h"
 
-typedef enum				s_lgt_type
+typedef enum				e_lgt_type
 {
 	LGT_POINT,
 	LGT_PARALLEL
