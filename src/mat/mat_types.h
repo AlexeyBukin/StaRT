@@ -32,36 +32,15 @@ typedef struct				s_mat_pbr
 	t_txr					*map_normal;
 }							t_mat_pbr;
 
-//typedef struct				s_mat_toon
-//{
-//	t_vec3					color;
-//	t_txr					*map_color;
-//	t_vec					shadow_edge;
-//	t_vec					shine_edge;
-//	t_txr					*map_color;
-//	t_num					value;
-//}							t_mat_toon;
-
-typedef struct				s_mat_emission
-{
-	t_vec3					color;
-	t_txr					*map_color;
-	t_num					value;
-}							t_mat_emission;
-
 typedef enum				e_mat_type
 {
 	MAT_NONE,
-	MAT_PBR,
-	MAT_EMISSION,
-	//RT_MAT_TOON
+	MAT_PBR
 }							t_mat_type;
 
 typedef union				u_mat_content
 {
 	t_mat_pbr				pbr;
-	t_mat_emission			emission;
-//	t_mat_toon				toon;
 }							t_mat_content;
 
 typedef struct				s_mat

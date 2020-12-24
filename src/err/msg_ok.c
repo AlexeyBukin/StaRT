@@ -14,8 +14,6 @@
 
 t_msg		msg_ok(char *str)
 {
-	//TODO add debug verbose func
-	//rt_debug(str);
 	return ((t_msg){MSG_OK, str});
 }
 
@@ -26,7 +24,5 @@ t_msg		msg_ok(char *str)
 
 t_msg		msg_oks(char *str)
 {
-	//TODO add debug verbose func
-	//rt_debug(str);
 	return ((t_msg){MSG_OK, ft_strdup(str)});
 }

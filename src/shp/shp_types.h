@@ -21,13 +21,8 @@ typedef enum				e_shp_type
 	SHP_PLANE,
 	SHP_SPHERE,
 	SHP_CYLINDER,
-	SHP_CONE,
-//	SHP_TORUS
-//	SHP_MODEL
+	SHP_CONE
 }							t_shp_type;
-
-// TODO: plane that really a disk??
-// eg if radius > 0 then it is a disk?
 
 typedef struct				s_shp_plane
 {
@@ -57,7 +52,6 @@ typedef union				u_obj_shape
 	t_shp_sphere			sphere;
 	t_shp_cylinder			cylinder;
 	t_shp_cone				cone;
-//	t_shp_model				model;
 }							t_shp;
 
 #endif

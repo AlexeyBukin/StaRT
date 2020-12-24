@@ -43,12 +43,4 @@ int				obj_container_deinit(t_obj *cont);
 int				obj_copy_init(t_obj **dest, char *name);
 int				obj_copy_deinit(t_obj *copy);
 
-// TODO: deinit copies from scene
-//	if (scn_deinit_copies(scn, group))
-//		return (rt_err("Cannot deinit group copies"));
-
-// TODO: add material when add to scene
-//if (scn_get_default_material(scn, &(obj->material)))
-//return (rt_err("Cannot get default material"));
-
 #endif

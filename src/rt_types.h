@@ -26,8 +26,6 @@
 
 typedef struct		s_rt
 {
-//	GMutex				mutex_true;
-//	GMutex				*mutex;
 	GThread				*server_thread;
 	t_gpu				*gpu;
 	t_scn				*scene;
