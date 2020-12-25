@@ -12,9 +12,26 @@
 
 #include "rt.h"
 
+static int			srv_shut_down(void *rt_pointer, t_srv *server)
+{
+	if ((t_rt*)rt_pointer == NULL || server == NULL)
+		return (1);
+	if (server->response.status == MSG_SHUT)
+	{
+		rt_warn("Shutting down...");
+		srv_quit_gtk_app((t_rt*)rt_pointer);
+		return (1);
+	}
+	server->response = (t_msg){MSG_NONE, NULL};
+	return (0);
+}
+
+/*
+**	rt_warn("srv_loop(): sleeping");
+*/
+
 void				*srv_loop(void *rt_pointer)
 {
-	char			error;
 	t_srv			*server;
 
 	if ((t_rt*)rt_pointer == NULL)
@@ -25,24 +42,14 @@ void				*srv_loop(void *rt_pointer)
 	{
 		if (server->should_exit)
 			break ;
-		if ((error = srv_ext_client_process((t_rt*)rt_pointer)) < 0)
+		if ((srv_ext_client_process((t_rt*)rt_pointer)) < 0)
 		{
-			// notify gtk about error?
 			rt_err("srv_loop(): srv_ext_client_process() returned error code");
 			srv_quit_gtk_app((t_rt*)rt_pointer);
 			break ;
 		}
-		else
-		{
-			if (server->response.status == MSG_SHUT)
-			{
-				rt_warn("Shutting down...");
-				srv_quit_gtk_app((t_rt*)rt_pointer);
-				break ;
-			}
-			server->response = (t_msg){MSG_NONE, NULL};
-		}
-//		rt_warn("srv_loop(): sleeping");
+		else if (srv_shut_down(rt_pointer, server))
+			break ;
 		msleep(10);
 	}
 	rt_warn("srv_loop(): ending server thread");

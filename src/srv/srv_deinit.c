@@ -16,6 +16,11 @@
 **	 TODO unbind/close all sockets, fds and stuff
 */
 
+/*
+**	 	shutdown (rt->server->socket_listen_fd, SHUT_RDWR);
+**		close(rt->server->socket_listen_fd);
+*/
+
 int				srv_deinit(t_rt *rt)
 {
 	if (rt == NULL)
@@ -25,8 +30,6 @@ int				srv_deinit(t_rt *rt)
 	rt->server->should_exit = 1;
 	rt_warn("srv_deinit(): joining server thread");
 	g_thread_join(rt->server_thread);
-//	shutdown (rt->server->socket_listen_fd, SHUT_RDWR);
-//	close(rt->server->socket_listen_fd);
 	ft_free(rt->server);
 	rt->server = NULL;
 	rt_warn("srv_deinit(): join success");

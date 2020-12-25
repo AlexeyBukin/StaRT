@@ -24,18 +24,18 @@
 # define MSG_ERROR -1
 
 # define SRV_HELLO "Server is ready. Type 'exit' to close connection.\n"
-# define SRV_BUSY  "Server is currently used by another session/user. Try later.\n"
+# define SRV_BUSY  "Server is busy. Try later.\n"
 # define SRV_ERR   "Some error caused server to close connection.\n"
 # define SRV_EXIT  "Closing connection. Have a nice day :)"
 # define SRV_SHUT  "Shutting down..."
 
 # define SRV_PORT 8080
 
-#define SRV_STR_ERR_MLK "Server malloc() error."
-#define SRV_STR_ERR_PARSE "Server parsing line error."
-#define SRV_STR_ERR_READ "Server read() error."
-#define SRV_STR_SHUT "Connection is closed, shutting down..."
-#define SRV_STR_CLOSE "Connection is closed, server is running..."
+# define SRV_STR_ERR_MLK "Server malloc() error."
+# define SRV_STR_ERR_PARSE "Server parsing line error."
+# define SRV_STR_ERR_READ "Server read() error."
+# define SRV_STR_SHUT "Connection is closed, shutting down..."
+# define SRV_STR_CLOSE "Connection is closed, server is running..."
 
 /*
 ** srv_process.c
