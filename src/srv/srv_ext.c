@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-int		srv_ext_client_process(t_rt *rt)
+int				srv_ext_client_process(t_rt *rt)
 {
 	t_srv		*srv;
 
@@ -20,34 +20,37 @@ int		srv_ext_client_process(t_rt *rt)
 		return (rt_err("rt is NULL pointer"));
 	if ((srv = rt->server) == NULL)
 		return (rt_err("srv is NULL pointer"));
-
-	// check if we have connection to client
 	if (srv_ext_client_check(srv))
 		return (rt_err("failed to check client"));
-
-	// check if client socket has data and get it
-	// non-blocking as well
 	if (srv_ext_client_get_data(srv))
 		return (rt_err("failed to get client data"));
-
-	// proceed data that changed
 	return (srv_ext_client_parse(srv));
 }
 
-int				srv_ext_client_check(t_srv *srv)
+int				srv_ext_refuse(t_srv *srv)
 {
 	int			refuse_fd;
 
 	if (srv == NULL)
 		return (rt_err("srv is NULL pointer"));
+	refuse_fd = accept(srv->socket_listen_fd, NULL, NULL);
+	send(refuse_fd, SRV_BUSY, ft_strlen(SRV_BUSY), 0);
+	shutdown(refuse_fd, SHUT_RDWR);
+	close(refuse_fd);
+	return (0);
+}
+
+int				srv_ext_client_check(t_srv *srv)
+{
+	if (srv == NULL)
+		return (rt_err("srv is NULL pointer"));
 	if (!(srv->has_client))
 	{
-		if ((srv->socket_client_fd = accept(srv->socket_listen_fd, NULL, NULL)) == -1)
+		if ((srv->socket_client_fd =
+				accept(srv->socket_listen_fd, NULL, NULL)) == -1)
 		{
 			if (errno != EWOULDBLOCK)
 				return (rt_err("Cannot accept connection"));
-//			else
-//				rt_warn("No pending connections right now.\n");
 		}
 		else
 		{
@@ -57,12 +60,7 @@ int				srv_ext_client_check(t_srv *srv)
 		}
 	}
 	else
-	{
-		refuse_fd = accept(srv->socket_listen_fd, NULL, NULL);
-		send(refuse_fd, SRV_BUSY, ft_strlen(SRV_BUSY), 0);
-		shutdown (refuse_fd, SHUT_RDWR);
-		close (refuse_fd);
-	}
+		srv_ext_refuse(srv);
 	return (0);
 }
 
@@ -70,16 +68,12 @@ int				srv_ext_client_disconnect(t_srv *srv)
 {
 	if (srv == NULL)
 		return (rt_err("srv is NULL pointer"));
-
 	srv->has_client = 0;
-	shutdown (srv->socket_client_fd, SHUT_RDWR);
+	shutdown(srv->socket_client_fd, SHUT_RDWR);
 	close(srv->socket_client_fd);
-
 	ft_free(srv->client_str);
 	srv->client_str = NULL;
 	srv->client_str_size = 0;
 	srv->client_str_old_size = 0;
-
-//	rt_warn("Client disconnected\n");
 	return (0);
 }

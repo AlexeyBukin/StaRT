@@ -12,7 +12,13 @@
 
 #include "rt.h"
 
-int				srv_ext_client_get_data(t_srv *srv)
+#define SRV_STR_ERR_MLK "Server malloc() error."
+#define SRV_STR_ERR_PARSE "Server parsing line error."
+#define SRV_STR_ERR_READ "Server read() error."
+#define SRV_STR_SHUT "Connection is closed, shutting down..."
+#define SRV_STR_CLOSE "Connection is closed, server is running..."
+
+int			srv_ext_client_get_data(t_srv *srv)
 {
 	if (srv == NULL)
 		return (rt_err("srv is NULL pointer"));
@@ -23,75 +29,67 @@ int				srv_ext_client_get_data(t_srv *srv)
 		srv->pfd.revents = 0;
 		if (poll(&(srv->pfd), 1, 0) > 0)
 		{
-			srv->client_recv = recv(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1, MSG_PEEK | MSG_DONTWAIT);
-/* poll() tells that socket changed; recv() tell there is no data on socket -> connection has been closed by client with no error */
-//			ft_printf("\nclient_recv is %d\n\n", srv->client_recv);
+			srv->client_recv = recv(srv->socket_client_fd,
+	srv->client_buff, sizeof(srv->client_buff) - 1, MSG_PEEK | MSG_DONTWAIT);
 			if (srv->client_recv == 0)
 				return (srv_ext_client_disconnect(srv));
-			if (srv->client_recv > 0)
-				if (srv_ext_client_update_str(srv))
-					return (rt_err("Cannot update client str"));
-			if (srv->client_recv < 0)
+			else if (srv->client_recv < 0)
 			{
-				//recv() error occured
 				if (errno == ECONNRESET)
-				{
-					//client failed
-					//but we should stand
 					return (srv_ext_client_disconnect(srv));
-				}
-				else
-				{
-					// we failed
-					srv_ext_client_disconnect(srv);
-					return (rt_err("Server error on recv()"));
-				}
+				srv_ext_client_disconnect(srv);
+				return (rt_err("Server error on recv()"));
 			}
+			else if (srv_ext_client_update_str(srv))
+				return (rt_err("Cannot update client str"));
 		}
 	}
 	return (0);
 }
 
-int				srv_ext_client_update_str(t_srv *srv)
+int			srv_ext_client_update_str_error(t_srv *srv, int rc)
+{
+	if (rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
+	{
+		send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
+		ft_printf("Errno is %d\n", errno);
+		ft_printf("%s\n", SRV_STR_ERR_READ" "SRV_STR_CLOSE);
+		return (1);
+	}
+	return (0);
+}
+
+int			srv_ext_client_update_str(t_srv *srv)
 {
 	int			rc;
-	char		*new_str;
+	char		*str;
 
 	if (srv == NULL)
 		return (rt_err("srv is NULL pointer"));
-	// read all available data into string 'client_str'
-	// mark that new data available
-	// client_str_size = client_old_size + n;
-//	while ((rc = read(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1)) > 0)
-	while ((rc = recv(srv->socket_client_fd, srv->client_buff, sizeof(srv->client_buff) - 1, MSG_DONTWAIT)) > 0)
+	while ((rc = recv(srv->socket_client_fd, srv->client_buff,
+		sizeof(srv->client_buff) - 1, MSG_DONTWAIT)) > 0)
 	{
 		srv->client_buff[rc] = '\0';
 		srv->client_str_size += rc;
-		if ((new_str = (char *)ft_memalloc(srv->client_str_size + 1)) == NULL)
+		if ((str = (char *)ft_memalloc(srv->client_str_size + 1)) == NULL)
 		{
 			send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
 			srv_ext_client_disconnect(srv);
-			return (rt_err("Server malloc() error. Connection is closed, shutting down..."));
+			return (rt_err(SRV_STR_ERR_MLK" "SRV_STR_SHUT));
 		}
-		ft_strcpy(new_str, srv->client_str);
-		ft_strcat(new_str, srv->client_buff);
+		ft_strcpy(str, srv->client_str);
+		ft_strcat(str, srv->client_buff);
 		ft_free(srv->client_str);
-		srv->client_str = new_str;
+		srv->client_str = str;
 	}
-	if (rc < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
-	{
-		//error on read from fd
-		//try to send error_msg and close connection
-		send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
-		ft_printf("Errno is %d\n", errno);
-		ft_printf("%s\n", "Server read() error. Connection is closed, server is running...");
+	if (srv_ext_client_update_str_error(srv, rc))
 		return (srv_ext_client_disconnect(srv));
-	}
 	return (0);
 }
 
-int				srv_ext_client_parse(t_srv *srv)
+int			srv_ext_client_parse(t_srv *srv)
 {
+	int					status;
 	unsigned long		line_begin;
 
 	if (srv == NULL)
@@ -100,8 +98,9 @@ int				srv_ext_client_parse(t_srv *srv)
 	{
 		line_begin = 0;
 		if (srv_ext_client_str_parse(srv, &line_begin))
-			return (rt_err("Server parsing line error. Connection is closed, shutting down..."));
-		if (srv->response.status == MSG_EXIT || srv->response.status == MSG_SHUT)
+			return (rt_err(SRV_STR_ERR_PARSE" "SRV_STR_SHUT));
+		status = srv->response.status;
+		if (status == MSG_EXIT || status == MSG_SHUT)
 		{
 			return (srv_ext_client_disconnect(srv));
 		}
@@ -114,72 +113,25 @@ int				srv_ext_client_parse(t_srv *srv)
 	return (0);
 }
 
-int				srv_ext_client_parse_helper(t_srv *srv, unsigned long line_begin)
+/*
+** update client_str so it has no '\n' anymore
+*/
+
+int			srv_ext_client_parse_helper(t_srv *srv, unsigned long line_begin)
 {
 	char				*tmp;
 
 	if (srv == NULL)
 		return (rt_err("srv is NULL pointer"));
-
-	// update client_str so it has no '\n' anymore
 	tmp = ft_strdup(srv->client_str + line_begin);
 	free(srv->client_str);
 	if ((srv->client_str = tmp) == NULL)
 	{
 		send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
 		close(srv->socket_client_fd);
-		return (rt_error("Server malloc() error. Connection is closed, shutting down...", MSG_ERROR));
+		return (rt_error(SRV_STR_ERR_MLK" "SRV_STR_SHUT, MSG_ERROR));
 	}
 	srv->client_str_old_size = ft_strlen(srv->client_str);
 	srv->client_str_size = srv->client_str_old_size;
-	return (0);
-}
-
-int				srv_ext_client_str_parse(t_srv *srv, unsigned long *line_begin)
-{
-	unsigned long		i;
-
-	if (srv == NULL || line_begin == NULL)
-		return (rt_err("argument is NULL pointer"));
-	i = srv->client_str_old_size;
-	ft_free(srv->response.str);
-	srv->response = (t_msg){MSG_NONE, NULL};
-	while (i < srv->client_str_size)
-	{
-		if (srv->client_str[i] == '\n')
-		{
-			srv->client_line = ft_strndup(srv->client_str + *line_begin, i - *line_begin);
-			*line_begin = i + 1;
-
-			srv->response = srv_parse_str(srv, srv->client_line);
-
-			ft_free(srv->client_line);
-			srv->client_line = NULL;
-
-			if (srv->response.status == MSG_ERROR || srv->response.str == NULL)
-			{
-				if (srv->response.str != NULL)
-				{
-					send(srv->socket_client_fd, srv->response.str, ft_strlen(srv->response.str) , 0);
-					send(srv->socket_client_fd, "\n", 1 , 0);
-				}
-				// some serious error occured, must close
-				send(srv->socket_client_fd, SRV_ERR, ft_strlen(SRV_ERR), 0);
-				close(srv->socket_client_fd);
-				return (rt_err("Server process line error. Connection is closed, shutting down..."));
-			}
-
-			//TODO refactor to look nice
-			send(srv->socket_client_fd, srv->response.str, ft_strlen(srv->response.str) , 0);
-			send(srv->socket_client_fd, "\n", 1 , 0);
-			if (srv->response.status == MSG_OK)
-				ft_free(srv->response.str);
-			srv->response.str = NULL;
-
-			if (srv->response.status == MSG_EXIT || srv->response.status == MSG_SHUT)
-				break ;
-		}
-		i++;
-	}
 	return (0);
 }
