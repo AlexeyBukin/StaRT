@@ -15,8 +15,8 @@
 
 int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
 {
-	size_t			i;
-	size_t			j;
+	int				i;
+	int				j;
 	size_t			j_a;
 	t_txr			*rgb;
 
@@ -25,20 +25,18 @@ int					txr_rgba_to_rgb(t_txr *rgba, t_txr **rgb_dest)
 	if (txr_init(&rgb, ft_strdup(rgba->name),
 		(t_size2){rgba->width, rgba->height}))
 		return (rt_err("Cannot malloc rgb texture"));
-	i = 0;
-	while (i < rgb->height)
+	i = -1;
+	while (++i < rgb->height)
 	{
-		j = 0;
+		j = -1;
 		j_a = 0;
-		while (j < rgb->stride)
+		while (++j < rgb->stride)
 		{
 			rgb->content[i * rgb->stride + j] =
 				rgba->content[i * rgba->stride + j_a];
 			j_a += j_a % 4 == 3 ? 1 : 0;
 			j_a++;
-			j++;
 		}
-		i++;
 	}
 	*rgb_dest = rgb;
 	return (0);
