@@ -106,20 +106,20 @@ src/cmd/set/cmd_set_copy.c                      src/gui/gui_builder.c           
 src/cmd/set/cmd_set_cylinder.c                  src/gui/gui_gtk_tree_view.c                     src/scn/utils/scn_name.c \
 src/cmd/set/cmd_set_group.c                     src/gui/gui_init.c                              src/srv/srv_deinit.c \
 src/cmd/set/cmd_set_light.c                     src/gui/gui_list_widgets.c                      src/srv/srv_ext.c \
-src/cmd/set/cmd_set_material.c                  src/gui/gui_singals.c                           src/srv/srv_ext_data.c \
-src/cmd/set/cmd_set_obj_to_scn.c                src/gui/gui_style.c                             src/srv/srv_init.c \
-src/cmd/set/cmd_set_object.c                    src/lgt/lgt_init.c                              src/srv/srv_loop.c \
-src/cmd/set/cmd_set_plane.c                     src/mat/mat_init.c                              src/srv/srv_parse.c \
-src/cmd/set/cmd_set_prepare_obj.c               src/obj/obj_container_init.c                    src/srv/srv_utils.c \
-src/cmd/set/cmd_set_sphere.c                    src/obj/obj_copy_init.c                         src/tfm/tfm_apply.c \
-src/cmd/set/cmd_set_txr.c                       src/obj/obj_init.c                              src/tfm/tfm_init.c \
-src/cmd/utils/cmd_read.c                        src/rt.c                                        src/tfm/tfm_move.c \
+src/cmd/set/cmd_set_material.c                  src/gui/gui_singals.c                           src/srv/srv_ext_client.c \
+src/cmd/set/cmd_set_obj_to_scn.c                src/gui/gui_style.c                             src/srv/srv_ext_data.c \
+src/cmd/set/cmd_set_object.c                    src/lgt/lgt_init.c                              src/srv/srv_init.c \
+src/cmd/set/cmd_set_plane.c                     src/mat/mat_init.c                              src/srv/srv_loop.c \
+src/cmd/set/cmd_set_prepare_obj.c               src/obj/obj_container_init.c                    src/srv/srv_parse.c \
+src/cmd/set/cmd_set_sphere.c                    src/obj/obj_copy_init.c                         src/srv/srv_utils.c \
+src/cmd/set/cmd_set_txr.c                       src/obj/obj_init.c                              src/tfm/tfm_apply.c \
+src/cmd/utils/cmd_read.c                        src/rt.c                                        src/tfm/tfm_init.c \
 src/cmd/utils/cmd_read_light.c                  src/scn/add/scn_add_cam.c                       src/txr/txr_init.c \
 src/cmd/utils/cmd_read_material.c               src/scn/add/scn_add_ligth.c                     src/txr/txr_put_txr.c \
 src/cmd/utils/cmd_read_num.c                    src/scn/add/scn_add_mat.c                       src/txr/txr_rgba_to_rgb.c \
 src/cmd/utils/cmd_read_txr.c                    src/scn/add/scn_add_obj.c                       src/txr/txr_sum.c \
 src/cmd/utils/cmd_read_vec.c                    src/scn/add/scn_add_to_group.c                  src/vlk/vlk_init.c \
-src/cmd/utils/cmd_set_read_attributes.c         src/scn/add/scn_add_to_group_copy.c \
+src/cmd/utils/cmd_set_read_attributes.c         src/scn/add/scn_add_to_group_copy.c
 
 SRC 		= $(SRC_SHARED) src/main.c
 

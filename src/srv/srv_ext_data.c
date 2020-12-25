@@ -12,12 +12,6 @@
 
 #include "rt.h"
 
-#define SRV_STR_ERR_MLK "Server malloc() error."
-#define SRV_STR_ERR_PARSE "Server parsing line error."
-#define SRV_STR_ERR_READ "Server read() error."
-#define SRV_STR_SHUT "Connection is closed, shutting down..."
-#define SRV_STR_CLOSE "Connection is closed, server is running..."
-
 int			srv_ext_client_get_data(t_srv *srv)
 {
 	if (srv == NULL)
@@ -101,21 +95,12 @@ int			srv_ext_client_parse(t_srv *srv)
 			return (rt_err(SRV_STR_ERR_PARSE" "SRV_STR_SHUT));
 		status = srv->response.status;
 		if (status == MSG_EXIT || status == MSG_SHUT)
-		{
 			return (srv_ext_client_disconnect(srv));
-		}
-		else
-		{
-			if (srv_ext_client_parse_helper(srv, line_begin))
-				return (rt_err("Cannot update client string"));
-		}
+		else if (srv_ext_client_parse_helper(srv, line_begin))
+			return (rt_err("Cannot update client string"));
 	}
 	return (0);
 }
-
-/*
-** update client_str so it has no '\n' anymore
-*/
 
 int			srv_ext_client_parse_helper(t_srv *srv, unsigned long line_begin)
 {

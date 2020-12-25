@@ -31,6 +31,12 @@
 
 # define SRV_PORT 8080
 
+#define SRV_STR_ERR_MLK "Server malloc() error."
+#define SRV_STR_ERR_PARSE "Server parsing line error."
+#define SRV_STR_ERR_READ "Server read() error."
+#define SRV_STR_SHUT "Connection is closed, shutting down..."
+#define SRV_STR_CLOSE "Connection is closed, server is running..."
+
 /*
 ** srv_process.c
 */

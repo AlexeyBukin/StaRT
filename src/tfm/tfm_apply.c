@@ -12,6 +12,10 @@
 
 #include "rt.h"
 
+/*
+** TODO apply rotation
+*/
+
 int			tfm_apply_from_to(t_tfm *from, t_tfm *to)
 {
 	if (from == NULL || to == NULL)
