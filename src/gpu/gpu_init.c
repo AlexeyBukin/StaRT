@@ -16,16 +16,25 @@
 
 # define MTL_SHADER_LIST "src/mtl/mtl_shader_list.txt"
 
-int				gpu_init(t_gpu **gpu_dest)
+int				gpu_init_res_txr(t_gpu *gpu)
 {
-	t_gpu		*gpu;
+	if (gpu == NULL)
+		return (rt_err("gpu is NULL"));
+	gpu->render_result->height = 720;
+	gpu->render_result->width = 1280;
+	gpu->render_result->stride =
+		fio_png_stride((int)gpu->render_result->width * 4);
+	gpu->render_result->type = TXR_RGBA_8;
+	return (0);
+}
+
+int				gpu_load_lib(t_gpu *gpu)
+{
 	char		*shader_list;
 	char		*lib_source_str;
 
-	if ((gpu = ft_malloc(sizeof(t_gpu))) == NULL)
-		return (rt_err("gpu_init(): malloc fail"));
-	if ((gpu->dev.mtl = mtl_init()) == NULL)
-		return (rt_err("gpu_init(): metal_init() fail"));
+	if (gpu == NULL)
+		return (rt_err("gpu is NULL"));
 	if ((shader_list = ft_read_file(MTL_SHADER_LIST)) == NULL)
 		return (rt_err("gpu_init(): cannot read shader list file"));
 	if (ft_read_files(&lib_source_str, shader_list))
@@ -41,12 +50,23 @@ int				gpu_init(t_gpu **gpu_dest)
 	}
 	ft_free(shader_list);
 	ft_free(lib_source_str);
+	return (0);
+}
+
+int				gpu_init(t_gpu **gpu_dest)
+{
+	t_gpu		*gpu;
+
+	if ((gpu = ft_malloc(sizeof(t_gpu))) == NULL)
+		return (rt_err("gpu_init(): malloc fail"));
+	if ((gpu->dev.mtl = mtl_init()) == NULL)
+		return (rt_err("gpu_init(): metal_init() fail"));
+	if (gpu_load_lib(gpu))
+		return (rt_err("gpu_init(): cannot load lirary"));
 	if (txr_init_default(&(gpu->render_result), ft_strdup("render_result")))
 		return (rt_err("gpu_init(): cannot malloc render_result texture"));
-	gpu->render_result->height = 720;
-	gpu->render_result->width = 1280;
-	gpu->render_result->stride = fio_png_stride((int)gpu->render_result->width * 4);
-	gpu->render_result->type = TXR_RGBA_8;
+	if (gpu_init_res_txr(gpu))
+		return (rt_err("gpu_init(): cannot config render_result texture"));
 	*gpu_dest = gpu;
 	return (0);
 }
