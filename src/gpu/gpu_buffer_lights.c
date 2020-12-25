@@ -82,5 +82,6 @@ int				gpu_buffer_light_object(t_gpu *gpu, t_obj *obj)
 	gpu_lgt->pos = obj->transform.pos_global;
 	gpu_lgt->col = obj->content.light.light.color;
 	gpu_lgt->power = obj->content.light.light.intensity;
+	gpu->obj_current++;
 	return (0);
 }

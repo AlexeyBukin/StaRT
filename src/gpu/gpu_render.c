@@ -21,6 +21,29 @@ void 			fill_obj_sphere(t_gpu_obj *obj);
 void 			fill_obj_cone(t_gpu_obj *obj);
 void			fill_light(t_gpu_light *lig);
 
+int tmp_print_buf(t_gpu_obj *buf, int size)
+{
+//	unsigned char *cbuf = (unsigned char *)buf;
+	for (int i = 0; i < size; i++)
+	{
+		t_gpu_obj *obj = &buf[i];
+		ft_printf("%d --- id : %d, mat: %d, type: %d ", i,
+			obj->id, obj->mat_index, obj->type);
+		ft_printf("pos: x: %f y: %f z: %f",
+			obj->shape.cone.pos.x, obj->shape.cone.pos.y, obj->shape.cone.pos.z);
+		ft_printf("cap: x: %f y: %f z: %f",
+				  obj->shape.cone.cap.x, obj->shape.cone.cap.y, obj->shape.cone.cap.z);
+
+//		for (int j = 0; j < (int)sizeof (t_gpu_obj); j++)
+//		{
+//			ft_printf("%03d", (int)cbuf[i * sizeof (t_gpu_obj) + j]);
+//		}
+		ft_printf("\n");
+	}
+	ft_printf("\n\n");
+	return (0);
+}
+
 int				gpu_render(t_rt *rt)
 {
 	if (rt == NULL)
@@ -33,26 +56,39 @@ int				gpu_render(t_rt *rt)
 	rt->gpu->info.camera.fov = (t_vec2){90, 50};
 	rt->gpu->info.camera.id = 0;
 
-	rt->gpu->info.mat_num = 2;
-	rt->gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * rt->gpu->info.mat_num);
-	fill_mat_pbr(&(rt->gpu->mat_buf[0]));
-	fill_mat_pbr2(&(rt->gpu->mat_buf[1]));
+	int fake_num = 2;
+	t_gpu_obj	*fake = ft_malloc(sizeof(t_gpu_obj) * fake_num);
+	fill_obj_sphere(&(fake[0]));
+	fill_obj_cone(&(fake[1]));
 
-	rt->gpu->info.obj_num = 2;
-	rt->gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * rt->gpu->info.obj_num);
-	fill_obj_sphere(&(rt->gpu->obj_buf[0]));
-	fill_obj_cone(&(rt->gpu->obj_buf[1]));
+//	rt->gpu->info.mat_num = 2;
+//	rt->gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * rt->gpu->info.mat_num);
+//	fill_mat_pbr(&(rt->gpu->mat_buf[0]));
+//	fill_mat_pbr2(&(rt->gpu->mat_buf[1]));
+
+//	rt->gpu->info.obj_num = 2;
+//	rt->gpu->obj_buf = ft_malloc(sizeof(t_gpu_obj) * rt->gpu->info.obj_num);
+//	fill_obj_sphere(&(rt->gpu->obj_buf[0]));
+//	fill_obj_cone(&(rt->gpu->obj_buf[1]));
 
 //	rt->gpu->lgt_buf = ft_memalloc(sizeof(t_gpu_light));
 //	fill_light(rt->gpu->lgt_buf);
 //	rt->gpu->info.lgt_num = 1;
 
-//	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
-//		return (rt_err("Cannot init materials buffer"));
-//	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
-//		return (rt_err("Cannot init objects buffer"));
+	if (gpu_buffer_materials_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init materials buffer"));
+
+//	tmp_print_mats
+
+	if (gpu_buffer_objects_init(rt->gpu, rt->scene))
+		return (rt_err("Cannot init objects buffer"));
 	if (gpu_buffer_lights_init(rt->gpu, rt->scene))
 		return (rt_err("Cannot init lights buffer"));
+
+	tmp_print_buf(rt->gpu->obj_buf, rt->gpu->info.obj_num);
+	tmp_print_buf(fake, fake_num);
+
+
 //	// Load textures
 	if (gpu_buffer_load(rt->gpu))
 		return (rt_err("Cannot load buffers to GPU"));

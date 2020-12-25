@@ -18,8 +18,12 @@
 
 int			tfm_apply_from_to(t_tfm *from, t_tfm *to)
 {
-	if (from == NULL || to == NULL)
+	if (to == NULL)
 		return (rt_err("Given pointer is NULL"));
-	to->pos_global = vec3_plus(from->pos_global, to->pos_local);
+	if (from != NULL)
+	{
+		to->pos_global = vec3_plus(from->pos_global, to->pos_local);
+		to->rot_global = to->rot_local;
+	}
 	return (0);
 }
