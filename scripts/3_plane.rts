@@ -1,0 +1,8 @@
+add material "mat_plane_1" -a <1, 1, 1> -m 0.0 -r 1 -i 1.3
+
+add plane "top_plane" -p <0, 20, 20> -a [<1, 0, 0>, <0, 0, 1>, <0, 1, 0>] -m "mat_plane_1"
+
+add plane "p_left" -p <0, 0, 20> -a [<1, 0, 0>, <0, 1, 0>, <0, 0, 1>] -m "mat_plane_1"
+# add plane "p_right" -p <20, 20, -20> -a [<0, 1, 0>, <0, 0, 1>, <1, 0, 0>] -m "mat_plane_1"
+
+add light "l1" -p <1, 0, 20> -c <1, 1, 1> -i 5000

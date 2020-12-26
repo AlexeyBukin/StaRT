@@ -113,8 +113,8 @@ typedef struct			s_cone
 
 typedef struct			s_plane
 {
-	float 				d;
 	packed_float3		normal;
+	float 				d;
 }						t_plane;
 
 
