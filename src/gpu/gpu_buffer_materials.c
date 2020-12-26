@@ -16,14 +16,15 @@
 ** TODO init xxx_num in init_info
 */
 
-int 			gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn)
+int				gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn)
 {
 	size_t		i;
 
 	if (gpu == NULL || scn == NULL)
 		return (rt_err("Given pointer is NULL"));
 	gpu->info.mat_num = scn->materials_num;
-	if ((gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * gpu->info.mat_num)) == NULL)
+	gpu->mat_buf = ft_malloc(sizeof(t_gpu_mat) * gpu->info.mat_num);
+	if (gpu->mat_buf == NULL)
 		return (rt_err("Cannot create materials buffer"));
 	i = 0;
 	while (i < (size_t)gpu->info.mat_num)
@@ -44,7 +45,7 @@ int 			gpu_buffer_materials_init(t_gpu *gpu, t_scn *scn)
 ** TODO add textures references
 */
 
-int 			gpu_buffer_material_pbr(t_gpu_mat *gmat, t_mat *smat)
+int				gpu_buffer_material_pbr(t_gpu_mat *gmat, t_mat *smat)
 {
 	if (gmat == NULL || smat == NULL)
 		return (rt_err("Given pointer is NULL"));

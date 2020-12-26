@@ -33,7 +33,6 @@ int				rt_deinit(t_rt *rt)
 {
 	if (rt == NULL)
 		return (rt_err("rt is NULL pointer"));
-//	gpu_deinit(rt->gpu);
 	scn_deinit(rt->scene);
 	ft_free(rt);
 	return (0);

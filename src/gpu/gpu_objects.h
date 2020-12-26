@@ -45,13 +45,13 @@ typedef struct				s_gpu_torus
 {
 	t_vec3					center;
 	t_vec3					ins_vec;
-	t_num 					r_big;
+	t_num					r_big;
 	t_num					r_low;
 }							t_gpu_torus;
 
 typedef	struct				s_gpu_light
 {
-	int 					id;
+	int						id;
 	t_vec3					pos;
 	t_vec3					col;
 	float					power;

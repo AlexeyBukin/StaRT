@@ -26,12 +26,12 @@ typedef struct				s_gpu_mat_pbr
 	t_num					roughness;
 	t_num					transparency;
 	t_num					ior;
-	int 					albedo_txr_index;
-	int 					f0_txr_index;
-	int 					metalness_txr_index;
-	int 					roughness_txr_index;
-	int 					transparency_txr_index;
-	int 					normal_txr_index;
+	int						albedo_txr_index;
+	int						f0_txr_index;
+	int						metalness_txr_index;
+	int						roughness_txr_index;
+	int						transparency_txr_index;
+	int						normal_txr_index;
 }							t_gpu_mat_pbr;
 
 typedef union				u_gpu_mat_content

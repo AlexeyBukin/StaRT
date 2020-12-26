@@ -12,8 +12,6 @@
 
 #include "rt.h"
 
-#if defined(PLATFORM_MACOS)
-
 int				gpu_buffer_load(t_gpu *gpu)
 {
 	if (gpu == NULL)
@@ -29,24 +27,5 @@ int				gpu_buffer_load(t_gpu *gpu)
 	if (mtl_buffer_load_lights(gpu->dev.mtl, gpu->lgt_buf,
 		(int)(sizeof(t_gpu_light) * gpu->info.lgt_num)))
 		return (rt_err("cannot load lights buffer"));
-	// TODO segfault here
 	return (0);
 }
-
-#elif defined(PLATFORM_LINUX) || defined(PLATFORM_WINDOWS)
-
-// int				gpu_buffer_load(t_rt *rt)
-// {
-// 	(void)rt;
-// 	return (rt_err("Vulkan not supported"));
-// }
-
-#else
-
-int				gpu_buffer_load(t_rt *rt)
-{
-	(void)rt;
-	return (rt_err("gpu_buffer_load() fail"));
-}
-
-#endif
